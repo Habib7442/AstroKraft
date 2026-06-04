@@ -16,7 +16,7 @@ export function Hero({ locale, dict }: HeroProps) {
       <img
         src="/assets/hero_bg.webp"
         alt="Hero Background"
-        className="absolute inset-0 w-full h-full object-cover opacity-[0.38] dark:opacity-[0.55] pointer-events-none z-0 select-none"
+        className="absolute inset-0 w-full h-full object-cover object-right md:object-center opacity-[0.12] dark:opacity-[0.22] pointer-events-none z-0 select-none"
       />
 
       {/* Solid Spotlight Overlay (Single Violet/Gold Glows) */}

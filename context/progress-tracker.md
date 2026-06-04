@@ -68,6 +68,7 @@
 - Implemented styled segmented locales button grid and theme toggles inside the mobile Drawer panel for clean alignment and responsive spacing.
 - Enriched the gold color variable HSL values (`--accent` and `--gold-line`) in [globals.css](file:///e:/Web%20Dev/astrokraft/app/globals.css) for Light Mode to a deeper amber-bronze tone (`hsl(38 60% 36%)`), boosting contrast and legibility against porcelain white.
 - Fixed the OG image loading issue for the English locale route `https://www.astrokraft.online/en` by updating the fallback site URL in [seo.ts](file:///e:/Web%20Dev/astrokraft/lib/seo.ts), defining a `DOMAIN_ROOT` constant to prevent double-prefixing other language routes, and falling back to the static `SITE.ogImage` (`/og_image.jpg`) rather than the unimplemented dynamic dynamic-image endpoint.
+- Adjusted background image position (`object-right md:object-center`) and lowered its opacity (`opacity-[0.12] dark:opacity-[0.22]`) in [hero.tsx](file:///e:/Web%20Dev/astrokraft/components/sections/hero.tsx) to show the planets on mobile screens while maintaining excellent text legibility and contrast.
 
 ## In Progress
 
