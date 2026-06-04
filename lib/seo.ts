@@ -24,7 +24,7 @@ export const SITE = {
     name: "AstroKraft",
     legalName: "AstroKraft",
     /** Production origin — no trailing slash. Override via env in deployment. */
-    url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.astrokraft.online").replace(/\/$/, ""),
+    url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.astrokraft.online/en").replace(/\/$/, ""),
     tagline: "Your Guide for Life",
     title: "AstroKraft — India's Trusted Astrology & Gemstone Marketplace",
     description:
@@ -68,6 +68,8 @@ export const SITE = {
     foundingRating: { value: "4.5", count: "0" }, // populate count with real reviews before launch
 } as const;
 
+export const DOMAIN_ROOT = SITE.url.replace(/\/en$/, "");
+
 /* ============================================================================
  * 2. LOCALES / i18n / hreflang  (pan-India language strategy — see PRD §5)
  * ==========================================================================*/
@@ -92,9 +94,8 @@ export const LOCALE_LABEL: Record<Locale, string> = {
 /** Build a localized absolute URL for a given path + locale. */
 export function localizedUrl(path = "/", locale: Locale = DEFAULT_LOCALE): string {
     const clean = path === "/" ? "" : `/${path.replace(/^\/+|\/+$/g, "")}`;
-    // Default locale served at root (no prefix); others prefixed: /hi/...
-    const prefix = locale === DEFAULT_LOCALE ? "" : `/${locale}`;
-    return `${SITE.url}${prefix}${clean || (prefix ? "" : "/")}`;
+    const prefix = `/${locale}`;
+    return `${DOMAIN_ROOT}${prefix}${clean || "/"}`;
 }
 
 /** languages map for Next.js `alternates.languages` (+ x-default). */
@@ -200,13 +201,13 @@ export function ogImageUrl(opts: { title?: string; subtitle?: string; kind?: str
     if (opts.subtitle) params.set("subtitle", opts.subtitle);
     if (opts.kind) params.set("kind", opts.kind);
     const qs = params.toString();
-    return `${SITE.url}/api/og${qs ? `?${qs}` : ""}`;
+    return `${DOMAIN_ROOT}/api/og${qs ? `?${qs}` : ""}`;
 }
 
 /** Resolve an image input to an absolute URL. */
 function absoluteUrl(img?: string): string {
-    if (!img) return ogImageUrl({ title: SITE.name, subtitle: SITE.title });
-    return img.startsWith("http") ? img : `${SITE.url}${img.startsWith("/") ? "" : "/"}${img}`;
+    const fallback = img || SITE.ogImage;
+    return fallback.startsWith("http") ? fallback : `${DOMAIN_ROOT}${fallback.startsWith("/") ? "" : "/"}${fallback}`;
 }
 
 /**
@@ -219,7 +220,7 @@ export function constructMetadata(input: BuildMetaInput = {}): Metadata {
         description = SITE.description,
         path = "/",
         locale = DEFAULT_LOCALE,
-        image,
+        image = SITE.ogImage,
         keywords = [],
         noIndex = false,
         type = "website",
@@ -234,7 +235,7 @@ export function constructMetadata(input: BuildMetaInput = {}): Metadata {
     const mergedKeywords = Array.from(new Set([...SITE.keywordsPrimary, ...keywords]));
 
     return {
-        metadataBase: new URL(SITE.url),
+        metadataBase: new URL(DOMAIN_ROOT),
         title: title ? { absolute: fullTitle } : { default: SITE.title, template: `%s • ${SITE.name}` },
         description,
         keywords: mergedKeywords,
@@ -311,8 +312,8 @@ export const viewport = {
  *      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
  * ==========================================================================*/
 
-const ORG_ID = `${SITE.url}/#organization`;
-const WEBSITE_ID = `${SITE.url}/#website`;
+const ORG_ID = `${DOMAIN_ROOT}/#organization`;
+const WEBSITE_ID = `${DOMAIN_ROOT}/#website`;
 
 export function organizationSchema() {
     return {
@@ -321,8 +322,8 @@ export function organizationSchema() {
         "@id": ORG_ID,
         name: SITE.name,
         legalName: SITE.legalName,
-        url: SITE.url,
-        logo: `${SITE.url}/logo.svg`,
+        url: DOMAIN_ROOT,
+        logo: `${DOMAIN_ROOT}/logo.svg`,
         description: SITE.description,
         email: SITE.contact.email,
         telephone: SITE.contact.phoneDisplay,
@@ -345,10 +346,10 @@ export function localBusinessSchema() {
     return {
         "@context": "https://schema.org",
         "@type": "ProfessionalService",
-        "@id": `${SITE.url}/#localbusiness`,
+        "@id": `${DOMAIN_ROOT}/#localbusiness`,
         name: SITE.name,
-        image: `${SITE.url}/logo.svg`,
-        url: SITE.url,
+        image: `${DOMAIN_ROOT}/logo.svg`,
+        url: DOMAIN_ROOT,
         telephone: SITE.contact.phone,
         email: SITE.contact.email,
         priceRange: "₹₹",
@@ -372,14 +373,14 @@ export function websiteSchema() {
         "@context": "https://schema.org",
         "@type": "WebSite",
         "@id": WEBSITE_ID,
-        url: SITE.url,
+        url: DOMAIN_ROOT,
         name: SITE.name,
         description: SITE.description,
         publisher: { "@id": ORG_ID },
         inLanguage: LOCALES.map((l) => LOCALE_HREFLANG[l]),
         potentialAction: {
             "@type": "SearchAction",
-            target: { "@type": "EntryPoint", urlTemplate: `${SITE.url}/search?q={search_term_string}` },
+            target: { "@type": "EntryPoint", urlTemplate: `${DOMAIN_ROOT}/search?q={search_term_string}` },
             "query-input": "required name=search_term_string",
         },
     };
@@ -558,8 +559,8 @@ export function robotsConfig() {
                 disallow: ["/account", "/api/", "/auth/", "/*?*sessionId=", "/checkout"],
             },
         ],
-        sitemap: `${SITE.url}/sitemap.xml`,
-        host: SITE.url,
+        sitemap: `${DOMAIN_ROOT}/sitemap.xml`,
+        host: DOMAIN_ROOT,
     };
 }
 
