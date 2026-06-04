@@ -15,7 +15,6 @@ interface HeaderProps {
 
 export function Header({ locale, dict }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
   const { theme, setTheme } = useTheme();
@@ -23,11 +22,6 @@ export function Header({ locale, dict }: HeaderProps) {
 
   useEffect(() => {
     setMounted(true);
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const handleLocaleChange = (newLocale: string) => {
@@ -54,14 +48,7 @@ export function Header({ locale, dict }: HeaderProps) {
   return (
     <>
       {/* Main Sticky Header */}
-      <header
-        className={cn(
-          "sticky top-0 z-50 w-full transition-all duration-200 border-b",
-          scrolled
-            ? "bg-background/80 backdrop-blur-md border-gold/30 shadow-md py-2.5"
-            : "bg-background border-border py-4"
-        )}
-      >
+      <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur-md border-b border-border py-4">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 flex items-center justify-between">
           {/* Logo */}
           <a href={`/${locale}`} className="flex items-center gap-2.5 group select-none">
