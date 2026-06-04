@@ -59,9 +59,9 @@
   --primary-foreground: hsl(0 0% 100%);
   --secondary: hsl(255 50% 95%);
   --secondary-foreground: hsl(263 53% 24%);
-  --accent: hsl(40 57% 42%);
+  --accent: hsl(38 60% 36%);
   --accent-foreground: hsl(0 0% 100%);
-  --gold-line: hsl(41 53% 54%);
+  --gold-line: hsl(38 60% 36%);
 
   --muted: hsl(255 30% 95%);
   --muted-foreground: hsl(258 16% 40%);

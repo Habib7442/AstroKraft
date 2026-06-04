@@ -66,6 +66,7 @@
 - Installed shadcn `Sheet` slide-out drawer component to handle mobile responsive navigation panels.
 - Redesigned the mobile navigation bar in [header.tsx](file:///e:/Web%20Dev/astrokraft/components/sections/header.tsx) to resolve header congestion on mobile displays (relocated the language dropdown selector and theme toggle inside the sliding Drawer, leaving only the brand logo and hamburger menu button on the header line).
 - Implemented styled segmented locales button grid and theme toggles inside the mobile Drawer panel for clean alignment and responsive spacing.
+- Enriched the gold color variable HSL values (`--accent` and `--gold-line`) in [globals.css](file:///e:/Web%20Dev/astrokraft/app/globals.css) for Light Mode to a deeper amber-bronze tone (`hsl(38 60% 36%)`), boosting contrast and legibility against porcelain white.
 
 ## In Progress
 
