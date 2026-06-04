@@ -18,7 +18,7 @@ export function Header({ locale, dict }: HeaderProps) {
   const pathname = usePathname();
   const router = useRouter();
   const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
     setMounted(true);
