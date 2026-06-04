@@ -1,0 +1,55 @@
+{
+  "common": {
+    "title": "AstroKraft",
+    "tagline": "Your Guide for Life",
+    "whatsapp_cta": "Talk to Astrologer",
+    "gemstone_cta": "Explore Gemstones",
+    "verified": "Verified Astrologers",
+    "certified": "Certified Gemstones",
+    "consulted_today": "50+ People consulted today"
+  },
+  "nav": {
+    "astrologers": "Astrologers",
+    "gemstones": "Gemstones",
+    "free_tools": "Free Tools",
+    "panchang": "Panchang",
+    "blog": "Blog",
+    "contact": "Contact",
+    "account": "Account"
+  },
+  "hero": {
+    "eyebrow": "INDIA'S TRUSTED ASTROLOGY & GEMSTONE MARKETPLACE",
+    "title": "Your Guide for Life",
+    "subtitle": "Discover powerful gemstones, consult verified Vedic experts, and get accurate Kundli predictions to navigate your life's path."
+  },
+  "services": {
+    "title": "Our Celestial Offerings",
+    "subtitle": "Navigate your life path with our premium, verified Vedic services.",
+    "cta": "Explore Service",
+    "astrologer": {
+      "title": "Verified Vedic Astrologers",
+      "desc": "Direct 1-on-1 consultations with India's most trusted astrologers for career, love, and life guidance."
+    },
+    "gemstone": {
+      "title": "Certified Gemstones",
+      "desc": "Natural, lab-certified remedial gemstones recommended by experts to align with your planetary chart."
+    },
+    "purohit": {
+      "title": "Purohit & Pooja Booking",
+      "desc": "Book verified Vedic priests for online or offline poojas and rituals with full Samagri lists."
+    },
+    "vastu_consult": {
+      "title": "Vastu Consultations",
+      "desc": "Harmonize your living and work spaces under the guidance of certified Vastu Shastra experts."
+    },
+    "vastu_plan": {
+      "title": "Vastu Home Plan",
+      "desc": "Get custom, scientifically validated architectural floor layouts tailored to your date of birth."
+    },
+    "kundli_match": {
+      "title": "Kundli Matching (Guna Milan)",
+      "desc": "Free, detailed 36-point horoscope compatibility reports for marriage and relationship stability."
+    }
+  }
+}
+
