@@ -3,7 +3,6 @@ import { getDictionary } from "@/lib/i18n";
 import { LOCALES } from "@/lib/seo";
 import { Header } from "@/components/sections/header";
 import { Hero } from "@/components/sections/hero";
-import { ServicesBento } from "@/components/sections/services-bento";
 import { Footer } from "@/components/sections/footer";
 
 interface PageParams {
@@ -17,7 +16,6 @@ export default async function Page({ params }: { params: Promise<PageParams> }) 
     notFound();
   }
 
-
   const dict = await getDictionary(locale);
 
   return (
@@ -29,9 +27,6 @@ export default async function Page({ params }: { params: Promise<PageParams> }) 
       <main className="flex-1">
         {/* Observatory Hero Spotlight Section */}
         <Hero locale={locale} dict={dict} />
-
-        {/* Services Bento Grid Section */}
-        <ServicesBento locale={locale} dict={dict} />
       </main>
 
       {/* Structured Footer Section */}
@@ -39,4 +34,3 @@ export default async function Page({ params }: { params: Promise<PageParams> }) 
     </div>
   );
 }
-

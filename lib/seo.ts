@@ -72,7 +72,7 @@ export const SITE = {
  * 2. LOCALES / i18n / hreflang  (pan-India language strategy — see PRD §5)
  * ==========================================================================*/
 
-export const LOCALES = ["en", "hin", "bn", "ta", "te", "mr"] as const;
+export const LOCALES = ["en", "hin", "bn"] as const;
 export type Locale = (typeof LOCALES)[number];
 export const DEFAULT_LOCALE: Locale = "en";
 
@@ -81,18 +81,12 @@ export const LOCALE_HREFLANG: Record<Locale, string> = {
     en: "en-IN",
     hin: "hi-IN",
     bn: "bn-IN",
-    ta: "ta-IN",
-    te: "te-IN",
-    mr: "mr-IN",
 };
 
 export const LOCALE_LABEL: Record<Locale, string> = {
     en: "English",
     hin: "हिन्दी",
     bn: "বাংলা",
-    ta: "தமிழ்",
-    te: "తెలుగు",
-    mr: "मराठी",
 };
 
 /** Build a localized absolute URL for a given path + locale. */
@@ -340,7 +334,7 @@ export function organizationSchema() {
                 telephone: SITE.contact.phone,
                 contactType: "customer support",
                 areaServed: "IN",
-                availableLanguage: ["en", "hin", "bn", "ta", "te", "mr"],
+                availableLanguage: ["en", "hin", "bn"],
             },
         ],
     };

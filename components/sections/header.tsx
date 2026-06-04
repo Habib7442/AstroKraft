@@ -3,10 +3,18 @@
 import React, { useState, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
-import { Menu, X, Sun, Moon, Phone, MessageCircle, ChevronDown, Sparkles } from "lucide-react";
-import { LOCALES, LOCALE_LABEL, SITE, type Locale } from "@/lib/seo";
+import { Menu, Sun, Moon, MessageCircle, ChevronDown } from "lucide-react";
+import { LOCALES, LOCALE_LABEL, type Locale } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 interface HeaderProps {
   locale: string;
@@ -18,7 +26,7 @@ export function Header({ locale, dict }: HeaderProps) {
   const pathname = usePathname();
   const router = useRouter();
   const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false)
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -26,11 +34,9 @@ export function Header({ locale, dict }: HeaderProps) {
 
   const handleLocaleChange = (newLocale: string) => {
     const segments = pathname.split("/");
-    // pathname can be like "/en", "/en/astrologers", or just "/"
     if (segments.length > 1 && LOCALES.includes(segments[1] as any)) {
       segments[1] = newLocale;
     } else {
-      // In case path is "/" or doesn't have locale
       segments.splice(1, 0, newLocale);
     }
     const newPath = segments.join("/") || "/";
@@ -48,7 +54,7 @@ export function Header({ locale, dict }: HeaderProps) {
   return (
     <>
       {/* Main Sticky Header */}
-      <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur-md border-b border-border py-4">
+      <header className="absolute top-0 left-0 right-0 z-50 w-full bg-transparent py-4">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 flex items-center justify-between">
           {/* Logo */}
           <a href={`/${locale}`} className="flex items-center gap-2.5 group select-none">
@@ -75,7 +81,7 @@ export function Header({ locale, dict }: HeaderProps) {
             ))}
           </nav>
 
-          {/* Action Buttons: Language selector, theme switcher, CTA */}
+          {/* Action Buttons: Language selector, theme switcher, CTA (Desktop) */}
           <div className="hidden lg:flex items-center gap-4">
             {/* Language Dropdown Selector */}
             <div className="relative group">
@@ -92,7 +98,7 @@ export function Header({ locale, dict }: HeaderProps) {
                     key={loc}
                     onClick={() => handleLocaleChange(loc)}
                     className={cn(
-                      "w-full text-left px-3 py-1.5 text-xs hover:bg-secondary hover:text-secondary-foreground transition-colors",
+                      "w-full text-left px-3 py-1.5 text-xs hover:bg-secondary hover:text-secondary-foreground transition-colors cursor-pointer",
                       locale === loc ? "text-gold font-semibold bg-secondary/30" : "text-foreground"
                     )}
                   >
@@ -106,7 +112,7 @@ export function Header({ locale, dict }: HeaderProps) {
             {mounted && (
               <button
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="p-2 rounded-full border border-border text-muted-foreground hover:text-gold hover:border-gold/30 focus-visible:ring-2 focus-visible:ring-ring transition-colors"
+                className="p-2 rounded-full border border-border text-muted-foreground hover:text-gold hover:border-gold/30 focus-visible:ring-2 focus-visible:ring-ring transition-colors cursor-pointer"
                 aria-label="Toggle Theme"
               >
                 {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
@@ -117,7 +123,7 @@ export function Header({ locale, dict }: HeaderProps) {
             <Button
               variant="default"
               size="lg"
-              className="bg-primary hover:bg-primary/95 text-primary-foreground font-semibold px-5 rounded-full text-xs"
+              className="bg-primary hover:bg-primary/95 text-primary-foreground font-semibold px-5 rounded-full text-xs cursor-pointer"
               asChild
             >
               <a href={`/${locale}/astrologers`}>
@@ -127,72 +133,114 @@ export function Header({ locale, dict }: HeaderProps) {
             </Button>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Button - Simplified to Hamburger ONLY */}
           <div className="flex lg:hidden items-center gap-3">
-            {/* Language Selector (mobile simplified) */}
-            <select
-              value={locale}
-              onChange={(e) => handleLocaleChange(e.target.value)}
-              className="bg-card text-foreground border border-border rounded-md text-xs py-1 px-1.5 font-medium outline-none focus:border-gold"
-              aria-label="Select Language"
-            >
-              {LOCALES.map((loc) => (
-                <option key={loc} value={loc}>
-                  {LOCALE_LABEL[loc]}
-                </option>
-              ))}
-            </select>
+            <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+              <SheetTrigger asChild>
+                <button
+                  className="p-1.5 rounded-md border border-border text-foreground hover:border-gold/50 transition-colors cursor-pointer"
+                  aria-label="Toggle Navigation Menu"
+                >
+                  <Menu className="w-5 h-5" />
+                </button>
+              </SheetTrigger>
+              <SheetContent side="right" className="bg-background/95 backdrop-blur-md border-l border-border/80 flex flex-col p-6 w-[280px] sm:w-[320px]">
+                <SheetHeader className="text-left px-0 pb-4 border-b border-border/50">
+                  <SheetTitle className="font-serif text-xl font-semibold tracking-tight text-foreground">
+                    Astro<span className="text-gold">Kraft</span>
+                  </SheetTitle>
+                  <SheetDescription className="text-xs text-muted-foreground">
+                    Vedic Guidance & Certified Remedies
+                  </SheetDescription>
+                </SheetHeader>
 
-            {/* Theme Switcher (mobile) */}
-            {mounted && (
-              <button
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="p-1.5 rounded-full border border-border text-muted-foreground hover:text-gold transition-colors"
-                aria-label="Toggle Theme"
-              >
-                {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-              </button>
-            )}
+                {/* Navigation Links inside Drawer */}
+                <nav className="flex flex-col gap-4 mt-6">
+                  {navItems.map((item) => (
+                    <a
+                      key={item.label}
+                      href={item.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="text-base font-medium text-foreground pb-2 border-b border-border/40 hover:text-gold transition-colors"
+                    >
+                      {item.label}
+                    </a>
+                  ))}
+                </nav>
 
-            {/* Hamburger Trigger */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-1.5 rounded-md border border-border text-foreground hover:border-gold/50 transition-colors"
-              aria-label="Toggle Navigation Menu"
-            >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
+                {/* Settings & Language inside Drawer */}
+                <div className="flex flex-col gap-6 mt-8 pt-6 border-t border-border/50">
+                  {/* Language Selector */}
+                  <div className="flex flex-col gap-2">
+                    <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                      {locale === "hin" ? "भाषा चुनें" : locale === "bn" ? "ভাষা নির্বাচন করুন" : "Select Language"}
+                    </label>
+                    <div className="grid grid-cols-3 gap-2">
+                      {LOCALES.map((loc) => (
+                        <button
+                          key={loc}
+                          onClick={() => {
+                            handleLocaleChange(loc);
+                            setMobileMenuOpen(false);
+                          }}
+                          className={cn(
+                            "px-2 py-1.5 rounded-md border text-center text-xs font-medium transition-all cursor-pointer",
+                            locale === loc
+                              ? "bg-primary/10 border-primary text-primary font-semibold"
+                              : "border-border bg-card text-muted-foreground hover:border-gold/30"
+                          )}
+                        >
+                          {LOCALE_LABEL[loc]}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Theme Switcher Toggle */}
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                      {locale === "hin" ? "थीम बदलें" : locale === "bn" ? "থিম পরিবর্তন" : "Appearance"}
+                    </span>
+                    {mounted && (
+                      <button
+                        onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                        className="flex items-center gap-2 px-3 py-1.5 rounded-md border border-border bg-card text-foreground text-xs font-medium hover:border-gold/30 transition-colors cursor-pointer"
+                        aria-label="Toggle Theme"
+                      >
+                        {theme === "dark" ? (
+                          <>
+                            <Sun className="w-3.5 h-3.5 text-gold" />
+                            <span>Light</span>
+                          </>
+                        ) : (
+                          <>
+                            <Moon className="w-3.5 h-3.5 text-muted-foreground" />
+                            <span>Dark</span>
+                          </>
+                        )}
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                {/* Primary Action CTA */}
+                <div className="mt-auto pt-6">
+                  <Button
+                    className="w-full bg-primary hover:bg-primary/95 text-primary-foreground font-semibold rounded-full h-11 text-sm flex items-center justify-center cursor-pointer"
+                    asChild
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <a href={`/${locale}/astrologers`}>
+                      <MessageCircle className="w-4 h-4 mr-2" />
+                      {dict.common.whatsapp_cta}
+                    </a>
+                  </Button>
+                </div>
+              </SheetContent>
+            </Sheet>
           </div>
         </div>
       </header>
-
-      {/* Mobile Menu Dropdown Panel */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden fixed inset-0 top-[65px] z-40 bg-background/95 backdrop-blur-md flex flex-col border-b border-border">
-          <nav className="flex flex-col p-6 gap-5">
-            {navItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-lg font-medium text-foreground border-b border-border/50 pb-2 hover:text-gold transition-colors"
-              >
-                {item.label}
-              </a>
-            ))}
-            <Button
-              className="w-full bg-primary hover:bg-primary/95 text-primary-foreground font-semibold rounded-full mt-4 h-12 text-sm"
-              asChild
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              <a href={`/${locale}/astrologers`}>
-                <MessageCircle className="w-4 h-4 mr-2" />
-                {dict.common.whatsapp_cta}
-              </a>
-            </Button>
-          </nav>
-        </div>
-      )}
     </>
   );
 }

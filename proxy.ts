@@ -33,6 +33,6 @@ export const config = {
      * - favicon.ico, sitemap.xml, robots.txt, site.webmanifest (metadata files)
      * - Image assets (png, svg, jpg, jpeg) in public
      */
-    '/((?!api|_next/static|_next/image|favicons|favicon.ico|sitemap.xml|robots.txt|site\\.webmanifest|.*\\.png$|.*\\.svg$|.*\\.jpg$|.*\\.jpeg$).*)',
+    '/((?!api|_next/static|_next/image|favicons|favicon.ico|sitemap.xml|robots.txt|site\\.webmanifest|.*\\.png$|.*\\.svg$|.*\\.jpg$|.*\\.jpeg$|.*\\.webp$).*)',
   ],
 };

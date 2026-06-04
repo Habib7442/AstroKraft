@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
-import { Send, Mail, MapPin, Phone, Sparkles } from "lucide-react";
-import { SITE, type Locale } from "@/lib/seo";
+import React from "react";
+import { Mail, MapPin, Phone } from "lucide-react";
+import { SITE } from "@/lib/seo";
 
 interface FooterProps {
   locale: string;
@@ -10,18 +10,6 @@ interface FooterProps {
 }
 
 export function Footer({ locale, dict }: FooterProps) {
-  const [email, setEmail] = useState("");
-  const [subscribed, setSubscribed] = useState(false);
-
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email.trim()) {
-      setSubscribed(true);
-      setEmail("");
-      setTimeout(() => setSubscribed(false), 3000);
-    }
-  };
-
   const servicesLinks = [
     { label: dict.services.astrologer.title, href: `/${locale}/astrologers` },
     { label: dict.services.gemstone.title, href: `/${locale}/gemstones` },
@@ -45,8 +33,12 @@ export function Footer({ locale, dict }: FooterProps) {
 
   return (
     <footer className="relative w-full bg-background border-t border-gold/30 pt-16 pb-8 font-sans overflow-hidden">
+      {/* Premium background glows to match the observatory theme */}
+      <div className="absolute -bottom-24 -left-24 w-[300px] h-[300px] rounded-full bg-primary/5 blur-[100px] pointer-events-none -z-10" />
+      <div className="absolute -top-24 -right-24 w-[250px] h-[250px] rounded-full bg-gold/5 blur-[90px] pointer-events-none -z-10" />
+
       {/* Subtle background star decoration */}
-      <div className="absolute inset-0 bg-[radial-gradient(1px_1px_at_10px_10px,#ECD9A0_15%,transparent_15%)] bg-[size:32px_32px] opacity-10 pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(1px_1px_at_10px_10px,#ECD9A0_15%,transparent_15%)] bg-[size:32px_32px] opacity-[0.06] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-border">
@@ -86,25 +78,36 @@ export function Footer({ locale, dict }: FooterProps) {
               </div>
             </div>
 
-            {/* Social Icons */}
+            {/* Social Icons with brand-aligned hover transitions */}
             <div className="flex items-center gap-3.5 mt-4">
-              <a href={SITE.social.facebook} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full border border-border text-muted-foreground hover:text-gold hover:border-gold/30 hover:bg-secondary/40 transition-colors w-8 h-8 flex items-center justify-center" aria-label="Facebook">
-                <img src="/social-icons/facebook.png" alt="Facebook" className="w-4 h-4 object-contain dark:invert" />
+              <a
+                href={SITE.social.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-full border border-border/60 hover:border-[#1877F2]/50 hover:bg-[#1877F2]/10 flex items-center justify-center hover:scale-110 active:scale-95 transition-all duration-200"
+                aria-label="Facebook"
+              >
+                <img src="/social-icons/facebook.png" alt="Facebook" className="w-[18px] h-[18px] object-contain" />
               </a>
-              <a href={SITE.social.instagram} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full border border-border text-muted-foreground hover:text-gold hover:border-gold/30 hover:bg-secondary/40 transition-colors w-8 h-8 flex items-center justify-center" aria-label="Instagram">
-                <img src="/social-icons/instagram.png" alt="Instagram" className="w-4 h-4 object-contain dark:invert" />
+              <a
+                href={SITE.social.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-full border border-border/60 hover:border-[#E4405F]/50 hover:bg-[#E4405F]/10 flex items-center justify-center hover:scale-110 active:scale-95 transition-all duration-200"
+                aria-label="Instagram"
+              >
+                <img src="/social-icons/instagram.png" alt="Instagram" className="w-[18px] h-[18px] object-contain" />
               </a>
-              <a href={SITE.social.twitter} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full border border-border text-muted-foreground hover:text-gold hover:border-gold/30 hover:bg-secondary/40 transition-colors w-8 h-8 flex items-center justify-center" aria-label="X (Twitter)">
-                <img src="/social-icons/X.png" alt="X" className="w-3.5 h-3.5 object-contain dark:invert" />
-              </a>
-              <a href={SITE.social.linkedin} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full border border-border text-muted-foreground hover:text-gold hover:border-gold/30 hover:bg-secondary/40 transition-colors w-8 h-8 flex items-center justify-center" aria-label="LinkedIn">
-                <img src="/social-icons/linkedin.png" alt="LinkedIn" className="w-4 h-4 object-contain dark:invert" />
-              </a>
-              <a href={`https://wa.me/${SITE.contact.whatsapp}`} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full border border-border text-muted-foreground hover:text-gold hover:border-gold/30 hover:bg-secondary/40 transition-colors w-8 h-8 flex items-center justify-center" aria-label="WhatsApp">
-                <img src="/social-icons/whatsapp.png" alt="WhatsApp" className="w-4 h-4 object-contain dark:invert" />
+              <a
+                href={`https://wa.me/${SITE.contact.whatsapp}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-full border border-border/60 hover:border-[#25D366]/50 hover:bg-[#25D366]/10 flex items-center justify-center hover:scale-110 active:scale-95 transition-all duration-200"
+                aria-label="WhatsApp"
+              >
+                <img src="/social-icons/whatsapp.png" alt="WhatsApp" className="w-[18px] h-[18px] object-contain" />
               </a>
             </div>
-
           </div>
 
           {/* Services Column (2 cols) */}
@@ -123,8 +126,8 @@ export function Footer({ locale, dict }: FooterProps) {
             </ul>
           </div>
 
-          {/* Free Tools Column (2 cols) */}
-          <div className="lg:col-span-2 flex flex-col gap-4">
+          {/* Free Tools Column (3 cols) */}
+          <div className="lg:col-span-3 flex flex-col gap-4">
             <h4 className="font-serif text-sm font-semibold tracking-wider text-foreground uppercase">
               Free Tools
             </h4>
@@ -139,8 +142,8 @@ export function Footer({ locale, dict }: FooterProps) {
             </ul>
           </div>
 
-          {/* Legal/Company Column (2 cols) */}
-          <div className="lg:col-span-2 flex flex-col gap-4">
+          {/* Legal/Company Column (3 cols) */}
+          <div className="lg:col-span-3 flex flex-col gap-4">
             <h4 className="font-serif text-sm font-semibold tracking-wider text-foreground uppercase">
               Company
             </h4>
@@ -153,41 +156,6 @@ export function Footer({ locale, dict }: FooterProps) {
                 </li>
               ))}
             </ul>
-          </div>
-
-          {/* Newsletter (2 cols) */}
-          <div className="lg:col-span-2 flex flex-col gap-4">
-            <h4 className="font-serif text-sm font-semibold tracking-wider text-foreground uppercase flex items-center gap-1">
-              <Sparkles className="w-3.5 h-3.5 text-gold" />
-              <span>Stay Inspired</span>
-            </h4>
-            <p className="text-xs text-muted-foreground leading-relaxed">
-              Subscribe to get daily astrological predictions, auspicious dates, and exclusive gemstone offers.
-            </p>
-            <form onSubmit={handleSubscribe} className="flex flex-col gap-2 mt-1">
-              <div className="relative">
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter email..."
-                  required
-                  className="w-full bg-card border border-border text-foreground rounded-lg px-3 py-2 text-xs outline-none focus:border-gold/60 transition-colors pr-10"
-                />
-                <button
-                  type="submit"
-                  className="absolute right-1.5 top-1/2 -translate-y-1/2 p-1 text-gold hover:text-gold/80 transition-colors"
-                  aria-label="Submit Email"
-                >
-                  <Send className="w-3.5 h-3.5" />
-                </button>
-              </div>
-              {subscribed && (
-                <span className="text-[10px] text-green-500 font-medium">
-                  ✓ Successfully subscribed!
-                </span>
-              )}
-            </form>
           </div>
         </div>
 
