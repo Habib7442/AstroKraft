@@ -24,7 +24,7 @@ export const SITE = {
     name: "AstroKraft",
     legalName: "AstroKraft",
     /** Production origin — no trailing slash. Override via env in deployment. */
-    url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.astrokraft.online/en").replace(/\/$/, ""),
+    url: "https://www.astrokraft.online/en",
     tagline: "Your Guide for Life",
     title: "AstroKraft — India's Trusted Astrology & Gemstone Marketplace",
     description:
