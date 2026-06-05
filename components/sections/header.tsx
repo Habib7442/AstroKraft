@@ -33,14 +33,19 @@ export function Header({ locale, dict }: HeaderProps) {
   }, []);
 
   const handleLocaleChange = (newLocale: string) => {
-    const segments = pathname.split("/");
-    if (segments.length > 1 && LOCALES.includes(segments[1] as any)) {
-      segments[1] = newLocale;
+    const segments = pathname.split("/").filter(Boolean);
+    if (LOCALES.includes(segments[0] as any)) {
+      segments[0] = newLocale;
     } else {
-      segments.splice(1, 0, newLocale);
+      segments.unshift(newLocale);
     }
-    const newPath = segments.join("/") || "/";
-    router.push(newPath);
+    const newPath = "/" + segments.join("/");
+
+    // Safely capture query parameters and hash on the client side
+    const search = typeof window !== "undefined" ? window.location.search : "";
+    const hash = typeof window !== "undefined" ? window.location.hash : "";
+
+    router.push(`${newPath}${search}${hash}`);
   };
 
   const navItems = [

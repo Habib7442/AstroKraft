@@ -78,6 +78,14 @@ export const LOCALES = ["en", "hin", "bn"] as const;
 export type Locale = (typeof LOCALES)[number];
 export const DEFAULT_LOCALE: Locale = "en";
 
+export function isValidLocale(locale: string): locale is Locale {
+    return (LOCALES as readonly string[]).includes(locale);
+}
+
+/** Planned "fast-follow" locales (see context/project-overview.md) */
+export const PLANNED_LOCALES = ["ta", "te", "mr"] as const;
+export type PlannedLocale = (typeof PLANNED_LOCALES)[number];
+
 /** BCP-47 codes for hreflang + OpenGraph locale. */
 export const LOCALE_HREFLANG: Record<Locale, string> = {
     en: "en-IN",
@@ -85,10 +93,22 @@ export const LOCALE_HREFLANG: Record<Locale, string> = {
     bn: "bn-IN",
 };
 
+export const PLANNED_LOCALE_HREFLANG: Record<PlannedLocale, string> = {
+    ta: "ta-IN",
+    te: "te-IN",
+    mr: "mr-IN",
+};
+
 export const LOCALE_LABEL: Record<Locale, string> = {
     en: "English",
     hin: "हिन्दी",
     bn: "বাংলা",
+};
+
+export const PLANNED_LOCALE_LABEL: Record<PlannedLocale, string> = {
+    ta: "தமிழ்",
+    te: "తెలుగు",
+    mr: "मराठी",
 };
 
 /** Build a localized absolute URL for a given path + locale. */
@@ -343,7 +363,7 @@ export function organizationSchema() {
 
 /** LocalBusiness (helps "astrologer near me" + map presence). */
 export function localBusinessSchema() {
-    return {
+    const baseSchema: any = {
         "@context": "https://schema.org",
         "@type": "ProfessionalService",
         "@id": `${DOMAIN_ROOT}/#localbusiness`,
@@ -359,12 +379,18 @@ export function localBusinessSchema() {
             addressCountry: SITE.contact.address.country,
         },
         areaServed: { "@type": "Country", name: "India" },
-        aggregateRating: {
+    };
+
+    const countVal = parseInt(SITE.foundingRating.count, 10);
+    if (!isNaN(countVal) && countVal > 0) {
+        baseSchema.aggregateRating = {
             "@type": "AggregateRating",
             ratingValue: SITE.foundingRating.value,
             reviewCount: SITE.foundingRating.count,
-        },
-    };
+        };
+    }
+
+    return baseSchema;
 }
 
 /** WebSite + Sitelinks Search Box. */
@@ -694,6 +720,8 @@ export default {
     SITE,
     LOCALES,
     DEFAULT_LOCALE,
+    PLANNED_LOCALES,
+    isValidLocale,
     KEYWORDS,
     ZODIAC_SIGNS,
     constructMetadata,

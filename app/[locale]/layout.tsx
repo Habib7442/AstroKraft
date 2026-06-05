@@ -3,7 +3,7 @@ import { Geist, Geist_Mono, Fraunces } from "next/font/google";
 import "../globals.css";
 import "lenis/dist/lenis.css";
 import { cn } from "@/lib/utils";
-import { LOCALES, constructMetadata } from "@/lib/seo";
+import { LOCALES, constructMetadata, isValidLocale } from "@/lib/seo";
 import { ThemeProvider } from "@/components/theme-provider";
 import { LenisProvider } from "@/components/providers/lenis-provider";
 
@@ -25,7 +25,8 @@ const fraunces = Fraunces({
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
-  return constructMetadata({ locale: locale as any });
+  const activeLocale = isValidLocale(locale) ? locale : "en";
+  return constructMetadata({ locale: activeLocale });
 }
 
 export async function generateStaticParams() {

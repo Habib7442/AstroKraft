@@ -21,7 +21,8 @@ export const getDictionary = async (locale: string) => {
   if (hasLocale(locale)) {
     return dictionaries[locale];
   }
-  // Fall back to default locale if a translation is missing or fast-followed (e.g. ta, te, mr)
-  return dictionaries[DEFAULT_LOCALE as SupportedLocale];
+  // Fall back to DEFAULT_LOCALE if it is supported, otherwise fallback to 'en'
+  const fallback = hasLocale(DEFAULT_LOCALE) ? DEFAULT_LOCALE : 'en';
+  return dictionaries[fallback];
 };
 

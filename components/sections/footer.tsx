@@ -14,21 +14,21 @@ export function Footer({ locale, dict }: FooterProps) {
     { label: dict.services.astrologer.title, href: `/${locale}/astrologers` },
     { label: dict.services.gemstone.title, href: `/${locale}/gemstones` },
     { label: dict.nav.free_tools, href: `/${locale}/#free-tools` },
-    { label: "Vastu Consultant", href: `/${locale}/vastu` },
+    { label: dict.footer?.vastu_consultant || "Vastu Consultant", href: `/${locale}/vastu` },
   ];
 
   const toolsLinks = [
-    { label: "Free Kundli / Birth Chart", href: `/${locale}/tools/kundli` },
-    { label: "Kundli Matching (Guna Milan)", href: `/${locale}/tools/matching` },
-    { label: "Daily Horoscope (Rashifol)", href: `/${locale}/tools/horoscope` },
-    { label: "Today's Panchang", href: `/${locale}/tools/panchang` },
+    { label: dict.footer?.free_kundli || "Free Kundli / Birth Chart", href: `/${locale}/tools/kundli` },
+    { label: dict.footer?.kundli_matching || "Kundli Matching (Guna Milan)", href: `/${locale}/tools/matching` },
+    { label: dict.footer?.daily_horoscope || "Daily Horoscope (Rashifol)", href: `/${locale}/tools/horoscope` },
+    { label: dict.footer?.todays_panchang || "Today's Panchang", href: `/${locale}/tools/panchang` },
   ];
 
   const companyLinks = [
-    { label: "About Us", href: `/${locale}/about` },
-    { label: "Contact Us", href: `/${locale}/contact` },
-    { label: "Privacy Policy", href: `/${locale}/privacy` },
-    { label: "Terms of Service", href: `/${locale}/terms` },
+    { label: dict.footer?.about_us || "About Us", href: `/${locale}/about` },
+    { label: dict.footer?.contact_us || "Contact Us", href: `/${locale}/contact` },
+    { label: dict.footer?.privacy_policy || "Privacy Policy", href: `/${locale}/privacy` },
+    { label: dict.footer?.terms_of_service || "Terms of Service", href: `/${locale}/terms` },
   ];
 
   return (
@@ -55,7 +55,7 @@ export function Footer({ locale, dict }: FooterProps) {
               </span>
             </a>
             <p className="text-xs text-muted-foreground leading-relaxed max-w-sm">
-              AstroKraft is India&apos;s trusted platform for Vedic Astrology, certified gemstones, and divine rituals. Empowering your life journey with ancient wisdom and modern precision.
+              {dict.footer?.desc || "AstroKraft is India's trusted platform for Vedic Astrology, certified gemstones, and divine rituals. Empowering your life journey with ancient wisdom and modern precision."}
             </p>
 
             {/* Contact Details */}
@@ -113,7 +113,7 @@ export function Footer({ locale, dict }: FooterProps) {
           {/* Services Column (2 cols) */}
           <div className="lg:col-span-2 flex flex-col gap-4">
             <h4 className="font-serif text-sm font-semibold tracking-wider text-foreground uppercase">
-              Services
+              {dict.footer?.services_heading || "Services"}
             </h4>
             <ul className="flex flex-col gap-2 text-xs">
               {servicesLinks.map((link) => (
@@ -129,7 +129,7 @@ export function Footer({ locale, dict }: FooterProps) {
           {/* Free Tools Column (3 cols) */}
           <div className="lg:col-span-3 flex flex-col gap-4">
             <h4 className="font-serif text-sm font-semibold tracking-wider text-foreground uppercase">
-              Free Tools
+              {dict.footer?.tools_heading || "Free Tools"}
             </h4>
             <ul className="flex flex-col gap-2 text-xs">
               {toolsLinks.map((link) => (
@@ -145,7 +145,7 @@ export function Footer({ locale, dict }: FooterProps) {
           {/* Legal/Company Column (3 cols) */}
           <div className="lg:col-span-3 flex flex-col gap-4">
             <h4 className="font-serif text-sm font-semibold tracking-wider text-foreground uppercase">
-              Company
+              {dict.footer?.company_heading || "Company"}
             </h4>
             <ul className="flex flex-col gap-2 text-xs">
               {companyLinks.map((link) => (
@@ -162,10 +162,10 @@ export function Footer({ locale, dict }: FooterProps) {
         {/* Bottom Bar */}
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 text-xs text-muted-foreground">
           <div>
-            © {new Date().getFullYear()} {SITE.name}. All rights reserved.
+            © {new Date().getFullYear()} {SITE.name}. {dict.footer?.copyright || "All rights reserved."}
           </div>
           <div className="flex items-center gap-2">
-            <span>Made with devotion in India ✦</span>
+            <span>{dict.footer?.devotion || "Made with devotion in India ✦"}</span>
           </div>
         </div>
       </div>

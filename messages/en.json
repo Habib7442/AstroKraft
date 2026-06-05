@@ -50,6 +50,23 @@
       "title": "Kundli Matching (Guna Milan)",
       "desc": "Free, detailed 36-point horoscope compatibility reports for marriage and relationship stability."
     }
+  },
+  "footer": {
+    "desc": "AstroKraft is India's trusted platform for Vedic Astrology, certified gemstones, and divine rituals. Empowering your life journey with ancient wisdom and modern precision.",
+    "vastu_consultant": "Vastu Consultant",
+    "free_kundli": "Free Kundli / Birth Chart",
+    "kundli_matching": "Kundli Matching (Guna Milan)",
+    "daily_horoscope": "Daily Horoscope (Rashifol)",
+    "todays_panchang": "Today's Panchang",
+    "about_us": "About Us",
+    "contact_us": "Contact Us",
+    "privacy_policy": "Privacy Policy",
+    "terms_of_service": "Terms of Service",
+    "services_heading": "Services",
+    "tools_heading": "Free Tools",
+    "company_heading": "Company",
+    "copyright": "All rights reserved.",
+    "devotion": "Made with devotion in India ✦"
   }
 }
 

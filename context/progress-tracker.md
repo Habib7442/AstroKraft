@@ -10,7 +10,20 @@
 
 ## Completed
 
+- Configured application `name`, `short_name`, favicon routing path prefixes, and brand theme/background colors (`#0c0a16`) in [site.webmanifest](file:///e:/Web%20Dev/astrokraft/public/favicons/site.webmanifest) to enable cohesive browser PWA installation.
+- Implemented `isValidLocale` type guard in [seo.ts](file:///e:/Web%20Dev/astrokraft/lib/seo.ts) and integrated it in both [page.tsx](file:///e:/Web%20Dev/astrokraft/app/%5Blocale%5D/page.tsx) and [layout.tsx](file:///e:/Web%20Dev/astrokraft/app/%5Blocale%5D/layout.tsx) to remove unsafe `as any` type assertions during dynamic route parameter validation.
+- Refactored `LenisProvider` in [lenis-provider.tsx](file:///e:/Web%20Dev/astrokraft/components/providers/lenis-provider.tsx) to consume its defined `LenisProviderProps` type interface rather than an inline type signature.
+- Configured long-term `Cache-Control` browser cache headers inside [next.config.ts](file:///e:/Web%20Dev/astrokraft/next.config.ts) for static assets (`/assets/*`, `/favicons/*`, and `/logo.svg`) to prevent repeat Vercel Edge Requests from returning users.
+- Localized all hardcoded footer link labels, column headers, brand description, and attribution strings across [footer.tsx](file:///e:/Web%20Dev/astrokraft/components/sections/footer.tsx) and translation dictionaries (`en.json`, `hin.json`, `bn.json`).
+- Installed `zustand` and created a global store at [useGlobeStore.ts](file:///e:/Web%20Dev/astrokraft/lib/store/useGlobeStore.ts) to manage 3D globe selection state, refactoring [3d-globe-demo.tsx](file:///e:/Web%20Dev/astrokraft/components/3d-globe-demo.tsx) to consume this global state.
+- Upgraded the locale switching logic in [header.tsx](file:///e:/Web%20Dev/astrokraft/components/sections/header.tsx) to dynamically parse pathname segments and preserve query parameters and hash fragments on client-side navigation.
+- Documented planned fast-follow languages via `PLANNED_LOCALES` in `lib/seo.ts` to keep `LOCALES` strictly aligned with implemented translation dictionaries (`en`, `hin`, `bn`).
+- Refactored `getDictionary` locale fallback logic in `lib/i18n.ts` to type-safely verify `DEFAULT_LOCALE` exists in dictionaries at compile time, eliminating the unsafe `as SupportedLocale` type assertion.
 - Read and analyzed the project docs (`prd.md` and `DESIGN.md`).
+- Converted JPEGs and PNGs inside `public/assets/astrologers/` to high-resolution WebP files using the `sharp` library to optimize load speed while preserving original aspect ratios and quality, and deleted the original raw JPEGs/PNGs to clean up the codebase.
+- Re-engineered Three.js CSS3D marker rendering in [3d-globe.tsx](file:///e:/Web%20Dev/astrokraft/components/ui/3d-globe.tsx) to display sharp, high-DPI floating avatars (scaling dynamically from 40px on mobile to 60px on desktop) by switching the Drei HTML component to 2D projected mode, guaranteeing pixel-perfect alignment over the pin tips at any camera perspective.
+- Distributed markers globally (New York, London, Sao Paulo, Sydney, Cape Town, New Delhi) in [3d-globe-demo.tsx](file:///e:/Web%20Dev/astrokraft/components/3d-globe-demo.tsx) to prevent geographic overlap congestion (with founder Biprangshu Bhattacharjee correctly positioned in New Delhi, India), enabled slow auto-rotation, and built a premium, compact glassmorphic details dialog modal popup mounted via React Portal at z-[9999] for perfect viewport layering and screen fit.
+- Patched localBusinessSchema() in [lib/seo.ts](file:///e:/Web%20Dev/astrokraft/lib/seo.ts) to conditionally omit the aggregateRating block when the review count is 0, satisfying Schema.org structured data crawlers.
 - Read the Six-File Context templates and methodology.
 - Created `/context` directory and populated:
   - `project-overview.md`

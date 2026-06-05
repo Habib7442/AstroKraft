@@ -13,7 +13,7 @@ interface HeroProps {
 
 export function Hero({ locale, dict }: HeroProps) {
   return (
-    <section className="relative w-full overflow-hidden border-b border-border pt-20 pb-12 md:pt-32 md:pb-20 lg:pt-40 lg:pb-32 bg-background flex flex-col justify-center items-center">
+    <section className="relative w-full overflow-hidden border-b border-border pt-26 pb-12 md:pt-32 md:pb-20 lg:pt-28 lg:pb-24 bg-background flex flex-col justify-center items-center">
       {/* Space background image overlay */}
       <img
         src="/assets/hero_bg.webp"
@@ -95,7 +95,7 @@ export function Hero({ locale, dict }: HeroProps) {
 
           {/* Right Column: 3D Globe Component */}
           <div className="lg:col-span-5 w-full flex justify-center items-center relative h-[350px] sm:h-[450px] lg:h-[500px]">
-            <Globe3DDemo className="h-full w-full" />
+            <Globe3DDemo className="h-full w-full" locale={locale} />
           </div>
         </div>
       </div>

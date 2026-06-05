@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { getDictionary } from "@/lib/i18n";
-import { LOCALES } from "@/lib/seo";
+import { isValidLocale } from "@/lib/seo";
 import { Header } from "@/components/sections/header";
 import { Hero } from "@/components/sections/hero";
 import { Footer } from "@/components/sections/footer";
@@ -12,7 +12,7 @@ interface PageParams {
 export default async function Page({ params }: { params: Promise<PageParams> }) {
   const { locale } = await params;
 
-  if (!LOCALES.includes(locale as any)) {
+  if (!isValidLocale(locale)) {
     notFound();
   }
 

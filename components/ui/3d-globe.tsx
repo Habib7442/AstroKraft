@@ -211,10 +211,8 @@ function Marker({
       {/* Circular image at the top */}
       <group ref={imageGroupRef} position={topPosition}>
         <Html
-          transform
           center
-          sprite
-          distanceFactor={10}
+          distanceFactor={6.5}
           style={{
             pointerEvents: isVisible ? "auto" : "none",
             opacity: isVisible ? 1 : 0,
@@ -223,13 +221,10 @@ function Marker({
         >
           <div
             className={cn(
-              "cursor-pointer overflow-hidden rounded-full bg-neutral-900 shadow-lg transition-transform duration-200",
-              hovered && "scale-125 shadow-xl ring-1 ring-white/50",
+              "w-10 h-10 sm:w-12 sm:h-12 md:w-[60px] md:h-[60px] cursor-pointer overflow-hidden rounded-full bg-neutral-950 shadow-2xl transition-all duration-300 border-2 border-gold/70 ring-2 ring-background/30",
+              hovered && "scale-110 border-gold ring-background/60 shadow-gold/20 shadow-xl",
             )}
-            style={{
-              width: "8px",
-              height: "8px",
-            }}
+            style={{}}
             onMouseEnter={handlePointerEnter}
             onMouseLeave={handlePointerLeave}
             onClick={handleClick}
@@ -237,7 +232,7 @@ function Marker({
             <img
               src={marker.src}
               alt={marker.label || "Marker"}
-              className="h-full w-full object-cover"
+              className="h-full w-full object-cover select-none"
               draggable={false}
             />
           </div>

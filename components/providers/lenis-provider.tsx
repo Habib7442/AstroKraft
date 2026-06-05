@@ -7,7 +7,7 @@ interface LenisProviderProps {
   children: React.ReactNode;
 }
 
-export function LenisProvider({ children }: { children: React.ReactNode }) {
+export function LenisProvider({ children }: LenisProviderProps) {
   return (
     <ReactLenis root options={{ autoRaf: true }}>
       {children}
