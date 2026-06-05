@@ -407,7 +407,7 @@ function Scene({ markers, config, onMarkerClick, onMarkerHover }: SceneProps) {
 
   // Set initial camera position (pulled back to accommodate markers)
   React.useEffect(() => {
-    camera.position.set(0, 0, config.radius * 3.5);
+    camera.position.set(0, 0, config.radius * 4.0);
     camera.lookAt(0, 0, 0);
   }, [camera, config.radius]);
 
@@ -538,10 +538,11 @@ export function Globe3D({
           fov: 45,
           near: 0.1,
           far: 1000,
-          position: [0, 0, mergedConfig.radius * 3.5],
+          position: [0, 0, mergedConfig.radius * 4.0],
         }}
         style={{
           background: mergedConfig.backgroundColor || "transparent",
+          overflow: "visible",
         }}
       >
         <Suspense fallback={<LoadingFallback />}>

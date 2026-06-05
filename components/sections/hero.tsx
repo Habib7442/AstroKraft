@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { MessageCircle, ShieldCheck, Gem, UserCheck, Users, Sparkles } from "lucide-react";
+import { MessageCircle, ShieldCheck, Gem, UserCheck, Users } from "lucide-react";
 import { Button } from "../ui/button";
 
 import Globe3DDemo from "@/components/3d-globe-demo";

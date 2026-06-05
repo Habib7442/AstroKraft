@@ -9,7 +9,7 @@ import {
   Layout,
   HeartHandshake,
   ArrowRight,
-  Sparkles,
+  Compass,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -105,7 +105,7 @@ export function ServicesBento({ locale, dict }: ServicesBentoProps) {
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-16 flex flex-col gap-3">
           <span className="text-gold font-sans font-bold text-xs uppercase tracking-widest inline-flex items-center justify-center gap-1.5">
-            <Sparkles className="w-3.5 h-3.5" />
+            <Compass className="w-3.5 h-3.5" />
             <span>Divine Services</span>
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight text-foreground">

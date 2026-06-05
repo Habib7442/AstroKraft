@@ -10,7 +10,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { ExcitementToaster } from "@/components/excitement-toaster";
 
 const geistSans = Geist({
-  variable: "--font-sans",
+  variable: "--font-geist-sans",
   subsets: ["latin"],
 });
 
@@ -37,7 +37,7 @@ export async function generateStaticParams() {
 
 interface LayoutProps {
   children: React.ReactNode;
-  params: Promise<{ locale: string }>;
+  params: Promise<any>;
 }
 
 export default async function RootLayout({

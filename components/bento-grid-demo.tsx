@@ -61,10 +61,8 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
           <p className="max-w-2xl text-muted-foreground text-sm sm:text-base font-sans">
             Consult India's top astrologers and Vastu experts for accurate horoscope compatibility, gemstone selections, and ancient Vedic remedies.
           </p>
-        </div>
-
-        {/* Bento Grid */}
-        <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[16rem]">
+        </div>        {/* Bento Grid */}
+        <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[14.5rem]">
           {orderedKeys.map((key) => {
             const ast = ASTROLOGERS[key];
             if (!ast) return null;
@@ -85,37 +83,50 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
                   <div className="absolute -left-20 -bottom-20 w-[300px] h-[300px] rounded-full bg-primary/10 blur-[80px] pointer-events-none" />
 
                   {/* Top: Profile Header & Layout */}
-                  <div className="flex flex-col md:flex-row gap-6 items-start relative z-10 h-full w-full">
+                  <div className="flex flex-col md:flex-row gap-6 items-stretch relative z-10 h-full w-full">
                     {/* Left/Top: Giant Avatar frame */}
                     <div className="flex flex-col items-start shrink-0">
-                      <div className="relative">
-                        <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-gold bg-neutral-900 shadow-2xl p-1">
-                          <img
-                            src={ast.src}
-                            alt={ast.name}
-                            className="w-full h-full object-cover rounded-full select-none"
-                            draggable={false}
-                          />
+                      <a href={`/${locale}/astrologers/${key}`} className="block hover:opacity-95 transition-opacity">
+                        <div className="relative">
+                          <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-gold bg-neutral-900 shadow-2xl p-1">
+                            <img
+                              src={ast.src}
+                              alt={ast.name}
+                              className="w-full h-full object-cover rounded-full select-none"
+                              draggable={false}
+                            />
+                          </div>
+                          {/* Live Status indicator */}
+                          <span className="absolute bottom-0.5 right-0.5 flex h-3.5 w-3.5">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 bg-emerald-400" />
+                            <span className="relative inline-flex rounded-full h-3.5 w-3.5 border-2 border-card bg-emerald-500 shadow-sm" />
+                          </span>
                         </div>
-                        {/* Live Status indicator */}
-                        <span className="absolute bottom-0.5 right-0.5 flex h-3.5 w-3.5">
-                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 bg-emerald-400" />
-                          <span className="relative inline-flex rounded-full h-3.5 w-3.5 border-2 border-card bg-emerald-500 shadow-sm" />
-                        </span>
-                      </div>
+                      </a>
 
                       {/* Prominent Badges */}
                       <span className="mt-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-semibold tracking-wider uppercase border bg-gold/10 text-gold border-gold/30 whitespace-nowrap">
                         ✦ Founder & Director
                       </span>
+
+                      {/* Languages Spoken */}
+                      <div className="flex flex-wrap gap-1 mt-3.5 max-w-[120px]">
+                        {ast.languages[activeLocale]?.map((lang) => (
+                          <span key={lang} className="px-2 py-0.5 rounded bg-white/5 border border-white/10 text-[9px] text-muted-foreground font-medium uppercase tracking-wider scale-95">
+                            {lang}
+                          </span>
+                        ))}
+                      </div>
                     </div>
 
                     {/* Right/Bottom: Description and Info */}
                     <div className="flex-1 flex flex-col justify-between gap-4">
                       <div className="flex flex-col gap-2">
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-border/25 pb-2">
-                          <h3 className="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
-                            {ast.name}
+                          <h3 className="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-foreground hover:text-gold transition-colors">
+                            <a href={`/${locale}/astrologers/${key}`}>
+                              {ast.name}
+                            </a>
                           </h3>
                           {/* Rating & reviews */}
                           <div className="flex items-center gap-1.5 bg-neutral-900/40 border border-white/5 px-2.5 py-1 rounded-full text-[11px] w-fit whitespace-nowrap shrink-0">
@@ -158,17 +169,25 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
                       <div className="flex items-center justify-between gap-4 mt-2 pt-4 border-t border-border/20">
                         <div className="flex flex-col">
                           <span className="text-[10px] text-muted-foreground uppercase font-sans">Consultation Fee</span>
-                          <span className="font-serif font-bold text-lg text-gold font-serif">₹{ast.fee.toFixed(2)}</span>
+                          <span className="font-serif font-bold text-lg text-gold">₹{ast.fee.toFixed(2)}</span>
                         </div>
-                        <a
-                          href={getPrefilledWhatsappUrl(ast.name)}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2 bg-gradient-to-r from-primary to-primary/90 hover:from-primary hover:to-primary/80 text-primary-foreground font-semibold py-2 px-5 rounded-full shadow-lg shadow-primary/20 transition-all text-xs font-sans cursor-pointer"
-                        >
-                          <MessageCircle className="w-3.5 h-3.5" />
-                          Consult Now
-                        </a>
+                        <div className="flex items-center gap-2.5">
+                          <a
+                            href={`/${locale}/astrologers/${key}`}
+                            className="text-xs font-semibold text-muted-foreground hover:text-gold hover:border-gold/40 transition-all px-4 py-2 rounded-full border border-border/40 bg-neutral-900/50 hover:bg-neutral-900"
+                          >
+                            View Profile
+                          </a>
+                          <a
+                            href={getPrefilledWhatsappUrl(ast.name)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 bg-gradient-to-r from-[#25D366] to-[#128C7E] hover:from-[#22c35e] hover:to-[#0f7c6f] text-white font-semibold py-2 px-5 rounded-full shadow-lg shadow-emerald-500/10 transition-all text-xs font-sans cursor-pointer"
+                          >
+                            <img src="/social-icons/whatsapp.png" alt="WhatsApp" className="w-3.5 h-3.5 object-contain shrink-0" />
+                            Consult Now
+                          </a>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -187,25 +206,27 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
                 <div className="flex items-start justify-between gap-3 relative z-10">
                   {/* Small Avatar Frame with Status */}
                   <div className="relative shrink-0">
-                    <div className="w-12 h-12 rounded-full overflow-hidden border border-gold/40 bg-neutral-900 shadow p-0.5">
-                      <img
-                        src={ast.src}
-                        alt={ast.name}
-                        className="w-full h-full object-cover rounded-full"
-                        draggable={false}
-                      />
-                    </div>
-                    {/* Status Badge */}
-                    <span className="absolute bottom-0.5 right-0.5 flex h-3 w-3">
-                      <span className={cn(
-                        "animate-ping absolute inline-flex h-full w-full rounded-full opacity-75",
-                        isOnline ? "bg-emerald-400" : "bg-amber-400"
-                      )} />
-                      <span className={cn(
-                        "relative inline-flex rounded-full h-3 w-3 border border-card shadow-sm",
-                        isOnline ? "bg-emerald-500" : "bg-amber-500"
-                      )} />
-                    </span>
+                    <a href={`/${locale}/astrologers/${key}`} className="block hover:opacity-95 transition-opacity">
+                      <div className="w-12 h-12 rounded-full overflow-hidden border border-gold/40 bg-neutral-900 shadow p-0.5">
+                        <img
+                          src={ast.src}
+                          alt={ast.name}
+                          className="w-full h-full object-cover rounded-full"
+                          draggable={false}
+                        />
+                      </div>
+                      {/* Status Badge */}
+                      <span className="absolute bottom-0.5 right-0.5 flex h-3 w-3">
+                        <span className={cn(
+                          "animate-ping absolute inline-flex h-full w-full rounded-full opacity-75",
+                          isOnline ? "bg-emerald-400" : "bg-amber-400"
+                        )} />
+                        <span className={cn(
+                          "relative inline-flex rounded-full h-3 w-3 border border-card shadow-sm",
+                          isOnline ? "bg-emerald-500" : "bg-amber-500"
+                        )} />
+                      </span>
+                    </a>
                   </div>
 
                   {/* Right Header: Rating & Experience */}
@@ -221,8 +242,10 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
                 {/* Body info */}
                 <div className="flex-1 flex flex-col justify-between mt-2 gap-3 relative z-10">
                   <div className="flex flex-col gap-1">
-                    <h4 className="font-serif font-bold text-sm text-foreground tracking-wide group-hover/bento:text-gold transition-colors">
-                      {ast.name}
+                    <h4 className="font-serif font-bold text-sm text-foreground tracking-wide hover:text-gold transition-colors">
+                      <a href={`/${locale}/astrologers/${key}`}>
+                        {ast.name}
+                      </a>
                     </h4>
                     <p className="text-[10px] text-gold font-semibold leading-none">
                       {specialtyText}
@@ -236,17 +259,25 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
                   <div className="flex items-center justify-between border-t border-border/20 pt-2.5 mt-1 text-[11px]">
                     <div className="flex flex-col">
                       <span className="text-[8px] text-muted-foreground uppercase font-sans">Fee</span>
-                      <span className="font-serif font-bold text-gold font-serif">₹{ast.fee.toFixed(2)}</span>
+                      <span className="font-serif font-bold text-gold">₹{ast.fee.toFixed(2)}</span>
                     </div>
-                    <a
-                      href={getPrefilledWhatsappUrl(ast.name)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-1.5 bg-secondary hover:bg-gold hover:text-neutral-950 text-foreground py-1 px-3 rounded-full border border-border/20 transition-all text-[10px] font-semibold cursor-pointer"
-                    >
-                      <MessageCircle className="w-3 h-3" />
-                      Consult
-                    </a>
+                    <div className="flex items-center gap-1.5">
+                      <a
+                        href={`/${locale}/astrologers/${key}`}
+                        className="text-[10px] font-semibold text-muted-foreground hover:text-gold transition-colors py-1 px-2.5 rounded-full border border-border/10 bg-neutral-900/40 hover:bg-neutral-900"
+                      >
+                        Profile
+                      </a>
+                      <a
+                        href={getPrefilledWhatsappUrl(ast.name)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 bg-[#25D366]/15 hover:bg-[#25D366] text-[#25D366] hover:text-white py-1 px-3 rounded-full border border-[#25D366]/35 hover:border-[#25D366] transition-all text-[10px] font-semibold cursor-pointer"
+                      >
+                        <img src="/social-icons/whatsapp.png" alt="WhatsApp" className="w-3 h-3 object-contain shrink-0" />
+                        Consult
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -118,14 +118,72 @@ interface Globe3DDemoProps {
 export default function Globe3DDemo({ className, locale = "en" }: Globe3DDemoProps) {
   const { selectedKey, setSelectedKey } = useGlobeStore();
   const [mounted, setMounted] = useState(false);
+  const activeLocale = ["en", "hin", "bn"].includes(locale) ? locale : "en";
+  const astrologer = selectedKey ? ASTROLOGERS[selectedKey] : null;
 
   useEffect(() => {
     setMounted(true);
     return () => setMounted(false);
   }, []);
 
-  const activeLocale = ["en", "hin", "bn"].includes(locale) ? locale : "en";
-  const astrologer = selectedKey ? ASTROLOGERS[selectedKey] : null;
+  // Escape key and Focus Trap Accessibility handler
+  useEffect(() => {
+    if (!astrologer) return;
+
+    const timer = setTimeout(() => {
+      const modalElement = document.getElementById("astrologer-details-modal");
+      if (!modalElement) return;
+
+      const closeBtn = modalElement.querySelector("[aria-label='Close details']") as HTMLElement;
+      if (closeBtn) {
+        closeBtn.focus();
+      }
+
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === "Escape") {
+          setSelectedKey(null);
+          return;
+        }
+
+        if (e.key === "Tab") {
+          const focusableElements = modalElement.querySelectorAll(
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+          );
+          if (focusableElements.length === 0) return;
+
+          const firstElement = focusableElements[0] as HTMLElement;
+          const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
+
+          if (e.shiftKey) {
+            if (document.activeElement === firstElement) {
+              lastElement.focus();
+              e.preventDefault();
+            }
+          } else {
+            if (document.activeElement === lastElement) {
+              firstElement.focus();
+              e.preventDefault();
+            }
+          }
+        }
+      };
+
+      document.addEventListener("keydown", handleKeyDown);
+
+      return () => {
+        document.removeEventListener("keydown", handleKeyDown);
+      };
+    }, 50);
+
+    const previousActiveElement = document.activeElement as HTMLElement;
+
+    return () => {
+      clearTimeout(timer);
+      if (previousActiveElement && typeof previousActiveElement.focus === "function") {
+        previousActiveElement.focus();
+      }
+    };
+  }, [astrologer, setSelectedKey]);
 
   const handleCopyText = (text: string, label: string) => {
     navigator.clipboard.writeText(text);
@@ -181,6 +239,10 @@ export default function Globe3DDemo({ className, locale = "en" }: Globe3DDemoPro
       >
         {/* Modal Box */}
         <div
+          id="astrologer-details-modal"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="modal-title"
           className="w-full max-w-[330px] sm:max-w-[340px] max-h-[85vh] sm:max-h-[80vh] bg-card/95 backdrop-blur-2xl border border-gold/45 rounded-xl shadow-[0_0_50px_-12px_rgba(220,190,116,0.18)] p-3.5 flex flex-col gap-2.5 relative text-foreground cursor-default transition-all duration-300 transform scale-100 animate-in fade-in zoom-in-95 duration-200 overflow-hidden before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-gold/50 before:to-transparent"
           onClick={(e) => e.stopPropagation()}
         >
@@ -225,7 +287,7 @@ export default function Globe3DDemo({ className, locale = "en" }: Globe3DDemoPro
               </div>
 
               {/* Text Meta */}
-              <h3 className="font-serif text-base sm:text-lg font-bold tracking-wide text-foreground">
+              <h3 id="modal-title" className="font-serif text-base sm:text-lg font-bold tracking-wide text-foreground">
                 {astrologer.name}
               </h3>
               <p className="text-[11px] sm:text-xs text-gold font-semibold mt-0.5">
@@ -315,14 +377,20 @@ export default function Globe3DDemo({ className, locale = "en" }: Globe3DDemoPro
           </div>
 
           {/* Sticky Call to Action Button */}
-          <div className="pt-2 border-t border-border/20 shrink-0 transition-transform duration-100 active:scale-[0.98]">
+          <div className="pt-2 border-t border-border/20 shrink-0 flex gap-2">
+            <a
+              href={`/${locale}/astrologers/${selectedKey}`}
+              className="flex-1 flex items-center justify-center bg-neutral-900 border border-gold/30 hover:border-gold text-foreground hover:text-gold font-semibold py-2 px-2.5 rounded-full transition-all text-xs font-sans tracking-wide text-center"
+            >
+              View Profile
+            </a>
             <a
               href={getPrefilledWhatsappUrl(astrologer.name)}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-primary to-primary/90 hover:from-primary/95 hover:to-primary/85 text-primary-foreground font-semibold py-2 px-4 rounded-full shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all cursor-pointer text-xs font-sans tracking-wide"
+              className="flex-1 flex items-center justify-center gap-1.5 bg-gradient-to-r from-[#25D366] to-[#128C7E] hover:from-[#22c35e] hover:to-[#0f7c6f] text-white font-semibold py-2 px-2.5 rounded-full shadow-lg shadow-emerald-500/10 transition-all cursor-pointer text-xs font-sans tracking-wide text-center"
             >
-              <MessageCircle className="w-3.5 h-3.5" />
+              <img src="/social-icons/whatsapp.png" alt="WhatsApp" className="w-3.5 h-3.5 object-contain shrink-0" />
               {t("consult_now")}
             </a>
           </div>
