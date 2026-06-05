@@ -312,6 +312,9 @@ export function constructMetadata(input: BuildMetaInput = {}): Metadata {
         },
         manifest: "/favicons/site.webmanifest",
         category: "astrology",
+        verification: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+            ? { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION }
+            : undefined,
     };
 }
 
