@@ -45,10 +45,10 @@ export function ExcitementToaster() {
       triggerExcitementToast();
     }, 6000);
 
-    // Then trigger every 30 seconds
+    // Then trigger every 60 seconds
     const interval = setInterval(() => {
       triggerExcitementToast();
-    }, 30000);
+    }, 60000);
 
     return () => {
       clearTimeout(initialTimer);

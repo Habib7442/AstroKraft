@@ -85,11 +85,11 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
                   <div className="absolute -left-20 -bottom-20 w-[300px] h-[300px] rounded-full bg-primary/10 blur-[80px] pointer-events-none" />
 
                   {/* Top: Profile Header & Layout */}
-                  <div className="flex flex-col sm:flex-row gap-6 relative z-10 h-full">
+                  <div className="flex flex-col md:flex-row gap-6 items-start relative z-10 h-full w-full">
                     {/* Left/Top: Giant Avatar frame */}
-                    <div className="flex flex-col items-center shrink-0">
+                    <div className="flex flex-col items-start shrink-0">
                       <div className="relative">
-                        <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-2 border-gold bg-neutral-900 shadow-2xl p-1">
+                        <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-gold bg-neutral-900 shadow-2xl p-1">
                           <img
                             src={ast.src}
                             alt={ast.name}
@@ -98,14 +98,14 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
                           />
                         </div>
                         {/* Live Status indicator */}
-                        <span className="absolute bottom-1 right-1 flex h-4 w-4">
+                        <span className="absolute bottom-0.5 right-0.5 flex h-3.5 w-3.5">
                           <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 bg-emerald-400" />
-                          <span className="relative inline-flex rounded-full h-4 w-4 border-2 border-card bg-emerald-500 shadow-sm" />
+                          <span className="relative inline-flex rounded-full h-3.5 w-3.5 border-2 border-card bg-emerald-500 shadow-sm" />
                         </span>
                       </div>
 
                       {/* Prominent Badges */}
-                      <span className="mt-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-semibold tracking-wider uppercase border bg-gold/10 text-gold border-gold/30">
+                      <span className="mt-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-semibold tracking-wider uppercase border bg-gold/10 text-gold border-gold/30 whitespace-nowrap">
                         ✦ Founder & Director
                       </span>
                     </div>
@@ -118,10 +118,10 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
                             {ast.name}
                           </h3>
                           {/* Rating & reviews */}
-                          <div className="flex items-center gap-1.5 bg-neutral-900/40 border border-white/5 px-2.5 py-1 rounded-full text-[11px] w-fit">
-                            <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
+                          <div className="flex items-center gap-1.5 bg-neutral-900/40 border border-white/5 px-2.5 py-1 rounded-full text-[11px] w-fit whitespace-nowrap shrink-0">
+                            <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400 shrink-0" />
                             <span className="font-bold text-foreground">{ast.rating} / 5</span>
-                            <span className="text-muted-foreground">({ast.reviews} reviews)</span>
+                            <span className="text-muted-foreground text-[10px]">({ast.reviews} reviews)</span>
                           </div>
                         </div>
 
@@ -181,7 +181,7 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
             return (
               <div
                 key={key}
-                className="group/bento shadow-md row-span-1 flex flex-col justify-between space-y-3.5 rounded-xl border border-border/40 bg-card p-4.5 transition duration-200 hover:shadow-lg hover:shadow-gold/5 hover:border-gold/45 text-foreground dark:border-border/30 relative overflow-hidden"
+                className="group/bento shadow-md row-span-1 flex flex-col justify-between space-y-3.5 rounded-xl border border-gold/20 dark:border-gold/25 bg-card p-4.5 transition duration-200 hover:shadow-lg hover:shadow-gold/5 hover:border-gold/45 text-foreground relative overflow-hidden"
               >
                 {/* Header info */}
                 <div className="flex items-start justify-between gap-3 relative z-10">

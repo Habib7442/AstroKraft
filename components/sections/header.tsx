@@ -113,16 +113,7 @@ export function Header({ locale, dict }: HeaderProps) {
               </div>
             </div>
 
-            {/* Theme Toggle Button */}
-            {mounted && (
-              <button
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="p-2 rounded-full border border-border text-muted-foreground hover:text-gold hover:border-gold/30 focus-visible:ring-2 focus-visible:ring-ring transition-colors cursor-pointer"
-                aria-label="Toggle Theme"
-              >
-                {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-              </button>
-            )}
+
 
             {/* Primary Action Button */}
             <Button
@@ -199,32 +190,6 @@ export function Header({ locale, dict }: HeaderProps) {
                         </button>
                       ))}
                     </div>
-                  </div>
-
-                  {/* Theme Switcher Toggle */}
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                      {locale === "hin" ? "थीम बदलें" : locale === "bn" ? "থিম পরিবর্তন" : "Appearance"}
-                    </span>
-                    {mounted && (
-                      <button
-                        onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                        className="flex items-center gap-2 px-3 py-1.5 rounded-md border border-border bg-card text-foreground text-xs font-medium hover:border-gold/30 transition-colors cursor-pointer"
-                        aria-label="Toggle Theme"
-                      >
-                        {theme === "dark" ? (
-                          <>
-                            <Sun className="w-3.5 h-3.5 text-gold" />
-                            <span>Light</span>
-                          </>
-                        ) : (
-                          <>
-                            <Moon className="w-3.5 h-3.5 text-muted-foreground" />
-                            <span>Dark</span>
-                          </>
-                        )}
-                      </button>
-                    )}
                   </div>
                 </div>
 
