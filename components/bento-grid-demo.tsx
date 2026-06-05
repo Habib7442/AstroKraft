@@ -75,11 +75,11 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
               return (
                 <div
                   key={key}
-                  className="group/bento shadow-xl md:col-span-2 md:row-span-2 flex flex-col justify-between rounded-xl border border-gold bg-gradient-to-b from-card via-card to-primary/5 p-6 relative overflow-hidden text-foreground transition duration-200 hover:shadow-gold/10 hover:border-gold/90 min-h-[30rem] md:min-h-0"
+                  className="group/bento shadow-xl md:col-span-2 md:row-span-2 flex flex-col justify-between rounded-xl border border-gold bg-gradient-to-b from-card via-card to-primary/5 p-6 relative overflow-hidden text-foreground transition-colors duration-200 hover:shadow-gold/10 hover:border-gold/90 min-h-[30rem] md:min-h-0 will-change-transform [transform:translate3d(0,0,0)]"
                 >
                   {/* Decorative background glow */}
-                  <div className="absolute -right-20 -top-20 w-[300px] h-[300px] rounded-full bg-gold/10 blur-[80px] pointer-events-none" />
-                  <div className="absolute -left-20 -bottom-20 w-[300px] h-[300px] rounded-full bg-primary/10 blur-[80px] pointer-events-none" />
+                  <div className="absolute -right-20 -top-20 w-[300px] h-[300px] rounded-full bg-gold/10 blur-[80px] pointer-events-none will-change-transform [transform:translate3d(0,0,0)]" />
+                  <div className="absolute -left-20 -bottom-20 w-[300px] h-[300px] rounded-full bg-primary/10 blur-[80px] pointer-events-none will-change-transform [transform:translate3d(0,0,0)]" />
 
                   {/* Top: Profile Header & Layout */}
                   <div className="flex flex-col md:flex-row gap-6 items-stretch relative z-10 h-full w-full">
@@ -199,7 +199,7 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
             return (
               <div
                 key={key}
-                className="group/bento shadow-md row-span-1 flex flex-col justify-between space-y-3.5 rounded-xl border border-gold/20 dark:border-gold/25 bg-card p-4.5 transition duration-200 hover:shadow-lg hover:shadow-gold/5 hover:border-gold/45 text-foreground relative overflow-hidden"
+                className="group/bento shadow-md row-span-1 flex flex-col justify-between space-y-3.5 rounded-xl border border-gold/20 dark:border-gold/25 bg-card p-4.5 transition-colors duration-200 hover:shadow-lg hover:shadow-gold/5 hover:border-gold/45 text-foreground relative overflow-hidden will-change-transform [transform:translate3d(0,0,0)]"
               >
                 {/* Header info */}
                 <div className="flex items-start justify-between gap-3 relative z-10">

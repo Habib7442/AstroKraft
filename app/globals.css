@@ -177,3 +177,9 @@
     animation: none;
   }
 }
+
+/* Optimize scroll performance: disable pointer events / hover states during scroll */
+.disable-hover,
+.disable-hover * {
+  pointer-events: none !important;
+}
