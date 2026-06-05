@@ -7,6 +7,8 @@ import { X, Star, MessageCircle, Globe, Award, MapPin } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useGlobeStore } from "@/lib/store/useGlobeStore";
 
+import ASTROLOGERS_DATA from "@/lib/data/astrologer.json";
+
 // ============================================================================
 // Multi-lingual Astrologer Data
 // ============================================================================
@@ -14,155 +16,21 @@ import { useGlobeStore } from "@/lib/store/useGlobeStore";
 interface AstrologerInfo {
   name: string;
   specialty: Record<string, string>;
+  description: Record<string, string>;
   experience: number;
   rating: number;
   reviews: number;
   languages: Record<string, string[]>;
   city: Record<string, string>;
+  address: Record<string, string>;
+  phone: string;
+  email: string;
+  fee: number;
   status: "online" | "busy";
   src: string;
 }
 
-const ASTROLOGERS: Record<string, AstrologerInfo> = {
-  acharya_abhi_shastri: {
-    name: "Acharya Abhi Shastri",
-    specialty: {
-      en: "Vedic Astrology & Vastu Shastra",
-      hin: "वैदिक ज्योतिष और वास्तु शास्त्र",
-      bn: "বৈদিক জ্যোতিষ ও বাস্তুশাস্ত্র"
-    },
-    experience: 12,
-    rating: 4.9,
-    reviews: 1520,
-    languages: {
-      en: ["English", "Hindi"],
-      hin: ["अंग्रेजी", "हिंदी"],
-      bn: ["ইংরেজি", "হিন্দি"]
-    },
-    city: {
-      en: "Cape Town",
-      hin: "केप टाउन",
-      bn: "কেপ টাউন"
-    },
-    status: "online",
-    src: "/assets/astrologers/acharya_abhi_shastri.webp"
-  },
-  acharya_sneha: {
-    name: "Acharya Sneha",
-    specialty: {
-      en: "KP Astrology & Numerology expert",
-      hin: "केपी ज्योतिष और अंकशास्त्र विशेषज्ञ",
-      bn: "কেপি জ্যোতিষ ও সংখ্যাতত্ত্ব বিশেষজ্ঞ"
-    },
-    experience: 8,
-    rating: 4.8,
-    reviews: 980,
-    languages: {
-      en: ["English", "Hindi"],
-      hin: ["अंग्रेजी", "हिंदी"],
-      bn: ["ইংরেজি", "হিন্দি"]
-    },
-    city: {
-      en: "London",
-      hin: "लंदन",
-      bn: "লন্ডন"
-    },
-    status: "online",
-    src: "/assets/astrologers/acharya_sneha.webp"
-  },
-  acharya_bhakta_vedanta: {
-    name: "Acharya Bhakta Vedanta",
-    specialty: {
-      en: "Vedic Remedies & Kundli Milan Specialist",
-      hin: "वैदिक उपाय और कुंडली मिलान विशेषज्ञ",
-      bn: "বৈদিক প্রতিকার ও কুন্ডলী মিলন বিশেষজ্ঞ"
-    },
-    experience: 15,
-    rating: 4.95,
-    reviews: 2450,
-    languages: {
-      en: ["Hindi", "Bengali", "Sanskrit"],
-      hin: ["हिंदी", "बंगाली", "संस्कृत"],
-      bn: ["হিন্দি", "বাংলা", "সংস্কৃত"]
-    },
-    city: {
-      en: "New York",
-      hin: "नया साल",
-      bn: "নিউ ইয়র্ক"
-    },
-    status: "busy",
-    src: "/assets/astrologers/acharya_bhakta_vedanta.webp"
-  },
-  astrologer_indrajit_dutta: {
-    name: "Astrologer Indrajit Dutta",
-    specialty: {
-      en: "Tantra Shastra & Tarot Card Reading",
-      hin: "तंत्र शास्त्र और टैरो कार्ड रीडिंग",
-      bn: "তন্ত্র শাস্ত্র ও ট্যারোট কার্ড রিডিং"
-    },
-    experience: 10,
-    rating: 4.85,
-    reviews: 1120,
-    languages: {
-      en: ["Bengali", "Hindi", "English"],
-      hin: ["बंगाली", "हिंदी", "अंग्रेजी"],
-      bn: ["বাংলা", "হিন্দি", "ইংরেজি"]
-    },
-    city: {
-      en: "Sao Paulo",
-      hin: "साओ पाउलो",
-      bn: "সাও পাওলো"
-    },
-    status: "online",
-    src: "/assets/astrologers/astrologer_indrajit_dutta.webp"
-  },
-  rishi_acharya: {
-    name: "Rishi Acharya",
-    specialty: {
-      en: "Horary (Prashna) & Muhurata Specialist",
-      hin: "प्रश्न कुंडली और मुहूर्त विशेषज्ञ",
-      bn: "প্রশ্ন কুন্ডলী ও মুহূর্ত বিশেষজ্ঞ"
-    },
-    experience: 7,
-    rating: 4.75,
-    reviews: 680,
-    languages: {
-      en: ["Hindi", "English"],
-      hin: ["हिंदी", "अंग्रेजी"],
-      bn: ["হিন্দি", "ইংরেজি"]
-    },
-    city: {
-      en: "Sydney",
-      hin: "सिडनी",
-      bn: "সিডনি"
-    },
-    status: "online",
-    src: "/assets/astrologers/rishi_acharya.webp"
-  },
-  biprangshu_bhattacharjee: {
-    name: "Biprangshu Bhattacharjee",
-    specialty: {
-      en: "Gemstone Remedies & Founder",
-      hin: "रत्न उपाय और संस्थापक",
-      bn: "রত্ন প্রতিকার ও প্রতিষ্ঠাতা"
-    },
-    experience: 11,
-    rating: 4.90,
-    reviews: 1340,
-    languages: {
-      en: ["Bengali", "Hindi", "English"],
-      hin: ["बंगाली", "हिंदी", "अंग्रेजी"],
-      bn: ["বাংলা", "হিন্দি", "ইংরেজি"]
-    },
-    city: {
-      en: "New Delhi",
-      hin: "नई दिल्ली",
-      bn: "নয়াদিল্লি"
-    },
-    status: "online",
-    src: "/assets/astrologers/biprangshu_bhattacharjee.webp"
-  }
-};
+const ASTROLOGERS = ASTROLOGERS_DATA as Record<string, AstrologerInfo>;
 
 const srcToKeyMap: Record<string, string> = {
   "/assets/astrologers/acharya_abhi_shastri.webp": "acharya_abhi_shastri",
@@ -283,115 +151,119 @@ export default function Globe3DDemo({ className, locale = "en" }: Globe3DDemoPro
       >
         {/* Modal Box */}
         <div
-          className="w-full max-w-[340px] sm:max-w-[360px] bg-card/95 backdrop-blur-2xl border border-gold/45 rounded-2xl shadow-[0_0_50px_-12px_rgba(220,190,116,0.18)] p-5 flex flex-col gap-3 relative text-foreground cursor-default transition-all duration-300 transform scale-100 animate-in fade-in zoom-in-95 duration-200 overflow-hidden before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-gold/50 before:to-transparent"
+          className="w-full max-w-[330px] sm:max-w-[340px] max-h-[85vh] sm:max-h-[80vh] bg-card/95 backdrop-blur-2xl border border-gold/45 rounded-xl shadow-[0_0_50px_-12px_rgba(220,190,116,0.18)] p-3.5 flex flex-col gap-2.5 relative text-foreground cursor-default transition-all duration-300 transform scale-100 animate-in fade-in zoom-in-95 duration-200 overflow-hidden before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-gold/50 before:to-transparent"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Close Button */}
           <button
             onClick={() => setSelectedKey(null)}
-            className="absolute top-3.5 right-3.5 p-1 rounded-full text-muted-foreground hover:text-foreground hover:bg-white/5 transition-colors focus-visible:outline focus-visible:outline-ring/50 cursor-pointer"
+            className="absolute top-3 right-3 p-1 rounded-full text-muted-foreground hover:text-foreground hover:bg-white/5 transition-colors focus-visible:outline focus-visible:outline-ring/50 cursor-pointer z-50"
             aria-label="Close details"
           >
-            <X className="w-4.5 h-4.5" />
+            <X className="w-4 h-4" />
           </button>
 
-          {/* Profile Info Header */}
-          <div className="flex flex-col items-center text-center mt-1">
-            {/* Avatar Frame with Pulse Status */}
-            <div className="relative shrink-0 mb-2.5">
-              <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-gold/50 bg-neutral-900 shadow-md p-0.5">
-                <img
-                  src={astrologer.src}
-                  alt={astrologer.name}
-                  className="w-full h-full object-cover rounded-full select-none"
-                  draggable={false}
-                />
+          {/* Scrollable Content Wrapper */}
+          <div className="flex-1 overflow-y-auto pr-1 flex flex-col gap-2.5 scrollbar-thin scrollbar-thumb-border scrollbar-track-transparent">
+            {/* Profile Info Header */}
+            <div className="flex flex-col items-center text-center mt-1">
+              {/* Avatar Frame with Pulse Status */}
+              <div className="relative shrink-0 mb-1.5">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden border-2 border-gold/50 bg-neutral-900 shadow-md p-0.5">
+                  <img
+                    src={astrologer.src}
+                    alt={astrologer.name}
+                    className="w-full h-full object-cover rounded-full select-none"
+                    draggable={false}
+                  />
+                </div>
+                {/* Pulse Indicator */}
+                <span className="absolute bottom-0.5 right-0.5 flex h-3 w-3">
+                  <span
+                    className={cn(
+                      "animate-ping absolute inline-flex h-full w-full rounded-full opacity-75",
+                      astrologer.status === "online" ? "bg-emerald-400" : "bg-amber-400"
+                    )}
+                  />
+                  <span
+                    className={cn(
+                      "relative inline-flex rounded-full h-3 w-3 border-2 border-card shadow-sm",
+                      astrologer.status === "online" ? "bg-emerald-500" : "bg-amber-500"
+                    )}
+                  />
+                </span>
               </div>
-              {/* Pulse Indicator */}
-              <span className="absolute bottom-0.5 right-0.5 flex h-3.5 w-3.5">
+
+              {/* Text Meta */}
+              <h3 className="font-serif text-base sm:text-lg font-bold tracking-wide text-foreground">
+                {astrologer.name}
+              </h3>
+              <p className="text-[11px] sm:text-xs text-gold font-semibold mt-0.5">
+                {astrologer.specialty[activeLocale] || astrologer.specialty["en"]}
+              </p>
+              <p className="text-[10px] sm:text-[11px] text-muted-foreground leading-relaxed mt-1.5 max-w-xs font-sans border-t border-border/20 pt-1.5 px-1 text-center">
+                {astrologer.description[activeLocale] || astrologer.description["en"]}
+              </p>
+              <span
+                className={cn(
+                  "inline-flex items-center gap-1.5 mt-2 px-2.5 py-0.5 rounded-full text-[9px] sm:text-[10px] font-semibold tracking-wider uppercase border",
+                  astrologer.status === "online"
+                    ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
+                    : "bg-amber-500/10 text-amber-400 border-amber-500/20"
+                )}
+              >
                 <span
                   className={cn(
-                    "animate-ping absolute inline-flex h-full w-full rounded-full opacity-75",
+                    "h-1.5 w-1.5 rounded-full animate-pulse",
                     astrologer.status === "online" ? "bg-emerald-400" : "bg-amber-400"
                   )}
                 />
-                <span
-                  className={cn(
-                    "relative inline-flex rounded-full h-3.5 w-3.5 border-2 border-card shadow-sm",
-                    astrologer.status === "online" ? "bg-emerald-500" : "bg-amber-500"
-                  )}
-                />
+                {astrologer.status === "online" ? t("online") : t("busy")}
               </span>
             </div>
 
-            {/* Text Meta */}
-            <h3 className="font-serif text-lg sm:text-xl font-bold tracking-wide text-foreground">
-              {astrologer.name}
-            </h3>
-            <p className="text-xs sm:text-sm text-muted-foreground leading-normal mt-1.5 max-w-xs font-sans">
-              {astrologer.specialty[activeLocale] || astrologer.specialty["en"]}
-            </p>
-            <span
-              className={cn(
-                "inline-flex items-center gap-1.5 mt-3.5 px-3 py-1 rounded-full text-[11px] font-semibold tracking-wider uppercase border",
-                astrologer.status === "online"
-                  ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
-                  : "bg-amber-500/10 text-amber-400 border-amber-500/20"
-              )}
-            >
-              <span
-                className={cn(
-                  "h-1.5 w-1.5 rounded-full animate-pulse",
-                  astrologer.status === "online" ? "bg-emerald-400" : "bg-amber-400"
-                )}
-              />
-              {astrologer.status === "online" ? t("online") : t("busy")}
-            </span>
-          </div>
+            {/* Badges & Stats Grid */}
+            <div className="grid grid-cols-2 gap-1.5 border-y border-border/30 py-2 my-0.5">
+              <div className="flex flex-col items-center justify-center p-1 rounded-lg bg-neutral-900/50 border border-white/5">
+                <Award className="w-3.5 h-3.5 text-gold shrink-0 mb-0.5" />
+                <span className="text-[8px] text-muted-foreground font-sans uppercase tracking-wider scale-95">Experience</span>
+                <span className="font-serif text-[10px] font-semibold mt-0.5 text-foreground">{astrologer.experience} {t("exp")}</span>
+              </div>
+              <div className="flex flex-col items-center justify-center p-1 rounded-lg bg-neutral-900/50 border border-white/5">
+                <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400 shrink-0 mb-0.5" />
+                <span className="text-[8px] text-muted-foreground font-sans uppercase tracking-wider scale-95">Rating</span>
+                <span className="font-serif text-[10px] font-semibold mt-0.5 text-foreground">{astrologer.rating} / 5</span>
+              </div>
+            </div>
 
-          {/* Badges & Stats Grid */}
-          <div className="grid grid-cols-3 gap-2 border-y border-border/30 py-3 my-1">
-            <div className="flex flex-col items-center justify-center p-1.5 rounded-lg bg-neutral-900/50 border border-white/5">
-              <Award className="w-4.5 h-4.5 text-gold shrink-0 mb-0.5" />
-              <span className="text-[9px] text-muted-foreground font-sans uppercase tracking-wider scale-90">Experience</span>
-              <span className="font-serif text-xs font-semibold mt-0.5 text-foreground">{astrologer.experience} {t("exp")}</span>
-            </div>
-            <div className="flex flex-col items-center justify-center p-1.5 rounded-lg bg-neutral-900/50 border border-white/5">
-              <Star className="w-4.5 h-4.5 text-amber-400 fill-amber-400 shrink-0 mb-0.5" />
-              <span className="text-[9px] text-muted-foreground font-sans uppercase tracking-wider scale-90">Rating</span>
-              <span className="font-serif text-xs font-semibold mt-0.5 text-foreground">{astrologer.rating} / 5</span>
-            </div>
-            <div className="flex flex-col items-center justify-center p-1.5 rounded-lg bg-neutral-900/50 border border-white/5">
-              <MapPin className="w-4.5 h-4.5 text-gold shrink-0 mb-0.5" />
-              <span className="text-[9px] text-muted-foreground font-sans uppercase tracking-wider scale-90">Location</span>
-              <span className="font-serif text-xs font-semibold mt-0.5 text-foreground truncate max-w-full text-center">
-                {astrologer.city[activeLocale] || astrologer.city["en"]}
-              </span>
+            {/* Contact Details & Fee Card */}
+            <div className="flex flex-col gap-1.5 bg-neutral-900/55 border border-white/5 rounded-xl p-2.5 text-[11px] font-sans">
+              <div className="flex items-center justify-between text-muted-foreground">
+                <span>💰 Consultation Fee</span>
+                <span className="font-semibold text-gold font-serif text-xs">₹{astrologer.fee.toFixed(2)}</span>
+              </div>
+              <div className="flex items-center justify-between text-muted-foreground">
+                <span>📞 Phone</span>
+                <a href={`tel:${astrologer.phone}`} className="font-medium text-foreground hover:text-gold transition-colors">{astrologer.phone}</a>
+              </div>
+              <div className="flex items-center justify-between text-muted-foreground">
+                <span>📧 Email</span>
+                <a href={`mailto:${astrologer.email}`} className="font-medium text-foreground hover:text-gold transition-colors select-all truncate max-w-[170px] text-right">{astrologer.email}</a>
+              </div>
+              <div className="border-t border-border/20 pt-1.5 mt-0.5 text-[10px] text-muted-foreground flex flex-col gap-0.5">
+                <span className="font-semibold text-foreground uppercase tracking-wide text-[8px]">Address</span>
+                <span className="leading-relaxed">{astrologer.address[activeLocale] || astrologer.address["en"]}</span>
+              </div>
             </div>
           </div>
 
-          {/* Languages List */}
-          <div className="flex flex-col gap-1.5">
-            <span className="text-[10px] text-muted-foreground font-sans font-semibold uppercase tracking-wider">Languages</span>
-            <div className="flex flex-wrap gap-1.5">
-              {(astrologer.languages[activeLocale] || astrologer.languages["en"]).map((lang) => (
-                <span
-                  key={lang}
-                  className="px-2.5 py-0.5 rounded-full bg-secondary/50 text-secondary-foreground text-[10px] font-medium border border-border/30"
-                >
-                  {lang}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* Call to Action Button */}
-          <div className="mt-2 transition-transform duration-100 active:scale-[0.98]">
+          {/* Sticky Call to Action Button */}
+          <div className="pt-2 border-t border-border/20 shrink-0 transition-transform duration-100 active:scale-[0.98]">
             <a
               href={getPrefilledWhatsappUrl(astrologer.name)}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-primary to-primary/90 hover:from-primary/95 hover:to-primary/85 text-primary-foreground font-semibold py-2.5 px-6 rounded-full shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all cursor-pointer text-xs font-sans tracking-wide"
+              className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-primary to-primary/90 hover:from-primary/95 hover:to-primary/85 text-primary-foreground font-semibold py-2 px-4 rounded-full shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all cursor-pointer text-xs font-sans tracking-wide"
             >
               <MessageCircle className="w-3.5 h-3.5" />
               {t("consult_now")}

@@ -10,6 +10,7 @@
 
 ## Completed
 
+- Extracted astrologer profile data to a centralized [astrologer.json](file:///e:/Web%20Dev/astrokraft/lib/data/astrologer.json) file and updated the 3D globe dialog card in [3d-globe-demo.tsx](file:///e:/Web%20Dev/astrokraft/components/3d-globe-demo.tsx) to dynamically render localized descriptions, phone, email, fee, and address, refactoring it to use a compact, scrollable layout with fixed headers/sticky CTA, removing the languages tag list, and removing the city/geographic location stat column (as all astrologers operate in India) to prevent viewport overflow on smaller screens.
 - Configured application `name`, `short_name`, favicon routing path prefixes, and brand theme/background colors (`#0c0a16`) in [site.webmanifest](file:///e:/Web%20Dev/astrokraft/public/favicons/site.webmanifest) to enable cohesive browser PWA installation.
 - Implemented `isValidLocale` type guard in [seo.ts](file:///e:/Web%20Dev/astrokraft/lib/seo.ts) and integrated it in both [page.tsx](file:///e:/Web%20Dev/astrokraft/app/%5Blocale%5D/page.tsx) and [layout.tsx](file:///e:/Web%20Dev/astrokraft/app/%5Blocale%5D/layout.tsx) to remove unsafe `as any` type assertions during dynamic route parameter validation.
 - Refactored `LenisProvider` in [lenis-provider.tsx](file:///e:/Web%20Dev/astrokraft/components/providers/lenis-provider.tsx) to consume its defined `LenisProviderProps` type interface rather than an inline type signature.
