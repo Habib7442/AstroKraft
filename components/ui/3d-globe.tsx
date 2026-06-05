@@ -288,7 +288,14 @@ function RotatingGlobe({
   }, [config.radius]);
 
   return (
-    <group ref={groupRef}>
+    <group
+      ref={groupRef}
+      rotation={[
+        config.initialRotation.x,
+        config.initialRotation.y,
+        0
+      ]}
+    >
       {/* Main globe mesh with Earth texture */}
       <mesh geometry={geometry}>
         <meshStandardMaterial
@@ -461,10 +468,18 @@ function Scene({ markers, config, onMarkerClick, onMarkerHover }: SceneProps) {
 function LoadingFallback() {
   return (
     <Html center>
-      <div className="flex shrink-0 flex-col items-center gap-3">
-        <span className="inline-block shrink-0 text-sm text-neutral-400">
-          Loading globe...
-        </span>
+      <div className="flex flex-col items-center justify-center gap-3 min-w-[200px] p-4 bg-card/90 border border-gold/30 rounded-xl backdrop-blur-md shadow-2xl text-center">
+        {/* Animated outer celestial ring */}
+        <div className="relative w-12 h-12 flex items-center justify-center">
+          <div className="absolute inset-0 rounded-full border border-dashed border-gold/40 animate-[spin_10s_linear_infinite]" />
+          <div className="w-8 h-8 rounded-full border-2 border-primary/20 border-t-gold animate-spin" />
+        </div>
+        <div className="flex flex-col gap-0.5">
+          <span className="text-xs font-serif font-bold text-foreground tracking-wide">AstroKraft</span>
+          <span className="text-[9px] font-mono text-muted-foreground uppercase tracking-widest animate-pulse">
+            Loading Celestial Map...
+          </span>
+        </div>
       </div>
     </Html>
   );

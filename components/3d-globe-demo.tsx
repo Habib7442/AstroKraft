@@ -340,7 +340,8 @@ export default function Globe3DDemo({ className, locale = "en" }: Globe3DDemoPro
           atmosphereColor: "#c084fc", // Premium cosmic violet glow
           atmosphereIntensity: 15,
           bumpScale: 5,
-          autoRotateSpeed: 0.35 // Enable slow elegant auto rotation
+          autoRotateSpeed: 0.35, // Enable slow elegant auto rotation
+          initialRotation: { x: 0.35, y: -0.6 } // Center view on Africa/Middle East so London, New Delhi, and Cape Town markers display cleanly at startup
         }}
         className="h-full w-full"
         onMarkerClick={handleMarkerClick}
