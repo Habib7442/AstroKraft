@@ -7,6 +7,7 @@ import { LOCALES, constructMetadata, isValidLocale } from "@/lib/seo";
 import { ThemeProvider } from "@/components/theme-provider";
 import { LenisProvider } from "@/components/providers/lenis-provider";
 import { Toaster } from "@/components/ui/sonner";
+import { ExcitementToaster } from "@/components/excitement-toaster";
 
 const geistSans = Geist({
   variable: "--font-sans",
@@ -67,7 +68,8 @@ export default async function RootLayout({
         >
           <LenisProvider>
             {children}
-            <Toaster />
+            <Toaster position="top-center" />
+            <ExcitementToaster />
           </LenisProvider>
         </ThemeProvider>
       </body>
