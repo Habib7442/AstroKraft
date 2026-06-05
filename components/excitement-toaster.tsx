@@ -2,7 +2,6 @@
 
 import { useEffect } from "react";
 import { toast } from "sonner";
-import { Sparkles } from "lucide-react";
 
 const NAMES = [
   "Rahul", "Priya", "Vikram", "Ananya", "Amit", "Sneha", "Rajesh", "Kiran",
@@ -63,7 +62,6 @@ export function ExcitementToaster() {
     const message = actionCreator(name, loc);
 
     toast(message, {
-      icon: <Sparkles className="w-4 h-4 text-gold animate-pulse" />,
       duration: 4000,
       description: "Live AstroKraft Activity",
       className: "border border-gold/30 bg-card/95 text-foreground backdrop-blur-md shadow-lg shadow-gold/5",

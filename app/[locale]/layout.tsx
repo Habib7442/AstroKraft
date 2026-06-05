@@ -68,7 +68,7 @@ export default async function RootLayout({
         >
           <LenisProvider>
             {children}
-            <Toaster position="top-center" />
+            <Toaster position="top-right" />
             <ExcitementToaster />
           </LenisProvider>
         </ThemeProvider>
