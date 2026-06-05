@@ -23,7 +23,6 @@ interface AstrologerInfo {
   rating: number;
   reviews: number;
   languages: Record<string, string[]>;
-  city: Record<string, string>;
   address: Record<string, string>;
   phone: string;
   email: string;
@@ -52,37 +51,37 @@ const sampleMarkers: GlobeMarker[] = [
     lat: -33.9249,
     lng: 18.4241,
     src: "/assets/astrologers/acharya_abhi_shastri.webp",
-    label: "Acharya Abhi Shastri (Cape Town)"
+    label: "Acharya Abhi Shastri (India)"
   },
   {
     lat: 51.5074,
     lng: -0.1278,
     src: "/assets/astrologers/acharya_sneha.webp",
-    label: "Acharya Sneha (London)"
+    label: "Acharya Sneha (India)"
   },
   {
     lat: 40.7128,
     lng: -74.0060,
     src: "/assets/astrologers/acharya_bhakta_vedanta.webp",
-    label: "Acharya Bhakta Vedanta (New York)"
+    label: "Acharya Bhakta Vedanta (India)"
   },
   {
     lat: -23.5505,
     lng: -46.6333,
     src: "/assets/astrologers/astrologer_indrajit_dutta.webp",
-    label: "Astrologer Indrajit Dutta (Sao Paulo)"
+    label: "Astrologer Indrajit Dutta (India)"
   },
   {
     lat: -33.8688,
     lng: 151.2093,
     src: "/assets/astrologers/rishi_acharya.webp",
-    label: "Rishi Acharya (Sydney)"
+    label: "Rishi Acharya (India)"
   },
   {
     lat: 28.6139,
     lng: 77.2090,
     src: "/assets/astrologers/biprangshu_bhattacharjee.webp",
-    label: "Biprangshu Bhattacharjee (New Delhi)"
+    label: "Biprangshu Bhattacharjee (India)"
   }
 ];
 

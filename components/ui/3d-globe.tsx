@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useMemo, useState, useCallback, Suspense } from "react";
+import React, { useRef, useMemo, useState, useCallback, Suspense, useEffect } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls, Html, useTexture } from "@react-three/drei";
 import * as THREE from "three";
@@ -127,6 +127,7 @@ function Marker({
 }: MarkerProps) {
   const [hovered, setHovered] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
+  const isVisibleRef = useRef(true); // Track current visibility state
   const groupRef = useRef<THREE.Group>(null);
   const imageGroupRef = useRef<THREE.Group>(null);
   const { camera } = useThree();
@@ -143,25 +144,33 @@ function Marker({
 
   const lineHeight = topPosition.distanceTo(surfacePosition);
 
+  // Pre-allocate vectors to prevent garbage collection thrashing in useFrame
+  const worldPos = useMemo(() => new THREE.Vector3(), []);
+  const markerDirection = useMemo(() => new THREE.Vector3(), []);
+  const cameraDirection = useMemo(() => new THREE.Vector3(), []);
+
   // Check if marker is facing the camera
   useFrame(() => {
     if (!imageGroupRef.current) return;
 
-    // Get the world position of the image (the positioned element)
-    const worldPos = new THREE.Vector3();
+    // Get the world position of the image (the positioned element) in-place
     imageGroupRef.current.getWorldPosition(worldPos);
 
-    // Direction from globe center (0,0,0) to marker
-    const markerDirection = worldPos.clone().normalize();
+    // Direction from globe center (0,0,0) to marker (copy and normalize in-place)
+    markerDirection.copy(worldPos).normalize();
 
-    // Direction from globe center to camera
-    const cameraDirection = camera.position.clone().normalize();
+    // Direction from globe center to camera (copy and normalize in-place)
+    cameraDirection.copy(camera.position).normalize();
 
     // Dot product: positive means facing camera, negative means behind
     const dot = markerDirection.dot(cameraDirection);
 
-    // Show marker only if it's facing the camera (stricter threshold)
-    setIsVisible(dot > 0.1);
+    // Only update state if visibility status actually changes (prevents scheduling React updates 60 FPS)
+    const nextVisible = dot > 0.1;
+    if (isVisibleRef.current !== nextVisible) {
+      isVisibleRef.current = nextVisible;
+      setIsVisible(nextVisible);
+    }
   });
 
   const handlePointerEnter = useCallback(() => {
@@ -520,14 +529,38 @@ export function Globe3D({
   onMarkerClick,
   onMarkerHover,
 }: Globe3DProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isInView, setIsInView] = useState(true);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    // Use IntersectionObserver to pause R3F rendering when off-screen (prevents scroll lag)
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      {
+        rootMargin: "100px", // start rendering slightly before it enters viewport
+        threshold: 0,
+      }
+    );
+    observer.observe(el);
+    return () => {
+      observer.unobserve(el);
+    };
+  }, []);
+
   const mergedConfig = useMemo(
     () => ({ ...defaultConfig, ...config }),
     [config],
   );
 
   return (
-    <div className={cn("relative h-[500px] w-full", className)}>
+    <div ref={containerRef} className={cn("relative h-[500px] w-full", className)}>
       <Canvas
+        frameloop={isInView ? "always" : "never"}
         gl={{
           antialias: true,
           alpha: true,

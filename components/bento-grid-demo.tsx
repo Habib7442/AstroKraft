@@ -14,7 +14,6 @@ interface AstrologerInfo {
   rating: number;
   reviews: number;
   languages: Record<string, string[]>;
-  city: Record<string, string>;
   address: Record<string, string>;
   phone: string;
   email: string;

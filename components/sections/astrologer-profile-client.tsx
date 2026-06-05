@@ -16,7 +16,6 @@ interface AstrologerInfo {
   rating: number;
   reviews: number;
   languages: Record<string, string[]>;
-  city: Record<string, string>;
   address: Record<string, string>;
   phone: string;
   email: string;
@@ -161,7 +160,9 @@ export default function AstrologerProfileClient({
                 <div className="flex flex-col items-center p-2 rounded-lg bg-white/5 border border-white/5">
                   <Globe className="w-4 h-4 text-gold mb-1" />
                   <span className="text-[9px] text-muted-foreground uppercase">Location</span>
-                  <span className="font-semibold text-foreground mt-0.5">{astrologer.city[activeLocale] || astrologer.city["en"]}</span>
+                  <span className="font-semibold text-foreground mt-0.5">
+                    {activeLocale === "hin" ? "भारत" : activeLocale === "bn" ? "ভারত" : "India"}
+                  </span>
                 </div>
               </div>
             </div>
