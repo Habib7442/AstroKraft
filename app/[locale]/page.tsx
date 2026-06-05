@@ -4,6 +4,7 @@ import { isValidLocale } from "@/lib/seo";
 import { Header } from "@/components/sections/header";
 import { Hero } from "@/components/sections/hero";
 import { Footer } from "@/components/sections/footer";
+import BentoGridDemo from "@/components/bento-grid-demo";
 
 interface PageParams {
   locale: string;
@@ -27,6 +28,9 @@ export default async function Page({ params }: { params: Promise<PageParams> }) 
       <main className="flex-1">
         {/* Observatory Hero Spotlight Section */}
         <Hero locale={locale} dict={dict} />
+
+        {/* Bento Grid showcasing Astrologers */}
+        <BentoGridDemo locale={locale} />
       </main>
 
       {/* Structured Footer Section */}
