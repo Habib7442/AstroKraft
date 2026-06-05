@@ -5,6 +5,7 @@ import { MessageCircle, ShieldCheck, Gem, UserCheck, Users } from "lucide-react"
 import { Button } from "../ui/button";
 
 import Globe3DDemo from "@/components/3d-globe-demo";
+import { PointerHighlightText } from "@/components/pointer-highlight-text";
 
 interface HeroProps {
   locale: string;
@@ -36,8 +37,14 @@ export function Hero({ locale, dict }: HeroProps) {
             </span>
 
             {/* Display Title */}
-            <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-semibold leading-[1.15] tracking-tight text-foreground text-center lg:text-left max-w-3xl">
-              {dict.hero.title}
+            <h1 className="max-w-3xl">
+              <PointerHighlightText
+                text={`${dict.hero.title} with AstroKraft`}
+                highlight="AstroKraft"
+                className="font-serif text-4xl sm:text-5xl lg:text-6xl font-semibold leading-[1.15] tracking-tight text-foreground text-center lg:text-left flex flex-wrap items-center justify-center lg:justify-start gap-x-3 gap-y-2"
+                rectangleClassName="border-gold/60 dark:border-gold/80"
+                pointerClassName="text-gold fill-gold"
+              />
             </h1>
 
             {/* Subline Description */}
