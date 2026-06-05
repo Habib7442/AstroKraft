@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { LOCALES, constructMetadata, isValidLocale } from "@/lib/seo";
 import { ThemeProvider } from "@/components/theme-provider";
 import { LenisProvider } from "@/components/providers/lenis-provider";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-sans",
@@ -66,6 +67,7 @@ export default async function RootLayout({
         >
           <LenisProvider>
             {children}
+            <Toaster />
           </LenisProvider>
         </ThemeProvider>
       </body>

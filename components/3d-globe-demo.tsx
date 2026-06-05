@@ -3,9 +3,11 @@
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { Globe3D, GlobeMarker } from "@/components/ui/3d-globe";
-import { X, Star, MessageCircle, Globe, Award, MapPin } from "lucide-react";
+import { X, Star, MessageCircle, Globe, Award, MapPin, Loader2, Copy } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useGlobeStore } from "@/lib/store/useGlobeStore";
+import { toast } from "sonner";
+import { Skeleton } from "@/components/ui/skeleton";
 
 import ASTROLOGERS_DATA from "@/lib/data/astrologer.json";
 
@@ -124,6 +126,34 @@ export default function Globe3DDemo({ className, locale = "en" }: Globe3DDemoPro
 
   const activeLocale = ["en", "hin", "bn"].includes(locale) ? locale : "en";
   const astrologer = selectedKey ? ASTROLOGERS[selectedKey] : null;
+
+  const handleCopyText = (text: string, label: string) => {
+    navigator.clipboard.writeText(text);
+    toast.success(`${label} copied to clipboard!`, {
+      description: text,
+      duration: 3000,
+    });
+  };
+
+  if (!mounted) {
+    return (
+      <div className={cn("relative w-full h-full flex flex-col justify-center items-center min-h-[500px]", className)}>
+        {/* Pulsing Globe Skeleton */}
+        <div className="relative flex items-center justify-center">
+          <Skeleton className="w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] rounded-full bg-primary/5 border border-gold/15 animate-pulse flex items-center justify-center">
+            {/* Inner rotating orbit skeleton */}
+            <div className="w-[85%] h-[85%] rounded-full border border-dashed border-gold/10 animate-[spin_40s_linear_infinite]" />
+          </Skeleton>
+          <div className="absolute flex flex-col items-center gap-2">
+            <Loader2 className="w-8 h-8 text-gold animate-spin" />
+            <span className="text-xs text-muted-foreground tracking-widest uppercase font-mono animate-pulse">
+              Initializing Universe...
+            </span>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const t = (key: string) => {
     return uiStrings[key]?.[activeLocale] || uiStrings[key]?.["en"] || key;
@@ -244,14 +274,41 @@ export default function Globe3DDemo({ className, locale = "en" }: Globe3DDemoPro
               </div>
               <div className="flex items-center justify-between text-muted-foreground">
                 <span>📞 Phone</span>
-                <a href={`tel:${astrologer.phone}`} className="font-medium text-foreground hover:text-gold transition-colors">{astrologer.phone}</a>
+                <div className="flex items-center gap-1">
+                  <a href={`tel:${astrologer.phone}`} className="font-medium text-foreground hover:text-gold transition-colors">{astrologer.phone}</a>
+                  <button 
+                    onClick={() => handleCopyText(astrologer.phone, "Phone number")}
+                    className="p-1 text-muted-foreground hover:text-foreground hover:bg-white/5 rounded transition-colors cursor-pointer"
+                    title="Copy phone number"
+                  >
+                    <Copy className="w-3 h-3" />
+                  </button>
+                </div>
               </div>
               <div className="flex items-center justify-between text-muted-foreground">
                 <span>📧 Email</span>
-                <a href={`mailto:${astrologer.email}`} className="font-medium text-foreground hover:text-gold transition-colors select-all truncate max-w-[170px] text-right">{astrologer.email}</a>
+                <div className="flex items-center gap-1 max-w-[170px]">
+                  <a href={`mailto:${astrologer.email}`} className="font-medium text-foreground hover:text-gold transition-colors select-all truncate text-right">{astrologer.email}</a>
+                  <button 
+                    onClick={() => handleCopyText(astrologer.email, "Email address")}
+                    className="p-1 text-muted-foreground hover:text-foreground hover:bg-white/5 rounded transition-colors cursor-pointer shrink-0"
+                    title="Copy email address"
+                  >
+                    <Copy className="w-3 h-3" />
+                  </button>
+                </div>
               </div>
               <div className="border-t border-border/20 pt-1.5 mt-0.5 text-[10px] text-muted-foreground flex flex-col gap-0.5">
-                <span className="font-semibold text-foreground uppercase tracking-wide text-[8px]">Address</span>
+                <div className="flex items-center justify-between">
+                  <span className="font-semibold text-foreground uppercase tracking-wide text-[8px]">Address</span>
+                  <button 
+                    onClick={() => handleCopyText(astrologer.address[activeLocale] || astrologer.address["en"], "Address")}
+                    className="p-0.5 text-muted-foreground hover:text-foreground hover:bg-white/5 rounded transition-colors cursor-pointer"
+                    title="Copy address"
+                  >
+                    <Copy className="w-3 h-3" />
+                  </button>
+                </div>
                 <span className="leading-relaxed">{astrologer.address[activeLocale] || astrologer.address["en"]}</span>
               </div>
             </div>
