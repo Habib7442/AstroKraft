@@ -58,12 +58,8 @@ export const SITE = {
         },
     },
     social: {
-        // NOTE: current site uses placeholder links — replace with real profiles.
         facebook: "https://www.facebook.com/AstroGuidee/",
         instagram: "https://www.instagram.com/astro.kraft/",
-        twitter: "https://twitter.com/astrokraft",
-        youtube: "https://www.youtube.com/@astrokraft",
-        linkedin: "https://www.linkedin.com/company/astrokraft",
     },
     foundingRating: { value: "4.5", count: "0" }, // populate count with real reviews before launch
 } as const;
