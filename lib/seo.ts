@@ -58,7 +58,7 @@ export const SITE = {
         },
     },
     social: {
-        facebook: "https://www.facebook.com/AstroGuidee/",
+        facebook: "https://www.facebook.com/people/Astrokraft/61558832911971/?rdid=WUdxTWJNbU7yWdjU&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1HELUYLf52%2F",
         instagram: "https://www.instagram.com/astro.kraft/",
     },
     foundingRating: { value: "4.5", count: "0" }, // populate count with real reviews before launch
