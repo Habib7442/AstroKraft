@@ -1,4 +1,4 @@
-# AstroKraft — Project Overview
+# Project Overview
 
 ## About the Project
 
@@ -14,19 +14,6 @@ The single highest-leverage opportunity: **the Kundli-matching result is the mos
 ## The Problem It Solves
 
 Online astrology in India is dominated by platforms with cluttered UIs, opaque billing, and no regional-language support. The premium + trustworthy + regional-language quadrant is open. AstroKraft enters as the premium, generous, trustworthy challenger — giving away beautiful free tools to win acquisition + SEO, then monetizing the existing high-margin marketplace (consultations, gemstones, pujas).
-
----
-
-## Goals (12 Months)
-
-| # | Goal | Target |
-|---|------|--------|
-| G1 | Establish pan-India reach (beyond NE India) | Traffic from all major states; 3+ languages live |
-| G2 | Build a viral free-tool funnel | Kundli + Matching = primary acquisition channel |
-| G3 | Premium brand perception | Design quality clearly above AstroSage/AstroTalk |
-| G4 | Convert free users to paid consults/gemstones | Tool → consult conversion measurable & rising |
-| G5 | Own long-tail astrology SEO | Programmatic horoscope/panchang/compatibility pages |
-| G6 | Full responsiveness & performance | Core Web Vitals "Good" on mobile (the dominant device) |
 
 ---
 
@@ -76,9 +63,9 @@ Full width layout on all pages. Floating WhatsApp FAB in bottom-right corner.
 
 ---
 
-## Core User Flows
+## Core User Flow
 
-### A. Viral Matching Flow (The Wedge)
+### Viral Matching Flow (The Wedge)
 
 1. User lands on `/tools/matching` from Google, WhatsApp share, or social link
 2. Enters two birth details (date, time, location with autocomplete)
@@ -87,17 +74,21 @@ Full width layout on all pages. Floating WhatsApp FAB in bottom-right corner.
 5. Soft CTA: "Get full compatibility report ₹99" or "Talk to an astrologer"
 6. Optional: save results & create account
 
-### B. Consult Flow
+### Consult Flow
 
-Tool result or `/astrologers` → filter by specialty/language/price → astrologer profile → choose chat/call → login/OTP → pay → connect (or WhatsApp handoff).
+1. Tool result or `/astrologers` → filter by specialty/language/price
+2. Astrologer profile → choose chat/call
+3. Login/OTP → pay → connect (or WhatsApp handoff)
 
-### C. Gemstone Flow
+### Gemstone Flow
 
-Gemstone finder tool OR `/gemstones` → product page (certificate, origin) → add to cart → checkout via Razorpay.
+1. Gemstone finder tool OR `/gemstones` → product page with certificate
+2. Add to cart → checkout via Razorpay
 
-### D. Muhurat / Purohit Flow
+### Muhurat / Purohit Flow
 
-`/tools/panchang` or `/purohits` → pick auspicious date / pooja → book purohit → confirmation + WhatsApp.
+1. `/tools/panchang` or `/purohits` → pick auspicious date / pooja
+2. Book purohit → confirmation + WhatsApp
 
 ---
 
@@ -158,9 +149,11 @@ Gemstone finder tool OR `/gemstones` → product page (certificate, origin) → 
 
 ## Success Criteria
 
-1. **Performance**: LCP under 2.5s on mobile, CLS < 0.1, INP < 200ms.
-2. **Deterministic Caching**: 0 redundant API calls for identical birth details via hash-keyed caching.
-3. **Engagement**: Successful generation and share of the Guna Milan result card.
-4. **Checkout**: Razorpay payment processing completes without error.
-5. **SEO**: Sitemap indexes all static and dynamic routes with hreflang alternates.
-6. **Brand**: UI visually premium and consistent — clearly above AstroSage/AstroTalk.
+- User can enter birth details and receive a Kundli or Matching result in under 30 seconds
+- Kundli Matching result generates a beautiful, shareable mobile-native card
+- Core Web Vitals rated "Good" on mobile (LCP < 2.5s, CLS < 0.1, INP < 200ms)
+- Zero redundant API calls for identical birth details via hash-keyed caching
+- Astrologer directory filters work correctly across all three languages
+- Razorpay checkout completes without error for gemstone purchases
+- Sitemap indexes all static and dynamic routes with hreflang alternates
+- UI is visually premium and consistent across all pages — clearly above AstroSage/AstroTalk

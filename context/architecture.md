@@ -53,7 +53,7 @@
 │   │   │   │   ├── page.tsx                  → Rashifol hub
 │   │   │   │   └── [sign]/page.tsx           → Per-sign daily/weekly/monthly
 │   │   │   ├── panchang/page.tsx             → Panchang + Subh Muhurat
-│   │   │   ├── numerology/page.tsx             → Numerology calculator
+│   │   │   ├── numerology/page.tsx           → Numerology calculator
 │   │   │   ├── tarot/page.tsx                → Tarot card draw
 │   │   │   └── compatibility/
 │   │   │       ├── page.tsx                  → Compatibility hub
@@ -71,7 +71,7 @@
 │   │       ├── kundli/route.ts               → Birth chart calculation
 │   │       ├── matching/route.ts             → Guna Milan calculation
 │   │       ├── horoscope/route.ts            → Daily rashifol fetch
-74: │   │       └── panchang/route.ts             → Panchang data
+│   │       └── panchang/route.ts             → Panchang data
 │   ├── robots.ts                             → Dynamic robots.txt
 │   └── sitemap.ts                            → Dynamic sitemap.xml
 ├── components/
@@ -102,8 +102,8 @@
 │   └── logo.svg                               → Brand logo
 ├── prisma/
 │   └── schema.prisma                          → Database schema
-├── types/
-│   └── index.ts                               → Global TypeScript types
+└── types/
+    └── index.ts                               → Global TypeScript types
 ```
 
 ---

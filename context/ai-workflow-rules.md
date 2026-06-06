@@ -2,48 +2,61 @@
 
 ## Approach
 
-Build this project incrementally using a spec-driven workflow. Context files define what to build, how to build it, and the current state of progress. Implement exactly against these specifications and design requirements — do not infer, add speculative features, or invent undocumented behavior.
+[Describe the overall development approach — e.g. Build
+this project incrementally using a spec-driven workflow.
+Context files define what to build, how to build it, and
+the current state of progress. Always implement against
+these specs — do not infer or invent behavior from scratch.]
 
 ## Scoping Rules
 
-*   **One Feature at a Time**: Complete and verify a single logical feature unit before moving on to the next one.
-*   **Incremental Edits**: Make focused, small file changes. Avoid modifying unrelated parts of the codebase.
-*   **Separation of Boundaries**: Do not mix UI adjustments, database schema changes, and API routes in a single prompt execution unless they are tightly bound and specified inside a single unit.
+- Work on one feature unit at a time
+- Prefer small, verifiable increments over large
+  speculative changes
+- Do not combine unrelated system boundaries in a
+  single implementation step
 
 ## When to Split Work
 
 Split an implementation step if it combines:
-*   UI markup/styling updates and DB migrations.
-*   Integrating multiple unrelated API endpoints.
-*   Unclear or undocumented user scenarios.
 
-If a change cannot be compiled and tested in under 5 minutes, the scope is too broad — divide it into smaller sub-tasks.
+- [Concern one — e.g. UI changes and background task changes]
+- [Concern two — e.g. Multiple unrelated API routes]
+- [Concern three — e.g. Behavior not clearly defined in
+  the context files]
+
+If a change cannot be verified end to end quickly,
+the scope is too broad — split it.
 
 ## Handling Missing Requirements
 
-*   Do not guess product or visual behavior.
-*   If a requirement is ambiguous, refer to `project-docs/prd.md` or `DESIGN.md`.
-*   If details are missing, add them under the "Open Questions" section in `context/progress-tracker.md` to resolve them before writing the corresponding code.
+- Do not invent product behavior not defined in the
+  context files
+- If a requirement is ambiguous, resolve it in the
+  relevant context file before implementing
+- If a requirement is missing, add it as an open question
+  in `progress-tracker.md` before continuing
 
 ## Protected Files
 
-Do not modify these files unless explicitly instructed by the user:
-*   `components/ui/*` — Generated UI atomic library primitives (e.g., button, card, dialog).
-*   `node_modules/` or compiled/dist folders.
-*   `lib/seo.ts` — Centralized SEO config (ensure any updates follow its strict patterns).
+Do not modify the following unless explicitly instructed:
+
+- [e.g. components/ui/* — generated UI library components]
+- [e.g. Any third-party library internals]
 
 ## Keeping Docs in Sync
 
-Update the context documents immediately when:
-*   Adding database models or changing schemas.
-*   Swapping or adding API providers in `lib/astrology/`.
-*   Defining new styling variable tokens.
-*   Updating progress tracker states.
+Update the relevant context file whenever implementation
+changes:
+
+- System architecture or boundaries
+- Storage model decisions
+- Code conventions or standards
+- Feature scope
 
 ## Before Moving to the Next Unit
 
-1.  Verify the current unit builds and functions without TypeScript or terminal compilation errors.
-2.  Ensure visual pairings comply with the WCAG AA color contrast guidelines.
-3.  Check that all UI views are responsive across mobile, tablet, and desktop layout widths.
-4.  Run `npm run build` to verify production compilation.
-5.  Mark the unit as complete in `context/progress-tracker.md`.
+1. The current unit works end to end within its defined scope
+2. No invariant defined in `architecture.md` was violated
+3. `progress-tracker.md` reflects the completed work
+4. `npm run build` passes
