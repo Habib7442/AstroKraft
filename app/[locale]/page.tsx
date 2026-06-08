@@ -6,6 +6,8 @@ import { Hero } from "@/components/sections/hero";
 import { Footer } from "@/components/sections/footer";
 import BentoGridDemo from "@/components/bento-grid-demo";
 import GemstoneGrid from "@/components/sections/gemstone-grid";
+import FreeToolsPreview from "@/components/sections/FreeToolsPreview";
+
 interface PageParams {
   locale: string;
 }
@@ -35,6 +37,9 @@ export default async function Page({ params }: { params: Promise<PageParams> }) 
 
         {/* Featured Gemstones Section */}
         <GemstoneGrid locale={locale} limit={3} />
+
+        {/* Free Interactive Tools Section */}
+        <FreeToolsPreview locale={locale} />
       </main>
 
       {/* Structured Footer Section */}

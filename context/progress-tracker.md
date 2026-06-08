@@ -69,6 +69,7 @@ Update this file after every completed feature. Any AI agent reading this should
 - **Free Tools Hub (/tools)**: Built a separate localized hub page listing active tools (Free Kundli, Kundli Matching) and upcoming calculators, routing all main menu and footer links to this page.
 - **FreeAstrologyAPI Matchmaking Endpoint Fix**: Changed the API endpoint from `/match-making` to `/match-making/ashtakoot-score`, updated the request payload to split birth details into `male` and `female` objects, and updated response parsing to dynamically map the `output` object.
 - **Vedic Tool Calculation Logging**: Added console logging for computed results on both the server-side API routes (`/api/astrology/matching` and `/api/astrology/kundli`) and client-side components (`MatchingContainer` and `KundliContainer`) to improve developer debugging.
+- **Homepage Free Tools Preview**: Created a new `FreeToolsPreview` section displayed directly after the gemstones grid on the main page, showcasing the active tools (Kundli, Guna Milan) and forthcoming calculators using HSL border gradients, hover scaling, and spotlight interactive effects.
 
 ---
 
