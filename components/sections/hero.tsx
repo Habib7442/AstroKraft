@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { MessageCircle, ShieldCheck, Gem, UserCheck, Users } from "lucide-react";
+import { MessageCircle, ShieldCheck, Phone, UserCheck, Users } from "lucide-react";
 import { Button } from "../ui/button";
 
 import Globe3DDemo from "@/components/3d-globe-demo";
@@ -13,6 +13,23 @@ interface HeroProps {
 }
 
 export function Hero({ locale, dict }: HeroProps) {
+  const activeLocale = ["en", "hin", "bn"].includes(locale) ? locale : "en";
+  const labelsObj = {
+    en: {
+      whatsapp: "WhatsApp Consultation",
+      call: "Call Consultation"
+    },
+    hin: {
+      whatsapp: "व्हाट्सएप परामर्श",
+      call: "कॉल परामर्श"
+    },
+    bn: {
+      whatsapp: "হোয়াটসঅ্যাপ পরামর্শ",
+      call: "কল পরামর্শ"
+    }
+  };
+  const labels = labelsObj[activeLocale as keyof typeof labelsObj] || labelsObj.en;
+
   return (
     <section className="relative w-full overflow-hidden border-b border-border pt-26 pb-12 md:pt-32 md:pb-20 lg:pt-28 lg:pb-24 bg-background flex flex-col justify-center items-center">
       {/* Space background image overlay */}
@@ -58,12 +75,12 @@ export function Hero({ locale, dict }: HeroProps) {
                 <Button
                   variant="default"
                   size="lg"
-                  className="w-full bg-primary hover:bg-primary/95 text-primary-foreground font-semibold px-8 h-12 text-sm rounded-full shadow-md hover:shadow-lg transition-all cursor-pointer"
+                  className="w-full bg-gradient-to-r from-[#25D366] to-[#128C7E] hover:from-[#22c35e] hover:to-[#0f7c6f] text-white font-semibold px-8 h-12 text-sm rounded-full shadow-md hover:shadow-lg transition-all cursor-pointer flex items-center justify-center gap-2 border-0"
                   asChild
                 >
-                  <a href={`/${locale}/astrologers`}>
-                    <MessageCircle className="w-4 h-4 mr-2" />
-                    {dict.common.whatsapp_cta}
+                  <a href="https://api.whatsapp.com/send/?phone=916913230255&text&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer">
+                    <MessageCircle className="w-4 h-4 shrink-0" />
+                    {labels.whatsapp}
                   </a>
                 </Button>
               </div>
@@ -72,12 +89,12 @@ export function Hero({ locale, dict }: HeroProps) {
                 <Button
                   variant="outline"
                   size="lg"
-                  className="w-full border-gold/45 text-gold hover:bg-secondary/40 font-semibold px-8 h-12 text-sm rounded-full transition-all cursor-pointer"
+                  className="w-full border-gold/45 text-gold hover:bg-secondary/40 font-semibold px-8 h-12 text-sm rounded-full transition-all cursor-pointer flex items-center justify-center gap-2"
                   asChild
                 >
-                  <a href={`/${locale}/gemstones`}>
-                    <Gem className="w-4 h-4 mr-2" />
-                    {dict.common.gemstone_cta}
+                  <a href="tel:+916913230255">
+                    <Phone className="w-4 h-4 shrink-0" />
+                    {labels.call}
                   </a>
                 </Button>
               </div>
