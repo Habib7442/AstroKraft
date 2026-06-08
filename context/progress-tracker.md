@@ -22,8 +22,8 @@ Update this file after every completed feature. Any AI agent reading this should
 
 ### Phase 1 — MVP Launch
 
-- [ ] 04 Free Kundli / Birth Chart
-- [ ] 05 Kundli Matching / Guna Milan (shareable result card)
+- [x] 04 Free Kundli / Birth Chart
+- [x] 05 Kundli Matching / Guna Milan (shareable result card)
 - [ ] 06 Daily Rashifol / Horoscope
 - [ ] 07 Panchang & Subh Muhurat
 - [ ] 08 Auth & User Dashboard
@@ -63,8 +63,12 @@ Update this file after every completed feature. Any AI agent reading this should
 - **Gemstone catalog images optimized**: Compressed 12 gemstone WebP images from 4K/high-res lossless (~3.5 MB each) to optimized, low-resolution lossy WebPs (512x512, ~10-25 KB each), reducing total directory size by 99% (from 40 MB to <300 KB).
 - **Gemstone mobile card tinting**: Implemented individual `GemstoneCard` components with static colored borders and top-left radial gradients corresponding to each gemstone's specific color. This provides an instantly recognizable color-coded outline and aura on touch devices where hover states do not trigger, while supporting interactive scaling/glows on desktop.
 - **3D Globe assets localized and cached**: Downloaded Earth texture and bump/topology maps from unpkg CDN to local `/public/assets/globe/`, resized them from 4K to WebP formats (193 KB and 14 KB respectively), and redirected the R3F `<Scene>` to load them locally.
-- **Aggressive Browser Caching**: Configured `Cache-Control: public, max-age=31536000, immutable` (1 year) for all assets (including gemstones and globe textures) in `next.config.ts` to prevent duplicate network loading.
-
+- **Vedic calculation engines (Phase 1)**: Added custom theme-compliant input, label, and select components inside `components/ui/` to avoid third-party script installation issues on local dev environment shells.
+- **Geocoding city lookup autocomplete**: Implemented debounced (500ms) client-side search autocomplete powered by OpenStreetMap's free Nominatim Search API, auto-resolving to lat/lon coordinates and defaulting the timezone offset to `+5.5` for any locations inside India.
+- **Dynamic North Indian SVG Lagna chart**: Built an interactive responsive SVG rendering diamond house lines, with dynamic placement of rashi sign numbers and grouped planet combinations.
+- **Free Tools Hub (/tools)**: Built a separate localized hub page listing active tools (Free Kundli, Kundli Matching) and upcoming calculators, routing all main menu and footer links to this page.
+- **FreeAstrologyAPI Matchmaking Endpoint Fix**: Changed the API endpoint from `/match-making` to `/match-making/ashtakoot-score`, updated the request payload to split birth details into `male` and `female` objects, and updated response parsing to dynamically map the `output` object.
+- **Vedic Tool Calculation Logging**: Added console logging for computed results on both the server-side API routes (`/api/astrology/matching` and `/api/astrology/kundli`) and client-side components (`MatchingContainer` and `KundliContainer`) to improve developer debugging.
 
 ---
 

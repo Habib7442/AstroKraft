@@ -2,10 +2,9 @@ import { notFound } from "next/navigation";
 import { getDictionary } from "@/lib/i18n";
 import { isValidLocale } from "@/lib/seo";
 import { Header } from "@/components/sections/header";
-import { Hero } from "@/components/sections/hero";
 import { Footer } from "@/components/sections/footer";
-import BentoGridDemo from "@/components/bento-grid-demo";
-import GemstoneGrid from "@/components/sections/gemstone-grid";
+import { MatchingContainer } from "@/components/sections/MatchingContainer";
+
 interface PageParams {
   locale: string;
 }
@@ -25,19 +24,11 @@ export default async function Page({ params }: { params: Promise<PageParams> }) 
       <Header locale={locale} dict={dict} />
 
       {/* Main Content Area */}
-      <main className="flex-1">
-        {/* Observatory Hero Spotlight Section */}
-        <Hero locale={locale} dict={dict} />
-
-
-        {/* Bento Grid showcasing Astrologers */}
-        <BentoGridDemo locale={locale} />
-
-        {/* Featured Gemstones Section */}
-        <GemstoneGrid locale={locale} limit={3} />
+      <main className="flex-1 pt-32 pb-16 px-4 sm:px-6 lg:px-8">
+        <MatchingContainer locale={locale} />
       </main>
 
-      {/* Structured Footer Section */}
+      {/* Footer */}
       <Footer locale={locale} dict={dict} />
     </div>
   );

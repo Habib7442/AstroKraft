@@ -100,7 +100,7 @@ export function ServicesBento({ locale, dict }: ServicesBentoProps) {
 
 
   return (
-    <section id="services" className="w-full py-16 md:py-24 bg-surface-muted border-b border-border">
+    <section id="free-tools" className="w-full py-16 md:py-24 bg-surface-muted border-b border-border">
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-16 flex flex-col gap-3">

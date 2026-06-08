@@ -13,7 +13,7 @@ export function Footer({ locale, dict }: FooterProps) {
   const servicesLinks = [
     { label: dict.services.astrologer.title, href: `/${locale}/astrologers` },
     { label: dict.services.gemstone.title, href: `/${locale}/gemstones` },
-    { label: dict.nav.free_tools, href: `/${locale}/#free-tools` },
+    { label: dict.nav.free_tools, href: `/${locale}/tools` },
     { label: dict.footer?.vastu_consultant || "Vastu Consultant", href: `/${locale}/vastu` },
   ];
 

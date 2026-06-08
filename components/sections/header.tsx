@@ -51,7 +51,7 @@ export function Header({ locale, dict }: HeaderProps) {
   const navItems = [
     { label: dict.nav.astrologers, href: `/${locale}/astrologers` },
     { label: dict.nav.gemstones, href: `/${locale}/gemstones` },
-    { label: dict.nav.free_tools, href: `/${locale}/#free-tools` },
+    { label: dict.nav.free_tools, href: `/${locale}/tools` },
     { label: dict.nav.panchang, href: `/${locale}/panchang` },
     { label: dict.nav.blog, href: `/${locale}/blog` },
   ];
