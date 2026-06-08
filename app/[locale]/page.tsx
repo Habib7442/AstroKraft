@@ -5,6 +5,7 @@ import { Header } from "@/components/sections/header";
 import { Hero } from "@/components/sections/hero";
 import { Footer } from "@/components/sections/footer";
 import BentoGridDemo from "@/components/bento-grid-demo";
+import GemstoneGrid from "@/components/sections/gemstone-grid";
 
 interface PageParams {
   locale: string;
@@ -31,6 +32,9 @@ export default async function Page({ params }: { params: Promise<PageParams> }) 
 
         {/* Bento Grid showcasing Astrologers */}
         <BentoGridDemo locale={locale} />
+
+        {/* Featured Gemstones Section */}
+        <GemstoneGrid locale={locale} limit={3} />
       </main>
 
       {/* Structured Footer Section */}

@@ -23,6 +23,7 @@ const GEMS = GEMS_DATA as Record<string, GemInfo>;
 
 interface GemstoneGridProps {
   locale?: string;
+  limit?: number;
 }
 
 // Map gemstones to custom, luxurious glow colors representing their physical hue
@@ -41,7 +42,7 @@ const GLOW_COLORS: Record<string, string> = {
   zircon_colorless: "rgba(255, 255, 255, 0.12)" // Colorless Zircon
 };
 
-export default function GemstoneGrid({ locale = "en" }: GemstoneGridProps) {
+export default function GemstoneGrid({ locale = "en", limit }: GemstoneGridProps) {
   const activeLocale = ["en", "hin", "bn"].includes(locale) ? locale : "en";
 
   const getPrefilledWhatsappUrl = (name: string) => {
@@ -49,7 +50,11 @@ export default function GemstoneGrid({ locale = "en" }: GemstoneGridProps) {
     return `https://wa.me/916913230255?text=${encodeURIComponent(text)}`;
   };
 
-  const gemsList = Object.values(GEMS);
+  let gemsList = Object.values(GEMS);
+  const showViewAll = limit !== undefined && gemsList.length > limit;
+  if (limit !== undefined) {
+    gemsList = gemsList.slice(0, limit);
+  }
 
   // Dictionary fallbacks for header elements
   const labelsObj = {
@@ -228,6 +233,16 @@ export default function GemstoneGrid({ locale = "en" }: GemstoneGridProps) {
               );
             })}
           </div>
+          {showViewAll && (
+            <div className="flex justify-center mt-12">
+              <a
+                href={`/${locale}/gemstones`}
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-gold/40 hover:border-gold bg-neutral-900/50 hover:bg-neutral-900 text-gold hover:text-foreground text-xs font-semibold font-sans transition-all cursor-pointer shadow-lg hover:shadow-gold/10"
+              >
+                {activeLocale === "hin" ? "सभी रत्नों की खोज करें ✦" : activeLocale === "bn" ? "সব রত্ন পাথর দেখুন ✦" : "Explore All Gemstones ✦"}
+              </a>
+            </div>
+          )}
         </div>
       </section>
   );
