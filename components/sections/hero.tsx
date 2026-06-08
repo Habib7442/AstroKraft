@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { MessageCircle, ShieldCheck, Phone, UserCheck, Users } from "lucide-react";
+import { ShieldCheck, Phone, UserCheck, Users } from "lucide-react";
 import { Button } from "../ui/button";
 
 import Globe3DDemo from "@/components/3d-globe-demo";
@@ -79,7 +79,7 @@ export function Hero({ locale, dict }: HeroProps) {
                   asChild
                 >
                   <a href="https://api.whatsapp.com/send/?phone=916913230255&text&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer">
-                    <MessageCircle className="w-4 h-4 shrink-0" />
+                    <img src="/social-icons/whatsapp.png" alt="WhatsApp" className="w-4 h-4 object-contain shrink-0" />
                     {labels.whatsapp}
                   </a>
                 </Button>
