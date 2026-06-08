@@ -30,7 +30,7 @@ Update this file after every completed feature. Any AI agent reading this should
 
 ### Phase 2 — Growth
 
-- [ ] 09 Gemstone Store
+- [x] 09 Gemstone Store
 - [ ] 10 Numerology & Tarot
 - [ ] 11 Compatibility Pages (Programmatic SEO)
 - [ ] 12 Purohit & Vastu Booking
@@ -57,6 +57,9 @@ Update this file after every completed feature. Any AI agent reading this should
 - **GPU compositor layers**: Bento cards promoted to GPU layers with will-change-transform and translate3d to prevent scroll lag.
 - **Hover-disable on scroll**: Body-level `.disable-hover` class prevents pointer-event thrashing during Lenis scroll events.
 - **3D globe gating**: IntersectionObserver pauses R3F frame loop when globe is off-screen, saving ~360 React updates/sec.
+- **WebGL canvas-reveal context optimization**: Configured CardSpotlight to default to a high-performance CSS dot-matrix spotlight to prevent scroll/hover lag and WebGL context crashes when multiple cards are displayed in a grid.
+- **Bilingual gemstone catalog**: Established a central `gems.json` database and reusable `GemstoneGrid` component mapped with English, Hindi, and Bengali translations.
+
 
 ---
 
