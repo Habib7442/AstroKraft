@@ -1,0 +1,482 @@
+{
+  "ruby": {
+    "id": "ruby",
+    "name": {
+      "en": "Natural Ruby (Manikya)",
+      "hin": "प्राकृतिक माणिक (माणिक्य)",
+      "bn": "প্রাকৃতিক চুনি (মানিক্য)"
+    },
+    "type": {
+      "en": "Precious Gemstone",
+      "hin": "बहुमूल्य रत्न",
+      "bn": "মূল্যবান রত্ন"
+    },
+    "description": {
+      "en": "A premium, deep red certified ruby representing the power of the Sun. Known to bring authority, leadership, and boundless energy.",
+      "hin": "सूर्य की शक्ति का प्रतिनिधित्व करने वाला एक प्रीमियम, गहरे लाल रंग का प्रमाणित माणिक। यह अधिकार, नेतृत्व और असीम ऊर्जा लाता है।",
+      "bn": "সূর্যের শক্তির প্রতীক একটি প্রিমিয়াম ও উজ্জ্বল লাল রঙের প্রত্যয়িত চুনি। এটি নেতৃত্ব, আত্মবিশ্বাস ও জীবনীশক্তি বৃদ্ধি করে।"
+    },
+    "zodiac": {
+      "en": "Leo (Simha)",
+      "hin": "सिंह (Simha)",
+      "bn": "সিংহ (Simha)"
+    },
+    "ruler": {
+      "en": "Sun (Surya)",
+      "hin": "सूर्य (Surya)",
+      "bn": "সূর্য (Surya)"
+    },
+    "origin": {
+      "en": "Burma / Madagascar",
+      "hin": "बर्मा / मेडागास्कर",
+      "bn": "বার্মা / মাদাগাস্কার"
+    },
+    "pricePerCarat": 3500,
+    "src": "/assets/gems/ruby.webp",
+    "benefits": {
+      "en": ["Enhances leadership & authority", "Boosts self-confidence & vitality", "Promotes career growth & status"],
+      "hin": ["नेतृत्व और अधिकार को बढ़ाता है", "आत्मविश्वास और जीवन शक्ति को बढ़ाता है", "करियर के विकास और स्थिति को बढ़ावा देता है"],
+      "bn": ["নেতৃত্ব ও কর্তৃত্ব বৃদ্ধি করে", "আত্মবিশ্বাস ও জীবনীশক্তি বাড়ায়", "কর্মজীবনে উন্নতি ও সম্মান আনে"]
+    }
+  },
+  "amethyst": {
+    "id": "amethyst",
+    "name": {
+      "en": "Natural Amethyst (Jamunia)",
+      "hin": "प्राकृतिक जमुनिया (कटैला)",
+      "bn": "প্রাকৃতিক জ্যামিতিস্ট (জামুনিয়া)"
+    },
+    "type": {
+      "en": "Semi-Precious Gemstone",
+      "hin": "उपरत्न",
+      "bn": "উপরত্ন"
+    },
+    "description": {
+      "en": "A beautiful deep purple amethyst aligned with Saturn. Brings calm, mental clarity, and protection against negative energies.",
+      "hin": "शनि के प्रभाव वाला एक सुंदर गहरा बैंगनी जमुनिया। यह शांति, मानसिक स्पष्टता और नकारात्मक ऊर्जा से सुरक्षा लाता है।",
+      "bn": "শনির সাথে যুক্ত একটি চমৎকার গাঢ় বেগুনি রঙের জামুনিয়া। এটি মানসিক শান্তি, একাগ্রতা ও নেতিবাচক শক্তি থেকে সুরক্ষা দেয়।"
+    },
+    "zodiac": {
+      "en": "Aquarius / Capricorn",
+      "hin": "कुंभ / मकर",
+      "bn": "কুম্ভ / মকর"
+    },
+    "ruler": {
+      "en": "Saturn (Shani)",
+      "hin": "शनि (Shani)",
+      "bn": "শনি (Shani)"
+    },
+    "origin": {
+      "en": "Brazil / Uruguay",
+      "hin": "ब्राजील / उरुग्वे",
+      "bn": "ব্রাজিল / উরুগুয়ে"
+    },
+    "pricePerCarat": 850,
+    "src": "/assets/gems/amethyst.webp",
+    "benefits": {
+      "en": ["Reduces stress & anxiety", "Brings deep inner peace & calm", "Improves focus & meditation"],
+      "hin": ["तनाव और चिंता को कम करता है", "गहरी आंतरिक शांति लाता है", "एकाग्रता और ध्यान में सुधार करता है"],
+      "bn": ["মানসিক চাপ ও দুশ্চিন্তা কমায়", "গভীর মানসিক প্রশান্তি আনে", "মনোসংযোগ ও ধ্যানে সাহায্য করে"]
+    }
+  },
+  "blue_zircon": {
+    "id": "blue_zircon",
+    "name": {
+      "en": "Natural Blue Zircon",
+      "hin": "प्राकृतिक नीला जरकन",
+      "bn": "প্রাকৃতিক নীল জিরকন"
+    },
+    "type": {
+      "en": "Semi-Precious Gemstone",
+      "hin": "उपरत्न",
+      "bn": "উপরত্ন"
+    },
+    "description": {
+      "en": "A sparkling sky blue zircon linked with Venus. Enhances creative talents, prosperity, and emotional healing.",
+      "hin": "शुक्र से जुड़ा एक चमकदार आसमानी नीला जरकन। रचनात्मक प्रतिभा, समृद्धि और भावनात्मक उपचार को बढ़ाता है।",
+      "bn": "শুক্র গ্রহের সাথে যুক্ত একটি ঝকমকে আকাশী নীল জিরকন। এটি সৃজনশীল প্রতিভা, সমৃদ্ধি ও মানসিক ভারসাম্য উন্নত করে।"
+    },
+    "zodiac": {
+      "en": "Taurus / Libra",
+      "hin": "वृषभ / तुला",
+      "bn": "বৃষ / তুলা"
+    },
+    "ruler": {
+      "en": "Venus (Shukra)",
+      "hin": "शुक्र (Shukra)",
+      "bn": "শুক্র (শুক্ৰ)"
+    },
+    "origin": {
+      "en": "Cambodia",
+      "hin": "कंबोडिया",
+      "bn": "কম্বোডিয়া"
+    },
+    "pricePerCarat": 1500,
+    "src": "/assets/gems/blue-zircon.webp",
+    "benefits": {
+      "en": ["Attracts wealth & luxury", "Boosts artistic creativity", "Heals emotional wounds"],
+      "hin": ["धन और विलासिता को आकर्षित करता है", "कलात्मक रचनात्मकता को बढ़ावा देता है", "भावनात्मक घावों को भरता है"],
+      "bn": ["সম্পদ ও বিলাসিতা আকর্ষণ করে", "শিল্প ও সৃজনশীলতা বাড়ায়", "মানসিক অবসাদ দূর করে"]
+    }
+  },
+  "citrine": {
+    "id": "citrine",
+    "name": {
+      "en": "Natural Citrine (Sunela)",
+      "hin": "प्राकृतिक सुनैला (Citrine)",
+      "bn": "প্রাকৃতিক সুনীলা (সিট্রিন)"
+    },
+    "type": {
+      "en": "Semi-Precious Gemstone",
+      "hin": "उपरत्न",
+      "bn": "উपरত্ন"
+    },
+    "description": {
+      "en": "A warm yellow citrine representing Jupiter. Famous as the 'Merchant's Stone' for attracting abundance and success.",
+      "hin": "बृहस्पति का प्रतिनिधित्व करने वाला एक पीला सुनैला। प्रचुरता और सफलता को आकर्षित करने के लिए 'व्यापारी के पत्थर' के रूप में प्रसिद्ध।",
+      "bn": "বৃহস্পতি গ্রহের শুভ প্রভাব যুক্ত একটি সোনালী হলুদ সিট্রিন। ব্যবসায় সাফল্য ও অর্থ আকর্ষণের জন্য এটি 'মার্চেন্টস স্টোন' নামে পরিচিত।"
+    },
+    "zodiac": {
+      "en": "Sagittarius / Pisces",
+      "hin": "धनु / मीन",
+      "bn": "ধনু / মীন"
+    },
+    "ruler": {
+      "en": "Jupiter (Guru)",
+      "hin": "बृहस्पति (Guru)",
+      "bn": "বৃহস্পতি (গুরু)"
+    },
+    "origin": {
+      "en": "Brazil",
+      "hin": "ब्राजील",
+      "bn": "ব্রাজিল"
+    },
+    "pricePerCarat": 950,
+    "src": "/assets/gems/citrine.webp",
+    "benefits": {
+      "en": ["Attracts financial prosperity", "Boosts positive outlook & joy", "Clears chakra blockages"],
+      "hin": ["वित्तीय समृद्धि को आकर्षित करता है", "सकारात्मक दृष्टिकोण और खुशी बढ़ाता है", "चक्र अवरोधों को साफ करता है"],
+      "bn": ["আর্থিক উন্নতি ও সাফল্য আনে", "ইতিবাচক মনোভাব ও আনন্দ বাড়ায়", "শরীরের চক্রসমূহ সক্রিয় করে"]
+    }
+  },
+  "diamond": {
+    "id": "diamond",
+    "name": {
+      "en": "Certified Diamond (Heera)",
+      "hin": "प्रमाणित हीरा (Heera)",
+      "bn": "প্রত্যয়িত হীরা (হীরা)"
+    },
+    "type": {
+      "en": "Precious Gemstone",
+      "hin": "बहुमूल्य रत्न",
+      "bn": "মূল্যবান রত্ন"
+    },
+    "description": {
+      "en": "An exquisite, high-clarity certified natural diamond. Governed by Venus, it brings luxury, fame, and marital bliss.",
+      "hin": "एक उत्कृष्ट, उच्च स्पष्टता वाला प्रमाणित प्राकृतिक हीरा। शुक्र द्वारा शासित, यह विलासिता, प्रसिद्धि और वैवाहिक सुख लाता है।",
+      "bn": "উচ্চ স্বচ্ছতা সম্পন্ন একটি রাজকীয় প্রত্যয়িত হীরা। শুক্র গ্রহের রত্ন হিসেবে এটি বিলাসিতা, খ্যাতি ও দাম্পত্য সুখ নিয়ে আসে।"
+    },
+    "zodiac": {
+      "en": "Taurus / Libra",
+      "hin": "वृषभ / तुला",
+      "bn": "বৃষ / তুলা"
+    },
+    "ruler": {
+      "en": "Venus (Shukra)",
+      "hin": "शुक्र (Shukra)",
+      "bn": "শুক্র (শুক্ৰ)"
+    },
+    "origin": {
+      "en": "Africa / Russia",
+      "hin": "अफ्रीका / रूस",
+      "bn": "আফ্রিকা / রাশিয়া"
+    },
+    "pricePerCarat": 45000,
+    "src": "/assets/gems/diamond.webp",
+    "benefits": {
+      "en": ["Brings immense luxury & fame", "Strengthens relationships & love", "Enhances charm & confidence"],
+      "hin": ["असीम विलासिता और प्रसिद्धि लाता है", "रिश्तों और प्यार को मजबूत करता है", "आकर्षण और आत्मविश्वास बढ़ाता है"],
+      "bn": ["অঢেল বিলাসিতা ও খ্যাতি আনে", "প্রেম ও সম্পর্কের বন্ধন দৃঢ় করে", "আকর্ষণ ও আত্মবিশ্বাস বৃদ্ধি করে"]
+    }
+  },
+  "gomed": {
+    "id": "gomed",
+    "name": {
+      "en": "Natural Hessonite (Gomed)",
+      "hin": "प्राकृतिक गोमेद (Hessonite)",
+      "bn": "প্রাকৃতিক গোমেদ (রাহু রত্ন)"
+    },
+    "type": {
+      "en": "Precious Gemstone",
+      "hin": "बहुमूल्य रत्न",
+      "bn": "মূল্যবান রত্ন"
+    },
+    "description": {
+      "en": "A honey-colored premium hessonite stone representing Rahu. Offers quick relief from obstacles, confusion, and fear.",
+      "hin": "राहु का प्रतिनिधित्व करने वाला शहद के रंग का प्रीमियम गोमेद रत्न। बाधाओं, भ्रम और भय से त्वरित राहत प्रदान करता है।",
+      "bn": "রাহু গ্রহের জন্য মধুর রঙের একটি প্রিমিয়াম গোমেদ পাথর। এটি জীবনের বাধা-বিপত্তি, দ্বিধা ও ভয় থেকে দ্রুত মুক্তি দেয়।"
+    },
+    "zodiac": {
+      "en": "Aquarius / Taurus",
+      "hin": "कुंभ / वृषभ",
+      "bn": "কুম্ভ / বৃষ"
+    },
+    "ruler": {
+      "en": "Rahu",
+      "hin": "राहु (Rahu)",
+      "bn": "রাহু"
+    },
+    "origin": {
+      "en": "Sri Lanka (Ceylon)",
+      "hin": "श्रीलंका (सिलोन)",
+      "bn": "শ্রীলঙ্কা (সিলন)"
+    },
+    "pricePerCarat": 1800,
+    "src": "/assets/gems/gomed(hessonite).webp",
+    "benefits": {
+      "en": ["Overcomes sudden life obstacles", "Clears confusion & mental fog", "Enhances professional ambition"],
+      "hin": ["जीवन की अचानक आने वाली बाधाओं को दूर करता है", "भ्रम और मानसिक धुंध को साफ करता है", "व्यावसायिक महत्वाकांक्षा को बढ़ाता है"],
+      "bn": ["হঠাৎ আসা বাধা দূর করে", "মানসিক বিভ্রান্তি ও জড়তা কাটায়", "পেশাদারী উচ্চাকাঙ্ক্ষা বৃদ্ধি করে"]
+    }
+  },
+  "opal": {
+    "id": "opal",
+    "name": {
+      "en": "Natural Opal",
+      "hin": "प्राकृतिक ओपल (दूधिया पत्थर)",
+      "bn": "প্রাকৃতিক ওপাল (দুধিয়া পাথর)"
+    },
+    "type": {
+      "en": "Semi-Precious Gemstone",
+      "hin": "उपरत्न",
+      "bn": "উপরত্ন"
+    },
+    "description": {
+      "en": "An iridescent natural opal with a play-of-color effect. Ruled by Venus, it enhances artistic expression and brings charm.",
+      "hin": "रंगों के खेल के प्रभाव वाला एक प्राकृतिक ओपल। शुक्र द्वारा शासित, यह कलात्मक अभिव्यक्ति को बढ़ाता है और आकर्षण लाता है।",
+      "bn": "আলোকচ্ছটা যুক্ত বর্ণিল একটি প্রাকৃতিক ওপাল পাথর। শুক্র গ্রহের রत্ন হিসেবে এটি শিল্পকলা ও ব্যক্তিত্বকে আকর্ষণীয় করে তোলে।"
+    },
+    "zodiac": {
+      "en": "Taurus / Libra",
+      "hin": "वृषभ / तुला",
+      "bn": "বৃষ / তুলা"
+    },
+    "ruler": {
+      "en": "Venus (Shukra)",
+      "hin": "शुक्र (Shukra)",
+      "bn": "শুক্র (শুক্ৰ)"
+    },
+    "origin": {
+      "en": "Australia / Ethiopia",
+      "hin": "ऑस्ट्रेलिया / इथियोपिया",
+      "bn": "অস্ট্রেলিয়া / ইথিওপিয়া"
+    },
+    "pricePerCarat": 2200,
+    "src": "/assets/gems/opal.webp",
+    "benefits": {
+      "en": ["Attracts luxury & status", "Improves creative & artistic skills", "Enhances personal attractiveness"],
+      "hin": ["विलासिता और स्थिति को आकर्षित करता है", "रचनात्मक और कलात्मक कौशल में सुधार करता है", "व्यक्तिगत आकर्षण बढ़ाता है"],
+      "bn": ["বিলাসিতা ও সামাজিক প্রতিষ্ঠা বাড়ায়", "সৃজনশীল ও শৈল্পিক দক্ষতা উন্নত করে", "ব্যক্তিগত আকর্ষণ বৃদ্ধি করে"]
+    }
+  },
+  "peridot": {
+    "id": "peridot",
+    "name": {
+      "en": "Natural Peridot",
+      "hin": "प्राकृतिक पेरिडॉट (पेरीडॉट)",
+      "bn": "প্রাকৃতিক পেরিডট (সবুজকান্ত)"
+    },
+    "type": {
+      "en": "Semi-Precious Gemstone",
+      "hin": "उपरत्न",
+      "bn": "উপরত্ন"
+    },
+    "description": {
+      "en": "A vibrant olive green stone symbolizing Mercury. Boosts intelligence, communication, and business success.",
+      "hin": "बुध का प्रतीक एक जीवंत जैतून हरा पेरिडॉट। बुद्धि, संचार और व्यावसायिक सफलता को बढ़ावा देता है।",
+      "bn": "বুধ গ্রহের শক্তি সমৃদ্ধ একটি চমৎকার জলপাই সবুজ পেরিডট। এটি বুদ্ধি, যোগাযোগ ক্ষমতা ও ব্যবসায়িক সাফল্য বাড়ায়।"
+    },
+    "zodiac": {
+      "en": "Gemini / Virgo",
+      "hin": "मिथुन / कन्या",
+      "bn": "মিথুন / কন্যা"
+    },
+    "ruler": {
+      "en": "Mercury (Budha)",
+      "hin": "बुध (Budha)",
+      "bn": "বুধ (বুধ)"
+    },
+    "origin": {
+      "en": "Arizona / Pakistan",
+      "hin": "एरिजोना / पाकिस्तान",
+      "bn": "অ্যারিজোনা / পাকিস্তান"
+    },
+    "pricePerCarat": 1200,
+    "src": "/assets/gems/peridot.webp",
+    "benefits": {
+      "en": ["Improves public speaking & skills", "Attracts financial growth", "Brings physical & emotional healing"],
+      "hin": ["सार्वजनिक भाषण और कौशल में सुधार करता है", "वित्तीय विकास को आकर्षित करता है", "शारीरिक और भावनात्मक उपचार लाता है"],
+      "bn": ["বক্তৃতা ও যোগাযোগ দক্ষতা বাড়ায়", "আর্থিক সমৃদ্ধি আকর্ষণ করে", "শারীরিক ও মানসিক আরোগ্য দান করে"]
+    }
+  },
+  "red_coral": {
+    "id": "red_coral",
+    "name": {
+      "en": "Natural Red Coral (Moonga)",
+      "hin": "प्राकृतिक मूंगा (Moonga)",
+      "bn": "প্রাকৃতিক রক্ত প্রবাল (মুঙ্গা)"
+    },
+    "type": {
+      "en": "Precious Gemstone",
+      "hin": "बहुमूल्य रत्न",
+      "bn": "মূল্যবান রত্ন"
+    },
+    "description": {
+      "en": "A rich, vibrant red coral representing Mars. Inspires raw courage, physical stamina, and victory over adversaries.",
+      "hin": "मंगल का प्रतिनिधित्व करने वाला एक जीवंत लाल मूंगा। यह साहस, शारीरिक सहनशक्ति और विरोधियों पर विजय की प्रेरणा देता है।",
+      "bn": "মঙ্গল গ্রহের জন্য একটি উজ্জ্বল লাল রঙের রক্ত প্রবাল। এটি সাহস, শারীরিক শক্তি ও শত্রুদের ওপর বিজয় অর্জনে সাহায্য করে।"
+    },
+    "zodiac": {
+      "en": "Aries / Scorpio",
+      "hin": "मेष / वृश्चिक",
+      "bn": "মেষ / বৃশ্চিক"
+    },
+    "ruler": {
+      "en": "Mars (Mangal)",
+      "hin": "मंगल (Mangal)",
+      "bn": "মঙ্গল (মঙ্গল)"
+    },
+    "origin": {
+      "en": "Italy / Japan",
+      "hin": "इटली / जापान",
+      "bn": "ইতালি / জাপান"
+    },
+    "pricePerCarat": 2500,
+    "src": "/assets/gems/red-coral(probal).webp",
+    "benefits": {
+      "en": ["Boosts courage & ambition", "Improves physical stamina", "Provides protective shield"],
+      "hin": ["साहस और महत्वाकांक्षा को बढ़ाता है", "शारीरिक सहनशक्ति में सुधार करता है", "सुरक्षा कवच प्रदान करता है"],
+      "bn": ["সাহস ও উচ্চাকাঙ্ক্ষা বাড়ায়", "শারীরিক স্ট্যামিনা উন্নত করে", "নেতিবাচক প্রভাব থেকে রক্ষা করে"]
+    }
+  },
+  "topaz_sky_blue": {
+    "id": "topaz_sky_blue",
+    "name": {
+      "en": "Natural Sky Blue Topaz",
+      "hin": "प्राकृतिक आसमानी पुखराज",
+      "bn": "প্রাকৃতিক আকাশী নীল টোপাজ"
+    },
+    "type": {
+      "en": "Semi-Precious Gemstone",
+      "hin": "उपरत्न",
+      "bn": "উপরত্ন"
+    },
+    "description": {
+      "en": "A beautiful clear sky blue topaz enhancing communication, throat chakra expression, and mental clarity.",
+      "hin": "संचार, कंठ चक्र की अभिव्यक्ति और मानसिक स्पष्टता को बढ़ाने वाला एक सुंदर नीला पुखराज।",
+      "bn": "একটি নিখুঁত আকাশী নীল টোপাজ পাথর। এটি যোগাযোগ ক্ষমতা, আত্মপ্রকাশ ও মনের একাগ্রতা বাড়াতে সাহায্য করে।"
+    },
+    "zodiac": {
+      "en": "Sagittarius / Libra",
+      "hin": "धनु / तुला",
+      "bn": "ধনু / তুলা"
+    },
+    "ruler": {
+      "en": "Jupiter / Saturn",
+      "hin": "बृहस्पति / शनि",
+      "bn": "বৃহস্পতি / শনি"
+    },
+    "origin": {
+      "en": "Brazil / Sri Lanka",
+      "hin": "ब्राजील / श्रीलंका",
+      "bn": "ব্রাজিল / শ্রীলঙ্কা"
+    },
+    "pricePerCarat": 750,
+    "src": "/assets/gems/topaz-sky-blue.webp",
+    "benefits": {
+      "en": ["Enhances clear communication", "Balances emotions & mind", "Improves creative focus"],
+      "hin": ["स्पष्ट संचार को बढ़ाता है", "भावनाओं और मन को संतुलित करता है", "रचनात्मक ध्यान में सुधार करता है"],
+      "bn": ["যোগাযোগ ও কথাবার্তা স্পষ্ট করে", "মন ও আবেগকে নিয়ন্ত্রণে রাখে", "সৃজনশীল কাজের প্রতি মনোযোগ বাড়ায়"]
+    }
+  },
+  "yellow_zircon": {
+    "id": "yellow_zircon",
+    "name": {
+      "en": "Natural Yellow Zircon",
+      "hin": "प्राकृतिक पीला जरकन",
+      "bn": "প্রাকৃতিক হলুদ জিরকন"
+    },
+    "type": {
+      "en": "Semi-Precious Gemstone",
+      "hin": "उपरत्न",
+      "bn": "উপরত্ন"
+    },
+    "description": {
+      "en": "A brilliant yellow zircon that serves as a powerful substitute for Yellow Sapphire (Pukhraj). Governed by Jupiter.",
+      "hin": "एक शानदार पीला जरकन जो पुखराज के लिए एक शक्तिशाली विकल्प के रूप में कार्य करता है। बृहस्पति द्वारा शासित।",
+      "bn": "একটি ঝকঝকে হলুদ জিরকন যা হলুদ পোখরাজের অত্যন্ত শক্তিশালী বিকল্প হিসেবে কাজ করে। এটি বৃহস্পতি গ্রহের অনুগামী।"
+    },
+    "zodiac": {
+      "en": "Sagittarius / Pisces",
+      "hin": "धनु / मीन",
+      "bn": "धनु / मীন"
+    },
+    "ruler": {
+      "en": "Jupiter (Guru)",
+      "hin": "बृहस्पति (Guru)",
+      "bn": "বৃহস্পতি (গুরু)"
+    },
+    "origin": {
+      "en": "Sri Lanka",
+      "hin": "श्रीलंका",
+      "bn": "শ্রীলঙ্কা"
+    },
+    "pricePerCarat": 1400,
+    "src": "/assets/gems/yellow-zircon.webp",
+    "benefits": {
+      "en": ["Brings wisdom & academic success", "Improves marital harmony", "Promotes financial prosperity"],
+      "hin": ["बुद्धि और शैक्षणिक सफलता लाता है", "वैवाहिक सद्भाव में सुधार करता है", "वित्तीय समृद्धि को बढ़ावा देता है"],
+      "bn": ["জ্ঞান ও বিদ্যাবুদ্ধি বাড়ায়", "দাম্পত্য কলহ দূর করে শান্তি আনে", "আর্থिक উন্নতি ও সৌভাগ্য বয়ে আনে"]
+    }
+  },
+  "zircon_colorless": {
+    "id": "zircon_colorless",
+    "name": {
+      "en": "Natural Colorless Zircon",
+      "hin": "प्राकृतिक रंगहीन जरकन",
+      "bn": "প্রাকৃতিক বর্ণহীন জিরকন"
+    },
+    "type": {
+      "en": "Semi-Precious Gemstone",
+      "hin": "उपरत्न",
+      "bn": "উপরত্ন"
+    },
+    "description": {
+      "en": "A brilliant, diamond-like colorless zircon governed by Venus. Known to bring luxury, relationships, and positive aura.",
+      "hin": "शुक्र द्वारा शासित एक चमकदार, हीरे जैसा रंगहीन जरकन। विलासिता, रिश्ते और सकारात्मक आभामंडल लाने के लिए जाना जाता है।",
+      "bn": "হীরার মতো উজ্জ্বল বর্ণহীন একটি জিরকন যা শুক্র গ্রহের প্রতিনিধিত্ব করে। এটি বিলাসিতা, সুসম্পর্ক ও পজিটিভ আভা তৈরি করে।"
+    },
+    "zodiac": {
+      "en": "Taurus / Libra",
+      "hin": "वृषभ / तुला",
+      "bn": "বৃষ / তুলা"
+    },
+    "ruler": {
+      "en": "Venus (Shukra)",
+      "hin": "शुक्र (Shukra)",
+      "bn": "শুক্র (শুক্ৰ)"
+    },
+    "origin": {
+      "en": "Sri Lanka / Cambodia",
+      "hin": "श्रीलंका / कंबोडिया",
+      "bn": "শ্রীলঙ্কা / কম্বোডিয়া"
+    },
+    "pricePerCarat": 1100,
+    "src": "/assets/gems/zircon(colorless).webp",
+    "benefits": {
+      "en": ["Strong diamond alternative", "Attracts positive energy", "Enhances beauty & charm"],
+      "hin": ["मजबूत हीरा विकल्प", "सकारात्मक ऊर्जा को आकर्षित करता है", "सुंदरता और आकर्षण को बढ़ाता है"],
+      "bn": ["হীরার চমৎকার বিকল্প পাথর", "ইতিবাচক শক্তি ও আত্মবিশ্বাস বাড়ায়", "সৌন্দর্য ও শারীরিক লাবণ্য বৃদ্ধি করে"]
+    }
+  }
+}
