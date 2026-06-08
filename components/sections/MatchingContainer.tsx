@@ -402,8 +402,8 @@ export function MatchingContainer({ locale }: { locale: string }) {
               <div className="relative w-full max-w-[380px] p-6 rounded-[min(var(--radius-4xl),24px)] bg-neutral-950 border border-gold/40 shadow-2xl flex flex-col justify-between overflow-hidden before:absolute before:inset-0 before:bg-radial-gradient before:from-violet-500/5 before:to-transparent before:pointer-events-none">
                 {/* Header branding */}
                 <div className="flex justify-between items-center border-b border-border/20 pb-4">
-                  <span className="text-xs font-serif text-accent font-semibold tracking-wider flex items-center gap-1.5">
-                    ✦ AstroKraft
+                  <span className="text-xs font-serif text-accent font-semibold tracking-wider flex items-center gap-0.5">
+                    ✦ AstroKraft<sup className="text-[8px] select-none text-gold/80 font-sans ml-0.5 mt-0.5">™</sup>
                   </span>
                   <span className="text-[10px] font-sans text-muted-foreground uppercase tracking-widest">
                     {t.cardSubHeader}

@@ -50,8 +50,9 @@ export function Footer({ locale, dict }: FooterProps) {
                 alt="AstroKraft Logo"
                 className="w-8 h-8 object-contain rounded-md border border-gold/30 group-hover:border-gold/60 group-hover:rotate-12 transition-all duration-300"
               />
-              <span className="font-serif text-2xl font-semibold tracking-tight text-foreground group-hover:text-gold transition-colors">
+              <span className="font-serif text-2xl font-semibold tracking-tight text-foreground group-hover:text-gold transition-colors flex items-baseline">
                 Astro<span className="text-gold">Kraft</span>
+                <sup className="text-[10px] select-none text-gold/85 font-sans ml-0.5 self-start mt-1">™</sup>
               </span>
             </a>
             <p className="text-xs text-muted-foreground leading-relaxed max-w-sm">

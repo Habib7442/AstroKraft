@@ -482,7 +482,9 @@ function LoadingFallback() {
           <div className="w-8 h-8 rounded-full border-2 border-primary/20 border-t-gold animate-spin" />
         </div>
         <div className="flex flex-col gap-0.5">
-          <span className="text-xs font-serif font-bold text-foreground tracking-wide">AstroKraft</span>
+          <span className="text-xs font-serif font-bold text-foreground tracking-wide flex items-center justify-center">
+            AstroKraft<sup className="text-[8px] select-none text-gold/80 font-sans ml-0.5 self-start mt-0.5">™</sup>
+          </span>
           <span className="text-[9px] font-mono text-muted-foreground uppercase tracking-widest animate-pulse">
             Loading Celestial Map...
           </span>
