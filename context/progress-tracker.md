@@ -60,6 +60,9 @@ Update this file after every completed feature. Any AI agent reading this should
 - **WebGL canvas-reveal context optimization**: Configured CardSpotlight to default to a high-performance CSS dot-matrix spotlight to prevent scroll/hover lag and WebGL context crashes when multiple cards are displayed in a grid.
 - **Bilingual gemstone catalog**: Established a central `gems.json` database and reusable `GemstoneGrid` component mapped with English, Hindi, and Bengali translations.
 - **Gemstone names simplified**: Removed "Natural" (English), "प्राकृतिक" (Hindi), and "প্রাকৃতিক" (Bengali) from all gemstone names in `gems.json` per user feedback.
+- **Gemstone catalog images optimized**: Compressed 12 gemstone WebP images from 4K/high-res lossless (~3.5 MB each) to optimized, low-resolution lossy WebPs (512x512, ~10-25 KB each), reducing total directory size by 99% (from 40 MB to <300 KB).
+- **3D Globe assets localized and cached**: Downloaded Earth texture and bump/topology maps from unpkg CDN to local `/public/assets/globe/`, resized them from 4K to WebP formats (193 KB and 14 KB respectively), and redirected the R3F `<Scene>` to load them locally.
+- **Aggressive Browser Caching**: Configured `Cache-Control: public, max-age=31536000, immutable` (1 year) for all assets (including gemstones and globe textures) in `next.config.ts` to prevent duplicate network loading.
 
 
 ---

@@ -79,10 +79,8 @@ interface Globe3DProps {
 // Constants - Earth Texture URLs (NASA Blue Marble)
 // ============================================================================
 
-const DEFAULT_EARTH_TEXTURE =
-  "https://unpkg.com/three-globe@2.31.0/example/img/earth-blue-marble.jpg";
-const DEFAULT_BUMP_TEXTURE =
-  "https://unpkg.com/three-globe@2.31.0/example/img/earth-topology.png";
+const DEFAULT_EARTH_TEXTURE = "/assets/globe/earth-blue-marble.webp";
+const DEFAULT_BUMP_TEXTURE = "/assets/globe/earth-topology.webp";
 
 // ============================================================================
 // Utility Functions
