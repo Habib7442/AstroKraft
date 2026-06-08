@@ -2,9 +2,9 @@
   "ruby": {
     "id": "ruby",
     "name": {
-      "en": "Natural Ruby (Manikya)",
-      "hin": "प्राकृतिक माणिक (माणिक्य)",
-      "bn": "প্রাকৃতিক চুনি (মানিক্য)"
+      "en": "Ruby (Manikya)",
+      "hin": "माणिक (माणिक्य)",
+      "bn": "চুনি (মানিক্য)"
     },
     "type": {
       "en": "Precious Gemstone",
@@ -42,9 +42,9 @@
   "amethyst": {
     "id": "amethyst",
     "name": {
-      "en": "Natural Amethyst (Jamunia)",
-      "hin": "प्राकृतिक जमुनिया (कटैला)",
-      "bn": "প্রাকৃতিক জ্যামিতিস্ট (জামুনিয়া)"
+      "en": "Amethyst (Jamunia)",
+      "hin": "जमुनिया (कटैला)",
+      "bn": "জ্যামিতিস্ট (জামুনিয়া)"
     },
     "type": {
       "en": "Semi-Precious Gemstone",
@@ -82,9 +82,9 @@
   "blue_zircon": {
     "id": "blue_zircon",
     "name": {
-      "en": "Natural Blue Zircon",
-      "hin": "प्राकृतिक नीला जरकन",
-      "bn": "প্রাকৃতিক নীল জিরকন"
+      "en": "Blue Zircon",
+      "hin": "नीला जरकन",
+      "bn": "নীল জিরকন"
     },
     "type": {
       "en": "Semi-Precious Gemstone",
@@ -122,9 +122,9 @@
   "citrine": {
     "id": "citrine",
     "name": {
-      "en": "Natural Citrine (Sunela)",
-      "hin": "प्राकृतिक सुनैला (Citrine)",
-      "bn": "প্রাকৃতিক সুনীলা (সিট্রিন)"
+      "en": "Citrine (Sunela)",
+      "hin": "सुनैला (Citrine)",
+      "bn": "সুনীলা (সিট্রিন)"
     },
     "type": {
       "en": "Semi-Precious Gemstone",
@@ -202,9 +202,9 @@
   "gomed": {
     "id": "gomed",
     "name": {
-      "en": "Natural Hessonite (Gomed)",
-      "hin": "प्राकृतिक गोमेद (Hessonite)",
-      "bn": "প্রাকৃতিক গোমেদ (রাহু রত্ন)"
+      "en": "Hessonite (Gomed)",
+      "hin": "गोमेद (Hessonite)",
+      "bn": "গোমেদ (রাহু রত্ন)"
     },
     "type": {
       "en": "Precious Gemstone",
@@ -224,7 +224,7 @@
     "ruler": {
       "en": "Rahu",
       "hin": "राहु (Rahu)",
-      "bn": "রাহু"
+      "bn": "রাहु"
     },
     "origin": {
       "en": "Sri Lanka (Ceylon)",
@@ -242,9 +242,9 @@
   "opal": {
     "id": "opal",
     "name": {
-      "en": "Natural Opal",
-      "hin": "प्राकृतिक ओपल (दूधिया पत्थर)",
-      "bn": "প্রাকৃতিক ওপাল (দুধিয়া পাথর)"
+      "en": "Opal",
+      "hin": "ओपल (दूधिया पत्थर)",
+      "bn": "ওপাল (দুধিয়া পাথর)"
     },
     "type": {
       "en": "Semi-Precious Gemstone",
@@ -254,7 +254,7 @@
     "description": {
       "en": "An iridescent natural opal with a play-of-color effect. Ruled by Venus, it enhances artistic expression and brings charm.",
       "hin": "रंगों के खेल के प्रभाव वाला एक प्राकृतिक ओपल। शुक्र द्वारा शासित, यह कलात्मक अभिव्यक्ति को बढ़ाता है और आकर्षण लाता है।",
-      "bn": "আলোকচ্ছটা যুক্ত বর্ণিল একটি প্রাকৃতিক ওপাল পাথর। শুক্র গ্রহের রत্ন হিসেবে এটি শিল্পকলা ও ব্যক্তিত্বকে আকর্ষণীয় করে তোলে।"
+      "bn": "আলোকচ্ছটা যুক্ত বর্ণিল একটি প্রাকৃতিক ওপাল পাথর। শুক্র গ্রহের রত্ন হিসেবে এটি শিল্পকলা ও ব্যক্তিত্বকে আকর্ষণীয় করে তোলে।"
     },
     "zodiac": {
       "en": "Taurus / Libra",
@@ -282,9 +282,9 @@
   "peridot": {
     "id": "peridot",
     "name": {
-      "en": "Natural Peridot",
-      "hin": "प्राकृतिक पेरिडॉट (पेरीडॉट)",
-      "bn": "প্রাকৃতিক পেরিডট (সবুজকান্ত)"
+      "en": "Peridot",
+      "hin": "पेरिडॉट (पेरीडॉट)",
+      "bn": "পেরিডট (সবুজকান্ত)"
     },
     "type": {
       "en": "Semi-Precious Gemstone",
@@ -322,14 +322,14 @@
   "red_coral": {
     "id": "red_coral",
     "name": {
-      "en": "Natural Red Coral (Moonga)",
-      "hin": "प्राकृतिक मूंगा (Moonga)",
-      "bn": "প্রাকৃতিক রক্ত প্রবাল (মুঙ্গা)"
+      "en": "Red Coral (Moonga)",
+      "hin": "मूंगा (Moonga)",
+      "bn": "রক্ত প্রবাল (মুঙ্গা)"
     },
     "type": {
       "en": "Precious Gemstone",
       "hin": "बहुमूल्य रत्न",
-      "bn": "মূল্যবান রত্ন"
+      "bn": "मूल्यবান রত্ন"
     },
     "description": {
       "en": "A rich, vibrant red coral representing Mars. Inspires raw courage, physical stamina, and victory over adversaries.",
@@ -344,7 +344,7 @@
     "ruler": {
       "en": "Mars (Mangal)",
       "hin": "मंगल (Mangal)",
-      "bn": "মঙ্গল (মঙ্গল)"
+      "bn": "मंगल (মঙ্গল)"
     },
     "origin": {
       "en": "Italy / Japan",
@@ -362,9 +362,9 @@
   "topaz_sky_blue": {
     "id": "topaz_sky_blue",
     "name": {
-      "en": "Natural Sky Blue Topaz",
-      "hin": "प्राकृतिक आसमानी पुखराज",
-      "bn": "প্রাকৃতিক আকাশী নীল টোপাজ"
+      "en": "Sky Blue Topaz",
+      "hin": "आसमान पुखराज",
+      "bn": "আকাশী নীল টোপাজ"
     },
     "type": {
       "en": "Semi-Precious Gemstone",
@@ -384,7 +384,7 @@
     "ruler": {
       "en": "Jupiter / Saturn",
       "hin": "बृहस्पति / शनि",
-      "bn": "বৃহস্পতি / শনি"
+      "bn": "বৃহস্পতি / शनि"
     },
     "origin": {
       "en": "Brazil / Sri Lanka",
@@ -402,9 +402,9 @@
   "yellow_zircon": {
     "id": "yellow_zircon",
     "name": {
-      "en": "Natural Yellow Zircon",
-      "hin": "प्राकृतिक पीला जरकन",
-      "bn": "প্রাকৃতিক হলুদ জিরকন"
+      "en": "Yellow Zircon",
+      "hin": "पीला जरकन",
+      "bn": "হলুদ জিরকন"
     },
     "type": {
       "en": "Semi-Precious Gemstone",
@@ -419,7 +419,7 @@
     "zodiac": {
       "en": "Sagittarius / Pisces",
       "hin": "धनु / मीन",
-      "bn": "धनु / मীন"
+      "bn": "धनु / মীন"
     },
     "ruler": {
       "en": "Jupiter (Guru)",
@@ -436,20 +436,20 @@
     "benefits": {
       "en": ["Brings wisdom & academic success", "Improves marital harmony", "Promotes financial prosperity"],
       "hin": ["बुद्धि और शैक्षणिक सफलता लाता है", "वैवाहिक सद्भाव में सुधार करता है", "वित्तीय समृद्धि को बढ़ावा देता है"],
-      "bn": ["জ্ঞান ও বিদ্যাবুদ্ধি বাড়ায়", "দাম্পত্য কলহ দূর করে শান্তি আনে", "আর্থिक উন্নতি ও সৌভাগ্য বয়ে আনে"]
+      "bn": ["জ্ঞান ও বিদ্যাবুদ্ধি বাড়ায়", "দাম্পত্য কলহ দূর করে শান্তি আনে", "আর্থিক উন্নতি ও সৌভাগ্য বয়ে আনে"]
     }
   },
   "zircon_colorless": {
     "id": "zircon_colorless",
     "name": {
-      "en": "Natural Colorless Zircon",
-      "hin": "प्राकृतिक रंगहीन जरकन",
-      "bn": "প্রাকৃতিক বর্ণহীন জিরকন"
+      "en": "Colorless Zircon",
+      "hin": "रंगहीन जरकन",
+      "bn": "বর্ণহীন জিরকন"
     },
     "type": {
       "en": "Semi-Precious Gemstone",
       "hin": "उपरत्न",
-      "bn": "উপরত্ন"
+      "bn": "উপরत্ন"
     },
     "description": {
       "en": "A brilliant, diamond-like colorless zircon governed by Venus. Known to bring luxury, relationships, and positive aura.",

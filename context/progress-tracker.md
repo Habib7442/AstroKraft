@@ -59,6 +59,7 @@ Update this file after every completed feature. Any AI agent reading this should
 - **3D globe gating**: IntersectionObserver pauses R3F frame loop when globe is off-screen, saving ~360 React updates/sec.
 - **WebGL canvas-reveal context optimization**: Configured CardSpotlight to default to a high-performance CSS dot-matrix spotlight to prevent scroll/hover lag and WebGL context crashes when multiple cards are displayed in a grid.
 - **Bilingual gemstone catalog**: Established a central `gems.json` database and reusable `GemstoneGrid` component mapped with English, Hindi, and Bengali translations.
+- **Gemstone names simplified**: Removed "Natural" (English), "प्राकृतिक" (Hindi), and "প্রাকৃতিক" (Bengali) from all gemstone names in `gems.json` per user feedback.
 
 
 ---

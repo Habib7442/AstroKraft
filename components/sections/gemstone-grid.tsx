@@ -123,7 +123,6 @@ export default function GemstoneGrid({ locale = "en", limit }: GemstoneGridProps
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10">
           {gemsList.map((gem) => {
               const gemName = gem.name[activeLocale] || gem.name["en"];
-              const gemType = gem.type[activeLocale] || gem.type["en"];
               const gemDesc = gem.description[activeLocale] || gem.description["en"];
               const gemZodiac = gem.zodiac[activeLocale] || gem.zodiac["en"];
               const gemRuler = gem.ruler[activeLocale] || gem.ruler["en"];
@@ -158,16 +157,11 @@ export default function GemstoneGrid({ locale = "en", limit }: GemstoneGridProps
                         />
                       </div>
 
-                      {/* Right Head: Type Badge & Price display */}
-                      <div className="flex flex-col items-end text-right gap-1.5 font-sans">
-                        <span className="px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider rounded-full bg-white/5 border border-white/10 text-muted-foreground">
-                          {gemType}
-                        </span>
-                        <div className="flex flex-col items-end">
-                          <span className="text-[9px] text-muted-foreground uppercase">{labels.priceLabel}</span>
-                          <span className="font-serif font-bold text-gold text-base">₹{gem.pricePerCarat.toLocaleString()}</span>
-                          <span className="text-[9px] text-muted-foreground">{labels.pricePerCt}</span>
-                        </div>
+                      {/* Right Head: Price display */}
+                      <div className="flex flex-col items-end text-right font-sans">
+                        <span className="text-[9px] text-muted-foreground uppercase">{labels.priceLabel}</span>
+                        <span className="font-serif font-bold text-gold text-base leading-none mt-1">₹{gem.pricePerCarat.toLocaleString()}</span>
+                        <span className="text-[9px] text-muted-foreground mt-0.5">{labels.pricePerCt}</span>
                       </div>
                     </div>
 
