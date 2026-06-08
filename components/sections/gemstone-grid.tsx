@@ -3,7 +3,7 @@
 import React, { useState, useMemo } from "react";
 import { CardSpotlight } from "@/components/ui/card-spotlight";
 import GEMS_DATA from "@/lib/data/gems.json";
-import { Star, Award, MapPin, Compass, Search, Filter, Sparkles } from "lucide-react";
+import { Star, Award, MapPin, Compass, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface GemInfo {
@@ -44,62 +44,12 @@ const GLOW_COLORS: Record<string, string> = {
 export default function GemstoneGrid({ locale = "en" }: GemstoneGridProps) {
   const activeLocale = ["en", "hin", "bn"].includes(locale) ? locale : "en";
 
-  // Search and Filter State
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedType, setSelectedType] = useState<"all" | "precious" | "semi-precious">("all");
-  const [selectedZodiac, setSelectedZodiac] = useState<string>("all");
-
   const getPrefilledWhatsappUrl = (name: string) => {
     const text = `Hello AstroKraft! I am interested in purchasing the ${name}. Please share availability and lab certificates.`;
     return `https://wa.me/916913230255?text=${encodeURIComponent(text)}`;
   };
 
-  // Extract all unique zodiacs for filter dropdown list based on locale
-  const zodiacList = useMemo(() => {
-    const list = new Set<string>();
-    Object.values(GEMS).forEach((gem) => {
-      const zodiacVal = gem.zodiac[activeLocale] || gem.zodiac["en"];
-      // Split if comma/slash separated
-      zodiacVal.split(/[\/,]/).forEach((z) => {
-        const clean = z.trim();
-        if (clean) list.add(clean);
-      });
-    });
-    return Array.from(list).sort();
-  }, [activeLocale]);
-
-  // Filter gems based on search query, type, and zodiac
-  const filteredGems = useMemo(() => {
-    return Object.values(GEMS).filter((gem) => {
-      const nameText = (gem.name[activeLocale] || gem.name["en"]).toLowerCase();
-      const descText = (gem.description[activeLocale] || gem.description["en"]).toLowerCase();
-      const zodiacText = (gem.zodiac[activeLocale] || gem.zodiac["en"]).toLowerCase();
-      const rulerText = (gem.ruler[activeLocale] || gem.ruler["en"]).toLowerCase();
-      
-      const query = searchQuery.toLowerCase();
-
-      // Search matching
-      const matchesSearch = 
-        nameText.includes(query) || 
-        descText.includes(query) || 
-        zodiacText.includes(query) || 
-        rulerText.includes(query);
-
-      // Type matching
-      const isPrecious = (gem.type["en"] || "").toLowerCase().includes("precious");
-      const matchesType = 
-        selectedType === "all" ||
-        (selectedType === "precious" && isPrecious) ||
-        (selectedType === "semi-precious" && !isPrecious);
-
-      // Zodiac matching
-      const matchesZodiac = 
-        selectedZodiac === "all" ||
-        zodiacText.includes(selectedZodiac.toLowerCase());
-
-      return matchesSearch && matchesType && matchesZodiac;
-    });
-  }, [searchQuery, selectedType, selectedZodiac, activeLocale]);
+  const gemsList = Object.values(GEMS);
 
   // Dictionary fallbacks for header elements
   const labelsObj = {
@@ -107,58 +57,37 @@ export default function GemstoneGrid({ locale = "en" }: GemstoneGridProps) {
       eyebrow: "✦ Certified Remedies & Treasures",
       heading: "Explore Certified Gemstones",
       subheading: "Find lab-certified, natural gemstones aligned with your birth chart. Enhance planetary influences and invite positivity into your life.",
-      searchPlaceholder: "Search by gem name, planet, zodiac...",
-      filterAll: "All Gems",
-      filterPrecious: "Precious",
-      filterSemi: "Semi-Precious",
-      zodiacPlaceholder: "Filter by Zodiac",
-      zodiacAll: "All Zodiacs",
       planet: "Ruler",
       zodiacLabel: "Zodiac",
       origin: "Origin",
       priceLabel: "Price starting at",
       pricePerCt: "/ Carat",
       inquireBtn: "Inquire",
-      certBtn: "View Details",
-      noResults: "No gemstones matched your filters. Try adjusting your query."
+      buyNowBtn: "Buy Now"
     },
     hin: {
       eyebrow: "✦ प्रमाणित उपचार और रत्न",
       heading: "प्रमाणित रत्नों की खोज करें",
       subheading: "अपनी जन्म कुंडली के अनुसार प्रमाणित, प्राकृतिक रत्न खोजें। ग्रहों के प्रभावों को बढ़ाएं और जीवन में सकारात्मकता लाएं।",
-      searchPlaceholder: "रत्न, ग्रह, राशि द्वारा खोजें...",
-      filterAll: "सभी रत्न",
-      filterPrecious: "बहुमूल्य",
-      filterSemi: "उपरत्न",
-      zodiacPlaceholder: "राशि द्वारा फ़िल्टर करें",
-      zodiacAll: "सभी राशियां",
       planet: "स्वामी",
       zodiacLabel: "राशि",
       origin: "उत्पत्ति",
       priceLabel: "शुरुआती कीमत",
       pricePerCt: "/ कैरेट",
       inquireBtn: "पूछताछ करें",
-      certBtn: "विवरण देखें",
-      noResults: "आपके फ़िल्टर से कोई रत्न मेल नहीं खाया। कृपया पुन: प्रयास करें।"
+      buyNowBtn: "अभी खरीदें"
     },
     bn: {
       eyebrow: "✦ প্রত্যয়িত প্রতিকার ও রত্নাবলী",
       heading: "প্রত্যয়িত রত্ন পাথর খুঁজুন",
       subheading: "আপনার জন্মপত্রিকা অনুযায়ী প্রাকৃতিক এবং ল্যাব-প্রত্যয়িত রত্ন পাথর নির্বাচন করুন। গ্রহের শুভ প্রভাব বাড়ান ও জীবনে সাফল্য আনুন।",
-      searchPlaceholder: "রত্ন, গ্রহ বা রাশি দিয়ে খুঁজুন...",
-      filterAll: "সব রত্ন",
-      filterPrecious: "মূল্যবান রত্ন",
-      filterSemi: "উপরত্ন",
-      zodiacPlaceholder: "রাশি অনুযায়ী খুঁজুন",
-      zodiacAll: "সব রাশি",
       planet: "অধিপতি",
       zodiacLabel: "রাশি",
       origin: "উৎস",
       priceLabel: "মূল্য শুরু",
       pricePerCt: "/ ক্যারেট",
       inquireBtn: "যোগাযোগ করুন",
-      certBtn: "বিস্তারিত দেখুন",
-      noResults: "কোনো রত্ন পাথর পাওয়া যায়নি। অন্য ফিল্টার চেষ্টা করুন।"
+      buyNowBtn: "এখনই কিনুন"
     }
   };
   const labels = labelsObj[activeLocale as keyof typeof labelsObj];
@@ -185,82 +114,9 @@ export default function GemstoneGrid({ locale = "en" }: GemstoneGridProps) {
           </p>
         </div>
 
-        {/* Filters Controls Panel */}
-        <div className="flex flex-col md:flex-row gap-4 items-center justify-between bg-card/40 border border-border/40 p-4 rounded-2xl backdrop-blur-md relative z-20">
-          
-          {/* Search bar */}
-          <div className="relative w-full md:max-w-md">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-            <input
-              type="text"
-              placeholder={labels.searchPlaceholder}
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 text-sm bg-neutral-900/60 rounded-lg border border-border/80 focus:border-gold/60 focus:outline-none text-foreground placeholder-muted-foreground transition-all font-sans"
-            />
-          </div>
-
-          {/* Filter options group */}
-          <div className="flex flex-wrap items-center gap-3 w-full md:w-auto justify-start md:justify-end">
-            
-            {/* Precious/Semi-Precious Type Select */}
-            <div className="flex items-center bg-neutral-900/80 p-1 rounded-lg border border-border/80 text-xs font-sans">
-              <button
-                onClick={() => setSelectedType("all")}
-                className={cn(
-                  "px-3 py-1.5 rounded transition-all cursor-pointer",
-                  selectedType === "all" ? "bg-gold/15 text-gold font-semibold" : "text-muted-foreground hover:text-foreground"
-                )}
-              >
-                {labels.filterAll}
-              </button>
-              <button
-                onClick={() => setSelectedType("precious")}
-                className={cn(
-                  "px-3 py-1.5 rounded transition-all cursor-pointer",
-                  selectedType === "precious" ? "bg-gold/15 text-gold font-semibold" : "text-muted-foreground hover:text-foreground"
-                )}
-              >
-                {labels.filterPrecious}
-              </button>
-              <button
-                onClick={() => setSelectedType("semi-precious")}
-                className={cn(
-                  "px-3 py-1.5 rounded transition-all cursor-pointer",
-                  selectedType === "semi-precious" ? "bg-gold/15 text-gold font-semibold" : "text-muted-foreground hover:text-foreground"
-                )}
-              >
-                {labels.filterSemi}
-              </button>
-            </div>
-
-            {/* Zodiac Selector */}
-            <div className="relative font-sans text-xs shrink-0">
-              <select
-                value={selectedZodiac}
-                onChange={(e) => setSelectedZodiac(e.target.value)}
-                className="appearance-none bg-neutral-900/80 pl-3 pr-8 py-2.5 rounded-lg border border-border/80 focus:border-gold/60 focus:outline-none text-foreground cursor-pointer transition-all"
-              >
-                <option value="all">{labels.zodiacAll}</option>
-                {zodiacList.map((zodiac) => (
-                  <option key={zodiac} value={zodiac}>
-                    {zodiac}
-                  </option>
-                ))}
-              </select>
-              {/* Custom Dropdown Chevron */}
-              <div className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 flex items-center text-muted-foreground">
-                <Filter className="w-3.5 h-3.5" />
-              </div>
-            </div>
-
-          </div>
-        </div>
-
         {/* Gems Showcase Grid */}
-        {filteredGems.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10">
-            {filteredGems.map((gem) => {
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10">
+          {gemsList.map((gem) => {
               const gemName = gem.name[activeLocale] || gem.name["en"];
               const gemType = gem.type[activeLocale] || gem.type["en"];
               const gemDesc = gem.description[activeLocale] || gem.description["en"];
@@ -362,27 +218,17 @@ export default function GemstoneGrid({ locale = "en" }: GemstoneGridProps) {
                       {labels.inquireBtn}
                     </a>
                     <button
-                      className="flex-1 text-[11px] font-semibold text-muted-foreground hover:text-gold transition-colors py-2 px-4 rounded-full border border-border/10 bg-neutral-900/40 hover:bg-neutral-900 cursor-pointer"
+                      disabled
+                      className="flex-1 text-[11px] font-semibold text-muted-foreground/40 py-2 px-4 rounded-full border border-border/10 bg-neutral-900/20 cursor-not-allowed opacity-50 select-none"
                     >
-                      {labels.certBtn}
+                      {labels.buyNowBtn}
                     </button>
                   </div>
-
                 </CardSpotlight>
               );
             })}
           </div>
-        ) : (
-          /* Empty / No results view */
-          <div className="flex flex-col items-center justify-center text-center gap-4 bg-card/25 border border-border/40 p-12 rounded-2xl backdrop-blur-md">
-            <Compass className="w-12 h-12 text-gold animate-spin-slow" />
-            <p className="text-sm text-muted-foreground max-w-sm font-sans">
-              {labels.noResults}
-            </p>
-          </div>
-        )}
-
-      </div>
-    </section>
+        </div>
+      </section>
   );
 }
