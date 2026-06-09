@@ -173,7 +173,7 @@ export function Hero({ locale, dict }: HeroProps) {
                 >
                   {/* Service Image Frame */}
                   <div className="flex flex-col items-center w-full">
-                    <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border-2 border-black bg-white shadow-[2px_2px_0px_#000] group-hover:scale-105 transition-transform duration-200">
+                    <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden group-hover:scale-105 transition-transform duration-200">
                       <img
                         src={service.image}
                         alt={titleText}

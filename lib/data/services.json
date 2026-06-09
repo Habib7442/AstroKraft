@@ -11,7 +11,7 @@
       "hin": "1-on-1 वैदिक ज्योतिष परामर्श।",
       "bn": "১-অন-১ বৈদিক জ্যোতিষ পরামর্শ।"
     },
-    "image": "/assets/services/verified-astrologer.webp",
+    "image": "/assets/services/verified-astrologer.png",
     "link": "/astrologers",
     "color": "from-amber-400 via-amber-500 to-orange-500",
     "bgGlow": "rgba(245, 158, 11, 0.15)",
@@ -29,7 +29,7 @@
       "hin": "लैब-प्रमाणित उपचारात्मक रत्न।",
       "bn": "ল্যাব-সার্টিফাইড রত্ন পাথর।"
     },
-    "image": "/assets/services/gems.webp",
+    "image": "/assets/services/gems.png",
     "link": "/gemstones",
     "color": "from-purple-400 via-fuchsia-500 to-pink-500",
     "bgGlow": "rgba(139, 92, 246, 0.15)",
@@ -47,7 +47,7 @@
       "hin": "वैदिक पूजा और अनुष्ठान बुकिंग।",
       "bn": "বৈদিক পূজা ও আচার বুকিং।"
     },
-    "image": "/assets/services/purohit.webp",
+    "image": "/assets/services/purohit.png",
     "link": "https://wa.me/916913230255?text=Hello%20AstroKraft!%20I%20want%20to%20book%20a%20Purohit/Pooja%20session.",
     "isExternal": true,
     "color": "from-red-400 via-rose-500 to-orange-500",
@@ -66,7 +66,7 @@
       "hin": "स्थान संतुलन और सुधार परामर्श।",
       "bn": "স্থান বাস্তু সামঞ্জস্য পরামর্শ।"
     },
-    "image": "/assets/services/vastu-consultant.webp",
+    "image": "/assets/services/vastu-consultant.png",
     "link": "https://wa.me/916913230255?text=Hello%20AstroKraft!%20I%20want%20to%20book%20a%20Vastu%20Consultation.",
     "isExternal": true,
     "color": "from-teal-400 via-emerald-500 to-green-500",
@@ -85,7 +85,7 @@
       "hin": "जन्म तिथि के अनुसार गृह नक़्शे।",
       "bn": "জন্ম তারিখ অনুসারে গৃহ নক্সা।"
     },
-    "image": "/assets/services/vastu-home-plan.webp",
+    "image": "/assets/services/vastu-home-plan.png",
     "link": "https://wa.me/916913230255?text=Hello%20AstroKraft!%20I%20want%20to%20order%20a%20Vastu%20Home%20Plan.",
     "isExternal": true,
     "color": "from-cyan-400 via-sky-500 to-blue-500",
@@ -104,7 +104,7 @@
       "hin": "निःशुल्क 36-बिंदु गुण मिलान।",
       "bn": "বিনামূল্যে ৩৬-পয়েন্ট গুণ মিলন।"
     },
-    "image": "/assets/services/kundli-matching.webp",
+    "image": "/assets/services/kundli-matching.png",
     "link": "/tools",
     "color": "from-yellow-400 via-amber-400 to-yellow-600",
     "bgGlow": "rgba(234, 179, 8, 0.15)",
