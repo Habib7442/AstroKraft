@@ -3,8 +3,8 @@ import { getDictionary } from "@/lib/i18n";
 import { isValidLocale } from "@/lib/seo";
 import { Header } from "@/components/sections/header";
 import { Footer } from "@/components/sections/footer";
-import { ConsultationForm } from "@/components/sections/ConsultationForm";
 import { Suspense } from "react";
+import { ConsultationForm } from "@/components/sections/ConsultationForm";
 
 interface PageParams {
   locale: string;
