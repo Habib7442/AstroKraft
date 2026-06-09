@@ -205,7 +205,7 @@ export function Hero({ locale, dict }: HeroProps) {
                     className="w-full bg-white hover:bg-neutral-100 text-black border-[2.5px] border-black shadow-[4px_4px_0px_#000] hover:shadow-[5px_5px_0px_#000] hover:-translate-y-[1px] hover:-translate-x-[1px] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#000] font-black px-8 h-12 text-sm rounded-full transition-all cursor-pointer flex items-center justify-center gap-2"
                     asChild
                   >
-                    <a href="https://api.whatsapp.com/send/?phone=916913230255&text&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer">
+                    <a href={`/${locale}/consultation`}>
                       <img src="/social-icons/whatsapp.png" alt="WhatsApp" className="w-4 h-4 object-contain shrink-0" />
                       {labels.whatsapp}
                     </a>
