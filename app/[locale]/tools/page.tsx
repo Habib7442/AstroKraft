@@ -3,8 +3,6 @@ import { getDictionary } from "@/lib/i18n";
 import { isValidLocale } from "@/lib/seo";
 import { Header } from "@/components/sections/header";
 import { Footer } from "@/components/sections/footer";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Compass, HeartHandshake, Calendar, Sparkles, Orbit, Hash } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -36,13 +34,13 @@ const translations = {
     subtitle: "अपने जीवन पथ को निर्देशित करने के लिए डिज़ाइन किए गए निःशुल्क, प्रीमियम वैदिक ज्योतिष उपकरणों का अन्वेषण करें।",
     kundliTitle: "निःशुल्क कुंडली और जन्म चक्र",
     kundliDesc: "अपनी विस्तृत वैदिक जन्म कुंडली, ग्रहों की स्थिति, लग्न/राशि और विंशोत्तरी दशा विवरण तुरंत प्राप्त करें।",
-    matchingTitle: "गुण मिलান (कुंडली मिलान)",
+    matchingTitle: "गुण मिलान (कुंडली मिलान)",
     matchingDesc: "विवाह के लिए ३६-गुण अनुकूलता की गणना करें, मांगलिक दोष मिलान देखें और विस्तृत भावनात्मक विश्लेषण प्राप्त करें।",
     panchangTitle: "दैनिक पंचांग और शुभ मुहूर्त",
     panchangDesc: "अपने स्थान के लिए दैनिक शुभ समय, तिथि, नक्षत्र, योग, करण और शुभ मुहूर्त की जानकारी प्राप्त करें।",
     horoscopeTitle: "दैनिक राशिफल पूर्वानुमान",
     horoscopeDesc: "करियर, स्वास्थ्य, वित्त और रिश्तों के मार्गदर्शन के लिए सटीक दैनिक, साप्ताहिक और मासिक राशिफल प्राप्त करें।",
-    tarotTitle: "दैनिक टैरो कार्ड रीडिंग",
+    tarotTitle: "दैनिक टैরো कार्ड रीडिंग",
     tarotDesc: "तत्काल सहज उत्तर और ब्रह्मांडीय मार्गदर्शन प्राप्त करने के लिए रहस्यमय आकाशीय डेक से कार्ड चुनें।",
     numerologyTitle: "अंकशास्त्र कैलकुलेटर",
     numerologyDesc: "अपने नाम और जन्म तिथि के आधार पर अपने जीवन पथ अंक, भाग्य अंक और शुभ रंग की खोज करें।",
@@ -55,7 +53,7 @@ const translations = {
     kundliTitle: "বিনামূল্যে কোষ্ঠী ও জন্ম ছক",
     kundliDesc: "আপনার বৈদিক জন্ম ছক, গ্রহের অবস্থান, লগ্ন/রাশি এবং বিংশোত্তরী দশার বিবরণ তাত্ক্ষণিকভাবে তৈরি করুন।",
     matchingTitle: "কোষ্ঠী মেলাও ও গুণ মিলন",
-    matchingDesc: "বিবাহের জন্য ৩৬-গুণের সামঞ্জস্যের হিসাব করুন, মাঙ্গলিক দোষের মিল পরীক্ষা করুন এবং আবেগগত রায় পান।",
+    matchingDesc: "কোষ্ঠী মিলিয়ে ৩৬-গুণের সামঞ্জস্যের হিসাব করুন, মাঙ্গলিক দোষের মিল পরীক্ষা করুন এবং আবেগগত রায় পান।",
     panchangTitle: "দৈনিক পঞ্জিকা ও শুভ মুহূর্ত",
     panchangDesc: "দৈনিক শুভ সময়, তিথি, নক্ষত্র, যোগ, করণ এবং শুভ মুহুর্তের হদিস পান আপনার নিজস্ব শহরের জন্য।",
     horoscopeTitle: "দৈনিক রাশিফল পূর্বাবভাস",
@@ -68,6 +66,15 @@ const translations = {
     exploreBtn: "সরঞ্জাম খুলুন",
   }
 } as const;
+
+const toolColors = [
+  "bg-[#FEF08A]", // pastel yellow
+  "bg-[#E5D5FF]", // pastel purple
+  "bg-[#FFD0C8]", // pastel peach
+  "bg-[#C6F6D5]", // pastel green
+  "bg-[#E0F2FE]", // pastel blue
+  "bg-[#FCE7F3]", // pastel pink
+];
 
 export default async function Page({ params }: { params: Promise<PageParams> }) {
   const { locale } = await params;
@@ -86,8 +93,7 @@ export default async function Page({ params }: { params: Promise<PageParams> }) 
       href: `/${locale}/tools/kundli`,
       icon: Compass,
       active: true,
-      iconColor: "text-accent",
-      glowColor: "group-hover:border-gold/60",
+      iconColor: "text-black",
     },
     {
       title: t.matchingTitle,
@@ -95,8 +101,7 @@ export default async function Page({ params }: { params: Promise<PageParams> }) 
       href: `/${locale}/tools/matching`,
       icon: HeartHandshake,
       active: true,
-      iconColor: "text-blue-400",
-      glowColor: "group-hover:border-blue-500/40",
+      iconColor: "text-black",
     },
     {
       title: t.panchangTitle,
@@ -104,8 +109,7 @@ export default async function Page({ params }: { params: Promise<PageParams> }) 
       href: "#",
       icon: Calendar,
       active: false,
-      iconColor: "text-emerald-400",
-      glowColor: "group-hover:border-emerald-500/20",
+      iconColor: "text-neutral-400",
     },
     {
       title: t.horoscopeTitle,
@@ -113,8 +117,7 @@ export default async function Page({ params }: { params: Promise<PageParams> }) 
       href: "#",
       icon: Orbit,
       active: false,
-      iconColor: "text-purple-400",
-      glowColor: "group-hover:border-purple-500/20",
+      iconColor: "text-neutral-400",
     },
     {
       title: t.tarotTitle,
@@ -122,8 +125,7 @@ export default async function Page({ params }: { params: Promise<PageParams> }) 
       href: "#",
       icon: Sparkles,
       active: false,
-      iconColor: "text-amber-400",
-      glowColor: "group-hover:border-amber-500/20",
+      iconColor: "text-neutral-400",
     },
     {
       title: t.numerologyTitle,
@@ -131,13 +133,12 @@ export default async function Page({ params }: { params: Promise<PageParams> }) 
       href: "#",
       icon: Hash,
       active: false,
-      iconColor: "text-orange-400",
-      glowColor: "group-hover:border-orange-500/20",
+      iconColor: "text-neutral-400",
     },
   ];
 
   return (
-    <div className="flex flex-col min-h-screen bg-background text-foreground overflow-x-hidden">
+    <div className="flex flex-col min-h-screen bg-[#FFFDF0] text-black overflow-x-hidden">
       {/* Navigation Header */}
       <Header locale={locale} dict={dict} />
 
@@ -146,67 +147,72 @@ export default async function Page({ params }: { params: Promise<PageParams> }) 
         <div className="max-w-6xl mx-auto space-y-12">
           {/* Header Title */}
           <div className="text-center space-y-4">
-            <h1 className="text-3xl sm:text-5xl font-serif text-accent font-semibold tracking-tight">
+            <span className="inline-flex items-center gap-1.5 px-4.5 py-1.5 border-2 border-black bg-[#FFC000] text-black text-[10px] sm:text-xs font-black uppercase tracking-wider shadow-[2.5px_2.5px_0px_#000] select-none rounded-full">
+              ✦ 100% Free Celestial Calculations
+            </span>
+            <h1 className="text-3xl sm:text-5xl font-serif text-black font-black tracking-tight mt-1">
               {t.title}
             </h1>
-            <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-sm sm:text-base text-black font-semibold max-w-2xl mx-auto leading-relaxed">
               {t.subtitle}
             </p>
           </div>
 
           {/* Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {tools.map((tool, idx) => {
               const Icon = tool.icon;
               return (
-                <Card
+                <div
                   key={idx}
                   className={cn(
-                    "group relative border border-border/30 bg-neutral-950/40 backdrop-blur-md shadow-lg transition-all duration-300 flex flex-col justify-between overflow-hidden",
+                    "group relative border-[3px] border-black rounded-2xl flex flex-col justify-between overflow-hidden p-6 select-none text-black shadow-[4px_4px_0px_#000] transition-all duration-200 min-h-[18rem]",
                     tool.active 
-                      ? "hover:-translate-y-1 hover:shadow-xl hover:bg-neutral-950/60 cursor-pointer" 
-                      : "opacity-60 cursor-not-allowed",
-                    tool.glowColor
+                      ? cn(toolColors[idx % toolColors.length], "hover:shadow-[6px_6px_0px_#000] hover:-translate-y-0.5 hover:-translate-x-0.5 active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#000] cursor-pointer") 
+                      : "bg-neutral-50/70 border-dashed opacity-60 cursor-not-allowed"
                   )}
                 >
-                  <CardHeader className="flex flex-col gap-4">
+                  <div className="flex flex-col gap-4">
                     <div className="flex justify-between items-start">
                       {/* Icon wrapper */}
-                      <div className={cn("p-3 rounded-2xl bg-neutral-900", tool.iconColor)}>
-                        <Icon className="w-6 h-6" />
+                      <div className={cn(
+                        "p-3 rounded-2xl border-2 border-black bg-white shadow-[2px_2px_0px_#000] w-fit",
+                        !tool.active && "opacity-50"
+                      )}>
+                        <Icon className={cn("w-6 h-6 stroke-[2.5px]", tool.iconColor)} />
                       </div>
 
                       {/* Badge if coming soon */}
                       {!tool.active && (
-                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold tracking-wider uppercase bg-white/5 text-muted-foreground border border-white/10">
+                        <span className="px-2.5 py-0.5 rounded-full text-[9px] font-black tracking-wider uppercase bg-white border-2 border-black shadow-[1.5px_1.5px_0px_#000] text-black">
                           {t.comingSoon}
                         </span>
                       )}
                     </div>
 
-                    <CardTitle className="text-lg font-serif group-hover:text-accent transition-colors duration-200">
+                    <h3 className="text-lg font-serif font-black text-black">
                       {tool.title}
-                    </CardTitle>
-                  </CardHeader>
+                    </h3>
+                  </div>
 
-                  <CardContent className="flex-1 flex flex-col justify-between">
-                    <p className="text-muted-foreground text-xs leading-relaxed mb-6">
+                  <div className="flex flex-col justify-between mt-4 gap-6">
+                    <p className="text-neutral-600 font-semibold text-xs leading-relaxed">
                       {tool.desc}
                     </p>
 
                     {tool.active ? (
                       <a href={tool.href} className="w-full">
-                        <Button variant="outline" className="w-full text-xs font-semibold group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-transparent transition-all">
+                        <button className="w-full text-xs font-black uppercase tracking-wider py-2.5 rounded-full border-2 border-black bg-white hover:bg-neutral-50 hover:shadow-[3px_3px_0px_#000] hover:-translate-y-[0.5px] hover:-translate-x-[0.5px] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#000] transition-all cursor-pointer shadow-[2px_2px_0px_#000]">
                           {t.exploreBtn}
-                        </Button>
+                        </button>
                       </a>
                     ) : (
-                      <Button disabled variant="outline" className="w-full text-xs font-semibold">
+                      <button disabled className="w-full text-xs font-black uppercase tracking-wider py-2.5 rounded-full border-2 border-black bg-neutral-100 text-neutral-400 cursor-not-allowed opacity-60">
                         {t.comingSoon}
-                      </Button>
+                      </button>
                     )}
-                  </CardContent>
-                </Card>
+                  </div>
+                </div>
               );
             })}
           </div>
