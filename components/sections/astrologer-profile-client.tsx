@@ -30,6 +30,23 @@ interface AstrologerProfileClientProps {
   locale: string;
 }
 
+const cardColors: Record<string, string> = {
+  biprangshu_bhattacharjee: "bg-[#FFF9E6]",
+  acharya_bhakta_vedanta: "bg-[#E5D5FF]",
+  acharya_sneha: "bg-[#FFD0C8]",
+  acharya_abhi_shastri: "bg-[#FEF08A]",
+  astrologer_indrajit_dutta: "bg-[#C6F6D5]",
+  rishi_acharya: "bg-[#E0F2FE]"
+};
+
+const itemColors = [
+  "bg-[#FFF9E6]", // pastel yellow
+  "bg-[#E5D5FF]", // pastel purple
+  "bg-[#FFD0C8]", // pastel peach
+  "bg-[#C6F6D5]", // pastel green
+  "bg-[#E0F2FE]", // pastel blue
+];
+
 export default function AstrologerProfileClient({ 
   astrologer, 
   astrologerId, 
@@ -91,7 +108,10 @@ export default function AstrologerProfileClient({
           <div className="lg:col-span-4 flex flex-col gap-6 w-full">
             
             {/* Primary Profile Card */}
-            <div className="bg-white border-[3px] border-black rounded-2xl p-6 text-center flex flex-col items-center relative overflow-hidden shadow-[6px_6px_0px_#000]">
+            <div className={cn(
+              "border-[3px] border-black rounded-2xl p-6 text-center flex flex-col items-center relative overflow-hidden shadow-[6px_6px_0px_#000]",
+              cardColors[astrologerId] || "bg-white"
+            )}>
               <div className="absolute top-0 left-0 w-full h-1.5 bg-[#FFC000]" />
               
               {/* Profile image with black status ring */}
@@ -160,7 +180,7 @@ export default function AstrologerProfileClient({
             </div>
 
             {/* Pricing Card */}
-            <div className="bg-white border-[3px] border-black rounded-2xl p-5 relative overflow-hidden shadow-[6px_6px_0px_#000] font-black">
+            <div className="bg-[#FFF9E6] border-[3px] border-black rounded-2xl p-5 relative overflow-hidden shadow-[6px_6px_0px_#000] font-black">
               <div className="flex justify-between items-center">
                 <div className="flex flex-col">
                   <span className="text-[10px] text-neutral-500 uppercase tracking-wider">Consultation Fee</span>
@@ -233,7 +253,7 @@ export default function AstrologerProfileClient({
                     {copiedField === "Address" ? <Check className="w-3.5 h-3.5 text-emerald-600 stroke-[3px]" /> : <Copy className="w-3.5 h-3.5 text-black stroke-[2px]" />}
                   </button>
                 </div>
-                <span className="leading-relaxed text-neutral-700 font-semibold bg-white p-2 border-2 border-black rounded-lg shadow-[2px_2px_0px_#000]">{addressText}</span>
+                <span className="leading-relaxed text-neutral-700 font-semibold bg-[#FFF9E6] p-2 border-2 border-black rounded-lg shadow-[2px_2px_0px_#000]">{addressText}</span>
               </div>
             </div>
 
@@ -265,7 +285,10 @@ export default function AstrologerProfileClient({
                 {servicesList.map((service, index) => (
                   <div 
                     key={index}
-                    className="p-4 rounded-xl bg-white border-2 border-black hover:bg-neutral-50 shadow-[3px_3px_0px_#000] hover:shadow-[4px_4px_0px_#000] hover:-translate-y-0.5 hover:-translate-x-0.5 active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#000] transition-all flex flex-col gap-1.5 group cursor-default"
+                    className={cn(
+                      "p-4 rounded-xl border-2 border-black hover:shadow-[4px_4px_0px_#000] hover:-translate-y-0.5 hover:-translate-x-0.5 active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#000] transition-all flex flex-col gap-1.5 group cursor-default",
+                      itemColors[index % itemColors.length]
+                    )}
                   >
                     <span className="text-xs font-black text-black tracking-wide group-hover:translate-x-0.5 transition-transform flex items-center gap-1.5">
                       ✦ {service.title}

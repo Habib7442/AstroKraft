@@ -80,7 +80,7 @@ export default async function AstrologerProfilePage({
   const astrologer = ASTROLOGERS[id];
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#06040a] text-foreground overflow-x-hidden pt-20">
+    <div className="flex flex-col min-h-screen bg-[#FFFDF0] text-black overflow-x-hidden pt-20">
       {/* Dynamic Header */}
       <Header locale={locale} dict={dict} />
 
