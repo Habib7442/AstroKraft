@@ -62,7 +62,7 @@ export function Footer({ locale, dict }: FooterProps) {
             <div className="flex flex-col gap-2.5 mt-2 text-xs text-neutral-600 font-semibold">
               <div className="flex items-center gap-2">
                 <MapPin className="w-3.5 h-3.5 text-black stroke-[2.5px] shrink-0" />
-                <span>{SITE.contact.address.region}, India</span>
+                <span>India</span>
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="w-3.5 h-3.5 text-black stroke-[2.5px] shrink-0" />
