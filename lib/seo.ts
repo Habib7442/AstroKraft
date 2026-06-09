@@ -31,7 +31,7 @@ export const SITE = {
         "AstroKraft is India's trusted astrology & gemstone marketplace. Free Kundli & Kundli Matching (Guna Milan), daily Rashifol, Panchang & Subh Muhurat, certified gemstones, verified Vedic astrologers, purohit booking & Vastu consultation.",
     /** Default share image (1200×630). A dynamic per-page OG image is preferred. */
     ogImage: "/og_image.jpg",
-    themeColor: { light: "#F7F6FB", dark: "#0C0A16" }, // matches DESIGN.md tokens
+    themeColor: { light: "#e7dcce", dark: "#e7dcce" }, // matches PWA welcome screen & logo background
     twitter: "@astrokraft",
     keywordsPrimary: [
         "astrology",
@@ -581,7 +581,7 @@ export function robotsConfig() {
                 userAgent: "*",
                 allow: "/",
                 // Keep private / non-canonical surfaces out of the index.
-                disallow: ["/account", "/api/", "/auth/", "/*?*sessionId=", "/checkout"],
+                disallow: ["/account", "/api/", "/auth/", "/*?*sessionId=", "/checkout", "/*/offline"],
             },
         ],
         sitemap: `${DOMAIN_ROOT}/sitemap.xml`,

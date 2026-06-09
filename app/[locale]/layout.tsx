@@ -8,11 +8,13 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { LenisProvider } from "@/components/providers/lenis-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { ExcitementToaster } from "@/components/excitement-toaster";
+import { PwaRegister } from "@/components/PwaRegister";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
+
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -70,6 +72,7 @@ export default async function RootLayout({
             {children}
             <Toaster position="top-right" closeButton />
             <ExcitementToaster />
+            <PwaRegister />
           </LenisProvider>
         </ThemeProvider>
       </body>

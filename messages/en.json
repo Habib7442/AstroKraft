@@ -67,6 +67,13 @@
     "company_heading": "Company",
     "copyright": "All rights reserved.",
     "devotion": "Made with devotion in India ✦"
+  },
+  "offline": {
+    "title": "You are Offline",
+    "subtitle": "AstroKraft™ needs an active connection to query the stars, but your connection went dark.",
+    "description": "Please check your network settings and try again. Some of your previously loaded content may still be available.",
+    "retry": "Retry Connection",
+    "back_home": "Back to Home"
   }
 }
 

@@ -19,6 +19,7 @@ Update this file after every completed feature. Any AI agent reading this should
 - [x] 01 Design System & Scaffold (globals.css tokens, font loading, shadcn/ui, Aceternity, Lenis, i18n routing)
 - [x] 02 Homepage (Hero, Services Bento, Featured Astrologers globe + grid, Zodiac tiles, Testimonials, Footer, WhatsApp FAB)
 - [x] 03 Astrologer Directory & Profiles (team listing, individual profiles, globe modal, centralized JSON data)
+- [x] 03.5 PWA Integration (Welcome/Splash screen branding, background color matches logo, service worker caching, and localized offline pages)
 
 ### Phase 1 — MVP Launch
 
@@ -81,6 +82,7 @@ Update this file after every completed feature. Any AI agent reading this should
 - **Gemstone Grid & Catalog Page Restyled**: Converted the "Explore Certified Gemstones" grid and dedicated `/gemstones` page from the dark-mode theme to the warm light neo-brutalist theme. Card backgrounds are dynamically colored with soft pastel tints mapping to each gemstone's physical color signature. Details and buttons are rendered on high-contrast cards with thick black borders, black text, and hard offsets shadow effects to ensure 100% legibility and visual wow-factor.
 - **Free Tools Page Restyled**: Converted the interactive Vedic calculation tools page (`/tools`) from a dark-themed layout to our warm off-white and pastel-toned light theme. Active tools cards are styled with distinct signature pastel backgrounds, thick borders, and offset shadows. The description text is set to high-contrast neutral-600, and action triggers are rendered as clean neo-brutalist buttons to match the rest of the application.
 - **Footer Restyled**: Converted the site footer component to a warm, distinct pastel yellow background (`bg-[#FFF9E6]`) and high-contrast neo-brutalist layout. Added a thick top border (`border-t-[3px] border-black`), updated headers and navigation links to use clean bold text with high legibility, matched the brand logo with the header's design, and turned social links into rounded neo-brutalist button modules with offset shadow styling.
+- **PWA Welcome Screen & Offline Support**: Implemented progressive web app capabilities, registering a custom service worker (`sw.js`) to handle asset caching and localized offline fallback views. Programmatically resized `logo.png` into compliant `192x192` and `512x512` web icons and configured `site.webmanifest` to set background and theme colors to `#e7dcce` (matching the logo background) for a seamless native splash screen. Integrated client-side status observers triggering custom neo-brutalist toast alerts upon network state changes.
 
 ---
 
