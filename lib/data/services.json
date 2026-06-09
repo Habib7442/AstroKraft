@@ -1,0 +1,113 @@
+[
+  {
+    "id": "astrologer",
+    "title": {
+      "en": "Verified Astrologer",
+      "hin": "सत्यापित ज्योतिषी",
+      "bn": "যাচাইকৃত জ্যোতিষী"
+    },
+    "desc": {
+      "en": "1-on-1 Vedic consultation.",
+      "hin": "1-on-1 वैदिक ज्योतिष परामर्श।",
+      "bn": "১-অন-১ বৈদিক জ্যোতিষ পরামর্শ।"
+    },
+    "image": "/assets/services/verified-astrologer.webp",
+    "link": "/astrologers",
+    "color": "from-amber-400 via-amber-500 to-orange-500",
+    "bgGlow": "rgba(245, 158, 11, 0.15)",
+    "borderColor": "border-amber-400"
+  },
+  {
+    "id": "gemstone",
+    "title": {
+      "en": "Certified Gemstone",
+      "hin": "प्रमाणित रत्न",
+      "bn": "সার্টিফাইড রত্ন"
+    },
+    "desc": {
+      "en": "Lab-certified planet remedies.",
+      "hin": "लैब-प्रमाणित उपचारात्मक रत्न।",
+      "bn": "ল্যাব-সার্টিফাইড রত্ন পাথর।"
+    },
+    "image": "/assets/services/gems.webp",
+    "link": "/gemstones",
+    "color": "from-purple-400 via-fuchsia-500 to-pink-500",
+    "bgGlow": "rgba(139, 92, 246, 0.15)",
+    "borderColor": "border-purple-400"
+  },
+  {
+    "id": "purohit",
+    "title": {
+      "en": "Purohit",
+      "hin": "पुरोहित बुकिंग",
+      "bn": "পুরোহিত বুকিং"
+    },
+    "desc": {
+      "en": "Vedic Pooja & rituals.",
+      "hin": "वैदिक पूजा और अनुष्ठान बुकिंग।",
+      "bn": "বৈদিক পূজা ও আচার বুকিং।"
+    },
+    "image": "/assets/services/purohit.webp",
+    "link": "https://wa.me/916913230255?text=Hello%20AstroKraft!%20I%20want%20to%20book%20a%20Purohit/Pooja%20session.",
+    "isExternal": true,
+    "color": "from-red-400 via-rose-500 to-orange-500",
+    "bgGlow": "rgba(244, 63, 94, 0.15)",
+    "borderColor": "border-rose-400"
+  },
+  {
+    "id": "vastu_consult",
+    "title": {
+      "en": "Vastu Consultant",
+      "hin": "वास्तु सलाहकार",
+      "bn": "বাস্তু উপদেষ্টা"
+    },
+    "desc": {
+      "en": "Space harmony consulting.",
+      "hin": "स्थान संतुलन और सुधार परामर्श।",
+      "bn": "স্থান বাস্তু সামঞ্জস্য পরামর্শ।"
+    },
+    "image": "/assets/services/vastu-consultant.webp",
+    "link": "https://wa.me/916913230255?text=Hello%20AstroKraft!%20I%20want%20to%20book%20a%20Vastu%20Consultation.",
+    "isExternal": true,
+    "color": "from-teal-400 via-emerald-500 to-green-500",
+    "bgGlow": "rgba(20, 184, 166, 0.15)",
+    "borderColor": "border-teal-400"
+  },
+  {
+    "id": "vastu_plan",
+    "title": {
+      "en": "Vastu Home Plan",
+      "hin": "वास्तु गृह योजना",
+      "bn": "বাস্তু গৃহ পরিকল্পনা"
+    },
+    "desc": {
+      "en": "Custom home layouts.",
+      "hin": "जन्म तिथि के अनुसार गृह नक़्शे।",
+      "bn": "জন্ম তারিখ অনুসারে গৃহ নক্সা।"
+    },
+    "image": "/assets/services/vastu-home-plan.webp",
+    "link": "https://wa.me/916913230255?text=Hello%20AstroKraft!%20I%20want%20to%20order%20a%20Vastu%20Home%20Plan.",
+    "isExternal": true,
+    "color": "from-cyan-400 via-sky-500 to-blue-500",
+    "bgGlow": "rgba(6, 182, 212, 0.15)",
+    "borderColor": "border-cyan-400"
+  },
+  {
+    "id": "kundli_match",
+    "title": {
+      "en": "Kundli Match",
+      "hin": "कुंडली मिलान",
+      "bn": "কুন্ডলী মিলন"
+    },
+    "desc": {
+      "en": "36-point Guna Milan.",
+      "hin": "निःशुल्क 36-बिंदु गुण मिलान।",
+      "bn": "বিনামূল্যে ৩৬-পয়েন্ট গুণ মিলন।"
+    },
+    "image": "/assets/services/kundli-matching.webp",
+    "link": "/tools",
+    "color": "from-yellow-400 via-amber-400 to-yellow-600",
+    "bgGlow": "rgba(234, 179, 8, 0.15)",
+    "borderColor": "border-yellow-400"
+  }
+]

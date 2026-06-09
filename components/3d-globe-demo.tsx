@@ -404,7 +404,7 @@ export default function Globe3DDemo({ className, locale = "en" }: Globe3DDemoPro
       <Globe3D
         markers={sampleMarkers}
         config={{
-          showAtmosphere: true,
+          showAtmosphere: false,
           atmosphereColor: "#fbbf24", // Premium gold halo glow to match theme
           atmosphereIntensity: 1.4,
           atmosphereBlur: 3.5,

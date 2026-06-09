@@ -66,11 +66,11 @@ export function Header({ locale, dict }: HeaderProps) {
             <img
               src="/logo.svg"
               alt="AstroKraft Logo"
-              className="w-8 h-8 object-contain rounded-md border border-gold/30 group-hover:border-gold/60 group-hover:rotate-12 transition-all duration-300"
+              className="w-8 h-8 object-contain rounded-md border-2 border-black group-hover:rotate-12 transition-all duration-300"
             />
-            <span className="font-serif text-2xl font-semibold tracking-tight text-foreground group-hover:text-gold transition-colors flex items-baseline">
-              Astro<span className="text-gold">Kraft</span>
-              <sup className="text-[10px] select-none text-gold/85 font-sans ml-0.5 self-start mt-1">™</sup>
+            <span className="font-serif text-2xl font-black tracking-tight text-black flex items-baseline">
+              Astro<span className="text-black">Kraft</span>
+              <sup className="text-[10px] select-none text-black/80 font-sans ml-0.5 self-start mt-1 font-bold">™</sup>
             </span>
           </a>
 
@@ -80,7 +80,7 @@ export function Header({ locale, dict }: HeaderProps) {
               <a
                 key={item.label}
                 href={item.href}
-                className="text-[14px] font-medium text-muted-foreground hover:text-foreground transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-gold hover:after:w-full after:transition-all after:duration-200"
+                className="text-[14px] font-extrabold text-black hover:text-black/85 transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-black hover:after:w-full after:transition-all after:duration-200"
               >
                 {item.label}
               </a>
@@ -92,20 +92,20 @@ export function Header({ locale, dict }: HeaderProps) {
             {/* Language Dropdown Selector */}
             <div className="relative group">
               <button
-                className="flex items-center gap-1 px-3 py-1.5 rounded-full border border-border bg-card text-foreground text-xs font-medium hover:border-gold/50 transition-colors"
+                className="flex items-center gap-1 px-3 py-1.5 rounded-full border-2 border-black bg-white text-black text-xs font-bold hover:bg-neutral-50 transition-colors shadow-[2px_2px_0px_#000]"
                 aria-label="Select Language"
               >
                 <span>{LOCALE_LABEL[locale as Locale] || "Language"}</span>
-                <ChevronDown className="w-3 h-3 text-muted-foreground group-hover:text-gold transition-colors" />
+                <ChevronDown className="w-3 h-3 text-black" />
               </button>
-              <div className="absolute right-0 top-full mt-1.5 w-32 bg-card border border-border rounded-lg shadow-lg py-1 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-150 z-50">
+              <div className="absolute right-0 top-full mt-1.5 w-32 bg-white border-2 border-black rounded-lg shadow-[3px_3px_0px_#000] py-1 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-150 z-50">
                 {LOCALES.map((loc) => (
                   <button
                     key={loc}
                     onClick={() => handleLocaleChange(loc)}
                     className={cn(
-                      "w-full text-left px-3 py-1.5 text-xs hover:bg-secondary hover:text-secondary-foreground transition-colors cursor-pointer",
-                      locale === loc ? "text-gold font-semibold bg-secondary/30" : "text-foreground"
+                      "w-full text-left px-3 py-1.5 text-xs hover:bg-neutral-100 hover:text-black transition-colors cursor-pointer font-bold",
+                      locale === loc ? "text-black font-black bg-primary/20" : "text-black"
                     )}
                   >
                     {LOCALE_LABEL[loc]}
@@ -120,11 +120,11 @@ export function Header({ locale, dict }: HeaderProps) {
             <Button
               variant="default"
               size="lg"
-              className="bg-foreground hover:bg-foreground/90 text-white font-semibold px-5 rounded-full text-xs cursor-pointer"
+              className="bg-black hover:bg-neutral-900 text-white border-2 border-black font-bold px-5 rounded-full text-xs cursor-pointer shadow-[2px_2px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#000] transition-all"
               asChild
             >
               <a href={`/${locale}/astrologers`}>
-                <MessageCircle className="w-3.5 h-3.5 mr-1.5" />
+                <MessageCircle className="w-3.5 h-3.5 mr-1.5 text-white" />
                 {dict.common.whatsapp_cta}
               </a>
             </Button>
@@ -135,7 +135,7 @@ export function Header({ locale, dict }: HeaderProps) {
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
               <SheetTrigger asChild>
                 <button
-                  className="p-1.5 rounded-md border border-border text-foreground hover:border-gold/50 transition-colors cursor-pointer"
+                  className="p-1.5 rounded-md border-2 border-black text-black bg-white shadow-[2px_2px_0px_#000] hover:bg-neutral-50 transition-colors cursor-pointer"
                   aria-label="Toggle Navigation Menu"
                 >
                   <Menu className="w-5 h-5" />
