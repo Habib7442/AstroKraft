@@ -123,17 +123,17 @@ export function Hero({ locale, dict }: HeroProps) {
             </div>
 
             {/* Trust Badges */}
-            <div className="flex flex-wrap justify-center lg:justify-start gap-4 mt-6 text-xs font-black text-black w-full">
-              <div className="flex items-center gap-1.5 px-3.5 py-2 border-[2px] border-black bg-white shadow-[2px_2px_0px_#000] select-none rounded-xl">
-                <UserCheck className="w-4 h-4 text-[#FFC000] stroke-[3px]" />
-                <span>{dict.common.verified}</span>
+            <div className="grid grid-cols-2 sm:flex sm:flex-wrap justify-center lg:justify-start gap-3 sm:gap-4 mt-6 text-[10px] sm:text-xs font-black text-black w-full">
+              <div className="flex items-center justify-center gap-1.5 px-3 py-2 border-[2px] border-black bg-white shadow-[2px_2px_0px_#000] select-none rounded-xl col-span-1">
+                <UserCheck className="w-4 h-4 text-[#FFC000] stroke-[3px] shrink-0" />
+                <span className="truncate">{dict.common.verified}</span>
               </div>
-              <div className="flex items-center gap-1.5 px-3.5 py-2 border-[2px] border-black bg-white shadow-[2px_2px_0px_#000] select-none rounded-xl">
-                <ShieldCheck className="w-4 h-4 text-[#FFC000] stroke-[3px]" />
-                <span>{dict.common.certified}</span>
+              <div className="flex items-center justify-center gap-1.5 px-3 py-2 border-[2px] border-black bg-white shadow-[2px_2px_0px_#000] select-none rounded-xl col-span-1">
+                <ShieldCheck className="w-4 h-4 text-[#FFC000] stroke-[3px] shrink-0" />
+                <span className="truncate">{dict.common.certified}</span>
               </div>
-              <div className="flex items-center gap-1.5 px-3.5 py-2 border-[2px] border-black bg-white shadow-[2px_2px_0px_#000] select-none rounded-xl">
-                <Users className="w-4 h-4 text-[#FFC000] stroke-[3px]" />
+              <div className="flex items-center justify-center gap-1.5 px-3 py-2 border-[2px] border-black bg-white shadow-[2px_2px_0px_#000] select-none rounded-xl col-span-2 sm:col-span-1 w-full sm:w-auto">
+                <Users className="w-4 h-4 text-[#FFC000] stroke-[3px] shrink-0" />
                 <span>{dict.common.consulted_today}</span>
               </div>
             </div>
