@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { ShieldCheck, Phone, UserCheck, Users } from "lucide-react";
+import { ShieldCheck, Phone, UserCheck, Users, Lock } from "lucide-react";
 import { Button } from "../ui/button";
 
 import Globe3DDemo from "@/components/3d-globe-demo";
@@ -15,6 +15,47 @@ interface HeroProps {
 
 export function Hero({ locale, dict }: HeroProps) {
   const activeLocale = ["en", "hin", "bn"].includes(locale) ? locale : "en";
+
+  const [consultedCount, setConsultedCount] = React.useState(50);
+
+  React.useEffect(() => {
+    const calculateCount = () => {
+      const now = new Date();
+      const hours = now.getHours();
+      const minutes = now.getMinutes();
+      const totalMinutes = hours * 60 + minutes;
+      // 50 + 5 for every 15 minutes
+      return 50 + Math.floor(totalMinutes / 15) * 5;
+    };
+
+    setConsultedCount(calculateCount());
+
+    const timer = setInterval(() => {
+      setConsultedCount(calculateCount());
+    }, 60000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const getConsultedText = (count: number) => {
+    if (activeLocale === "hin") {
+      return `आज ${count} लोगों ने परामर्श लिया है`;
+    }
+    if (activeLocale === "bn") {
+      return `আজ ${count} জন মানুষ পরামর্শ নিয়েছেন`;
+    }
+    return `${count} PEOPLE CONSULTED TODAY`;
+  };
+
+  const getConfidentialText = () => {
+    if (activeLocale === "hin") {
+      return "100% सुरक्षित और गोपनीय";
+    }
+    if (activeLocale === "bn") {
+      return "100% সুরক্ষিত ও গোপনীয়";
+    }
+    return "100% Private & Secure";
+  };
   const labelsObj = {
     en: {
       whatsapp: "WhatsApp Consultation",
@@ -51,7 +92,7 @@ export function Hero({ locale, dict }: HeroProps) {
 
   return (
     <section
-      className="relative w-full overflow-hidden border-b-[3px] border-black pt-28 pb-16 md:pt-36 md:pb-24 lg:pt-32 lg:pb-28 flex flex-col justify-center items-center"
+      className="relative w-full overflow-hidden border-b-[3px] border-black pt-20 pb-8 md:pt-32 md:pb-16 lg:pt-32 lg:pb-28 flex flex-col justify-center items-center"
       style={{
         background: 'linear-gradient(to bottom, #FFE896 0%, #FFFDF0 100%)'
       }}
@@ -60,14 +101,17 @@ export function Hero({ locale, dict }: HeroProps) {
       <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.03)_1px,transparent_1px)] bg-[size:3.5rem_3.5rem] pointer-events-none z-0" />
 
       <div className="max-w-7xl w-full mx-auto px-6 md:px-12 lg:px-16 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-14 items-center w-full">
           {/* Left Column: Text Content & CTAs */}
           <div className="flex flex-col items-center lg:items-start text-center lg:text-left gap-7 md:gap-8 lg:col-span-7 w-full order-1">
             {/* Top Badges: Eyebrow label */}
             <div className="flex flex-wrap gap-2.5 items-center justify-center lg:justify-start">
               <span className="inline-flex items-center gap-1.5 px-4 py-1.5 border-[2px] border-black bg-white text-black text-[10px] sm:text-xs font-black uppercase tracking-wider shadow-[3px_3px_0px_#000] select-none rounded-full">
-                <span className="text-[#FFC000] font-black drop-shadow-[1px_1px_0px_#000]">✦</span>
-                <span>{dict.hero.eyebrow}</span>
+                <span className="relative flex h-2 w-2 shrink-0">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
+                <span>{getConsultedText(consultedCount)}</span>
               </span>
             </div>
 
@@ -125,37 +169,20 @@ export function Hero({ locale, dict }: HeroProps) {
               </div>
             </div>
 
-            {/* Trust Badges */}
-            <div className="grid grid-cols-2 sm:flex sm:flex-wrap justify-center lg:justify-start gap-3 sm:gap-4 mt-6 text-[10px] sm:text-xs font-black text-black w-full">
-              <div className="flex items-center justify-center gap-1.5 px-3 py-2 border-[2px] border-black bg-white shadow-[2px_2px_0px_#000] select-none rounded-xl col-span-1">
-                <UserCheck className="w-4 h-4 text-[#FFC000] stroke-[3px] shrink-0" />
-                <span className="truncate">{dict.common.verified}</span>
-              </div>
-              <div className="flex items-center justify-center gap-1.5 px-3 py-2 border-[2px] border-black bg-white shadow-[2px_2px_0px_#000] select-none rounded-xl col-span-1">
-                <ShieldCheck className="w-4 h-4 text-[#FFC000] stroke-[3px] shrink-0" />
-                <span className="truncate">{dict.common.certified}</span>
-              </div>
-              <div className="flex items-center justify-center gap-1.5 px-3 py-2 border-[2px] border-black bg-white shadow-[2px_2px_0px_#000] select-none rounded-xl col-span-2 sm:col-span-1 w-full sm:w-auto">
-                <Users className="w-4 h-4 text-[#FFC000] stroke-[3px] shrink-0" />
-                <span>{dict.common.consulted_today}</span>
-              </div>
-            </div>
+
           </div>
 
           {/* Right Column: 3D Globe Component */}
-          <div className="lg:col-span-5 w-full flex justify-center items-center relative h-[350px] sm:h-[450px] lg:h-[500px] order-3 lg:order-2">
+          <div className="lg:col-span-5 w-full flex justify-center items-center relative h-[350px] sm:h-[450px] lg:h-[500px] order-4 lg:order-2">
             <Globe3DDemo className="h-full w-full" locale={locale} />
           </div>
 
           {/* Divine Services Quick Access Row */}
-          <div className="w-full flex flex-col gap-8 relative z-20 order-2 lg:order-3 lg:col-span-12 mt-12 lg:mt-24">
+          <div className="w-full flex flex-col gap-5 relative z-20 order-2 lg:order-3 lg:col-span-12 mt-2 lg:mt-12">
             <div className="flex flex-col items-center lg:items-start text-center lg:text-left gap-2">
-              <span className="inline-flex items-center gap-1 px-4 py-2 border-[2px] border-black bg-white text-black text-[10px] sm:text-xs font-black uppercase tracking-wider shadow-[2.5px_2.5px_0px_#000] rounded-full">
-                ✦ {dict.services.title}
+              <span className="inline-flex items-center gap-1 px-4 py-1.5 border-[2px] border-black bg-white text-black text-[10px] sm:text-xs font-black uppercase tracking-wider shadow-[2px_2px_0px_#000] rounded-full">
+                ✦ {activeLocale === "hin" ? "हमारी सेवाएं" : activeLocale === "bn" ? "আমাদের পরিষেবা" : "Our Services"}
               </span>
-              <p className="text-xs sm:text-sm text-black/90 font-bold max-w-2xl">
-                {dict.services.subtitle}
-              </p>
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-5 w-full">
@@ -199,6 +226,22 @@ export function Hero({ locale, dict }: HeroProps) {
                   </a>
                 );
               })}
+            </div>
+          </div>
+
+          {/* Trust Badges */}
+          <div className="grid grid-cols-2 sm:flex sm:flex-wrap justify-center lg:justify-center gap-3 sm:gap-4 mt-8 lg:mt-12 text-[10px] sm:text-xs font-black text-black w-full order-3 lg:order-4 lg:col-span-12">
+            <div className="flex items-center justify-center gap-1.5 px-3 py-2 border-[2px] border-black bg-white shadow-[2px_2px_0px_#000] select-none rounded-xl col-span-1">
+              <UserCheck className="w-4 h-4 text-[#FFC000] stroke-[3px] shrink-0" />
+              <span className="truncate">{dict.common.verified}</span>
+            </div>
+            <div className="flex items-center justify-center gap-1.5 px-3 py-2 border-[2px] border-black bg-white shadow-[2px_2px_0px_#000] select-none rounded-xl col-span-1">
+              <ShieldCheck className="w-4 h-4 text-[#FFC000] stroke-[3px] shrink-0" />
+              <span className="truncate">{dict.common.certified}</span>
+            </div>
+            <div className="flex items-center justify-center gap-1.5 px-3 py-2 border-[2px] border-black bg-white shadow-[2px_2px_0px_#000] select-none rounded-xl col-span-2 sm:col-span-1 w-full sm:w-auto">
+              <Lock className="w-4 h-4 text-[#FFC000] stroke-[3px] shrink-0" />
+              <span>{getConfidentialText()}</span>
             </div>
           </div>
         </div>
