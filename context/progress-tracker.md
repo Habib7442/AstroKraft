@@ -26,7 +26,7 @@ Update this file after every completed feature. Any AI agent reading this should
 - [x] 04 Free Kundli / Birth Chart
 - [x] 05 Kundli Matching / Guna Milan (shareable result card)
 - [ ] 06 Daily Rashifol / Horoscope
-- [ ] 07 Panchang & Subh Muhurat
+- [x] 07 Panchang & Subh Muhurat (Real-API integration with Prokerala)
 - [ ] 08 Auth & User Dashboard
 
 ### Phase 2 — Growth
