@@ -112,7 +112,7 @@ function FreeToolCard({ tool, t }: FreeToolCardProps) {
           {/* Icon frame with dynamic border color matching its theme */}
           <div 
             className={cn(
-              "p-3.5 rounded-xl border shadow-inner flex items-center justify-center transition-transform duration-300 bg-neutral-950/60",
+              "p-3.5 rounded-xl border shadow-inner flex items-center justify-center transition-transform duration-300 bg-muted/40",
               tool.active ? "text-gold" : "text-muted-foreground",
               isHovered && "scale-110"
             )}
@@ -126,7 +126,7 @@ function FreeToolCard({ tool, t }: FreeToolCardProps) {
 
           {/* Coming Soon status badge */}
           {!tool.active && (
-            <span className="px-3 py-1 rounded-full text-[9px] font-semibold tracking-widest uppercase bg-white/5 border border-white/10 text-muted-foreground">
+            <span className="px-3 py-1 rounded-full text-[9px] font-semibold tracking-widest uppercase bg-muted border border-border/80 text-muted-foreground">
               {t.comingSoon}
             </span>
           )}

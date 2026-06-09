@@ -87,7 +87,7 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
                     <div className="flex flex-col items-start shrink-0">
                       <a href={`/${locale}/astrologers/${key}`} className="block hover:opacity-95 transition-opacity">
                         <div className="relative">
-                          <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-gold bg-neutral-900 shadow-2xl p-1">
+                          <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-gold bg-card shadow-2xl p-1">
                             <img
                               src={ast.src}
                               alt={ast.name}

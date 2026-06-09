@@ -314,7 +314,7 @@ export function KundliContainer({ locale }: { locale: string }) {
 
       {!result ? (
         /* INPUT FORM SCREEN */
-        <Card className="border-border/30 bg-neutral-950/40 backdrop-blur-md shadow-2xl !overflow-visible">
+        <Card className="border-border/60 bg-card/70 backdrop-blur-md shadow-xl !overflow-visible">
           <CardHeader>
             <CardTitle className="text-lg font-serif text-accent">{t.formTitle}</CardTitle>
           </CardHeader>
@@ -497,9 +497,9 @@ export function KundliContainer({ locale }: { locale: string }) {
 
               {activeTab === "positions" ? (
                 /* Tab 1: Planet Positions */
-                <div className="overflow-x-auto rounded-2xl border border-border/20 bg-neutral-950/20">
+                <div className="overflow-x-auto rounded-2xl border border-border/20 bg-muted/30">
                   <table className="min-w-full divide-y divide-border/20 text-sm">
-                    <thead className="bg-neutral-900/60 text-muted-foreground text-xs uppercase tracking-wider">
+                    <thead className="bg-muted text-muted-foreground text-xs uppercase tracking-wider">
                       <tr>
                         <th className="px-4 py-3 text-left font-semibold">{t.planetHeaderName}</th>
                         <th className="px-4 py-3 text-left font-semibold">{t.planetHeaderRashi}</th>
@@ -538,7 +538,7 @@ export function KundliContainer({ locale }: { locale: string }) {
                   {result.dashas.map((dasha, idx) => (
                     <div
                       key={idx}
-                      className="flex items-center justify-between p-4 rounded-xl border border-border/20 bg-neutral-900/30 hover:border-gold/40 transition-all"
+                      className="flex items-center justify-between p-4 rounded-xl border border-border/50 bg-card/60 hover:border-gold/40 transition-all"
                     >
                       <div className="space-y-1">
                         <span className="text-sm font-semibold uppercase tracking-wider text-accent">

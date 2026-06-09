@@ -71,6 +71,7 @@ Update this file after every completed feature. Any AI agent reading this should
 - **Vedic Tool Calculation Logging**: Added console logging for computed results on both the server-side API routes (`/api/astrology/matching` and `/api/astrology/kundli`) and client-side components (`MatchingContainer` and `KundliContainer`) to improve developer debugging.
 - **Homepage Free Tools Preview**: Created a new `FreeToolsPreview` section displayed directly after the gemstones grid on the main page, showcasing the active tools (Kundli, Guna Milan) and forthcoming calculators using HSL border gradients, hover scaling, and spotlight interactive effects.
 - **Founder Badge & Brand Trademarks**: Removed "Founder" designation from Biprangshu Bhattacharjee's badge on the bento grid section, and added trademark superscript tag (`™`) next to the "AstroKraft" brand name across the header, footer, 3D globe loading fallback, and shareable compatibility result card.
+- **Light Theme Migration & Hero Redesign**: Converted the site to a premium light theme with warm off-white and `#FFC000` (gold/yellow) as the primary styling hue. Redesigned the hero section by removing the background image, adding a fading gold blueprint grid pattern, centering the highlighted "AstroKraft" title, and embedding psychological trust anchors (Verified badges, Confidentiality lists, and reviews).
 
 ---
 

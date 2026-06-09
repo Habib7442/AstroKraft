@@ -255,7 +255,7 @@ export function MatchingContainer({ locale }: { locale: string }) {
         <form onSubmit={handleSubmit} className="space-y-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Partner 1 Details */}
-            <Card className="border-border/30 bg-neutral-950/40 backdrop-blur-md shadow-2xl !overflow-visible">
+            <Card className="border-border/60 bg-card/70 backdrop-blur-md shadow-xl !overflow-visible">
               <CardHeader>
                 <CardTitle className="text-lg font-serif text-accent">{t.p1Header}</CardTitle>
               </CardHeader>
@@ -303,7 +303,7 @@ export function MatchingContainer({ locale }: { locale: string }) {
             </Card>
 
             {/* Partner 2 Details */}
-            <Card className="border-border/30 bg-neutral-950/40 backdrop-blur-md shadow-2xl !overflow-visible">
+            <Card className="border-border/60 bg-card/70 backdrop-blur-md shadow-xl !overflow-visible">
               <CardHeader>
                 <CardTitle className="text-lg font-serif text-accent">{t.p2Header}</CardTitle>
               </CardHeader>
@@ -482,7 +482,7 @@ export function MatchingContainer({ locale }: { locale: string }) {
             {/* Guna breakdown Details (Right 7 Columns) */}
             <div className="lg:col-span-7 space-y-6">
               {/* Manglik Dosha Summary */}
-              <Card className="border-border/30 bg-neutral-950/20">
+              <Card className="border-border/50 bg-card/60">
                 <CardHeader>
                   <CardTitle className="text-sm uppercase tracking-wider text-accent">{t.manglikTitle}</CardTitle>
                 </CardHeader>
@@ -522,7 +522,7 @@ export function MatchingContainer({ locale }: { locale: string }) {
                   {Object.entries(result.gunas).map(([key, item]: [string, any], idx) => (
                     <div
                       key={idx}
-                      className="p-4 rounded-xl border border-border/20 bg-neutral-900/30 flex flex-col gap-2 hover:border-gold/30 transition-all"
+                      className="p-4 rounded-xl border border-border/50 bg-card/50 flex flex-col gap-2 hover:border-gold/30 transition-all"
                     >
                       <div className="flex justify-between items-center">
                         <span className="text-sm font-semibold text-accent">{item.name}</span>

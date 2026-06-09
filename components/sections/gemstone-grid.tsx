@@ -102,7 +102,7 @@ function GemstoneCard({ gem, activeLocale, labels, glowColor, getPrefilledWhatsa
         {/* Top image and Type Badge */}
         <div className="flex justify-between items-start gap-4">
           {/* Gemstone Image frame with localized glow background */}
-          <div className="relative w-24 h-24 shrink-0 rounded-xl border border-gold/30 bg-neutral-950/40 p-1.5 overflow-hidden flex items-center justify-center shadow-lg group">
+          <div className="relative w-24 h-24 shrink-0 rounded-xl border border-gold/30 bg-muted/45 p-1.5 overflow-hidden flex items-center justify-center shadow-lg group">
             <div
               className="absolute inset-0 opacity-20 blur-md scale-75 group-hover:scale-100 transition-transform duration-300 pointer-events-none"
               style={{ backgroundColor: glowColor.replace("0.15", "0.6").replace("0.12", "0.6") }}
@@ -134,7 +134,7 @@ function GemstoneCard({ gem, activeLocale, labels, glowColor, getPrefilledWhatsa
         </div>
 
         {/* Planetary & Zodiac details grid */}
-        <div className="grid grid-cols-3 gap-2 font-sans text-[10px] bg-neutral-950/20 border border-white/5 p-2 rounded-lg">
+        <div className="grid grid-cols-3 gap-2 font-sans text-[10px] bg-muted/40 border border-border/40 p-2 rounded-lg">
           <div className="flex flex-col gap-0.5">
             <span className="text-muted-foreground font-medium uppercase tracking-wider scale-95 origin-left">{labels.planet}</span>
             <strong className="text-foreground truncate">{gemRuler}</strong>

@@ -48,40 +48,40 @@
 }
 
 :root {
-  --background: hsl(255 20% 98.5%);
-  --surface-muted: hsl(252 40% 97%);
-  --foreground: hsl(255 47% 13%);
+  --background: hsl(40 25% 98%);
+  --surface-muted: hsl(40 20% 96%);
+  --foreground: hsl(255 35% 15%);
   --card: hsl(0 0% 100%);
-  --card-foreground: hsl(255 47% 13%);
+  --card-foreground: hsl(255 35% 15%);
   --popover: hsl(0 0% 100%);
-  --popover-foreground: hsl(255 47% 13%);
+  --popover-foreground: hsl(255 35% 15%);
 
-  --primary: hsl(258 53% 45%);
-  --primary-foreground: hsl(0 0% 100%);
-  --secondary: hsl(255 50% 95%);
-  --secondary-foreground: hsl(263 53% 24%);
-  --accent: hsl(38 60% 36%);
+  --primary: hsl(45 100% 50%);
+  --primary-foreground: hsl(255 35% 15%);
+  --secondary: hsl(45 90% 94%);
+  --secondary-foreground: hsl(45 90% 20%);
+  --accent: hsl(40 100% 38%);
   --accent-foreground: hsl(0 0% 100%);
-  --gold-line: hsl(38 60% 36%);
+  --gold-line: hsl(40 95% 42%);
 
-  --muted: hsl(255 30% 95%);
-  --muted-foreground: hsl(258 16% 40%);
-  --border: hsl(255 28% 90%);
-  --input: hsl(255 28% 90%);
-  --ring: hsl(258 53% 45%);
+  --muted: hsl(40 15% 94%);
+  --muted-foreground: hsl(255 12% 45%);
+  --border: hsl(40 15% 90%);
+  --input: hsl(40 15% 90%);
+  --ring: hsl(45 100% 45%);
 
   --radius: 0.75rem;
 
-  --sidebar: hsl(252 40% 97%);
-  --sidebar-foreground: hsl(255 47% 13%);
-  --sidebar-primary: hsl(258 53% 45%);
-  --sidebar-primary-foreground: hsl(0 0% 100%);
-  --sidebar-accent: hsl(255 50% 95%);
-  --sidebar-accent-foreground: hsl(263 53% 24%);
-  --sidebar-border: hsl(255 28% 90%);
-  --sidebar-ring: hsl(258 53% 45%);
+  --sidebar: hsl(40 20% 96%);
+  --sidebar-foreground: hsl(255 35% 15%);
+  --sidebar-primary: hsl(45 100% 50%);
+  --sidebar-primary-foreground: hsl(255 35% 15%);
+  --sidebar-accent: hsl(40 90% 94%);
+  --sidebar-accent-foreground: hsl(45 90% 20%);
+  --sidebar-border: hsl(40 15% 90%);
+  --sidebar-ring: hsl(45 100% 45%);
 
-  --destructive: hsl(356 57% 52%);
+  --destructive: hsl(356 75% 50%);
   --destructive-foreground: hsl(0 0% 100%);
 }
 

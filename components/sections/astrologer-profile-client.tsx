@@ -103,7 +103,7 @@ export default function AstrologerProfileClient({
               
               {/* Profile image with gold status ring */}
               <div className="relative mb-4">
-                <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden border-2 border-gold/70 bg-neutral-950 p-1.5 shadow-2xl">
+                <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden border-2 border-gold/70 bg-card p-1.5 shadow-2xl">
                   <img 
                     src={astrologer.src} 
                     alt={astrologer.name} 
@@ -144,7 +144,7 @@ export default function AstrologerProfileClient({
               </span>
 
               {/* Rating stars & reviews count */}
-              <div className="flex items-center gap-1.5 mt-4 bg-neutral-950/50 border border-white/5 px-3 py-1.5 rounded-full text-xs">
+              <div className="flex items-center gap-1.5 mt-4 bg-muted border border-border px-3 py-1.5 rounded-full text-xs">
                 <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
                 <span className="font-bold">{astrologer.rating}</span>
                 <span className="text-muted-foreground">({astrologer.reviews} reviews)</span>
@@ -152,12 +152,12 @@ export default function AstrologerProfileClient({
 
               {/* Experience and City */}
               <div className="w-full grid grid-cols-2 gap-2 mt-6 pt-5 border-t border-border/20 text-xs">
-                <div className="flex flex-col items-center p-2 rounded-lg bg-white/5 border border-white/5">
+                <div className="flex flex-col items-center p-2 rounded-lg bg-muted/45 border border-border/40">
                   <Award className="w-4 h-4 text-gold mb-1" />
                   <span className="text-[9px] text-muted-foreground uppercase">Experience</span>
                   <span className="font-semibold text-foreground mt-0.5">{astrologer.experience} Years</span>
                 </div>
-                <div className="flex flex-col items-center p-2 rounded-lg bg-white/5 border border-white/5">
+                <div className="flex flex-col items-center p-2 rounded-lg bg-muted/45 border border-border/40">
                   <Globe className="w-4 h-4 text-gold mb-1" />
                   <span className="text-[9px] text-muted-foreground uppercase">Location</span>
                   <span className="font-semibold text-foreground mt-0.5">
