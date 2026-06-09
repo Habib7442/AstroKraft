@@ -115,21 +115,32 @@ export function Hero({ locale, dict }: HeroProps) {
               </span>
             </div>
 
-            {/* Display Title */}
-            <h1 className="max-w-3xl flex justify-center lg:justify-start">
-              <PointerHighlight
-                rectangleClassName="border-[3px] border-black bg-white shadow-[6px_6px_0px_#000] rounded-2xl"
-                pointerClassName="text-black fill-black"
-                containerClassName="inline-block"
-              >
-                <span className="font-serif text-5xl sm:text-6xl lg:text-7xl font-black leading-[1.15] tracking-tight text-black px-6 py-2.5 relative z-10 flex items-baseline select-none">
-                  Astro<span className="text-[#FFC000] drop-shadow-[2.5px_2.5px_0px_#000]">Kraft</span>
-                  <span className="inline-flex items-center justify-center border-[2px] sm:border-[3px] border-black rounded-full w-5 h-5 sm:w-6 sm:h-6 text-[8px] sm:text-[10px] font-black font-sans ml-1.5 sm:ml-2 select-none self-start mt-1.5 sm:mt-2.5 shrink-0">
-                    TM
+            {/* Display Title & Zodiac Wheel */}
+            <div className="flex flex-col md:flex-row items-center justify-center lg:justify-start gap-5 w-full">
+              <h1 className="max-w-3xl">
+                <PointerHighlight
+                  rectangleClassName="border-[3px] border-black bg-white shadow-[6px_6px_0px_#000] rounded-2xl"
+                  pointerClassName="text-black fill-black"
+                  containerClassName="inline-block"
+                >
+                  <span className="font-serif text-5xl sm:text-6xl lg:text-7xl font-black leading-[1.15] tracking-tight text-black px-6 py-2.5 relative z-10 flex items-baseline select-none">
+                    Astro<span className="text-[#FFC000] drop-shadow-[2.5px_2.5px_0px_#000]">Kraft</span>
+                    <span className="inline-flex items-center justify-center border-[2px] sm:border-[3px] border-black rounded-full w-5 h-5 sm:w-6 sm:h-6 text-[8px] sm:text-[10px] font-black font-sans ml-1.5 sm:ml-2 select-none self-start mt-1.5 sm:mt-2.5 shrink-0">
+                      TM
+                    </span>
                   </span>
-                </span>
-              </PointerHighlight>
-            </h1>
+                </PointerHighlight>
+              </h1>
+              {/* Spinning Zodiac Wheel Badge */}
+              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden shrink-0 select-none animate-spin-slow">
+                <img
+                  src="/assets/zodiac_wheel.png"
+                  alt="Zodiac Wheel"
+                  className="w-full h-full object-cover rounded-full"
+                  draggable={false}
+                />
+              </div>
+            </div>
 
             {/* Subline Description */}
             <p className="max-w-2xl text-black font-semibold text-sm sm:text-base md:text-lg leading-relaxed font-sans text-center lg:text-left">
