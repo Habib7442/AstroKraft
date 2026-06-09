@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { CardSpotlight } from "@/components/ui/card-spotlight";
 import { Compass, HeartHandshake, Calendar, Orbit } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
 
 interface FreeToolsPreviewProps {
   locale?: string;
@@ -61,6 +60,13 @@ const translations = {
   }
 } as const;
 
+const toolColors = [
+  "bg-[#FEF08A]", // pastel yellow
+  "bg-[#E5D5FF]", // pastel purple
+  "bg-[#FFD0C8]", // pastel peach
+  "bg-[#C6F6D5]", // pastel green
+];
+
 interface FreeToolCardProps {
   tool: {
     title: string;
@@ -74,21 +80,11 @@ interface FreeToolCardProps {
     comingSoon: string;
     exploreBtn: string;
   };
+  index: number;
 }
 
-function FreeToolCard({ tool, t }: FreeToolCardProps) {
-  const [isHovered, setIsHovered] = useState(false);
+function FreeToolCard({ tool, t, index }: FreeToolCardProps) {
   const Icon = tool.icon;
-
-  // Color variables for background and border gradients
-  const baseBorderColor = tool.glowColor.replace("0.12", "0.22").replace("0.08", "0.12");
-  const activeBorderColor = tool.glowColor.replace("0.12", "0.65").replace("0.08", "0.35");
-  
-  const baseBg = `radial-gradient(circle at 12% 12%, ${tool.glowColor.replace("0.12", "0.06").replace("0.08", "0.03")}, rgba(12, 10, 22, 0.95) 75%)`;
-  
-  const boxShadow = isHovered 
-    ? `0 10px 30px -10px ${tool.glowColor.replace("0.12", "0.40").replace("0.08", "0.20")}`
-    : "none";
 
   return (
     <CardSpotlight
@@ -96,37 +92,26 @@ function FreeToolCard({ tool, t }: FreeToolCardProps) {
       radius={300}
       useCanvas={false}
       className={cn(
-        "text-foreground transition-all duration-300 rounded-2xl flex flex-col justify-between overflow-hidden shadow-2xl p-8 border backdrop-blur-md relative select-none will-change-transform [transform:translate3d(0,0,0)]",
-        tool.active ? "hover:-translate-y-1 cursor-pointer" : "opacity-60 cursor-not-allowed"
+        "group relative border-[3px] border-black rounded-2xl flex flex-col justify-between overflow-hidden p-8 select-none text-black shadow-[4px_4px_0px_#000] transition-all duration-200 min-h-[16rem]",
+        tool.active 
+          ? cn(toolColors[index % toolColors.length], "hover:shadow-[6px_6px_0px_#000] hover:-translate-y-0.5 hover:-translate-x-0.5 active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#000] cursor-pointer") 
+          : "bg-neutral-50/70 border-dashed opacity-60 cursor-not-allowed"
       )}
-      style={{
-        background: baseBg,
-        borderColor: isHovered ? activeBorderColor : baseBorderColor,
-        boxShadow: boxShadow,
-      }}
-      onMouseEnter={() => tool.active && setIsHovered(true)}
-      onMouseLeave={() => tool.active && setIsHovered(false)}
+      style={{}}
     >
       <div className="relative flex flex-col gap-5">
         <div className="flex justify-between items-start">
-          {/* Icon frame with dynamic border color matching its theme */}
-          <div 
-            className={cn(
-              "p-3.5 rounded-xl border shadow-inner flex items-center justify-center transition-transform duration-300 bg-muted/40",
-              tool.active ? "text-gold" : "text-muted-foreground",
-              isHovered && "scale-110"
-            )}
-            style={{
-              borderColor: isHovered ? activeBorderColor : baseBorderColor,
-              boxShadow: isHovered ? `0 0 14px ${tool.glowColor.replace("0.12", "0.3")}` : "none"
-            }}
-          >
-            <Icon className="w-6 h-6" />
+          {/* Icon wrapper */}
+          <div className={cn(
+            "p-3 rounded-2xl border-2 border-black bg-white shadow-[2px_2px_0px_#000] w-fit",
+            !tool.active && "opacity-50"
+          )}>
+            <Icon className="w-6 h-6 stroke-[2.5px] text-black" />
           </div>
 
           {/* Coming Soon status badge */}
           {!tool.active && (
-            <span className="px-3 py-1 rounded-full text-[9px] font-semibold tracking-widest uppercase bg-muted border border-border/80 text-muted-foreground">
+            <span className="px-2.5 py-0.5 rounded-full text-[9px] font-black tracking-wider uppercase bg-white border-2 border-black shadow-[1.5px_1.5px_0px_#000] text-black">
               {t.comingSoon}
             </span>
           )}
@@ -134,33 +119,27 @@ function FreeToolCard({ tool, t }: FreeToolCardProps) {
 
         {/* Title & Description */}
         <div className="space-y-2.5">
-          <h3 className={cn(
-            "font-serif text-xl font-bold tracking-wide transition-colors",
-            tool.active && isHovered ? "text-gold" : "text-foreground"
-          )}>
+          <h3 className="font-serif text-xl font-black text-black">
             {tool.title}
           </h3>
-          <p className="text-[11px] sm:text-xs text-muted-foreground leading-relaxed font-sans max-w-lg">
+          <p className="text-neutral-600 font-semibold text-xs leading-relaxed max-w-lg">
             {tool.desc}
           </p>
         </div>
       </div>
 
       {/* Launch / Explore Button */}
-      <div className="mt-8 pt-5 border-t border-border/10 flex justify-end">
+      <div className="mt-8 pt-5 border-t-2 border-black flex justify-end">
         {tool.active ? (
           <a href={tool.href} className="w-full sm:w-auto">
-            <Button 
-              variant="outline" 
-              className="w-full sm:w-auto text-xs font-semibold py-2 px-6 rounded-full border-gold/40 hover:border-gold text-gold hover:text-foreground bg-neutral-900/50 hover:bg-neutral-900 transition-all shadow-lg hover:shadow-gold/10"
-            >
+            <button className="w-full sm:w-auto text-xs font-black uppercase tracking-wider py-2.5 px-6 rounded-full border-2 border-black bg-white hover:bg-neutral-50 hover:shadow-[3px_3px_0px_#000] hover:-translate-y-[0.5px] hover:-translate-x-[0.5px] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#000] transition-all cursor-pointer shadow-[2px_2px_0px_#000]">
               {t.exploreBtn}
-            </Button>
+            </button>
           </a>
         ) : (
-          <Button disabled variant="outline" className="w-full sm:w-auto text-xs font-semibold py-2 px-6 rounded-full border-border/10 bg-neutral-900/10">
+          <button disabled className="w-full sm:w-auto text-xs font-black uppercase tracking-wider py-2.5 px-6 rounded-full border-2 border-black bg-neutral-100 text-neutral-400 cursor-not-allowed opacity-60">
             {t.comingSoon}
-          </Button>
+          </button>
         )}
       </div>
     </CardSpotlight>
@@ -207,21 +186,21 @@ export default function FreeToolsPreview({ locale = "en" }: FreeToolsPreviewProp
   ];
 
   return (
-    <section className="w-full py-16 px-6 md:px-12 lg:px-16 bg-background relative overflow-hidden border-t border-border/20">
+    <section className="w-full py-16 px-6 md:px-12 lg:px-16 bg-[#FFFDF0]/30 relative overflow-hidden border-t-[3px] border-black">
       {/* Background ambient light */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-primary/5 blur-[160px] pointer-events-none -z-10" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-amber-200/5 blur-[160px] pointer-events-none -z-10" />
 
       <div className="max-w-7xl mx-auto flex flex-col gap-10">
         
         {/* Section Heading */}
         <div className="flex flex-col items-center text-center gap-3">
-          <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white/5 text-xs text-gold border border-white/10 font-sans tracking-wide">
+          <span className="inline-flex items-center gap-1.5 px-4.5 py-1.5 border-2 border-black bg-[#FFC000] text-black text-[10px] sm:text-xs font-black uppercase tracking-wider shadow-[2.5px_2.5px_0px_#000] select-none rounded-full">
             {t.eyebrow}
           </span>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground">
+          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-black">
             {t.heading}
           </h2>
-          <p className="max-w-2xl text-muted-foreground text-sm sm:text-base font-sans leading-relaxed">
+          <p className="max-w-2xl text-black font-semibold text-sm sm:text-base font-sans leading-relaxed">
             {t.subheading}
           </p>
         </div>
@@ -229,7 +208,7 @@ export default function FreeToolsPreview({ locale = "en" }: FreeToolsPreviewProp
         {/* Tools Showcase Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
           {tools.map((tool, index) => (
-            <FreeToolCard key={index} tool={tool} t={t} />
+            <FreeToolCard key={index} tool={tool} t={t} index={index} />
           ))}
         </div>
 
@@ -237,7 +216,7 @@ export default function FreeToolsPreview({ locale = "en" }: FreeToolsPreviewProp
         <div className="flex justify-center mt-6">
           <a
             href={`/${locale}/tools`}
-            className="inline-flex items-center gap-2 px-7 py-3 rounded-full border border-gold/40 hover:border-gold bg-neutral-900/50 hover:bg-neutral-900 text-gold hover:text-foreground text-xs font-semibold font-sans transition-all cursor-pointer shadow-lg hover:shadow-gold/10"
+            className="inline-flex items-center gap-2 px-7 py-3 rounded-full border-2 border-black bg-white hover:bg-neutral-50 text-black hover:shadow-[4px_4px_0px_#000] hover:-translate-y-0.5 hover:-translate-x-0.5 active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#000] text-xs font-black font-sans transition-all cursor-pointer shadow-[3px_3px_0px_#000]"
           >
             {t.viewAllBtn}
           </a>

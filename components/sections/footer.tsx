@@ -32,48 +32,47 @@ export function Footer({ locale, dict }: FooterProps) {
   ];
 
   return (
-    <footer className="relative w-full bg-background border-t border-gold/30 pt-16 pb-8 font-sans overflow-hidden">
-      {/* Premium background glows to match the observatory theme */}
-      <div className="absolute -bottom-24 -left-24 w-[300px] h-[300px] rounded-full bg-primary/5 blur-[100px] pointer-events-none -z-10" />
-      <div className="absolute -top-24 -right-24 w-[250px] h-[250px] rounded-full bg-gold/5 blur-[90px] pointer-events-none -z-10" />
-
-      {/* Subtle background star decoration */}
-      <div className="absolute inset-0 bg-[radial-gradient(1px_1px_at_10px_10px,#ECD9A0_15%,transparent_15%)] bg-[size:32px_32px] opacity-[0.06] pointer-events-none" />
+    <footer className="relative w-full bg-[#FFF9E6] border-t-[3px] border-black pt-16 pb-8 font-sans overflow-hidden">
+      {/* Decorative background glows */}
+      <div className="absolute -bottom-24 -left-24 w-[300px] h-[300px] rounded-full bg-amber-200/5 blur-[100px] pointer-events-none -z-10" />
+      <div className="absolute -top-24 -right-24 w-[250px] h-[250px] rounded-full bg-purple-200/5 blur-[90px] pointer-events-none -z-10" />
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-border">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b-2 border-black">
           {/* Brand Info (4 cols) */}
           <div className="lg:col-span-4 flex flex-col gap-4">
             <a href={`/${locale}`} className="flex items-center gap-2.5 self-start group select-none">
               <img
                 src="/logo.svg"
                 alt="AstroKraft Logo"
-                className="w-8 h-8 object-contain rounded-md border border-gold/30 group-hover:border-gold/60 group-hover:rotate-12 transition-all duration-300"
+                className="w-8 h-8 object-contain rounded-md border-2 border-black group-hover:rotate-12 transition-all duration-300"
               />
-              <span className="font-serif text-2xl font-semibold tracking-tight text-foreground group-hover:text-gold transition-colors flex items-baseline">
-                Astro<span className="text-gold">Kraft</span>
-                <sup className="text-[10px] select-none text-gold/85 font-sans ml-0.5 self-start mt-1">™</sup>
+              <span className="font-serif text-2xl font-black tracking-tight text-black flex items-baseline">
+                Astro<span className="text-black">Kraft</span>
+                <span className="inline-flex items-center justify-center border-[1.2px] border-black rounded-full w-3.5 h-3.5 text-[7px] font-black font-sans ml-1 self-start mt-1.5 shrink-0">
+                  TM
+                </span>
               </span>
             </a>
-            <p className="text-xs text-muted-foreground leading-relaxed max-w-sm">
+            <p className="text-xs text-neutral-600 font-semibold leading-relaxed max-w-sm">
               {dict.footer?.desc || "AstroKraft is India's trusted platform for Vedic Astrology, certified gemstones, and divine rituals. Empowering your life journey with ancient wisdom and modern precision."}
             </p>
 
             {/* Contact Details */}
-            <div className="flex flex-col gap-2.5 mt-2 text-xs text-muted-foreground">
+            <div className="flex flex-col gap-2.5 mt-2 text-xs text-neutral-600 font-semibold">
               <div className="flex items-center gap-2">
-                <MapPin className="w-3.5 h-3.5 text-gold shrink-0" />
+                <MapPin className="w-3.5 h-3.5 text-black stroke-[2.5px] shrink-0" />
                 <span>{SITE.contact.address.region}, India</span>
               </div>
               <div className="flex items-center gap-2">
-                <Phone className="w-3.5 h-3.5 text-gold shrink-0" />
-                <a href={`tel:${SITE.contact.phone}`} className="hover:text-foreground transition-colors">
+                <Phone className="w-3.5 h-3.5 text-black stroke-[2.5px] shrink-0" />
+                <a href={`tel:${SITE.contact.phone}`} className="hover:text-black transition-colors font-black">
                   {SITE.contact.phoneDisplay}
                 </a>
               </div>
               <div className="flex items-center gap-2">
-                <Mail className="w-3.5 h-3.5 text-gold shrink-0" />
-                <a href={`mailto:${SITE.contact.email}`} className="hover:text-foreground transition-colors">
+                <Mail className="w-3.5 h-3.5 text-black stroke-[2.5px] shrink-0" />
+                <a href={`mailto:${SITE.contact.email}`} className="hover:text-black transition-colors font-black">
                   {SITE.contact.email}
                 </a>
               </div>
@@ -85,7 +84,7 @@ export function Footer({ locale, dict }: FooterProps) {
                 href={SITE.social.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full border border-border/60 hover:border-[#1877F2]/50 hover:bg-[#1877F2]/10 flex items-center justify-center hover:scale-110 active:scale-95 transition-all duration-200"
+                className="w-9 h-9 rounded-full border-2 border-black bg-white hover:bg-neutral-50 hover:shadow-[2px_2px_0px_#000] hover:-translate-y-0.5 flex items-center justify-center transition-all duration-150 shadow-[1.5px_1.5px_0px_#000]"
                 aria-label="Facebook"
               >
                 <img src="/social-icons/facebook.png" alt="Facebook" className="w-[18px] h-[18px] object-contain" />
@@ -94,7 +93,7 @@ export function Footer({ locale, dict }: FooterProps) {
                 href={SITE.social.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full border border-border/60 hover:border-[#E4405F]/50 hover:bg-[#E4405F]/10 flex items-center justify-center hover:scale-110 active:scale-95 transition-all duration-200"
+                className="w-9 h-9 rounded-full border-2 border-black bg-white hover:bg-neutral-50 hover:shadow-[2px_2px_0px_#000] hover:-translate-y-0.5 flex items-center justify-center transition-all duration-150 shadow-[1.5px_1.5px_0px_#000]"
                 aria-label="Instagram"
               >
                 <img src="/social-icons/instagram.png" alt="Instagram" className="w-[18px] h-[18px] object-contain" />
@@ -103,7 +102,7 @@ export function Footer({ locale, dict }: FooterProps) {
                 href={`https://wa.me/${SITE.contact.whatsapp}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full border border-border/60 hover:border-[#25D366]/50 hover:bg-[#25D366]/10 flex items-center justify-center hover:scale-110 active:scale-95 transition-all duration-200"
+                className="w-9 h-9 rounded-full border-2 border-black bg-white hover:bg-neutral-50 hover:shadow-[2px_2px_0px_#000] hover:-translate-y-0.5 flex items-center justify-center transition-all duration-150 shadow-[1.5px_1.5px_0px_#000]"
                 aria-label="WhatsApp"
               >
                 <img src="/social-icons/whatsapp.png" alt="WhatsApp" className="w-[18px] h-[18px] object-contain" />
@@ -113,13 +112,13 @@ export function Footer({ locale, dict }: FooterProps) {
 
           {/* Services Column (2 cols) */}
           <div className="lg:col-span-2 flex flex-col gap-4">
-            <h4 className="font-serif text-sm font-semibold tracking-wider text-foreground uppercase">
+            <h4 className="font-serif text-sm font-black tracking-wider text-black uppercase">
               {dict.footer?.services_heading || "Services"}
             </h4>
-            <ul className="flex flex-col gap-2 text-xs">
+            <ul className="flex flex-col gap-2 text-xs font-semibold">
               {servicesLinks.map((link) => (
                 <li key={link.label}>
-                  <a href={link.href} className="text-muted-foreground hover:text-gold transition-colors">
+                  <a href={link.href} className="text-neutral-600 hover:text-black transition-colors hover:underline">
                     {link.label}
                   </a>
                 </li>
@@ -129,13 +128,13 @@ export function Footer({ locale, dict }: FooterProps) {
 
           {/* Free Tools Column (3 cols) */}
           <div className="lg:col-span-3 flex flex-col gap-4">
-            <h4 className="font-serif text-sm font-semibold tracking-wider text-foreground uppercase">
+            <h4 className="font-serif text-sm font-black tracking-wider text-black uppercase">
               {dict.footer?.tools_heading || "Free Tools"}
             </h4>
-            <ul className="flex flex-col gap-2 text-xs">
+            <ul className="flex flex-col gap-2 text-xs font-semibold">
               {toolsLinks.map((link) => (
                 <li key={link.label}>
-                  <a href={link.href} className="text-muted-foreground hover:text-gold transition-colors">
+                  <a href={link.href} className="text-neutral-600 hover:text-black transition-colors hover:underline">
                     {link.label}
                   </a>
                 </li>
@@ -145,13 +144,13 @@ export function Footer({ locale, dict }: FooterProps) {
 
           {/* Legal/Company Column (3 cols) */}
           <div className="lg:col-span-3 flex flex-col gap-4">
-            <h4 className="font-serif text-sm font-semibold tracking-wider text-foreground uppercase">
+            <h4 className="font-serif text-sm font-black tracking-wider text-black uppercase">
               {dict.footer?.company_heading || "Company"}
             </h4>
-            <ul className="flex flex-col gap-2 text-xs">
+            <ul className="flex flex-col gap-2 text-xs font-semibold">
               {companyLinks.map((link) => (
                 <li key={link.label}>
-                  <a href={link.href} className="text-muted-foreground hover:text-gold transition-colors">
+                  <a href={link.href} className="text-neutral-600 hover:text-black transition-colors hover:underline">
                     {link.label}
                   </a>
                 </li>
@@ -161,11 +160,11 @@ export function Footer({ locale, dict }: FooterProps) {
         </div>
 
         {/* Bottom Bar */}
-        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 text-xs text-muted-foreground">
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 text-xs text-neutral-600 font-semibold">
           <div>
             © {new Date().getFullYear()} {SITE.name}. {dict.footer?.copyright || "All rights reserved."}
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 font-black text-black">
             <span>{dict.footer?.devotion || "Made with devotion in India ✦"}</span>
           </div>
         </div>
