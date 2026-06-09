@@ -2,8 +2,8 @@
 
 import React, { useState } from "react";
 import { 
-  Star, Award, MessageCircle, Phone, Mail, MapPin, 
-  Copy, Check, ArrowLeft, ShieldCheck, Compass, Languages, Globe
+  Star, Award, Phone, Mail, Copy, Check, ArrowLeft, 
+  ShieldCheck, Compass, Languages, Globe
 } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
@@ -53,7 +53,6 @@ export default function AstrologerProfileClient({
     setTimeout(() => setCopiedField(null), 2000);
   };
 
-
   const servicesList = astrologerId === "biprangshu_bhattacharjee" 
     ? [
         { title: "Residential Vastu Audit", desc: "Complete analysis of home layout, energy zones, entrance orientation, and remedies." },
@@ -69,19 +68,19 @@ export default function AstrologerProfileClient({
       ];
 
   return (
-    <div className="relative py-12 px-6 md:px-12 lg:px-16 text-foreground overflow-hidden">
-      {/* Dynamic background stars and nebulas */}
-      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full bg-primary/5 blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-10 right-1/4 w-[500px] h-[500px] rounded-full bg-gold/5 blur-[120px] pointer-events-none" />
+    <div className="relative py-12 px-6 md:px-12 lg:px-16 text-black overflow-hidden bg-[#FFFDF0]/30 min-h-screen">
+      {/* Dynamic background highlights */}
+      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full bg-amber-200/10 blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-10 right-1/4 w-[500px] h-[500px] rounded-full bg-purple-200/10 blur-[120px] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto relative z-10">
         
         {/* Back Button / Breadcrumb */}
         <a 
           href={`/${locale}`}
-          className="inline-flex items-center gap-2 text-xs text-muted-foreground hover:text-gold transition-colors mb-8 group"
+          className="inline-flex items-center gap-2 text-xs text-neutral-600 hover:text-black font-black uppercase tracking-wider border-2 border-black bg-white px-4 py-2 rounded-full shadow-[2px_2px_0px_#000] transition-all hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-none mb-8 group w-fit"
         >
-          <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" />
+          <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform stroke-[3px]" />
           Back to Astrologers Grid
         </a>
 
@@ -92,12 +91,12 @@ export default function AstrologerProfileClient({
           <div className="lg:col-span-4 flex flex-col gap-6 w-full">
             
             {/* Primary Profile Card */}
-            <div className="bg-card/90 backdrop-blur-md border border-gold/30 rounded-2xl p-6 text-center flex flex-col items-center relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-gold/20 via-gold to-gold/20" />
+            <div className="bg-white border-[3px] border-black rounded-2xl p-6 text-center flex flex-col items-center relative overflow-hidden shadow-[6px_6px_0px_#000]">
+              <div className="absolute top-0 left-0 w-full h-1.5 bg-[#FFC000]" />
               
-              {/* Profile image with gold status ring */}
+              {/* Profile image with black status ring */}
               <div className="relative mb-4">
-                <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden border-2 border-gold/70 bg-card p-1.5 shadow-2xl">
+                <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden border-[3px] border-black bg-white p-1 shadow-md">
                   <img 
                     src={astrologer.src} 
                     alt={astrologer.name} 
@@ -112,49 +111,48 @@ export default function AstrologerProfileClient({
                     isOnline ? "bg-emerald-400" : "bg-amber-400"
                   )} />
                   <span className={cn(
-                    "relative inline-flex rounded-full h-4 w-4 border-2 border-card shadow-sm",
+                    "relative inline-flex rounded-full h-4 w-4 border-2 border-black",
                     isOnline ? "bg-emerald-500" : "bg-amber-500"
                   )} />
                 </span>
               </div>
 
               {/* Name & Title */}
-              <h1 className="font-serif text-2xl font-bold tracking-wide text-foreground">
+              <h1 className="font-serif text-2xl font-black tracking-wide text-black">
                 {astrologer.name}
               </h1>
               
-              <p className="text-xs text-gold font-semibold tracking-wider uppercase mt-1">
+              <p className="text-xs text-neutral-500 font-black tracking-wider uppercase mt-1">
                 {specialtyText}
               </p>
 
               {/* Status Badge */}
               <span className={cn(
-                "inline-flex items-center gap-1.5 mt-3 px-3 py-1 rounded-full text-[10px] font-semibold tracking-wider uppercase border",
-                isOnline 
-                  ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20" 
-                  : "bg-amber-500/10 text-amber-400 border-amber-500/20"
+                "inline-flex items-center gap-1.5 mt-3 px-3 py-1 rounded-full text-[10px] font-black tracking-wider uppercase border-2 border-black bg-white shadow-[2px_2px_0px_#000]",
+                isOnline ? "text-emerald-600" : "text-amber-600"
               )}>
+                <span className={cn("h-1.5 w-1.5 rounded-full border border-black", isOnline ? "bg-emerald-500" : "bg-amber-500")} />
                 {isOnline ? "Online & Ready" : "Currently Busy"}
               </span>
 
               {/* Rating stars & reviews count */}
-              <div className="flex items-center gap-1.5 mt-4 bg-muted border border-border px-3 py-1.5 rounded-full text-xs">
-                <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
+              <div className="flex items-center gap-1.5 mt-4 bg-white border-2 border-black px-3 py-1.5 rounded-full text-xs font-black shadow-[2px_2px_0px_#000]">
+                <Star className="w-4 h-4 text-[#FFC000] fill-[#FFC000] stroke-black stroke-[1.5px]" />
                 <span className="font-bold">{astrologer.rating}</span>
-                <span className="text-muted-foreground">({astrologer.reviews} reviews)</span>
+                <span className="text-neutral-500 font-black">({astrologer.reviews} reviews)</span>
               </div>
 
               {/* Experience and City */}
-              <div className="w-full grid grid-cols-2 gap-2 mt-6 pt-5 border-t border-border/20 text-xs">
-                <div className="flex flex-col items-center p-2 rounded-lg bg-muted/45 border border-border/40">
-                  <Award className="w-4 h-4 text-gold mb-1" />
-                  <span className="text-[9px] text-muted-foreground uppercase">Experience</span>
-                  <span className="font-semibold text-foreground mt-0.5">{astrologer.experience} Years</span>
+              <div className="w-full grid grid-cols-2 gap-3 mt-6 pt-5 border-t-2 border-black text-xs font-black">
+                <div className="flex flex-col items-center p-2 rounded-xl bg-white border-2 border-black shadow-[2px_2px_0px_#000]">
+                  <Award className="w-4 h-4 text-black stroke-[2px] mb-1" />
+                  <span className="text-[8px] text-neutral-500 uppercase tracking-wider scale-95">Experience</span>
+                  <span className="font-serif font-black text-black mt-0.5">{astrologer.experience} Years</span>
                 </div>
-                <div className="flex flex-col items-center p-2 rounded-lg bg-muted/45 border border-border/40">
-                  <Globe className="w-4 h-4 text-gold mb-1" />
-                  <span className="text-[9px] text-muted-foreground uppercase">Location</span>
-                  <span className="font-semibold text-foreground mt-0.5">
+                <div className="flex flex-col items-center p-2 rounded-xl bg-white border-2 border-black shadow-[2px_2px_0px_#000]">
+                  <Globe className="w-4 h-4 text-black stroke-[2px] mb-1" />
+                  <span className="text-[8px] text-neutral-500 uppercase tracking-wider scale-95">Location</span>
+                  <span className="font-serif font-black text-black mt-0.5">
                     {activeLocale === "hin" ? "भारत" : activeLocale === "bn" ? "ভারত" : "India"}
                   </span>
                 </div>
@@ -162,61 +160,61 @@ export default function AstrologerProfileClient({
             </div>
 
             {/* Pricing Card */}
-            <div className="bg-card/90 backdrop-blur-md border border-gold/20 rounded-2xl p-5 relative overflow-hidden">
+            <div className="bg-white border-[3px] border-black rounded-2xl p-5 relative overflow-hidden shadow-[6px_6px_0px_#000] font-black">
               <div className="flex justify-between items-center">
                 <div className="flex flex-col">
-                  <span className="text-[10px] text-muted-foreground uppercase tracking-wider font-sans">Consultation Fee</span>
-                  <span className="font-serif font-bold text-2xl text-gold mt-0.5">₹{astrologer.fee.toFixed(2)}</span>
+                  <span className="text-[10px] text-neutral-500 uppercase tracking-wider">Consultation Fee</span>
+                  <span className="font-serif font-black text-2xl text-black mt-0.5">₹{astrologer.fee.toFixed(2)}</span>
                 </div>
-                <span className="px-2.5 py-1 rounded bg-gold/10 border border-gold/20 text-[9px] text-gold uppercase tracking-widest font-semibold">
+                <span className="px-2.5 py-1 rounded border-2 border-black bg-[#E5D5FF] text-[9px] text-black uppercase tracking-widest font-black shadow-[1.5px_1.5px_0px_#000]">
                   Online session
                 </span>
               </div>
             </div>
 
             {/* Quick Contact & Copy Fields Card */}
-            <div className="bg-card/90 backdrop-blur-md border border-gold/20 rounded-2xl p-5 flex flex-col gap-4 font-sans text-xs">
-              <h4 className="font-serif font-semibold text-foreground uppercase tracking-widest text-[10px] border-b border-border/20 pb-2 mb-1 flex items-center gap-1.5">
-                <ShieldCheck className="w-3.5 h-3.5 text-gold" />
+            <div className="bg-white border-[3px] border-black rounded-2xl p-5 flex flex-col gap-4 font-sans text-xs shadow-[6px_6px_0px_#000] font-black">
+              <h4 className="font-serif font-black text-black uppercase tracking-widest text-[10px] border-b-2 border-black pb-2 mb-1 flex items-center gap-1.5">
+                <ShieldCheck className="w-4.5 h-4.5 text-black stroke-[2px]" />
                 Verified Contact Details
               </h4>
 
               {/* Phone field */}
-              <div className="flex items-center justify-between gap-2 text-muted-foreground">
+              <div className="flex items-center justify-between gap-2 text-neutral-600">
                 <span>Phone Number</span>
                 <div className="flex items-center gap-1.5">
-                  <a href={`tel:${astrologer.phone}`} className="font-semibold text-foreground hover:text-gold transition-colors">{astrologer.phone}</a>
+                  <a href={`tel:${astrologer.phone}`} className="font-black text-black hover:text-[#FFC000] hover:underline transition-colors">{astrologer.phone}</a>
                   <button 
                     onClick={() => handleCopy(astrologer.phone, "Phone number")}
-                    className="p-1.5 text-muted-foreground hover:text-foreground hover:bg-white/5 rounded transition-colors cursor-pointer"
+                    className="p-1.5 text-black hover:bg-black/5 rounded transition-colors cursor-pointer"
                     title="Copy phone number"
                   >
-                    {copiedField === "Phone number" ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
+                    {copiedField === "Phone number" ? <Check className="w-3.5 h-3.5 text-emerald-600 stroke-[3px]" /> : <Copy className="w-3.5 h-3.5 text-black stroke-[2px]" />}
                   </button>
                 </div>
               </div>
 
               {/* Email field */}
-              <div className="flex items-center justify-between gap-2 text-muted-foreground">
+              <div className="flex items-center justify-between gap-2 text-neutral-600">
                 <span>Email Address</span>
                 <div className="flex items-center gap-1.5 max-w-[200px]">
-                  <a href={`mailto:${astrologer.email}`} className="font-semibold text-foreground hover:text-gold transition-colors truncate">{astrologer.email}</a>
+                  <a href={`mailto:${astrologer.email}`} className="font-black text-black hover:text-[#FFC000] hover:underline transition-colors truncate">{astrologer.email}</a>
                   <button 
                     onClick={() => handleCopy(astrologer.email, "Email address")}
-                    className="p-1.5 text-muted-foreground hover:text-foreground hover:bg-white/5 rounded transition-colors cursor-pointer shrink-0"
+                    className="p-1.5 text-black hover:bg-black/5 rounded transition-colors cursor-pointer shrink-0"
                     title="Copy email address"
                   >
-                    {copiedField === "Email address" ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
+                    {copiedField === "Email address" ? <Check className="w-3.5 h-3.5 text-emerald-600 stroke-[3px]" /> : <Copy className="w-3.5 h-3.5 text-black stroke-[2px]" />}
                   </button>
                 </div>
               </div>
 
               {/* Languages List */}
-              <div className="flex items-center justify-between gap-2 text-muted-foreground border-t border-border/20 pt-3 mt-1">
-                <span className="flex items-center gap-1"><Languages className="w-3.5 h-3.5 text-gold/80" /> Languages</span>
+              <div className="flex items-center justify-between gap-2 text-neutral-600 border-t-2 border-black pt-3 mt-1">
+                <span className="flex items-center gap-1"><Languages className="w-3.5 h-3.5 text-black stroke-[2px]" /> Languages</span>
                 <div className="flex flex-wrap justify-end gap-1.5 max-w-[200px]">
                   {astrologer.languages[activeLocale]?.map((lang) => (
-                    <span key={lang} className="px-2 py-0.5 rounded bg-neutral-900 border border-white/5 text-[9px] text-foreground font-semibold uppercase">
+                    <span key={lang} className="px-2 py-0.5 rounded border-2 border-black bg-[#E5D5FF] text-[9px] text-black font-black uppercase shadow-[1.5px_1.5px_0px_#000]">
                       {lang}
                     </span>
                   ))}
@@ -224,18 +222,18 @@ export default function AstrologerProfileClient({
               </div>
 
               {/* Address Box */}
-              <div className="border-t border-border/20 pt-3 text-[11px] text-muted-foreground flex flex-col gap-1.5">
+              <div className="border-t-2 border-black pt-3 text-[11px] text-neutral-600 flex flex-col gap-1.5">
                 <div className="flex items-center justify-between">
-                  <span className="font-semibold text-foreground uppercase tracking-wider text-[8px]">Practice Address</span>
+                  <span className="font-black text-black uppercase tracking-wider text-[8px]">Practice Address</span>
                   <button 
                     onClick={() => handleCopy(addressText, "Address")}
-                    className="p-1 text-muted-foreground hover:text-foreground hover:bg-white/5 rounded transition-colors cursor-pointer"
+                    className="p-1 text-black hover:bg-black/5 rounded transition-colors cursor-pointer"
                     title="Copy address"
                   >
-                    {copiedField === "Address" ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
+                    {copiedField === "Address" ? <Check className="w-3.5 h-3.5 text-emerald-600 stroke-[3px]" /> : <Copy className="w-3.5 h-3.5 text-black stroke-[2px]" />}
                   </button>
                 </div>
-                <span className="leading-relaxed text-foreground/90 font-medium bg-neutral-900/60 p-2 border border-white/5 rounded-lg">{addressText}</span>
+                <span className="leading-relaxed text-neutral-700 font-semibold bg-white p-2 border-2 border-black rounded-lg shadow-[2px_2px_0px_#000]">{addressText}</span>
               </div>
             </div>
 
@@ -245,34 +243,34 @@ export default function AstrologerProfileClient({
           <div className="lg:col-span-8 flex flex-col gap-6 w-full h-full">
             
             {/* Bio Card */}
-            <div className="bg-card/90 backdrop-blur-md border border-gold/20 rounded-2xl p-6 md:p-8 flex flex-col gap-4 relative overflow-hidden">
-            <h2 className="font-serif text-xl sm:text-2xl font-bold tracking-wide text-foreground flex items-center gap-2">
-              <Compass className="w-5 h-5 text-gold animate-[spin_20s_linear_infinite]" />
-              Professional Profile
-            </h2>
-              <div className="h-px bg-gradient-to-r from-gold/30 via-gold/10 to-transparent" />
-              <p className="text-sm md:text-base text-muted-foreground leading-relaxed font-sans first-letter:text-3xl first-letter:font-serif first-letter:text-gold first-letter:mr-1.5 first-letter:float-left pt-2">
+            <div className="bg-white border-[3px] border-black rounded-2xl p-6 md:p-8 flex flex-col gap-4 relative overflow-hidden shadow-[6px_6px_0px_#000]">
+              <h2 className="font-serif text-xl sm:text-2xl font-black tracking-wide text-black flex items-center gap-2">
+                <Compass className="w-5 h-5 text-black animate-[spin_20s_linear_infinite] stroke-[2.5px]" />
+                Professional Profile
+              </h2>
+              <div className="h-0.5 bg-black" />
+              <p className="text-sm md:text-base text-neutral-700 font-semibold leading-relaxed font-sans first-letter:text-3xl first-letter:font-serif first-letter:text-black first-letter:font-black first-letter:mr-1.5 first-letter:float-left pt-2">
                 {descText}
               </p>
             </div>
 
             {/* Specialties & Services Offered */}
-            <div className="bg-card/90 backdrop-blur-md border border-gold/20 rounded-2xl p-6 md:p-8 flex flex-col gap-4">
-              <h3 className="font-serif text-xl font-bold text-foreground">
+            <div className="bg-white border-[3px] border-black rounded-2xl p-6 md:p-8 flex flex-col gap-4 shadow-[6px_6px_0px_#000]">
+              <h3 className="font-serif text-xl font-black text-black">
                 Expertise & Consultation Offerings
               </h3>
-              <div className="h-px bg-border/20 mb-2" />
+              <div className="h-0.5 bg-black" />
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {servicesList.map((service, index) => (
                   <div 
                     key={index}
-                    className="p-4 rounded-xl bg-neutral-900 border border-white/5 hover:border-gold/30 transition-all flex flex-col gap-1.5 hover:shadow-lg hover:shadow-gold/5 group"
+                    className="p-4 rounded-xl bg-white border-2 border-black hover:bg-neutral-50 shadow-[3px_3px_0px_#000] hover:shadow-[4px_4px_0px_#000] hover:-translate-y-0.5 hover:-translate-x-0.5 active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#000] transition-all flex flex-col gap-1.5 group cursor-default"
                   >
-                    <span className="text-xs font-semibold text-gold tracking-wide group-hover:translate-x-0.5 transition-transform flex items-center gap-1.5">
+                    <span className="text-xs font-black text-black tracking-wide group-hover:translate-x-0.5 transition-transform flex items-center gap-1.5">
                       ✦ {service.title}
                     </span>
-                    <p className="text-xs text-muted-foreground leading-relaxed">
+                    <p className="text-xs text-neutral-600 font-semibold leading-relaxed">
                       {service.desc}
                     </p>
                   </div>
@@ -281,19 +279,19 @@ export default function AstrologerProfileClient({
             </div>
 
             {/* Call to Action WhatsApp Handoff Box */}
-            <div className="bg-gradient-to-r from-primary/20 via-primary/30 to-gold/10 border border-gold/45 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_center,rgba(220,190,116,0.08),transparent)] before:pointer-events-none flex-1">
-              <div className="flex flex-col gap-2 relative z-10 text-center md:text-left">
-                <h4 className="font-serif text-lg md:text-xl font-bold text-foreground">
-                  Ready to Consulting with {astrologer.name}?
+            <div className="bg-[#FFE896] border-[3px] border-black rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden shadow-[6px_6px_0px_#000] flex-1">
+              <div className="flex flex-col gap-2 relative z-10 text-center md:text-left text-black font-black">
+                <h4 className="font-serif text-lg md:text-xl font-black">
+                  Ready to consult with {astrologer.name}?
                 </h4>
-                <p className="text-xs text-muted-foreground max-w-md">
-                  Book your session instantly on WhatsApp to secure a slot. Standard response time is under 15 minutes.
+                <p className="text-xs text-neutral-600 font-semibold max-w-md">
+                  Book your session instantly through our consultation form to secure a slot. Standard response time is under 15 minutes.
                 </p>
               </div>
 
               <a 
                 href={`/${locale}/consultation?astrologer=${astrologerId}`}
-                className="relative z-10 inline-flex items-center justify-center gap-2 bg-[#FFC000] hover:bg-[#FFC000]/95 text-black border-2 border-black hover:shadow-[4px_4px_0px_#000] hover:-translate-y-[1px] hover:-translate-x-[1px] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#000] transition-all font-black py-3 px-6 rounded-full shadow-[2.5px_2.5px_0px_#000] text-sm font-sans cursor-pointer shrink-0"
+                className="relative z-10 inline-flex items-center justify-center gap-2 bg-white hover:bg-neutral-50 text-black border-2 border-black hover:shadow-[4px_4px_0px_#000] hover:-translate-y-[1px] hover:-translate-x-[1px] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#000] transition-all font-black py-3 px-6 rounded-full shadow-[2.5px_2.5px_0px_#000] text-sm font-sans cursor-pointer shrink-0"
               >
                 Book Consultation
               </a>
