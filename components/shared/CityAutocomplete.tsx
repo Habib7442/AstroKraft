@@ -202,11 +202,11 @@ export function CityAutocomplete({
       </div>
 
       {isOpen && results.length > 0 && (
-        <ul className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-2xl border border-border bg-neutral-950/95 backdrop-blur-md py-1 text-sm shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <ul className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-xl border-2 border-black bg-white py-1 text-sm shadow-[4px_4px_0px_#000] focus:outline-none">
           {results.map((item, idx) => (
             <li
               key={idx}
-              className="relative cursor-pointer select-none px-4 py-2 text-foreground hover:bg-muted hover:text-gold transition-colors"
+              className="relative cursor-pointer select-none px-4 py-2 text-black hover:bg-[#FFF9E6] hover:text-[#FFC000] transition-colors"
               onClick={() => handleSelectResult(item)}
             >
               <span className="block truncate font-medium">{item.display_name}</span>
