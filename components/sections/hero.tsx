@@ -62,7 +62,7 @@ export function Hero({ locale, dict }: HeroProps) {
       <div className="max-w-7xl w-full mx-auto px-6 md:px-12 lg:px-16 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center w-full">
           {/* Left Column: Text Content & CTAs */}
-          <div className="flex flex-col items-center lg:items-start text-center lg:text-left gap-7 md:gap-8 lg:col-span-7 w-full">
+          <div className="flex flex-col items-center lg:items-start text-center lg:text-left gap-7 md:gap-8 lg:col-span-7 w-full order-1">
             {/* Top Badges: Eyebrow label */}
             <div className="flex flex-wrap gap-2.5 items-center justify-center lg:justify-start">
               <span className="inline-flex items-center gap-1.5 px-4 py-1.5 border-[2px] border-black bg-white text-black text-[10px] sm:text-xs font-black uppercase tracking-wider shadow-[3px_3px_0px_#000] select-none rounded-full">
@@ -143,63 +143,63 @@ export function Hero({ locale, dict }: HeroProps) {
           </div>
 
           {/* Right Column: 3D Globe Component */}
-          <div className="lg:col-span-5 w-full flex justify-center items-center relative h-[350px] sm:h-[450px] lg:h-[500px]">
+          <div className="lg:col-span-5 w-full flex justify-center items-center relative h-[350px] sm:h-[450px] lg:h-[500px] order-3 lg:order-2">
             <Globe3DDemo className="h-full w-full" locale={locale} />
           </div>
-        </div>
 
-        {/* Divine Services Quick Access Row */}
-        <div className="mt-20 md:mt-24 lg:mt-28 w-full flex flex-col gap-8 relative z-20">
-          <div className="flex flex-col items-center lg:items-start text-center lg:text-left gap-2">
-            <span className="inline-flex items-center gap-1 px-4 py-2 border-[2px] border-black bg-white text-black text-[10px] sm:text-xs font-black uppercase tracking-wider shadow-[2.5px_2.5px_0px_#000] rounded-full">
-              ✦ {dict.services.title}
-            </span>
-            <p className="text-xs sm:text-sm text-black/90 font-bold max-w-2xl">
-              {dict.services.subtitle}
-            </p>
-          </div>
+          {/* Divine Services Quick Access Row */}
+          <div className="w-full flex flex-col gap-8 relative z-20 order-2 lg:order-3 lg:col-span-12 mt-12 lg:mt-24">
+            <div className="flex flex-col items-center lg:items-start text-center lg:text-left gap-2">
+              <span className="inline-flex items-center gap-1 px-4 py-2 border-[2px] border-black bg-white text-black text-[10px] sm:text-xs font-black uppercase tracking-wider shadow-[2.5px_2.5px_0px_#000] rounded-full">
+                ✦ {dict.services.title}
+              </span>
+              <p className="text-xs sm:text-sm text-black/90 font-bold max-w-2xl">
+                {dict.services.subtitle}
+              </p>
+            </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-5 w-full">
-            {servicesData.map((service) => {
-              const titleText = service.title[activeLocale as keyof typeof service.title] || service.title.en;
-              const descText = service.desc[activeLocale as keyof typeof service.desc] || service.desc.en;
-              const cardBg = bgColors[service.id as keyof typeof bgColors] || "bg-white";
-              const cardHoverBg = hoverColors[service.id as keyof typeof hoverColors] || "hover:bg-white";
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-5 w-full">
+              {servicesData.map((service) => {
+                const titleText = service.title[activeLocale as keyof typeof service.title] || service.title.en;
+                const descText = service.desc[activeLocale as keyof typeof service.desc] || service.desc.en;
+                const cardBg = bgColors[service.id as keyof typeof bgColors] || "bg-white";
+                const cardHoverBg = hoverColors[service.id as keyof typeof hoverColors] || "hover:bg-white";
 
-              return (
-                <a
-                  href={service.isExternal ? service.link : `/${locale}${service.link}`}
-                  target={service.isExternal ? "_blank" : undefined}
-                  rel={service.isExternal ? "noopener noreferrer" : undefined}
-                  key={service.id}
-                  className={`group relative flex flex-col items-center justify-between text-center p-5 rounded-2xl border-[3px] border-black ${cardBg} ${cardHoverBg} shadow-[5px_5px_0px_#000] hover:shadow-[7px_7px_0px_#000] hover:-translate-y-1 hover:-translate-x-1 active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#000] transition-all duration-200 cursor-pointer overflow-hidden`}
-                >
-                  {/* Service Image Frame */}
-                  <div className="flex flex-col items-center w-full">
-                    <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden group-hover:scale-105 transition-transform duration-200">
-                      <img
-                        src={service.image}
-                        alt={titleText}
-                        className="w-full h-full object-cover select-none p-0.5"
-                        draggable={false}
-                      />
+                return (
+                  <a
+                    href={service.isExternal ? service.link : `/${locale}${service.link}`}
+                    target={service.isExternal ? "_blank" : undefined}
+                    rel={service.isExternal ? "noopener noreferrer" : undefined}
+                    key={service.id}
+                    className={`group relative flex flex-col items-center justify-between text-center p-5 rounded-2xl border-[3px] border-black ${cardBg} ${cardHoverBg} shadow-[5px_5px_0px_#000] hover:shadow-[7px_7px_0px_#000] hover:-translate-y-1 hover:-translate-x-1 active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#000] transition-all duration-200 cursor-pointer overflow-hidden`}
+                  >
+                    {/* Service Image Frame */}
+                    <div className="flex flex-col items-center w-full">
+                      <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden group-hover:scale-105 transition-transform duration-200">
+                        <img
+                          src={service.image}
+                          alt={titleText}
+                          className="w-full h-full object-cover select-none p-0.5"
+                          draggable={false}
+                        />
+                      </div>
+
+                      <h3 className="font-sans text-xs sm:text-sm font-extrabold text-black mt-4 tracking-tight line-clamp-2 uppercase">
+                        {titleText}
+                      </h3>
+
+                      <p className="text-[10px] sm:text-xs text-black/75 font-bold mt-1.5 leading-snug line-clamp-2">
+                        {descText}
+                      </p>
                     </div>
 
-                    <h3 className="font-sans text-xs sm:text-sm font-extrabold text-black mt-4 tracking-tight line-clamp-2 uppercase">
-                      {titleText}
-                    </h3>
-
-                    <p className="text-[10px] sm:text-xs text-black/75 font-bold mt-1.5 leading-snug line-clamp-2">
-                      {descText}
-                    </p>
-                  </div>
-
-                  <span className="inline-flex items-center gap-1 text-[8px] sm:text-[9px] font-extrabold mt-5 px-3 py-1.5 rounded-full border-2 border-black bg-white text-black shadow-[2px_2px_0px_#000] group-hover:bg-[#FFC000] group-hover:shadow-[3px_3px_0px_#000] transition-all duration-200 uppercase">
-                    {dict.services.cta} →
-                  </span>
-                </a>
-              );
-            })}
+                    <span className="inline-flex items-center gap-1 text-[8px] sm:text-[9px] font-extrabold mt-5 px-3 py-1.5 rounded-full border-2 border-black bg-white text-black shadow-[2px_2px_0px_#000] group-hover:bg-[#FFC000] group-hover:shadow-[3px_3px_0px_#000] transition-all duration-200 uppercase">
+                      {dict.services.cta} →
+                    </span>
+                  </a>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
