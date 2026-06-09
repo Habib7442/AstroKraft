@@ -68,9 +68,11 @@ export function Header({ locale, dict }: HeaderProps) {
               alt="AstroKraft Logo"
               className="w-8 h-8 object-contain rounded-md border-2 border-black group-hover:rotate-12 transition-all duration-300"
             />
-            <span className="font-serif text-2xl font-black tracking-tight text-black flex items-baseline">
+            <span className="font-serif text-2xl font-black tracking-tight text-black flex items-baseline select-none">
               Astro<span className="text-black">Kraft</span>
-              <sup className="text-[10px] select-none text-black/80 font-sans ml-0.5 self-start mt-1 font-bold">™</sup>
+              <span className="inline-flex items-center justify-center border-[1.2px] border-black rounded-full w-3.5 h-3.5 text-[7px] font-black font-sans ml-1 self-start mt-1.5 shrink-0">
+                TM
+              </span>
             </span>
           </a>
 
@@ -145,7 +147,9 @@ export function Header({ locale, dict }: HeaderProps) {
                 <SheetHeader className="text-left px-0 pb-4 border-b-2 border-black">
                   <SheetTitle className="font-serif text-2xl font-black tracking-tight text-black flex items-baseline select-none">
                     Astro<span className="text-black">Kraft</span>
-                    <sup className="text-[10px] select-none text-black/80 font-sans ml-0.5 self-start mt-1 font-bold">™</sup>
+                    <span className="inline-flex items-center justify-center border-[1.2px] border-black rounded-full w-3.5 h-3.5 text-[7px] font-black font-sans ml-1 self-start mt-1.5 shrink-0">
+                      TM
+                    </span>
                   </SheetTitle>
                   <SheetDescription className="text-xs text-black font-bold uppercase tracking-wider">
                     Vedic Guidance & Certified Remedies

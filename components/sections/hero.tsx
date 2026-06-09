@@ -80,6 +80,9 @@ export function Hero({ locale, dict }: HeroProps) {
               >
                 <span className="font-serif text-5xl sm:text-6xl lg:text-7xl font-black leading-[1.15] tracking-tight text-black px-6 py-2.5 relative z-10 flex items-baseline select-none">
                   Astro<span className="text-[#FFC000] drop-shadow-[2.5px_2.5px_0px_#000]">Kraft</span>
+                  <span className="inline-flex items-center justify-center border-[2px] sm:border-[3px] border-black rounded-full w-5 h-5 sm:w-6 sm:h-6 text-[8px] sm:text-[10px] font-black font-sans ml-1.5 sm:ml-2 select-none self-start mt-1.5 sm:mt-2.5 shrink-0">
+                    TM
+                  </span>
                 </span>
               </PointerHighlight>
             </h1>
