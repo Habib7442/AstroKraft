@@ -310,7 +310,8 @@ function RotatingGlobe({
           bumpMap={bumpTexture}
           bumpScale={config.bumpScale * 0.05}
           roughness={0.7}
-          metalness={0.0}
+          metalness={0.15}
+          emissive={new THREE.Color("#1a2e5c")}
         />
       </mesh>
 

@@ -404,8 +404,12 @@ export default function Globe3DDemo({ className, locale = "en" }: Globe3DDemoPro
       <Globe3D
         markers={sampleMarkers}
         config={{
-          atmosphereColor: "#c084fc", // Premium cosmic violet glow
-          atmosphereIntensity: 15,
+          showAtmosphere: true,
+          atmosphereColor: "#fbbf24", // Premium gold halo glow to match theme
+          atmosphereIntensity: 1.4,
+          atmosphereBlur: 3.5,
+          ambientIntensity: 1.2, // Brighter ambient light to lift shadows
+          pointLightIntensity: 2.2, // Stronger point lighting for vibrant surface details
           bumpScale: 5,
           autoRotateSpeed: 0.35, // Enable slow elegant auto rotation
           initialRotation: { x: 0.35, y: -0.6 } // Center view on Africa/Middle East so London, New Delhi, and Cape Town markers display cleanly at startup

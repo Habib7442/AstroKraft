@@ -5,7 +5,7 @@ import { ShieldCheck, Phone, UserCheck, Users } from "lucide-react";
 import { Button } from "../ui/button";
 
 import Globe3DDemo from "@/components/3d-globe-demo";
-import { PointerHighlightText } from "@/components/pointer-highlight-text";
+import { PointerHighlight } from "@/components/ui/pointer-highlight";
 
 interface HeroProps {
   locale: string;
@@ -31,13 +31,14 @@ export function Hero({ locale, dict }: HeroProps) {
   const labels = labelsObj[activeLocale as keyof typeof labelsObj] || labelsObj.en;
 
   return (
-    <section className="relative w-full overflow-hidden border-b border-border pt-26 pb-12 md:pt-32 md:pb-20 lg:pt-28 lg:pb-24 bg-background flex flex-col justify-center items-center">
+    <section 
+      className="relative w-full overflow-hidden border-b border-border pt-26 pb-12 md:pt-32 md:pb-20 lg:pt-28 lg:pb-24 flex flex-col justify-center items-center"
+      style={{
+        background: 'radial-gradient(circle at 75% 45%, rgba(255, 192, 0, 0.22) 0%, transparent 60%), radial-gradient(circle at 20% 35%, rgba(255, 192, 0, 0.15) 0%, transparent 50%), linear-gradient(to bottom, rgba(255, 192, 0, 0.25) 0%, rgba(255, 192, 0, 0.08) 50%, var(--background) 100%)'
+      }}
+    >
       {/* Modern gold/blueprint grid background */}
       <div className="absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,white,transparent_80%)] bg-[linear-gradient(to_right,rgba(255,192,0,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,192,0,0.06)_1px,transparent_1px)] bg-[size:3.5rem_3.5rem] pointer-events-none z-0" />
-
-      {/* Warm Gold/Amber Spotlight Glows */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] md:w-[650px] h-[350px] md:h-[650px] rounded-full bg-primary/12 blur-[120px] pointer-events-none z-0" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] md:w-[450px] h-[250px] md:h-[450px] rounded-full bg-gold/10 blur-[100px] pointer-events-none z-0" />
 
       <div className="max-w-7xl w-full mx-auto px-6 md:px-12 lg:px-16 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center w-full">
@@ -52,14 +53,16 @@ export function Hero({ locale, dict }: HeroProps) {
             </div>
 
             {/* Display Title */}
-            <h1 className="max-w-3xl">
-              <PointerHighlightText
-                text="AstroKraft"
-                highlight="AstroKraft"
-                className="font-serif text-5xl sm:text-6xl lg:text-7xl font-semibold leading-[1.15] tracking-tight text-foreground text-center lg:text-left flex flex-wrap items-center justify-center lg:justify-start gap-x-3 gap-y-2"
-                rectangleClassName="border-gold/60 dark:border-gold/80"
+            <h1 className="max-w-3xl flex justify-center lg:justify-start">
+              <PointerHighlight
+                rectangleClassName="border-gold/60 dark:border-gold/80 bg-gold/5"
                 pointerClassName="text-gold fill-gold"
-              />
+                containerClassName="inline-block"
+              >
+                <span className="font-serif text-5xl sm:text-6xl lg:text-7xl font-semibold leading-[1.15] tracking-tight text-foreground px-4 py-1 relative z-10 flex items-baseline select-none">
+                  Astro<span className="text-gold">Kraft</span>
+                </span>
+              </PointerHighlight>
             </h1>
 
             {/* Subline Description */}
@@ -74,7 +77,7 @@ export function Hero({ locale, dict }: HeroProps) {
                   <Button
                     variant="default"
                     size="lg"
-                    className="w-full bg-gradient-to-r from-[#25D366] to-[#128C7E] hover:from-[#22c35e] hover:to-[#0f7c6f] text-white font-semibold px-8 h-12 text-sm rounded-full shadow-md hover:shadow-lg transition-all cursor-pointer flex items-center justify-center gap-2 border-0"
+                    className="w-full bg-foreground hover:bg-foreground/90 text-white font-semibold px-8 h-12 text-sm rounded-full shadow-md hover:shadow-lg transition-all cursor-pointer flex items-center justify-center gap-2 border-0"
                     asChild
                   >
                     <a href="https://api.whatsapp.com/send/?phone=916913230255&text&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer">
@@ -98,59 +101,21 @@ export function Hero({ locale, dict }: HeroProps) {
                   </Button>
                 </div>
               </div>
-
-              {/* Low-Friction Checklist */}
-              <div className="flex flex-wrap justify-center lg:justify-start items-center gap-x-4 gap-y-2 mt-1.5 text-xs font-semibold text-muted-foreground">
-                <span className="flex items-center gap-1">
-                  <span className="text-accent font-bold text-sm">✓</span> Direct WhatsApp Handoff
-                </span>
-                <span className="hidden sm:inline text-muted-foreground/30">•</span>
-                <span className="flex items-center gap-1">
-                  <span className="text-accent font-bold text-sm">✓</span> 100% Private & Confidential
-                </span>
-                <span className="hidden sm:inline text-muted-foreground/30">•</span>
-                <span className="flex items-center gap-1">
-                  <span className="text-accent font-bold text-sm">✓</span> Talk in English, Hindi, or Bengali
-                </span>
-              </div>
             </div>
 
-            {/* Psychological Trust Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 w-full mt-6">
-              <div className="flex flex-col gap-1 p-4 rounded-xl border border-border/60 bg-card hover:border-primary/50 hover:shadow-md transition-all duration-200 text-left">
-                <div className="flex items-center gap-2">
-                  <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center text-accent shrink-0">
-                    <UserCheck className="w-4 h-4" />
-                  </div>
-                  <span className="text-xs font-semibold text-foreground">{dict.common.verified}</span>
-                </div>
-                <p className="text-[11px] text-muted-foreground leading-normal mt-1">
-                  1-on-1 direct guidance with India's top certified Vedic scholars.
-                </p>
+            {/* Trust Badges (Restored clean simple line) */}
+            <div className="flex flex-wrap justify-center lg:justify-start gap-x-6 gap-y-3 mt-6 text-xs text-muted-foreground w-full">
+              <div className="flex items-center gap-1.5">
+                <UserCheck className="w-4 h-4 text-gold" />
+                <span>{dict.common.verified}</span>
               </div>
-
-              <div className="flex flex-col gap-1 p-4 rounded-xl border border-border/60 bg-card hover:border-primary/50 hover:shadow-md transition-all duration-200 text-left">
-                <div className="flex items-center gap-2">
-                  <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center text-accent shrink-0">
-                    <ShieldCheck className="w-4 h-4" />
-                  </div>
-                  <span className="text-xs font-semibold text-foreground">{dict.common.certified}</span>
-                </div>
-                <p className="text-[11px] text-muted-foreground leading-normal mt-1">
-                  Shastri-certified remedial gemstones shipped with ISO lab reports.
-                </p>
+              <div className="flex items-center gap-1.5">
+                <ShieldCheck className="w-4 h-4 text-gold" />
+                <span>{dict.common.certified}</span>
               </div>
-
-              <div className="flex flex-col gap-1 p-4 rounded-xl border border-border/60 bg-card hover:border-primary/50 hover:shadow-md transition-all duration-200 text-left">
-                <div className="flex items-center gap-2">
-                  <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center text-accent shrink-0">
-                    <Users className="w-4 h-4" />
-                  </div>
-                  <span className="text-xs font-semibold text-foreground">{dict.common.consulted_today}</span>
-                </div>
-                <p className="text-[11px] text-muted-foreground leading-normal mt-1">
-                  First consultation at only ₹99 with average connection under 2 mins.
-                </p>
+              <div className="flex items-center gap-1.5">
+                <Users className="w-4 h-4 text-gold" />
+                <span>{dict.common.consulted_today}</span>
               </div>
             </div>
           </div>

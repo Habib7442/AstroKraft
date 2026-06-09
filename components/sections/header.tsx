@@ -120,7 +120,7 @@ export function Header({ locale, dict }: HeaderProps) {
             <Button
               variant="default"
               size="lg"
-              className="bg-primary hover:bg-primary/95 text-primary-foreground font-semibold px-5 rounded-full text-xs cursor-pointer"
+              className="bg-foreground hover:bg-foreground/90 text-white font-semibold px-5 rounded-full text-xs cursor-pointer"
               asChild
             >
               <a href={`/${locale}/astrologers`}>
@@ -183,7 +183,7 @@ export function Header({ locale, dict }: HeaderProps) {
                           className={cn(
                             "px-2 py-1.5 rounded-md border text-center text-xs font-medium transition-all cursor-pointer",
                             locale === loc
-                              ? "bg-primary/10 border-primary text-primary font-semibold"
+                              ? "bg-primary/10 border-primary text-accent font-semibold"
                               : "border-border bg-card text-muted-foreground hover:border-gold/30"
                           )}
                         >
@@ -197,7 +197,7 @@ export function Header({ locale, dict }: HeaderProps) {
                 {/* Primary Action CTA */}
                 <div className="mt-auto pt-6">
                   <Button
-                    className="w-full bg-primary hover:bg-primary/95 text-primary-foreground font-semibold rounded-full h-11 text-sm flex items-center justify-center cursor-pointer"
+                    className="w-full bg-foreground hover:bg-foreground/90 text-white font-semibold rounded-full h-11 text-sm flex items-center justify-center cursor-pointer"
                     asChild
                     onClick={() => setMobileMenuOpen(false)}
                   >
