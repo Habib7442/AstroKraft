@@ -53,12 +53,6 @@ export default function AstrologerProfileClient({
     setTimeout(() => setCopiedField(null), 2000);
   };
 
-  const getPrefilledWhatsappUrl = (name: string) => {
-    const isBiprangshu = astrologerId === "biprangshu_bhattacharjee";
-    const phoneNum = isBiprangshu ? "6001730761" : "6913230255";
-    const text = `Hello AstroKraft! I would like to book a consultation session with ${name}.`;
-    return `https://wa.me/91${phoneNum}?text=${encodeURIComponent(text)}`;
-  };
 
   const servicesList = astrologerId === "biprangshu_bhattacharjee" 
     ? [
@@ -298,13 +292,10 @@ export default function AstrologerProfileClient({
               </div>
 
               <a 
-                href={getPrefilledWhatsappUrl(astrologer.name)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="relative z-10 inline-flex items-center gap-2 bg-gradient-to-r from-[#25D366] to-[#128C7E] hover:from-[#22c35e] hover:to-[#0f7c6f] text-white font-semibold py-3 px-6 rounded-full shadow-xl shadow-emerald-500/10 hover:shadow-emerald-500/20 transition-all text-sm font-sans cursor-pointer shrink-0 active:scale-98"
+                href={`/${locale}/consultation?astrologer=${astrologerId}`}
+                className="relative z-10 inline-flex items-center justify-center gap-2 bg-[#FFC000] hover:bg-[#FFC000]/95 text-black border-2 border-black hover:shadow-[4px_4px_0px_#000] hover:-translate-y-[1px] hover:-translate-x-[1px] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#000] transition-all font-black py-3 px-6 rounded-full shadow-[2.5px_2.5px_0px_#000] text-sm font-sans cursor-pointer shrink-0"
               >
-                <img src="/social-icons/whatsapp.png" alt="WhatsApp" className="w-4 h-4 object-contain shrink-0" />
-                Connect on WhatsApp
+                Book Consultation
               </a>
             </div>
 

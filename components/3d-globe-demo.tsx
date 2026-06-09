@@ -33,6 +33,15 @@ interface AstrologerInfo {
 
 const ASTROLOGERS = ASTROLOGERS_DATA as Record<string, AstrologerInfo>;
 
+const cardColors: Record<string, string> = {
+  biprangshu_bhattacharjee: "bg-[#FFF9E6]",
+  acharya_bhakta_vedanta: "bg-[#E5D5FF]",
+  acharya_sneha: "bg-[#FFD0C8]",
+  acharya_abhi_shastri: "bg-[#FEF08A]",
+  astrologer_indrajit_dutta: "bg-[#C6F6D5]",
+  rishi_acharya: "bg-[#E0F2FE]"
+};
+
 const srcToKeyMap: Record<string, string> = {
   "/assets/astrologers/acharya_abhi_shastri.webp": "acharya_abhi_shastri",
   "/assets/astrologers/acharya_sneha.webp": "acharya_sneha",
@@ -223,35 +232,33 @@ export default function Globe3DDemo({ className, locale = "en" }: Globe3DDemoPro
     }
   };
 
-  const getPrefilledWhatsappUrl = (name: string) => {
-    const text = `Hello AstroKraft! I would like to book a consultation session with ${name}.`;
-    return `https://wa.me/919830098300?text=${encodeURIComponent(text)}`;
-  };
 
   const renderModal = () => {
     if (!mounted || !astrologer) return null;
 
     return createPortal(
       <div
-        className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-neutral-950/70 backdrop-blur-md transition-opacity duration-300 cursor-pointer"
+        className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-white/20 backdrop-blur-sm transition-opacity duration-300 cursor-pointer"
         onClick={() => setSelectedKey(null)}
       >
-        {/* Modal Box */}
         <div
           id="astrologer-details-modal"
           role="dialog"
           aria-modal="true"
           aria-labelledby="modal-title"
-          className="w-full max-w-[330px] sm:max-w-[340px] max-h-[85vh] sm:max-h-[80vh] bg-card/95 backdrop-blur-2xl border border-gold/45 rounded-xl shadow-[0_0_50px_-12px_rgba(220,190,116,0.18)] p-3.5 flex flex-col gap-2.5 relative text-foreground cursor-default transition-all duration-300 transform scale-100 animate-in fade-in zoom-in-95 duration-200 overflow-hidden before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-gold/50 before:to-transparent"
+          className={cn(
+            "w-full max-w-[330px] sm:max-w-[340px] max-h-[85vh] sm:max-h-[80vh] border-[3px] border-black rounded-2xl shadow-[6px_6px_0px_#000] p-4 flex flex-col gap-3 relative text-black cursor-default transition-all duration-300 transform scale-100 animate-in fade-in zoom-in-95 duration-200 overflow-hidden",
+            selectedKey ? cardColors[selectedKey] || "bg-white" : "bg-white"
+          )}
           onClick={(e) => e.stopPropagation()}
         >
           {/* Close Button */}
           <button
             onClick={() => setSelectedKey(null)}
-            className="absolute top-3 right-3 p-1 rounded-full text-muted-foreground hover:text-foreground hover:bg-white/5 transition-colors focus-visible:outline focus-visible:outline-ring/50 cursor-pointer z-50"
+            className="absolute top-3.5 right-3.5 p-1 rounded-full text-black hover:bg-neutral-100 hover:text-black border-2 border-black bg-white w-7 h-7 flex items-center justify-center shadow-[1.5px_1.5px_0px_#000] active:translate-x-[0.5px] active:translate-y-[0.5px] active:shadow-none transition-all cursor-pointer z-50 animate-pulse-slow"
             aria-label="Close details"
           >
-            <X className="w-4 h-4" />
+            <X className="w-3.5 h-3.5 stroke-[2.5px]" />
           </button>
 
           {/* Scrollable Content Wrapper */}
@@ -260,7 +267,7 @@ export default function Globe3DDemo({ className, locale = "en" }: Globe3DDemoPro
             <div className="flex flex-col items-center text-center mt-1">
               {/* Avatar Frame with Pulse Status */}
               <div className="relative shrink-0 mb-1.5">
-                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden border-2 border-gold/50 bg-neutral-900 shadow-md p-0.5">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden border-[3px] border-black bg-white shadow-[2.5px_2.5px_0px_#000] p-0.5 animate-bounce-slow">
                   <img
                     src={astrologer.src}
                     alt={astrologer.name}
@@ -278,7 +285,7 @@ export default function Globe3DDemo({ className, locale = "en" }: Globe3DDemoPro
                   />
                   <span
                     className={cn(
-                      "relative inline-flex rounded-full h-3 w-3 border-2 border-card shadow-sm",
+                      "relative inline-flex rounded-full h-3 w-3 border-2 border-black",
                       astrologer.status === "online" ? "bg-emerald-500" : "bg-amber-500"
                     )}
                   />
@@ -286,26 +293,24 @@ export default function Globe3DDemo({ className, locale = "en" }: Globe3DDemoPro
               </div>
 
               {/* Text Meta */}
-              <h3 id="modal-title" className="font-serif text-base sm:text-lg font-bold tracking-wide text-foreground">
+              <h3 id="modal-title" className="font-serif text-base sm:text-lg font-black tracking-wide text-black">
                 {astrologer.name}
               </h3>
-              <p className="text-[11px] sm:text-xs text-gold font-semibold mt-0.5">
+              <p className="text-[10px] sm:text-xs font-black text-black bg-white border-2 border-black px-2.5 py-0.5 rounded-full shadow-[1.5px_1.5px_0px_#000] mt-1.5 leading-none">
                 {astrologer.specialty[activeLocale] || astrologer.specialty["en"]}
               </p>
-              <p className="text-[10px] sm:text-[11px] text-muted-foreground leading-relaxed mt-1.5 max-w-xs font-sans border-t border-border/20 pt-1.5 px-1 text-center">
+              <p className="text-[10px] sm:text-[11px] text-neutral-600 font-semibold leading-relaxed mt-2.5 max-w-xs font-sans border-t-2 border-black pt-2 px-1 text-center">
                 {astrologer.description[activeLocale] || astrologer.description["en"]}
               </p>
               <span
                 className={cn(
-                  "inline-flex items-center gap-1.5 mt-2 px-2.5 py-0.5 rounded-full text-[9px] sm:text-[10px] font-semibold tracking-wider uppercase border",
-                  astrologer.status === "online"
-                    ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
-                    : "bg-amber-500/10 text-amber-400 border-amber-500/20"
+                  "inline-flex items-center gap-1.5 mt-2.5 px-3 py-1 rounded-full text-[9px] sm:text-[10px] font-black uppercase border-2 border-black bg-white text-black shadow-[1.5px_1.5px_0px_#000]",
+                  astrologer.status === "online" ? "text-emerald-600" : "text-amber-600"
                 )}
               >
                 <span
                   className={cn(
-                    "h-1.5 w-1.5 rounded-full animate-pulse",
+                    "h-1.5 w-1.5 rounded-full animate-pulse border border-black",
                     astrologer.status === "online" ? "bg-emerald-400" : "bg-amber-400"
                   )}
                 />
@@ -314,82 +319,79 @@ export default function Globe3DDemo({ className, locale = "en" }: Globe3DDemoPro
             </div>
 
             {/* Badges & Stats Grid */}
-            <div className="grid grid-cols-2 gap-1.5 border-y border-border/30 py-2 my-0.5">
-              <div className="flex flex-col items-center justify-center p-1 rounded-lg bg-neutral-900/50 border border-white/5">
-                <Award className="w-3.5 h-3.5 text-gold shrink-0 mb-0.5" />
-                <span className="text-[8px] text-muted-foreground font-sans uppercase tracking-wider scale-95">Experience</span>
-                <span className="font-serif text-[10px] font-semibold mt-0.5 text-foreground">{astrologer.experience} {t("exp")}</span>
+            <div className="grid grid-cols-2 gap-2 border-y-2 border-black py-2.5 my-1">
+              <div className="flex flex-col items-center justify-center p-2 rounded-xl bg-white border-2 border-black shadow-[2px_2px_0px_#000]">
+                <Award className="w-3.5 h-3.5 text-black stroke-[2.5px] shrink-0 mb-0.5" />
+                <span className="text-[8px] text-neutral-500 font-black uppercase tracking-wider scale-95">Experience</span>
+                <span className="font-serif text-[10px] font-black mt-0.5 text-black">{astrologer.experience} {t("exp")}</span>
               </div>
-              <div className="flex flex-col items-center justify-center p-1 rounded-lg bg-neutral-900/50 border border-white/5">
-                <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400 shrink-0 mb-0.5" />
-                <span className="text-[8px] text-muted-foreground font-sans uppercase tracking-wider scale-95">Rating</span>
-                <span className="font-serif text-[10px] font-semibold mt-0.5 text-foreground">{astrologer.rating} / 5</span>
+              <div className="flex flex-col items-center justify-center p-2 rounded-xl bg-white border-2 border-black shadow-[2px_2px_0px_#000]">
+                <Star className="w-3.5 h-3.5 text-[#FFC000] fill-[#FFC000] stroke-black stroke-[1.5px] shrink-0 mb-0.5" />
+                <span className="text-[8px] text-neutral-500 font-black uppercase tracking-wider scale-95">Rating</span>
+                <span className="font-serif text-[10px] font-black mt-0.5 text-black">{astrologer.rating} / 5</span>
               </div>
             </div>
 
             {/* Contact Details & Fee Card */}
-            <div className="flex flex-col gap-1.5 bg-neutral-900/55 border border-white/5 rounded-xl p-2.5 text-[11px] font-sans">
-              <div className="flex items-center justify-between text-muted-foreground">
+            <div className="flex flex-col gap-2 bg-white border-2 border-black rounded-xl p-3 text-[11px] font-black text-black shadow-[3px_3px_0px_#000]">
+              <div className="flex items-center justify-between text-black">
                 <span>💰 Consultation Fee</span>
-                <span className="font-semibold text-gold font-serif text-xs">₹{astrologer.fee.toFixed(2)}</span>
+                <span className="font-black text-black font-serif text-xs">₹{astrologer.fee.toFixed(2)}</span>
               </div>
-              <div className="flex items-center justify-between text-muted-foreground">
+              <div className="flex items-center justify-between text-black">
                 <span>📞 Phone</span>
                 <div className="flex items-center gap-1">
-                  <a href={`tel:${astrologer.phone}`} className="font-medium text-foreground hover:text-gold transition-colors">{astrologer.phone}</a>
+                  <a href={`tel:${astrologer.phone}`} className="font-bold text-black hover:text-[#FFC000] hover:underline transition-colors">{astrologer.phone}</a>
                   <button 
                     onClick={() => handleCopyText(astrologer.phone, "Phone number")}
-                    className="p-1 text-muted-foreground hover:text-foreground hover:bg-white/5 rounded transition-colors cursor-pointer"
+                    className="p-1 text-black hover:bg-black/5 rounded transition-colors cursor-pointer"
                     title="Copy phone number"
                   >
-                    <Copy className="w-3 h-3" />
+                    <Copy className="w-3 h-3 text-black stroke-[2px]" />
                   </button>
                 </div>
               </div>
-              <div className="flex items-center justify-between text-muted-foreground">
+              <div className="flex items-center justify-between text-black">
                 <span>📧 Email</span>
                 <div className="flex items-center gap-1 max-w-[170px]">
-                  <a href={`mailto:${astrologer.email}`} className="font-medium text-foreground hover:text-gold transition-colors select-all truncate text-right">{astrologer.email}</a>
+                  <a href={`mailto:${astrologer.email}`} className="font-bold text-black hover:text-[#FFC000] hover:underline transition-colors select-all truncate text-right">{astrologer.email}</a>
                   <button 
                     onClick={() => handleCopyText(astrologer.email, "Email address")}
-                    className="p-1 text-muted-foreground hover:text-foreground hover:bg-white/5 rounded transition-colors cursor-pointer shrink-0"
+                    className="p-1 text-black hover:bg-black/5 rounded transition-colors cursor-pointer shrink-0"
                     title="Copy email address"
                   >
-                    <Copy className="w-3 h-3" />
+                    <Copy className="w-3 h-3 text-black stroke-[2px]" />
                   </button>
                 </div>
               </div>
-              <div className="border-t border-border/20 pt-1.5 mt-0.5 text-[10px] text-muted-foreground flex flex-col gap-0.5">
+              <div className="border-t-2 border-black pt-2 mt-1 text-[10px] text-black flex flex-col gap-1">
                 <div className="flex items-center justify-between">
-                  <span className="font-semibold text-foreground uppercase tracking-wide text-[8px]">Address</span>
+                  <span className="font-black text-black uppercase tracking-wider text-[8px]">Address</span>
                   <button 
                     onClick={() => handleCopyText(astrologer.address[activeLocale] || astrologer.address["en"], "Address")}
-                    className="p-0.5 text-muted-foreground hover:text-foreground hover:bg-white/5 rounded transition-colors cursor-pointer"
+                    className="p-0.5 text-black hover:bg-black/5 rounded transition-colors cursor-pointer"
                     title="Copy address"
                   >
-                    <Copy className="w-3 h-3" />
+                    <Copy className="w-3 h-3 text-black stroke-[2px]" />
                   </button>
                 </div>
-                <span className="leading-relaxed">{astrologer.address[activeLocale] || astrologer.address["en"]}</span>
+                <span className="leading-relaxed font-semibold text-neutral-600">{astrologer.address[activeLocale] || astrologer.address["en"]}</span>
               </div>
             </div>
           </div>
 
           {/* Sticky Call to Action Button */}
-          <div className="pt-2 border-t border-border/20 shrink-0 flex gap-2">
+          <div className="pt-3 border-t-2 border-black shrink-0 flex gap-2">
             <a
               href={`/${locale}/astrologers/${selectedKey}`}
-              className="flex-1 flex items-center justify-center bg-neutral-900 border border-gold/30 hover:border-gold text-foreground hover:text-gold font-semibold py-2 px-2.5 rounded-full transition-all text-xs font-sans tracking-wide text-center"
+              className="flex-1 flex items-center justify-center bg-white border-2 border-black hover:bg-neutral-50 text-black hover:shadow-[3px_3px_0px_#000] hover:-translate-y-[1px] hover:-translate-x-[1px] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#000] transition-all font-black py-2.5 px-2.5 rounded-full text-xs font-sans tracking-wide text-center shadow-[2px_2px_0px_#000]"
             >
               View Profile
             </a>
             <a
-              href={getPrefilledWhatsappUrl(astrologer.name)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-1 flex items-center justify-center gap-1.5 bg-gradient-to-r from-[#25D366] to-[#128C7E] hover:from-[#22c35e] hover:to-[#0f7c6f] text-white font-semibold py-2 px-2.5 rounded-full shadow-lg shadow-emerald-500/10 transition-all cursor-pointer text-xs font-sans tracking-wide text-center"
+              href={`/${locale}/consultation?astrologer=${selectedKey}`}
+              className="flex-1 flex items-center justify-center gap-1.5 bg-[#FFC000] hover:bg-[#FFC000]/95 text-black border-2 border-black hover:shadow-[3px_3px_0px_#000] hover:-translate-y-[1px] hover:-translate-x-[1px] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#000] transition-all font-black py-2.5 px-2.5 rounded-full cursor-pointer text-xs font-sans tracking-wide text-center shadow-[2px_2px_0px_#000]"
             >
-              <img src="/social-icons/whatsapp.png" alt="WhatsApp" className="w-3.5 h-3.5 object-contain shrink-0" />
               {t("consult_now")}
             </a>
           </div>

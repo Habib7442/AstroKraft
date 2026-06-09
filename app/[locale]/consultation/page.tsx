@@ -4,6 +4,7 @@ import { isValidLocale } from "@/lib/seo";
 import { Header } from "@/components/sections/header";
 import { Footer } from "@/components/sections/footer";
 import { ConsultationForm } from "@/components/sections/ConsultationForm";
+import { Suspense } from "react";
 
 interface PageParams {
   locale: string;
@@ -25,7 +26,13 @@ export default async function Page({ params }: { params: Promise<PageParams> }) 
 
       {/* Main Content Area */}
       <main className="flex-1 pt-32 pb-16 px-4 sm:px-6 lg:px-8">
-        <ConsultationForm locale={locale} />
+        <Suspense fallback={
+          <div className="flex justify-center items-center py-20">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-black" />
+          </div>
+        }>
+          <ConsultationForm locale={locale} />
+        </Suspense>
       </main>
 
       {/* Footer */}

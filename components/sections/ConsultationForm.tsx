@@ -3,10 +3,31 @@
 import React, { useState } from "react";
 import { Briefcase, Heart, Coins, Activity, FileText, GraduationCap, MessageSquare } from "lucide-react";
 import { toast } from "sonner";
+import { useSearchParams } from "next/navigation";
+import ASTROLOGERS_DATA from "@/lib/data/astrologer.json";
+
+interface AstrologerInfo {
+  name: string;
+  specialty: Record<string, string>;
+  description: Record<string, string>;
+  experience: number;
+  rating: number;
+  reviews: number;
+  languages: Record<string, string[]>;
+  address: Record<string, string>;
+  phone: string;
+  email: string;
+  fee: number;
+  status: "online" | "busy";
+  src: string;
+}
+
+const ASTROLOGERS = ASTROLOGERS_DATA as Record<string, AstrologerInfo>;
 
 const translations = {
   en: {
     title: "WhatsApp Consultation Details",
+    titleWithAstrologer: "Consultation with {name}",
     subtitle: "Select a consultation category and fill in your details to start your instant consultation via WhatsApp.",
     categoryLabel: "Select Consultation Category",
     detailsLabel: "Enter Your Birth Details",
@@ -32,6 +53,7 @@ const translations = {
   },
   hin: {
     title: "व्हाट्सएप परामर्श विवरण",
+    titleWithAstrologer: "{name} के साथ परामर्श",
     subtitle: "व्हाट्सएप के माध्यम से अपना त्वरित परामर्श शुरू करने के लिए एक श्रेणी चुनें और अपना विवरण भरें।",
     categoryLabel: "परामर्श श्रेणी चुनें",
     detailsLabel: "अपना जन्म विवरण दर्ज करें",
@@ -57,6 +79,7 @@ const translations = {
   },
   bn: {
     title: "হোয়াটসঅ্যাপ পরামর্শ বিবরণ",
+    titleWithAstrologer: "{name}-এর সাথে পরামর্শ",
     subtitle: "হোয়াটসঅ্যাপের মাধ্যমে আপনার তাত্ক্ষণিক পরামর্শ শুরু করতে একটি বিভাগ চয়ন করুন এবং আপনার বিবরণ পূরণ করুন।",
     categoryLabel: "পরামর্শ বিভাগ নির্বাচন করুন",
     detailsLabel: "আপনার জন্মের বিবরণ লিখুন",
@@ -113,6 +136,10 @@ export function ConsultationForm({ locale }: ConsultationFormProps) {
   const activeLocale = ["en", "hin", "bn"].includes(locale) ? locale : "en";
   const t = translations[activeLocale as keyof typeof translations] || translations.en;
 
+  const searchParams = useSearchParams();
+  const astrologerKey = searchParams.get("astrologer");
+  const selectedAstrologer = astrologerKey ? ASTROLOGERS[astrologerKey] : null;
+
   const [category, setCategory] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [dob, setDob] = useState<string>("");
@@ -138,7 +165,7 @@ export function ConsultationForm({ locale }: ConsultationFormProps) {
     const categoryLabel = t.categories[category as keyof typeof t.categories] || category;
     
     // Format message for WhatsApp
-    const message = `Hello AstroKraft! I would like to get a WhatsApp Consultation.\n\n` +
+    const message = `Hello AstroKraft!` + (selectedAstrologer ? ` I would like to get a WhatsApp Consultation with ${selectedAstrologer.name}.` : ` I would like to get a WhatsApp Consultation.`) + `\n\n` +
                     `*Details:*\n` +
                     `• Name: ${name}\n` +
                     `• Category: ${categoryLabel}\n` +
@@ -146,7 +173,12 @@ export function ConsultationForm({ locale }: ConsultationFormProps) {
                     `• Time of Birth: ${time}\n` +
                     `• Place of Birth: ${pob}`;
                     
-    const whatsappUrl = `https://api.whatsapp.com/send/?phone=916913230255&text=${encodeURIComponent(message)}&type=phone_number&app_absent=0`;
+    const isBiprangshu = astrologerKey === "biprangshu_bhattacharjee";
+    const phoneNum = selectedAstrologer 
+      ? (isBiprangshu ? "6001730761" : "6913230255") 
+      : "6913230255";
+                    
+    const whatsappUrl = `https://api.whatsapp.com/send/?phone=91${phoneNum}&text=${encodeURIComponent(message)}&type=phone_number&app_absent=0`;
     
     toast.success(t.redirecting);
     
@@ -159,8 +191,8 @@ export function ConsultationForm({ locale }: ConsultationFormProps) {
     <div className="w-full max-w-4xl mx-auto space-y-8 select-none">
       {/* Page Title & Subtitle */}
       <div className="text-center space-y-3">
-        <h1 className="text-3xl sm:text-4xl font-serif text-black font-black tracking-tight drop-shadow-[1px_1px_0px_rgba(0,0,0,0.1)]">
-          {t.title}
+        <h1 className="text-3xl sm:text-4xl font-serif text-black font-black tracking-tight drop-shadow-[1px_1px_0px_rgba(0,0,0,0.1)] animate-fade-in">
+          {selectedAstrologer ? t.titleWithAstrologer.replace("{name}", selectedAstrologer.name) : t.title}
         </h1>
         <p className="text-sm sm:text-base text-neutral-600 font-bold max-w-2xl mx-auto leading-relaxed">
           {t.subtitle}

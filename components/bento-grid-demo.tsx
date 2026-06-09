@@ -31,11 +31,6 @@ interface BentoGridDemoProps {
 export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
   const activeLocale = ["en", "hin", "bn"].includes(locale) ? locale : "en";
 
-  const getPrefilledWhatsappUrl = (name: string) => {
-    const text = `Hello AstroKraft! I would like to book a consultation session with ${name}.`;
-    return `https://wa.me/916913230255?text=${encodeURIComponent(text)}`;
-  };
-
   // Order astrologers so Biprangshu is first to align layout
   const orderedKeys = [
     "biprangshu_bhattacharjee",
@@ -45,6 +40,15 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
     "astrologer_indrajit_dutta",
     "rishi_acharya"
   ];
+
+  const cardColors: Record<string, string> = {
+    biprangshu_bhattacharjee: "bg-[#FFF9E6]",
+    acharya_bhakta_vedanta: "bg-[#E5D5FF]",
+    acharya_sneha: "bg-[#FFD0C8]",
+    acharya_abhi_shastri: "bg-[#FEF08A]",
+    astrologer_indrajit_dutta: "bg-[#C6F6D5]",
+    rishi_acharya: "bg-[#E0F2FE]"
+  };
 
   return (
     <section className="w-full py-16 px-6 md:px-12 lg:px-16 bg-[#FFFDF0]/50 relative border-t-[3px] border-black">
@@ -63,7 +67,7 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
         </div>
 
         {/* Bento Grid */}
-        <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[14.5rem]">
+        <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[17.5rem]">
           {orderedKeys.map((key) => {
             const ast = ASTROLOGERS[key];
             if (!ast) return null;
@@ -77,7 +81,10 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
               return (
                 <div
                   key={key}
-                  className="group/bento shadow-[5px_5px_0px_#000] md:col-span-2 md:row-span-2 flex flex-col justify-between rounded-2xl border-[3px] border-black bg-white p-6 relative overflow-hidden text-black transition-all duration-200 hover:shadow-[7px_7px_0px_#000] hover:-translate-y-0.5 hover:-translate-x-0.5 active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#000] min-h-[30rem] md:min-h-0 will-change-transform [transform:translate3d(0,0,0)]"
+                  className={cn(
+                    "group/bento shadow-[5px_5px_0px_#000] md:col-span-2 md:row-span-2 flex flex-col justify-between rounded-2xl border-[3px] border-black p-6 relative overflow-hidden text-black transition-all duration-200 hover:shadow-[7px_7px_0px_#000] hover:-translate-y-0.5 hover:-translate-x-0.5 active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#000] min-h-[30rem] md:min-h-0 will-change-transform [transform:translate3d(0,0,0)]",
+                    cardColors[key] || "bg-white"
+                  )}
                 >
                   {/* Top: Profile Header & Layout */}
                   <div className="flex flex-col md:flex-row gap-6 items-stretch relative z-10 h-full w-full">
@@ -133,7 +140,7 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
                           </div>
                         </div>
 
-                        <span className="text-xs font-black text-black bg-[#FFE4A0] border-2 border-black px-2.5 py-0.5 rounded-full w-fit shadow-[1.5px_1.5px_0px_#000] font-sans tracking-wide">
+                        <span className="text-xs font-black text-black bg-white border-2 border-black px-2.5 py-0.5 rounded-full w-fit shadow-[1.5px_1.5px_0px_#000] font-sans tracking-wide">
                           {specialtyText}
                         </span>
 
@@ -176,12 +183,9 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
                             View Profile
                           </a>
                           <a
-                            href={getPrefilledWhatsappUrl(ast.name)}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-2 bg-[#FFC000] hover:bg-[#FFC000]/95 text-black border-2 border-black shadow-[3px_3px_0px_#000] hover:shadow-[4px_4px_0px_#000] hover:-translate-y-[1px] hover:-translate-x-[1px] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#000] transition-all text-xs font-black py-2 px-5 rounded-full cursor-pointer"
+                            href={`/${locale}/consultation?astrologer=${key}`}
+                            className="flex items-center justify-center gap-2 bg-[#FFC000] hover:bg-[#FFC000]/95 text-black border-2 border-black shadow-[3px_3px_0px_#000] hover:shadow-[4px_4px_0px_#000] hover:-translate-y-[1px] hover:-translate-x-[1px] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#000] transition-all text-xs font-black py-2 px-5 rounded-full cursor-pointer"
                           >
-                            <img src="/social-icons/whatsapp.png" alt="WhatsApp" className="w-3.5 h-3.5 object-contain shrink-0" />
                             Consult Now
                           </a>
                         </div>
@@ -197,7 +201,10 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
             return (
               <div
                 key={key}
-                className="group/bento shadow-[4px_4px_0px_#000] row-span-1 flex flex-col justify-between space-y-3.5 rounded-2xl border-[3px] border-black bg-white p-4.5 transition-all duration-200 hover:shadow-[6px_6px_0px_#000] hover:-translate-y-0.5 hover:-translate-x-0.5 active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#000] text-black relative overflow-hidden will-change-transform [transform:translate3d(0,0,0)]"
+                className={cn(
+                  "group/bento shadow-[4px_4px_0px_#000] row-span-1 flex flex-col justify-between space-y-3.5 rounded-2xl border-[3px] border-black p-4.5 transition-all duration-200 hover:shadow-[6px_6px_0px_#000] hover:-translate-y-0.5 hover:-translate-x-0.5 active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#000] text-black relative overflow-hidden will-change-transform [transform:translate3d(0,0,0)]",
+                  cardColors[key] || "bg-white"
+                )}
               >
                 {/* Header info */}
                 <div className="flex items-start justify-between gap-3 relative z-10">
@@ -244,7 +251,7 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
                         {ast.name}
                       </a>
                     </h4>
-                    <p className="text-[10px] text-black font-black bg-[#E5D5FF] border border-black px-2 py-0.5 rounded-full w-fit shadow-[1px_1px_0px_#000] leading-none">
+                    <p className="text-[10px] text-black font-black bg-white border border-black px-2 py-0.5 rounded-full w-fit shadow-[1px_1px_0px_#000] leading-none">
                       {specialtyText}
                     </p>
                     <p className="text-[11px] text-neutral-600 font-semibold line-clamp-2 leading-relaxed mt-1.5 font-sans">
@@ -253,25 +260,22 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
                   </div>
 
                   {/* Actions & Fee */}
-                  <div className="flex items-center justify-between border-t-2 border-black pt-2.5 mt-1 text-[11px]">
+                  <div className="flex items-center justify-between border-t-2 border-black pt-3.5 mt-3.5 text-[11px]">
                     <div className="flex flex-col">
-                      <span className="text-[8px] text-neutral-500 uppercase font-black">Fee</span>
+                      <span className="text-[8px] text-neutral-500 uppercase font-black tracking-wider">Fee</span>
                       <span className="font-serif font-black text-black">₹{ast.fee.toFixed(2)}</span>
                     </div>
-                    <div className="flex items-center gap-1.5">
+                    <div className="flex items-center gap-2">
                       <a
                         href={`/${locale}/astrologers/${key}`}
-                        className="text-[10px] font-black text-black hover:bg-neutral-50 hover:shadow-[2px_2px_0px_#000] hover:-translate-y-[0.5px] hover:-translate-x-[0.5px] active:translate-x-[0.5px] active:translate-y-[0.5px] active:shadow-none transition-all py-1 px-2.5 rounded-full border-2 border-black bg-white shadow-[1px_1px_0px_#000]"
+                        className="text-[10px] font-black text-black hover:bg-neutral-50 hover:shadow-[3px_3px_0px_#000] hover:-translate-y-[1px] hover:-translate-x-[1px] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#000] transition-all py-1.5 px-3 rounded-full border-2 border-black bg-white shadow-[2px_2px_0px_#000]"
                       >
                         Profile
                       </a>
                       <a
-                        href={getPrefilledWhatsappUrl(ast.name)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1 bg-[#FFC000] hover:bg-[#FFC000]/95 text-black hover:shadow-[2px_2px_0px_#000] hover:-translate-y-[0.5px] hover:-translate-x-[0.5px] active:translate-x-[0.5px] active:translate-y-[0.5px] active:shadow-none transition-all py-1 px-2.5 rounded-full border-2 border-black shadow-[1.5px_1.5px_0px_#000] text-[10px] font-black cursor-pointer"
+                        href={`/${locale}/consultation?astrologer=${key}`}
+                        className="flex items-center justify-center bg-[#FFC000] hover:bg-[#FFC000]/95 text-black hover:shadow-[3px_3px_0px_#000] hover:-translate-y-[1px] hover:-translate-x-[1px] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#000] transition-all py-1.5 px-3.5 rounded-full border-2 border-black shadow-[2px_2px_0px_#000] text-[10px] font-black cursor-pointer"
                       >
-                        <img src="/social-icons/whatsapp.png" alt="WhatsApp" className="w-3.5 h-3.5 object-contain shrink-0" />
                         Consult
                       </a>
                     </div>
