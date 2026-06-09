@@ -62,12 +62,21 @@ export function ExcitementToaster() {
     const actionCreator = getRandomItem(ACTIONS);
     const message = actionCreator(name, loc);
 
-    toast(message, {
-      icon: <Compass className="w-4 h-4 text-gold animate-pulse" />,
-      duration: 4000,
-      description: "Live AstroKraft Activity",
-      className: "border border-gold/30 bg-card/95 text-foreground backdrop-blur-md shadow-lg shadow-gold/5",
-    });
+    toast(
+      <div className="flex flex-col gap-1 pr-4">
+        <span className="text-xs sm:text-sm font-extrabold text-black leading-snug">
+          {message}
+        </span>
+        <span className="text-[9px] font-black text-neutral-500 uppercase tracking-widest select-none">
+          Live AstroKraft Activity
+        </span>
+      </div>,
+      {
+        icon: <Compass className="w-4 h-4 text-[#FFC000] animate-pulse shrink-0 mt-0.5" />,
+        duration: 4000,
+        className: "border-2 border-black bg-white text-black rounded-xl shadow-[3px_3px_0px_#000] p-4 flex items-start gap-3",
+      }
+    );
   };
 
   return null;

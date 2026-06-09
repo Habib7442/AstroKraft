@@ -53,7 +53,7 @@ export function Hero({ locale, dict }: HeroProps) {
     <section
       className="relative w-full overflow-hidden border-b-[3px] border-black pt-28 pb-16 md:pt-36 md:pb-24 lg:pt-32 lg:pb-28 flex flex-col justify-center items-center"
       style={{
-        background: 'linear-gradient(to bottom, #FFC000 0%, #FFE57F 100%)'
+        background: 'linear-gradient(to bottom, #FFE896 0%, #FFFDF0 100%)'
       }}
     >
       {/* Brutalist Grid Overlay */}

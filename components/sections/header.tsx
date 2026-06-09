@@ -141,12 +141,13 @@ export function Header({ locale, dict }: HeaderProps) {
                   <Menu className="w-5 h-5" />
                 </button>
               </SheetTrigger>
-              <SheetContent side="right" className="bg-background/95 backdrop-blur-md border-l border-border/80 flex flex-col p-6 w-[280px] sm:w-[320px]">
-                <SheetHeader className="text-left px-0 pb-4 border-b border-border/50">
-                  <SheetTitle className="font-serif text-xl font-semibold tracking-tight text-foreground">
-                    Astro<span className="text-gold">Kraft</span>
+              <SheetContent side="right" className="bg-[#FFF9E6] border-l-2 border-black flex flex-col p-6 w-[280px] sm:w-[320px]">
+                <SheetHeader className="text-left px-0 pb-4 border-b-2 border-black">
+                  <SheetTitle className="font-serif text-2xl font-black tracking-tight text-black flex items-baseline select-none">
+                    Astro<span className="text-black">Kraft</span>
+                    <sup className="text-[10px] select-none text-black/80 font-sans ml-0.5 self-start mt-1 font-bold">™</sup>
                   </SheetTitle>
-                  <SheetDescription className="text-xs text-muted-foreground">
+                  <SheetDescription className="text-xs text-black font-bold uppercase tracking-wider">
                     Vedic Guidance & Certified Remedies
                   </SheetDescription>
                 </SheetHeader>
@@ -158,7 +159,7 @@ export function Header({ locale, dict }: HeaderProps) {
                       key={item.label}
                       href={item.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="text-base font-medium text-foreground pb-2 border-b border-border/40 hover:text-gold transition-colors"
+                      className="text-base font-black text-black pb-2 border-b-2 border-black/10 hover:border-black transition-colors"
                     >
                       {item.label}
                     </a>
@@ -166,10 +167,10 @@ export function Header({ locale, dict }: HeaderProps) {
                 </nav>
 
                 {/* Settings & Language inside Drawer */}
-                <div className="flex flex-col gap-6 mt-8 pt-6 border-t border-border/50">
+                <div className="flex flex-col gap-6 mt-8 pt-6 border-t-2 border-black/10">
                   {/* Language Selector */}
                   <div className="flex flex-col gap-2">
-                    <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                    <label className="text-xs font-black uppercase tracking-wider text-black">
                       {locale === "hin" ? "भाषा चुनें" : locale === "bn" ? "ভাষা নির্বাচন করুন" : "Select Language"}
                     </label>
                     <div className="grid grid-cols-3 gap-2">
@@ -181,10 +182,10 @@ export function Header({ locale, dict }: HeaderProps) {
                             setMobileMenuOpen(false);
                           }}
                           className={cn(
-                            "px-2 py-1.5 rounded-md border text-center text-xs font-medium transition-all cursor-pointer",
+                            "px-2 py-1.5 rounded-full border-2 border-black text-center text-xs font-bold transition-all cursor-pointer shadow-[1px_1px_0px_#000] active:translate-x-[0.5px] active:translate-y-[0.5px] active:shadow-none",
                             locale === loc
-                              ? "bg-primary/10 border-primary text-accent font-semibold"
-                              : "border-border bg-card text-muted-foreground hover:border-gold/30"
+                              ? "bg-white text-black font-black"
+                              : "bg-[#FFD166] text-black hover:bg-white/50"
                           )}
                         >
                           {LOCALE_LABEL[loc]}
@@ -197,12 +198,12 @@ export function Header({ locale, dict }: HeaderProps) {
                 {/* Primary Action CTA */}
                 <div className="mt-auto pt-6">
                   <Button
-                    className="w-full bg-foreground hover:bg-foreground/90 text-white font-semibold rounded-full h-11 text-sm flex items-center justify-center cursor-pointer"
+                    className="w-full bg-black hover:bg-neutral-900 text-white border-2 border-black font-bold rounded-full h-11 text-sm flex items-center justify-center cursor-pointer shadow-[3px_3px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#000] transition-all"
                     asChild
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     <a href={`/${locale}/astrologers`}>
-                      <MessageCircle className="w-4 h-4 mr-2" />
+                      <MessageCircle className="w-4 h-4 mr-2 text-white" />
                       {dict.common.whatsapp_cta}
                     </a>
                   </Button>
