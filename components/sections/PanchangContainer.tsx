@@ -402,106 +402,102 @@ export function PanchangContainer({ locale }: { locale: string }) {
           {/* Tab Content Panels */}
           {activeTab === "details" && (
             <Card className="bg-white border-[3px] border-black rounded-2xl shadow-[5px_5px_0px_#000] overflow-hidden">
-              <CardContent className="p-0">
-                <table className="w-full text-left border-collapse">
-                  <tbody>
-                    {/* Vedic Weekday */}
-                    <tr className="border-b-2 border-black">
-                      <td className="p-4 sm:p-5 font-black text-black bg-[#FFFDF0] border-r-2 border-black w-1/3 sm:w-1/4 text-xs sm:text-sm uppercase tracking-wider">
-                        {t.weekday}
-                      </td>
-                      <td className="p-4 sm:p-5 text-sm sm:text-base font-black text-black">
-                        {result.vaara}
-                      </td>
-                    </tr>
+              <CardContent className="p-0 flex flex-col divide-y-2 divide-black">
+                {/* Vedic Weekday */}
+                <div className="flex flex-col md:flex-row">
+                  <div className="p-4 sm:p-5 font-black text-black bg-[#FFFDF0] border-b-2 md:border-b-0 md:border-r-2 border-black md:w-1/4 text-xs sm:text-sm uppercase tracking-wider flex items-center">
+                    {t.weekday}
+                  </div>
+                  <div className="p-4 sm:p-5 text-sm sm:text-base font-black text-black flex-1 flex items-center">
+                    {result.vaara}
+                  </div>
+                </div>
 
-                    {/* Tithi */}
-                    <tr className="border-b-2 border-black">
-                      <td className="p-4 sm:p-5 font-black text-black bg-[#FFFDF0] border-r-2 border-black text-xs sm:text-sm uppercase tracking-wider">
-                        {t.tithi}
-                      </td>
-                      <td className="p-4 sm:p-5 space-y-3">
-                        {result.tithi.map((tithi, idx) => (
-                          <div key={idx} className="flex flex-col gap-1 border-l-4 border-amber-400 pl-3 py-1">
-                            <div className="flex items-center gap-2">
-                              <span className="text-sm sm:text-base font-black text-black">{tithi.name}</span>
-                              {tithi.paksha && (
-                                <span className="px-2 py-0.5 bg-[#FFF2C2] text-black border border-black rounded text-[10px] font-black uppercase">
-                                  {tithi.paksha}
-                                </span>
-                              )}
-                            </div>
-                            <div className="text-xs text-neutral-500 font-bold flex gap-4">
-                              <span>{t.timeStart}: {formatTime(tithi.start)}</span>
-                              <span>{t.timeEnd}: {formatTime(tithi.end)}</span>
-                            </div>
-                          </div>
-                        ))}
-                      </td>
-                    </tr>
+                {/* Tithi */}
+                <div className="flex flex-col md:flex-row">
+                  <div className="p-4 sm:p-5 font-black text-black bg-[#FFFDF0] border-b-2 md:border-b-0 md:border-r-2 border-black md:w-1/4 text-xs sm:text-sm uppercase tracking-wider flex items-center">
+                    {t.tithi}
+                  </div>
+                  <div className="p-4 sm:p-5 space-y-4 flex-1">
+                    {result.tithi.map((tithi, idx) => (
+                      <div key={idx} className="flex flex-col gap-2 border-l-4 border-amber-400 pl-3 py-1">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span className="text-sm sm:text-base font-black text-black">{tithi.name}</span>
+                          {tithi.paksha && (
+                            <span className="px-2 py-0.5 bg-[#FFF2C2] text-black border border-black rounded text-[10px] font-black uppercase">
+                              {tithi.paksha}
+                            </span>
+                          )}
+                        </div>
+                        <div className="text-xs text-neutral-500 font-bold flex flex-col sm:flex-row sm:gap-4 gap-1">
+                          <span>{t.timeStart}: {formatTime(tithi.start)}</span>
+                          <span>{t.timeEnd}: {formatTime(tithi.end)}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
 
-                    {/* Nakshatra */}
-                    <tr className="border-b-2 border-black">
-                      <td className="p-4 sm:p-5 font-black text-black bg-[#FFFDF0] border-r-2 border-black text-xs sm:text-sm uppercase tracking-wider">
-                        {t.nakshatra}
-                      </td>
-                      <td className="p-4 sm:p-5 space-y-3">
-                        {result.nakshatra.map((nak, idx) => (
-                          <div key={idx} className="flex flex-col gap-1 border-l-4 border-indigo-400 pl-3 py-1">
-                            <div className="flex items-center gap-2">
-                              <span className="text-sm sm:text-base font-black text-black">{nak.name}</span>
-                              {nak.lord && (
-                                <span className="px-2 py-0.5 bg-[#E5D5FF] text-black border border-black rounded text-[10px] font-black uppercase">
-                                  {t.lord}: {nak.lord.name} ({nak.lord.vedic_name})
-                                </span>
-                              )}
-                            </div>
-                            <div className="text-xs text-neutral-500 font-bold flex gap-4">
-                              <span>{t.timeStart}: {formatTime(nak.start)}</span>
-                              <span>{t.timeEnd}: {formatTime(nak.end)}</span>
-                            </div>
-                          </div>
-                        ))}
-                      </td>
-                    </tr>
+                {/* Nakshatra */}
+                <div className="flex flex-col md:flex-row">
+                  <div className="p-4 sm:p-5 font-black text-black bg-[#FFFDF0] border-b-2 md:border-b-0 md:border-r-2 border-black md:w-1/4 text-xs sm:text-sm uppercase tracking-wider flex items-center">
+                    {t.nakshatra}
+                  </div>
+                  <div className="p-4 sm:p-5 space-y-4 flex-1">
+                    {result.nakshatra.map((nak, idx) => (
+                      <div key={idx} className="flex flex-col gap-2 border-l-4 border-indigo-400 pl-3 py-1">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span className="text-sm sm:text-base font-black text-black">{nak.name}</span>
+                          {nak.lord && (
+                            <span className="px-2 py-0.5 bg-[#E5D5FF] text-black border border-black rounded text-[10px] font-black uppercase">
+                              {t.lord}: {nak.lord.name} ({nak.lord.vedic_name})
+                            </span>
+                          )}
+                        </div>
+                        <div className="text-xs text-neutral-500 font-bold flex flex-col sm:flex-row sm:gap-4 gap-1">
+                          <span>{t.timeStart}: {formatTime(nak.start)}</span>
+                          <span>{t.timeEnd}: {formatTime(nak.end)}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
 
-                    {/* Yoga */}
-                    <tr className="border-b-2 border-black">
-                      <td className="p-4 sm:p-5 font-black text-black bg-[#FFFDF0] border-r-2 border-black text-xs sm:text-sm uppercase tracking-wider">
-                        {t.yoga}
-                      </td>
-                      <td className="p-4 sm:p-5 space-y-3">
-                        {result.yoga.map((yoga, idx) => (
-                          <div key={idx} className="flex flex-col gap-1 border-l-4 border-purple-400 pl-3 py-1">
-                            <span className="text-sm sm:text-base font-black text-black">{yoga.name}</span>
-                            <div className="text-xs text-neutral-500 font-bold flex gap-4">
-                              <span>{t.timeStart}: {formatTime(yoga.start)}</span>
-                              <span>{t.timeEnd}: {formatTime(yoga.end)}</span>
-                            </div>
-                          </div>
-                        ))}
-                      </td>
-                    </tr>
+                {/* Yoga */}
+                <div className="flex flex-col md:flex-row">
+                  <div className="p-4 sm:p-5 font-black text-black bg-[#FFFDF0] border-b-2 md:border-b-0 md:border-r-2 border-black md:w-1/4 text-xs sm:text-sm uppercase tracking-wider flex items-center">
+                    {t.yoga}
+                  </div>
+                  <div className="p-4 sm:p-5 space-y-4 flex-1">
+                    {result.yoga.map((yoga, idx) => (
+                      <div key={idx} className="flex flex-col gap-1 border-l-4 border-purple-400 pl-3 py-1">
+                        <span className="text-sm sm:text-base font-black text-black">{yoga.name}</span>
+                        <div className="text-xs text-neutral-500 font-bold flex flex-col sm:flex-row sm:gap-4 gap-1">
+                          <span>{t.timeStart}: {formatTime(yoga.start)}</span>
+                          <span>{t.timeEnd}: {formatTime(yoga.end)}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
 
-                    {/* Karana */}
-                    <tr>
-                      <td className="p-4 sm:p-5 font-black text-black bg-[#FFFDF0] border-r-2 border-black text-xs sm:text-sm uppercase tracking-wider">
-                        {t.karana}
-                      </td>
-                      <td className="p-4 sm:p-5 space-y-3">
-                        {result.karana.map((karana, idx) => (
-                          <div key={idx} className="flex flex-col gap-1 border-l-4 border-teal-400 pl-3 py-1">
-                            <span className="text-sm sm:text-base font-black text-black">{karana.name}</span>
-                            <div className="text-xs text-neutral-500 font-bold flex gap-4">
-                              <span>{t.timeStart}: {formatTime(karana.start)}</span>
-                              <span>{t.timeEnd}: {formatTime(karana.end)}</span>
-                            </div>
-                          </div>
-                        ))}
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                {/* Karana */}
+                <div className="flex flex-col md:flex-row">
+                  <div className="p-4 sm:p-5 font-black text-black bg-[#FFFDF0] border-b-2 md:border-b-0 md:border-r-2 border-black md:w-1/4 text-xs sm:text-sm uppercase tracking-wider flex items-center">
+                    {t.karana}
+                  </div>
+                  <div className="p-4 sm:p-5 space-y-4 flex-1">
+                    {result.karana.map((karana, idx) => (
+                      <div key={idx} className="flex flex-col gap-1 border-l-4 border-teal-400 pl-3 py-1">
+                        <span className="text-sm sm:text-base font-black text-black">{karana.name}</span>
+                        <div className="text-xs text-neutral-500 font-bold flex flex-col sm:flex-row sm:gap-4 gap-1">
+                          <span>{t.timeStart}: {formatTime(karana.start)}</span>
+                          <span>{t.timeEnd}: {formatTime(karana.end)}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </CardContent>
             </Card>
           )}
