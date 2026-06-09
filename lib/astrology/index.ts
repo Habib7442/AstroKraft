@@ -1,7 +1,7 @@
-import { BirthDetails, KundliResult, MatchingResult } from "./types";
+import { BirthDetails, KundliResult, MatchingResult, PanchangResult } from "./types";
 import { generateCacheKey, getCache, setCache } from "./cache";
 import { calculateKundli as callFreeAstroKundli, calculateMatching as callFreeAstroMatching } from "./providers/free-astrology-api";
-import { calculateKundliProkerala, calculateMatchingProkerala } from "./providers/prokerala";
+import { calculateKundliProkerala, calculateMatchingProkerala, calculatePanchangProkerala } from "./providers/prokerala";
 
 /**
  * Orchestrates Kundli Birth Chart calculations with caching and Prokerala failover.
@@ -78,6 +78,32 @@ export async function getMatching(
   }
 
   // 4. Save result to cache
+  await setCache(cacheKey, result);
+  return result;
+}
+
+/**
+ * Orchestrates Panchang calculations with caching.
+ */
+export async function getPanchang(
+  details: BirthDetails,
+  locale: string = "en"
+): Promise<PanchangResult> {
+  const cacheKey = generateCacheKey("panchang", { ...details, locale });
+
+  // 1. Check cache first
+  const cached = await getCache<PanchangResult>(cacheKey);
+  if (cached) {
+    console.log(`[astrology] Cache HIT for key: ${cacheKey}`);
+    return cached;
+  }
+
+  console.log(`[astrology] Cache MISS for key: ${cacheKey}. Executing Panchang calculation...`);
+
+  // 2. Fetch from Prokerala API
+  const result = await calculatePanchangProkerala(details, locale);
+
+  // 3. Save result to cache
   await setCache(cacheKey, result);
   return result;
 }

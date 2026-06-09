@@ -1,4 +1,4 @@
-import { BirthDetails, MatchingResult, KundliResult } from "../types";
+import { BirthDetails, MatchingResult, KundliResult, PanchangResult } from "../types";
 import { getMockMatching, getMockKundli } from "./free-astrology-api";
 
 const CLIENT_ID = process.env.PROKERALA_CLIENT_ID;
@@ -238,4 +238,51 @@ export async function calculateKundliProkerala(
     console.error("[prokerala] calculateKundliProkerala failed:", error);
     return getMockKundli(details);
   }
+}
+
+/**
+ * Calculate Advanced Panchang from Prokerala API
+ */
+export async function calculatePanchangProkerala(
+  details: BirthDetails,
+  locale: string = "en"
+): Promise<PanchangResult> {
+  const token = await getAccessToken();
+  if (!token) {
+    throw new Error("PROKERALA_API_CREDENTIALS_MISSING");
+  }
+
+  const offsetSign = details.timezone >= 0 ? "+" : "-";
+  const absOffset = Math.abs(details.timezone);
+  const offsetHours = String(Math.floor(absOffset)).padStart(2, "0");
+  const offsetMinutes = String(Math.round((absOffset % 1) * 60)).padStart(2, "0");
+  const timezoneStr = `${offsetSign}${offsetHours}:${offsetMinutes}`;
+
+  const localIso = `${details.year}-${String(details.month).padStart(2, "0")}-${String(details.date).padStart(2, "0")}T${String(details.hours).padStart(2, "0")}:${String(details.minutes).padStart(2, "0")}:00${timezoneStr}`;
+
+  const params = new URLSearchParams({
+    datetime: localIso,
+    coordinates: `${details.latitude},${details.longitude}`,
+    timezone: "Asia/Kolkata",
+    ayanamsa: "1",
+    la: locale === "hin" ? "hi" : locale === "bn" ? "bn" : "en",
+  });
+
+  const response = await fetch(`${API_URL}/astrology/panchang/advanced?${params.toString()}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    cache: "no-store",
+  });
+
+  if (!response.ok) {
+    throw new Error(`Prokerala advanced panchang API failed: Status ${response.status}`);
+  }
+
+  const payload = await response.json();
+  if (!payload || !payload.data) {
+    throw new Error("Invalid response from Prokerala Panchang API");
+  }
+
+  return payload.data as PanchangResult;
 }

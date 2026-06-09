@@ -170,9 +170,9 @@ export default function FreeToolsPreview({ locale = "en" }: FreeToolsPreviewProp
     {
       title: t.panchangTitle,
       desc: t.panchangDesc,
-      href: "#",
+      href: `/${locale}/tools/panchang`,
       icon: Calendar,
-      active: false,
+      active: true,
       glowColor: "rgba(34, 197, 94, 0.08)", // Emerald Green Glow
     },
     {

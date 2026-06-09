@@ -106,10 +106,10 @@ export default async function Page({ params }: { params: Promise<PageParams> }) 
     {
       title: t.panchangTitle,
       desc: t.panchangDesc,
-      href: "#",
+      href: `/${locale}/tools/panchang`,
       icon: Calendar,
-      active: false,
-      iconColor: "text-neutral-400",
+      active: true,
+      iconColor: "text-black",
     },
     {
       title: t.horoscopeTitle,

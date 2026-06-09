@@ -64,3 +64,44 @@ export type MatchingResult = {
     bn: string;
   };
 };
+
+export type PanchangPeriod = {
+  start: string;
+  end: string;
+};
+
+export type PanchangTimePeriod = {
+  id: number;
+  name: string;
+  type: string;
+  period: PanchangPeriod[];
+};
+
+export type PanchangAttribute = {
+  id: number;
+  name: string;
+  start: string;
+  end: string;
+  lord?: {
+    id: number;
+    name: string;
+    vedic_name: string;
+  };
+  paksha?: string;
+  index?: number;
+};
+
+export type PanchangResult = {
+  vaara: string;
+  nakshatra: PanchangAttribute[];
+  tithi: PanchangAttribute[];
+  karana: PanchangAttribute[];
+  yoga: PanchangAttribute[];
+  sunrise: string;
+  sunset: string;
+  moonrise: string;
+  moonset: string;
+  auspicious_period: PanchangTimePeriod[];
+  inauspicious_period: PanchangTimePeriod[];
+};
+
