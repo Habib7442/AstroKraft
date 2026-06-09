@@ -142,6 +142,54 @@ export function Hero({ locale, dict }: HeroProps) {
               </div>
             </div>
 
+            {/* Social Proof: Overlapping Avatars & 4.9/5 Rating */}
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3.5 select-none w-full">
+              {/* Overlapping Avatar Group */}
+              <div className="flex -space-x-3.5">
+                <img
+                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border-2 border-black object-cover bg-white shadow-[2px_2px_0px_#000] transition-transform hover:-translate-y-1 hover:z-10"
+                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80"
+                  alt="Client Avatar 1"
+                />
+                <img
+                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border-2 border-black object-cover bg-white shadow-[2px_2px_0px_#000] transition-transform hover:-translate-y-1 hover:z-10"
+                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80"
+                  alt="Client Avatar 2"
+                />
+                <img
+                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border-2 border-black object-cover bg-white shadow-[2px_2px_0px_#000] transition-transform hover:-translate-y-1 hover:z-10"
+                  src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80"
+                  alt="Client Avatar 3"
+                />
+                <img
+                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border-2 border-black object-cover bg-white shadow-[2px_2px_0px_#000] transition-transform hover:-translate-y-1 hover:z-10"
+                  src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80"
+                  alt="Client Avatar 4"
+                />
+              </div>
+
+              {/* Rating and Count */}
+              <div className="flex flex-col items-center lg:items-start gap-0.5">
+                <div className="flex items-center gap-1.5">
+                  <div className="flex items-center">
+                    {[...Array(5)].map((_, i) => (
+                      <span key={i} className="text-[#FFC000] text-sm sm:text-base drop-shadow-[1px_1px_0px_#000]">★</span>
+                    ))}
+                  </div>
+                  <span className="font-sans text-xs sm:text-sm font-black text-black bg-white border-2 border-black px-2.5 py-0.5 rounded-full shadow-[2px_2px_0px_#000]">
+                    4.9/5 Rating
+                  </span>
+                </div>
+                <span className="text-[9px] sm:text-[10px] font-black text-neutral-500 uppercase tracking-wider">
+                  {activeLocale === "hin"
+                    ? "10,000+ से अधिक संतुष्ट उपयोगकर्ता"
+                    : activeLocale === "bn"
+                    ? "১০,০০০+ এর বেশি সন্তুষ্ট ব্যবহারকারী"
+                    : "Trusted by 10,000+ happy seekers"}
+                </span>
+              </div>
+            </div>
+
             {/* Subline Description */}
             <p className="max-w-2xl text-black font-semibold text-sm sm:text-base md:text-lg leading-relaxed font-sans text-center lg:text-left">
               {dict.hero.subtitle}
