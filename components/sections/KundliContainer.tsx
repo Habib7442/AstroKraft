@@ -268,15 +268,15 @@ export function KundliContainer({ locale }: { locale: string }) {
     };
 
     return (
-      <svg viewBox="0 0 400 400" className="w-full max-w-[400px] aspect-square rounded-2xl bg-white border-[3px] border-black shadow-[6px_6px_0px_#000] select-none">
+      <svg viewBox="0 0 400 400" className="w-full max-w-[400px] aspect-square rounded-2xl bg-white border border-zinc-150 shadow-sm select-none">
         {/* Draw Chart Lines */}
         {/* Outer Box */}
-        <rect x="0" y="0" width="400" height="400" className="fill-none stroke-black stroke-[3px]" />
+        <rect x="0" y="0" width="400" height="400" className="fill-none stroke-zinc-200 stroke-[2px]" />
         {/* Outer Diagonals */}
-        <line x1="0" y1="0" x2="400" y2="400" className="stroke-black stroke-[2px]" />
-        <line x1="400" y1="0" x2="0" y2="400" className="stroke-black stroke-[2px]" />
+        <line x1="0" y1="0" x2="400" y2="400" className="stroke-zinc-150 stroke-[1px]" />
+        <line x1="400" y1="0" x2="0" y2="400" className="stroke-zinc-150 stroke-[1px]" />
         {/* Inner Diamond */}
-        <polygon points="200,0 400,200 200,400 0,200" className="fill-none stroke-black stroke-[2.5px]" />
+        <polygon points="200,0 400,200 200,400 0,200" className="fill-none stroke-zinc-200 stroke-[1.5px]" />
 
         {/* Dynamic Sign Numbers & Planets */}
         {Array.from({ length: 12 }, (_, index) => {
@@ -290,7 +290,7 @@ export function KundliContainer({ locale }: { locale: string }) {
               <text
                 x={pos.rashi.x}
                 y={pos.rashi.y}
-                className="fill-[#FFC000] stroke-black stroke-[0.5px] font-sans text-xs font-black"
+                className="fill-[#b28b3a] font-sans text-xs font-bold"
                 textAnchor="middle"
               >
                 {signNum}
@@ -308,16 +308,16 @@ export function KundliContainer({ locale }: { locale: string }) {
     <div className="w-full max-w-4xl mx-auto space-y-8">
       {/* Title */}
       <div className="text-center space-y-3">
-        <h1 className="text-3xl sm:text-4xl font-serif text-accent font-semibold tracking-tight">{t.title}</h1>
-        <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto">{t.subtitle}</p>
+        <h1 className="text-3xl sm:text-4xl font-serif text-black font-bold tracking-tight">{t.title}</h1>
+        <p className="text-sm sm:text-base text-neutral-500 font-medium max-w-2xl mx-auto">{t.subtitle}</p>
       </div>
 
       {!result ? (
         /* INPUT FORM SCREEN */
-        <Card className="border-[3px] border-black bg-white shadow-[6px_6px_0px_#000] rounded-2xl !overflow-visible">
-          <CardHeader className="border-b-2 border-black pb-4">
-            <CardTitle className="text-lg font-black text-black uppercase tracking-wider flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#FFC000] border-2 border-black inline-block animate-pulse" />
+        <Card className="border border-zinc-150 bg-white shadow-sm rounded-2xl !overflow-visible">
+          <CardHeader className="border-b border-zinc-150 pb-4">
+            <CardTitle className="text-lg font-bold text-black uppercase tracking-wider flex items-center gap-2 font-serif">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#E2C27A] inline-block animate-pulse" />
               {t.formTitle}
             </CardTitle>
           </CardHeader>
@@ -326,7 +326,7 @@ export function KundliContainer({ locale }: { locale: string }) {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Name */}
                 <div className="space-y-2">
-                  <Label htmlFor="name">{t.nameLabel}</Label>
+                  <Label htmlFor="name" className="text-xs font-bold text-neutral-600 uppercase tracking-wider">{t.nameLabel}</Label>
                   <Input
                     id="name"
                     value={formData.name}
@@ -337,7 +337,7 @@ export function KundliContainer({ locale }: { locale: string }) {
 
                 {/* Date of Birth */}
                 <div className="space-y-2">
-                  <Label htmlFor="date">{t.dateLabel}</Label>
+                  <Label htmlFor="date" className="text-xs font-bold text-neutral-600 uppercase tracking-wider">{t.dateLabel}</Label>
                   <Input
                     id="date"
                     type="date"
@@ -348,7 +348,7 @@ export function KundliContainer({ locale }: { locale: string }) {
 
                 {/* Time of Birth */}
                 <div className="space-y-2">
-                  <Label htmlFor="time">{t.timeLabel}</Label>
+                  <Label htmlFor="time" className="text-xs font-bold text-neutral-600 uppercase tracking-wider">{t.timeLabel}</Label>
                   <Input
                     id="time"
                     type="time"
@@ -359,7 +359,7 @@ export function KundliContainer({ locale }: { locale: string }) {
 
                 {/* City Lookup Autocomplete */}
                 <div className="space-y-2">
-                  <Label>{t.cityLabel}</Label>
+                  <Label className="text-xs font-bold text-neutral-600 uppercase tracking-wider">{t.cityLabel}</Label>
                   <CityAutocomplete
                     defaultValue={formData.cityName}
                     onSelect={handleCitySelect}
@@ -369,7 +369,7 @@ export function KundliContainer({ locale }: { locale: string }) {
 
                 {/* Timezone Select */}
                 <div className="space-y-2">
-                  <Label htmlFor="timezone">{t.timezoneLabel}</Label>
+                  <Label htmlFor="timezone" className="text-xs font-bold text-neutral-600 uppercase tracking-wider">{t.timezoneLabel}</Label>
                   <Select
                     id="timezone"
                     value={formData.timezone}
@@ -391,7 +391,7 @@ export function KundliContainer({ locale }: { locale: string }) {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full md:w-auto px-8 py-3.5 bg-[#FFC000] text-black font-black border-2 border-black rounded-xl shadow-[3px_3px_0px_#000] hover:shadow-[5px_5px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[2px_2px_0px_#000] transition-all cursor-pointer text-sm uppercase tracking-wider disabled:opacity-50"
+                  className="w-full md:w-auto px-8 py-3.5 bg-[#E2C27A] hover:bg-[#E2C27A]/95 text-black font-bold rounded-full border border-transparent shadow-sm hover:shadow active:scale-[0.98] transition-all cursor-pointer text-sm uppercase tracking-wider disabled:opacity-50"
                 >
                   {loading ? t.generating : t.submitBtn}
                 </button>
@@ -402,8 +402,8 @@ export function KundliContainer({ locale }: { locale: string }) {
       ) : (
         /* RESULTS SCREEN */
         <div className="space-y-8 select-none">
-          <div className="flex justify-between items-center border-b-2 border-black pb-4">
-            <h2 className="text-xl sm:text-2xl font-serif text-black font-black uppercase tracking-tight">{t.resultsTitle}</h2>
+          <div className="flex justify-between items-center border-b border-zinc-150 pb-4">
+            <h2 className="text-xl sm:text-2xl font-serif text-black font-bold uppercase tracking-tight">{t.resultsTitle}</h2>
             <button
               onClick={() => {
                 setResult(null);
@@ -417,7 +417,7 @@ export function KundliContainer({ locale }: { locale: string }) {
                   timezone: 5.5,
                 });
               }}
-              className="px-5 py-2.5 bg-white text-black font-black border-2 border-black rounded-xl shadow-[3px_3px_0px_#000] hover:shadow-[5px_5px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[2px_2px_0px_#000] transition-all cursor-pointer text-xs uppercase tracking-wider"
+              className="px-5 py-2.5 bg-white hover:bg-neutral-50 text-neutral-700 hover:text-black font-bold border border-zinc-200 rounded-full shadow-sm hover:shadow transition-all cursor-pointer text-xs uppercase tracking-wider"
             >
               {t.backBtn}
             </button>
@@ -425,36 +425,36 @@ export function KundliContainer({ locale }: { locale: string }) {
 
           {/* Details Overview Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Card className="bg-[#FFE4A0] border-[3px] border-black rounded-2xl shadow-[4px_4px_0px_#000] text-center py-6">
+            <Card className="bg-[#FFE4A0]/20 border border-amber-200 rounded-2xl shadow-sm text-center py-6">
               <CardHeader className="p-0">
-                <span className="text-xs font-black uppercase tracking-wider text-black">
+                <span className="text-xs font-bold uppercase tracking-wider text-neutral-550">
                   {t.lagnaCard}
                 </span>
               </CardHeader>
               <CardContent className="p-0 mt-2">
-                <span className="text-2xl font-sans text-black font-black uppercase">{result.lagna}</span>
+                <span className="text-2xl font-sans text-black font-bold uppercase">{result.lagna}</span>
               </CardContent>
             </Card>
 
-            <Card className="bg-[#E5D5FF] border-[3px] border-black rounded-2xl shadow-[4px_4px_0px_#000] text-center py-6">
+            <Card className="bg-[#E5D5FF]/20 border border-purple-200 rounded-2xl shadow-sm text-center py-6">
               <CardHeader className="p-0">
-                <span className="text-xs font-black uppercase tracking-wider text-black">
+                <span className="text-xs font-bold uppercase tracking-wider text-neutral-550">
                   {t.rashiCard}
                 </span>
               </CardHeader>
               <CardContent className="p-0 mt-2">
-                <span className="text-2xl font-sans text-black font-black uppercase">{result.rashi}</span>
+                <span className="text-2xl font-sans text-black font-bold uppercase">{result.rashi}</span>
               </CardContent>
             </Card>
 
-            <Card className="bg-[#FFD0C8] border-[3px] border-black rounded-2xl shadow-[4px_4px_0px_#000] text-center py-6">
+            <Card className="bg-[#FFD0C8]/20 border border-rose-200 rounded-2xl shadow-sm text-center py-6">
               <CardHeader className="p-0">
-                <span className="text-xs font-black uppercase tracking-wider text-black">
+                <span className="text-xs font-bold uppercase tracking-wider text-neutral-550">
                   {t.degreeCard}
                 </span>
               </CardHeader>
               <CardContent className="p-0 mt-2">
-                <span className="text-2xl font-mono text-black font-black">
+                <span className="text-2xl font-mono text-black font-bold">
                   {result.ascendantDegree.toFixed(2)}°
                 </span>
               </CardContent>
@@ -465,20 +465,20 @@ export function KundliContainer({ locale }: { locale: string }) {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
             {/* SVG Lagna Chart */}
             <div className="lg:col-span-5 flex flex-col items-center space-y-4">
-              <h3 className="text-base font-black text-black uppercase font-serif tracking-tight">{t.chartTitle}</h3>
+              <h3 className="text-base font-bold text-black uppercase font-serif tracking-tight">{t.chartTitle}</h3>
               {renderSVGChart(result)}
             </div>
 
             {/* Tabbed Info Panel */}
             <div className="lg:col-span-7 space-y-5">
               {/* Tab Toggles */}
-              <div className="flex gap-3 border-b-2 border-black pb-3">
+              <div className="flex gap-3 bg-neutral-100/80 p-1 rounded-xl w-fit border border-neutral-200/50">
                 <button
                   className={cn(
-                    "px-5 py-2.5 text-xs font-black uppercase tracking-wider border-2 border-black rounded-xl transition-all shadow-[2.5px_2.5px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#000] cursor-pointer",
+                    "px-5 py-2 text-xs font-bold uppercase tracking-wider border rounded-lg transition-all cursor-pointer shadow-sm",
                     activeTab === "positions"
-                      ? "bg-[#FFC000] text-black"
-                      : "bg-white text-black hover:bg-neutral-50"
+                      ? "bg-white text-black border-zinc-200"
+                      : "bg-transparent text-neutral-500 border-transparent hover:text-black"
                   )}
                   onClick={() => setActiveTab("positions")}
                 >
@@ -486,10 +486,10 @@ export function KundliContainer({ locale }: { locale: string }) {
                 </button>
                 <button
                   className={cn(
-                    "px-5 py-2.5 text-xs font-black uppercase tracking-wider border-2 border-black rounded-xl transition-all shadow-[2.5px_2.5px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#000] cursor-pointer",
+                    "px-5 py-2 text-xs font-bold uppercase tracking-wider border rounded-lg transition-all cursor-pointer shadow-sm",
                     activeTab === "dasha"
-                      ? "bg-[#FFC000] text-black"
-                      : "bg-white text-black hover:bg-neutral-50"
+                      ? "bg-white text-black border-zinc-200"
+                      : "bg-transparent text-neutral-500 border-transparent hover:text-black"
                   )}
                   onClick={() => setActiveTab("dasha")}
                 >
@@ -499,31 +499,31 @@ export function KundliContainer({ locale }: { locale: string }) {
 
               {activeTab === "positions" ? (
                 /* Tab 1: Planet Positions */
-                <div className="overflow-x-auto rounded-2xl border-[3px] border-black bg-white shadow-[4px_4px_0px_#000]">
-                  <table className="min-w-full divide-y-2 divide-black text-sm">
-                    <thead className="bg-[#FFF9E6] text-black text-xs font-black uppercase tracking-wider">
+                <div className="overflow-x-auto rounded-2xl border border-zinc-150 bg-white shadow-sm">
+                  <table className="min-w-full divide-y divide-zinc-100 text-sm">
+                    <thead className="bg-[#FFF9E6]/50 text-neutral-700 text-xs font-bold uppercase tracking-wider border-b border-zinc-100">
                       <tr>
-                        <th className="px-4 py-3.5 text-left border-r-2 border-black">{t.planetHeaderName}</th>
-                        <th className="px-4 py-3.5 text-left border-r-2 border-black">{t.planetHeaderRashi}</th>
-                        <th className="px-4 py-3.5 text-left border-r-2 border-black">{t.planetHeaderDegree}</th>
-                        <th className="px-4 py-3.5 text-left border-r-2 border-black">{t.planetHeaderHouse}</th>
+                        <th className="px-4 py-3.5 text-left border-r border-zinc-100">{t.planetHeaderName}</th>
+                        <th className="px-4 py-3.5 text-left border-r border-zinc-100">{t.planetHeaderRashi}</th>
+                        <th className="px-4 py-3.5 text-left border-r border-zinc-100">{t.planetHeaderDegree}</th>
+                        <th className="px-4 py-3.5 text-left border-r border-zinc-100">{t.planetHeaderHouse}</th>
                         <th className="px-4 py-3.5 text-left">{t.planetHeaderStatus}</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y-2 divide-black font-semibold text-black">
+                    <tbody className="divide-y divide-zinc-100 font-medium text-neutral-800">
                       {result.planets.map((p, idx) => (
-                        <tr key={idx} className="hover:bg-[#FFF9E6]/40 transition-colors">
-                          <td className="px-4 py-3 font-black text-black border-r-2 border-black">{p.name}</td>
-                          <td className="px-4 py-3 text-neutral-700 font-bold border-r-2 border-black">{p.rashi}</td>
-                          <td className="px-4 py-3 font-mono border-r-2 border-black">{p.degree.toFixed(2)}°</td>
-                          <td className="px-4 py-3 font-mono border-r-2 border-black">{p.house}</td>
+                        <tr key={idx} className="hover:bg-[#FFF9E6]/25 transition-colors font-sans">
+                          <td className="px-4 py-3 font-bold text-black border-r border-zinc-100">{p.name}</td>
+                          <td className="px-4 py-3 text-neutral-700 font-bold border-r-zinc-100 border-r">{p.rashi}</td>
+                          <td className="px-4 py-3 font-mono border-r border-zinc-100">{p.degree.toFixed(2)}°</td>
+                          <td className="px-4 py-3 font-mono border-r border-zinc-100">{p.house}</td>
                           <td className="px-4 py-3">
                             <span
                               className={cn(
-                                "px-2.5 py-1 rounded-full text-[10px] font-black uppercase border-2 border-black shadow-[1.5px_1.5px_0px_#000] inline-block",
+                                "px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase border inline-block",
                                 p.retrograde
-                                  ? "bg-[#FFD0C8]"
-                                  : "bg-[#C6F6D5]"
+                                  ? "bg-rose-50 text-rose-700 border-rose-200"
+                                  : "bg-emerald-50 text-emerald-700 border-emerald-200"
                               )}
                             >
                               {p.retrograde ? t.retrograde : t.direct}
@@ -540,20 +540,20 @@ export function KundliContainer({ locale }: { locale: string }) {
                   {result.dashas.map((dasha, idx) => (
                     <div
                       key={idx}
-                      className="flex items-center justify-between p-4 rounded-xl border-2 border-black bg-white shadow-[2px_2px_0px_#000] hover:bg-[#FFF9E6]/30 transition-all"
+                      className="flex items-center justify-between p-4 rounded-xl border border-zinc-150 bg-white shadow-sm hover:bg-[#FFF9E6]/10 transition-all font-sans"
                     >
                       <div className="space-y-1">
-                        <span className="text-sm font-black uppercase tracking-wider text-black">
+                        <span className="text-sm font-bold uppercase tracking-wider text-black font-serif">
                           {dasha.lord} Maha Dasha
                         </span>
                       </div>
-                      <div className="text-right text-xs space-y-1 font-mono text-black font-semibold">
+                      <div className="text-right text-xs space-y-1 font-mono text-neutral-700 font-medium">
                         <div>
-                          <span className="text-[9px] font-black uppercase tracking-wide mr-1 text-neutral-500">{t.dashaStart}:</span>
+                          <span className="text-[9px] font-bold uppercase tracking-wider mr-1 text-neutral-400">{t.dashaStart}:</span>
                           {dasha.start}
                         </div>
                         <div>
-                          <span className="text-[9px] font-black uppercase tracking-wide mr-1 text-neutral-500">{t.dashaEnd}:</span>
+                          <span className="text-[9px] font-bold uppercase tracking-wider mr-1 text-neutral-400">{t.dashaEnd}:</span>
                           {dasha.end}
                         </div>
                       </div>

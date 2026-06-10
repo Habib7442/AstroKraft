@@ -32,24 +32,24 @@ export function Footer({ locale, dict }: FooterProps) {
   ];
 
   return (
-    <footer className="relative w-full bg-[#FFF9E6] border-t-[3px] border-black pt-16 pb-8 font-sans overflow-hidden">
+    <footer className="relative w-full bg-[#FFF9E6] border-t border-zinc-200 pt-16 pb-8 font-sans overflow-hidden">
       {/* Decorative background glows */}
       <div className="absolute -bottom-24 -left-24 w-[300px] h-[300px] rounded-full bg-amber-200/5 blur-[100px] pointer-events-none -z-10" />
       <div className="absolute -top-24 -right-24 w-[250px] h-[250px] rounded-full bg-purple-200/5 blur-[90px] pointer-events-none -z-10" />
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b-2 border-black">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-zinc-200">
           {/* Brand Info (4 cols) */}
           <div className="lg:col-span-4 flex flex-col gap-4">
             <a href={`/${locale}`} className="flex items-center gap-2.5 self-start group select-none">
               <img
                 src="/logo.svg"
                 alt="AstroKraft Logo"
-                className="w-8 h-8 object-contain rounded-md border-2 border-black group-hover:rotate-12 transition-all duration-300"
+                className="w-8 h-8 object-contain rounded-md border border-zinc-200 shadow-sm group-hover:rotate-12 transition-all duration-300"
               />
               <span className="font-serif text-2xl font-black tracking-tight text-black flex items-baseline">
                 Astro<span className="text-black">Kraft</span>
-                <span className="inline-flex items-center justify-center border-[1.2px] border-black rounded-full w-3.5 h-3.5 text-[7px] font-black font-sans ml-1 self-start mt-1.5 shrink-0">
+                <span className="inline-flex items-center justify-center border border-zinc-400 rounded-full w-3.5 h-3.5 text-[7px] font-semibold font-sans ml-1 self-start mt-1.5 shrink-0">
                   TM
                 </span>
               </span>
@@ -61,17 +61,17 @@ export function Footer({ locale, dict }: FooterProps) {
             {/* Contact Details */}
             <div className="flex flex-col gap-2.5 mt-2 text-xs text-neutral-600 font-semibold">
               <div className="flex items-center gap-2">
-                <MapPin className="w-3.5 h-3.5 text-black stroke-[2.5px] shrink-0" />
+                <MapPin className="w-3.5 h-3.5 text-zinc-500 stroke-[1.8px] shrink-0" />
                 <span>India</span>
               </div>
               <div className="flex items-center gap-2">
-                <Phone className="w-3.5 h-3.5 text-black stroke-[2.5px] shrink-0" />
+                <Phone className="w-3.5 h-3.5 text-zinc-500 stroke-[1.8px] shrink-0" />
                 <a href={`tel:${SITE.contact.phone}`} className="hover:text-black transition-colors font-black">
                   {SITE.contact.phoneDisplay}
                 </a>
               </div>
               <div className="flex items-center gap-2">
-                <Mail className="w-3.5 h-3.5 text-black stroke-[2.5px] shrink-0" />
+                <Mail className="w-3.5 h-3.5 text-zinc-500 stroke-[1.8px] shrink-0" />
                 <a href={`mailto:${SITE.contact.email}`} className="hover:text-black transition-colors font-black">
                   {SITE.contact.email}
                 </a>
@@ -84,7 +84,7 @@ export function Footer({ locale, dict }: FooterProps) {
                 href={SITE.social.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full border-2 border-black bg-white hover:bg-neutral-50 hover:shadow-[2px_2px_0px_#000] hover:-translate-y-0.5 flex items-center justify-center transition-all duration-150 shadow-[1.5px_1.5px_0px_#000]"
+                className="w-9 h-9 rounded-full border border-zinc-200 bg-white hover:bg-neutral-50 hover:shadow-md hover:-translate-y-0.5 flex items-center justify-center transition-all duration-150 shadow-sm"
                 aria-label="Facebook"
               >
                 <img src="/social-icons/facebook.png" alt="Facebook" className="w-[18px] h-[18px] object-contain" />
@@ -93,7 +93,7 @@ export function Footer({ locale, dict }: FooterProps) {
                 href={SITE.social.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full border-2 border-black bg-white hover:bg-neutral-50 hover:shadow-[2px_2px_0px_#000] hover:-translate-y-0.5 flex items-center justify-center transition-all duration-150 shadow-[1.5px_1.5px_0px_#000]"
+                className="w-9 h-9 rounded-full border border-zinc-200 bg-white hover:bg-neutral-50 hover:shadow-md hover:-translate-y-0.5 flex items-center justify-center transition-all duration-150 shadow-sm"
                 aria-label="Instagram"
               >
                 <img src="/social-icons/instagram.png" alt="Instagram" className="w-[18px] h-[18px] object-contain" />
@@ -102,7 +102,7 @@ export function Footer({ locale, dict }: FooterProps) {
                 href={`https://wa.me/${SITE.contact.whatsapp}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full border-2 border-black bg-white hover:bg-neutral-50 hover:shadow-[2px_2px_0px_#000] hover:-translate-y-0.5 flex items-center justify-center transition-all duration-150 shadow-[1.5px_1.5px_0px_#000]"
+                className="w-9 h-9 rounded-full border border-zinc-200 bg-white hover:bg-neutral-50 hover:shadow-md hover:-translate-y-0.5 flex items-center justify-center transition-all duration-150 shadow-sm"
                 aria-label="WhatsApp"
               >
                 <img src="/social-icons/whatsapp.png" alt="WhatsApp" className="w-[18px] h-[18px] object-contain" />

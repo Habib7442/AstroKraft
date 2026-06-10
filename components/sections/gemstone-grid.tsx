@@ -74,7 +74,7 @@ function GemstoneCard({ gem, activeLocale, labels, glowColor, getPrefilledWhatsa
       radius={280}
       useCanvas={false} // Default false to prevent WebGL multiple context scroll lag
       className={cn(
-        "group/gem transition-all duration-200 border-[3px] border-black rounded-2xl flex flex-col justify-between overflow-hidden p-6 select-none relative text-black shadow-[4px_4px_0px_#000] hover:shadow-[6px_6px_0px_#000] hover:-translate-y-0.5 hover:-translate-x-0.5 active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#000] min-h-[30rem] will-change-transform [transform:translate3d(0,0,0)]",
+        "group/gem transition-all duration-300 border border-zinc-150 rounded-2xl flex flex-col justify-between overflow-hidden p-6 select-none relative text-black shadow-sm hover:shadow-md hover:-translate-y-1 min-h-[30rem] will-change-transform [transform:translate3d(0,0,0)]",
         gemCardColors[gem.id] || "bg-white"
       )}
       style={{}}
@@ -84,7 +84,7 @@ function GemstoneCard({ gem, activeLocale, labels, glowColor, getPrefilledWhatsa
         {/* Top image and Type Badge */}
         <div className="flex justify-between items-start gap-4">
           {/* Gemstone Image frame with localized shadow outline */}
-          <div className="relative w-24 h-24 shrink-0 rounded-xl border-2 border-black bg-white p-1.5 overflow-hidden flex items-center justify-center shadow-[2.5px_2.5px_0px_#000] group-hover/gem:scale-105 transition-transform duration-300">
+          <div className="relative w-24 h-24 shrink-0 rounded-xl border border-zinc-200 bg-white p-1.5 overflow-hidden flex items-center justify-center shadow-sm group-hover/gem:scale-105 transition-transform duration-300">
             <div
               className="absolute inset-0 opacity-10 blur-sm scale-75 pointer-events-none"
               style={{ backgroundColor: glowColor.replace("0.12", "0.5") }}
@@ -99,35 +99,35 @@ function GemstoneCard({ gem, activeLocale, labels, glowColor, getPrefilledWhatsa
 
           {/* Right Head: Price display */}
           <div className="flex flex-col items-end text-right font-sans">
-            <span className="text-[9px] text-neutral-500 font-black uppercase tracking-wider">{labels.priceLabel}</span>
-            <span className="font-serif font-black text-black text-lg leading-none mt-1">₹{gem.pricePerCarat.toLocaleString()}</span>
-            <span className="text-[9px] text-neutral-500 font-black mt-0.5">{labels.pricePerCt}</span>
+            <span className="text-[9px] text-neutral-500 font-bold uppercase tracking-wider">{labels.priceLabel}</span>
+            <span className="font-serif font-bold text-black text-lg leading-none mt-1">₹{gem.pricePerCarat.toLocaleString()}</span>
+            <span className="text-[9px] text-neutral-500 font-bold mt-0.5">{labels.pricePerCt}</span>
           </div>
         </div>
 
         {/* Gemstone Info */}
-        <div className="flex flex-col gap-1.5 mt-1 border-b-2 border-black pb-3">
-          <h3 className="font-serif text-lg md:text-xl font-black tracking-wide text-black">
+        <div className="flex flex-col gap-1.5 mt-1 border-b border-zinc-100 pb-3">
+          <h3 className="font-serif text-lg md:text-xl font-bold tracking-wide text-black">
             {gemName}
           </h3>
-          <p className="text-[11px] text-neutral-600 font-semibold leading-relaxed line-clamp-3 font-sans">
+          <p className="text-[11px] text-zinc-500 font-semibold leading-relaxed line-clamp-3 font-sans">
             {gemDesc}
           </p>
         </div>
 
         {/* Planetary & Zodiac details grid */}
-        <div className="grid grid-cols-3 gap-2 font-sans text-[10px] bg-white border-2 border-black p-2 rounded-xl shadow-[2px_2px_0px_#000] font-black">
+        <div className="grid grid-cols-3 gap-2 font-sans text-[10px] bg-white border border-zinc-150 p-2 rounded-xl shadow-sm font-bold">
           <div className="flex flex-col gap-0.5">
-            <span className="text-neutral-500 font-black uppercase tracking-wider scale-95 origin-left">{labels.planet}</span>
-            <strong className="text-black font-black truncate">{gemRuler}</strong>
+            <span className="text-neutral-500 font-bold uppercase tracking-wider scale-95 origin-left">{labels.planet}</span>
+            <strong className="text-black font-bold truncate">{gemRuler}</strong>
           </div>
-          <div className="flex flex-col gap-0.5 border-l-2 border-black pl-2">
-            <span className="text-neutral-500 font-black uppercase tracking-wider scale-95 origin-left">{labels.zodiacLabel}</span>
-            <strong className="text-black font-black truncate">{gemZodiac}</strong>
+          <div className="flex flex-col gap-0.5 border-l border-zinc-200 pl-2">
+            <span className="text-neutral-500 font-bold uppercase tracking-wider scale-95 origin-left">{labels.zodiacLabel}</span>
+            <strong className="text-black font-bold truncate">{gemZodiac}</strong>
           </div>
-          <div className="flex flex-col gap-0.5 border-l-2 border-black pl-2">
-            <span className="text-neutral-500 font-black uppercase tracking-wider scale-95 origin-left">{labels.origin}</span>
-            <strong className="text-black font-black truncate">{gemOrigin}</strong>
+          <div className="flex flex-col gap-0.5 border-l border-zinc-200 pl-2">
+            <span className="text-neutral-500 font-bold uppercase tracking-wider scale-95 origin-left">{labels.origin}</span>
+            <strong className="text-black font-bold truncate">{gemOrigin}</strong>
           </div>
         </div>
 
@@ -146,19 +146,19 @@ function GemstoneCard({ gem, activeLocale, labels, glowColor, getPrefilledWhatsa
       </div>
 
       {/* Actions buttons */}
-      <div className="flex items-center gap-2 mt-5 border-t-2 border-black pt-4">
+      <div className="flex items-center gap-2 mt-5 border-t border-zinc-100 pt-4">
         <a
           href={getPrefilledWhatsappUrl(gemName)}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex-1 flex items-center justify-center gap-1.5 bg-[#FFC000] hover:bg-[#FFC000]/95 text-black border-2 border-black hover:shadow-[3px_3px_0px_#000] hover:-translate-y-[1px] hover:-translate-x-[1px] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#000] transition-all font-black py-2.5 px-4 rounded-full shadow-[2px_2px_0px_#000] text-[10px] font-sans cursor-pointer text-center uppercase tracking-wider"
+          className="flex-1 flex items-center justify-center gap-1.5 bg-[#E2C27A] hover:bg-[#E2C27A]/90 text-black border-0 font-bold py-2.5 px-4 rounded-full shadow-sm text-[10px] font-sans cursor-pointer text-center uppercase tracking-wider transition-all duration-200"
         >
           <img src="/social-icons/whatsapp.png" alt="WhatsApp" className="w-3.5 h-3.5 object-contain shrink-0" />
           {labels.inquireBtn}
         </a>
         <button
           disabled
-          className="flex-1 text-[10px] font-black text-neutral-400 py-2.5 px-4 rounded-full border-2 border-black bg-neutral-100 cursor-not-allowed opacity-60 select-none uppercase tracking-wider"
+          className="flex-1 text-[10px] font-bold text-neutral-400 py-2.5 px-4 rounded-full border border-zinc-200 bg-neutral-50 cursor-not-allowed opacity-60 select-none uppercase tracking-wider"
         >
           {labels.buyNowBtn}
         </button>
@@ -228,7 +228,7 @@ export default function GemstoneGrid({ locale = "en", limit }: GemstoneGridProps
   const labels = labelsObj[activeLocale as keyof typeof labelsObj];
 
   return (
-    <section className="w-full py-16 px-6 md:px-12 lg:px-16 bg-[#FFFDF0]/30 relative overflow-hidden border-t-[3px] border-black">
+    <section className="w-full py-16 px-6 md:px-12 lg:px-16 bg-[#FFFDF0]/30 relative overflow-hidden border-t border-zinc-200">
       {/* Decorative ambient glows */}
       <div className="absolute top-24 left-1/4 w-[400px] h-[400px] rounded-full bg-amber-200/5 blur-[120px] pointer-events-none -z-10" />
       <div className="absolute bottom-24 right-1/4 w-[400px] h-[400px] rounded-full bg-purple-200/5 blur-[120px] pointer-events-none -z-10" />
@@ -237,13 +237,13 @@ export default function GemstoneGrid({ locale = "en", limit }: GemstoneGridProps
         
         {/* Section Heading */}
         <div className="flex flex-col items-center text-center gap-3">
-          <span className="inline-flex items-center gap-1.5 px-4.5 py-1.5 border-2 border-black bg-[#FFC000] text-black text-[10px] sm:text-xs font-black uppercase tracking-wider shadow-[2.5px_2.5px_0px_#000] select-none rounded-full">
+          <span className="inline-flex items-center gap-1.5 px-4.5 py-1.5 border border-[#E2C27A]/30 bg-[#E2C27A]/15 text-primary text-[10px] sm:text-xs font-bold uppercase tracking-wider select-none rounded-full">
             {labels.eyebrow}
           </span>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-black">
+          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-black">
             {labels.heading}
           </h2>
-          <p className="max-w-2xl text-black font-semibold text-sm sm:text-base font-sans leading-relaxed">
+          <p className="max-w-2xl text-neutral-600 font-semibold text-sm sm:text-base font-sans leading-relaxed">
             {labels.subheading}
           </p>
         </div>
@@ -267,7 +267,7 @@ export default function GemstoneGrid({ locale = "en", limit }: GemstoneGridProps
           <div className="flex justify-center mt-12">
             <a
               href={`/${locale}/gemstones`}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 border-black bg-white hover:bg-neutral-50 text-black hover:shadow-[4px_4px_0px_#000] hover:-translate-y-0.5 hover:-translate-x-0.5 active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#000] text-xs font-black font-sans transition-all cursor-pointer shadow-[3px_3px_0px_#000]"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-zinc-200 bg-white hover:bg-neutral-50 text-zinc-700 hover:text-black transition-all cursor-pointer text-xs font-bold font-sans shadow-sm"
             >
               {activeLocale === "hin" ? "सभी रत्नों की खोज करें ✦" : activeLocale === "bn" ? "সব রত্ন পাথর দেখুন ✦" : "Explore All Gemstones ✦"}
             </a>

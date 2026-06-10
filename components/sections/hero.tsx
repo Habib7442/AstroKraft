@@ -92,13 +92,13 @@ export function Hero({ locale, dict }: HeroProps) {
 
   return (
     <section
-      className="relative w-full overflow-hidden border-b-[3px] border-black pt-20 pb-8 md:pt-32 md:pb-16 lg:pt-32 lg:pb-28 flex flex-col justify-center items-center"
+      className="relative w-full overflow-hidden border-b border-[#E2C27A]/20 pt-20 pb-8 md:pt-32 md:pb-16 lg:pt-32 lg:pb-28 flex flex-col justify-center items-center"
       style={{
-        background: 'linear-gradient(to bottom, #FFE896 0%, #FFFDF0 100%)'
+        background: 'linear-gradient(135deg, #0B1026, #2A1A5E, #4C1D95)'
       }}
     >
-      {/* Brutalist Grid Overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.03)_1px,transparent_1px)] bg-[size:3.5rem_3.5rem] pointer-events-none z-0" />
+      {/* Grid Overlay */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:3.5rem_3.5rem] pointer-events-none z-0" />
 
       <div className="max-w-7xl w-full mx-auto px-6 md:px-12 lg:px-16 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-14 items-center w-full">
@@ -106,7 +106,7 @@ export function Hero({ locale, dict }: HeroProps) {
           <div className="flex flex-col items-center lg:items-start text-center lg:text-left gap-7 md:gap-8 lg:col-span-7 w-full order-1">
             {/* Top Badges: Eyebrow label */}
             <div className="flex flex-wrap gap-2.5 items-center justify-center lg:justify-start">
-              <span className="inline-flex items-center gap-1.5 px-4 py-1.5 border-[2px] border-black bg-white text-black text-[10px] sm:text-xs font-black uppercase tracking-wider shadow-[3px_3px_0px_#000] select-none rounded-full">
+              <span className="inline-flex items-center gap-1.5 px-4 py-1.5 border border-[#E2C27A]/30 bg-white/10 text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider shadow-sm select-none rounded-full backdrop-blur-md">
                 <span className="relative flex h-2 w-2 shrink-0">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
@@ -119,13 +119,13 @@ export function Hero({ locale, dict }: HeroProps) {
             <div className="flex flex-col md:flex-row items-center justify-center lg:justify-start gap-5 w-full">
               <h1 className="max-w-3xl">
                 <PointerHighlight
-                  rectangleClassName="border-[3px] border-black bg-white shadow-[6px_6px_0px_#000] rounded-2xl"
-                  pointerClassName="text-black fill-black"
+                  rectangleClassName="border border-[#E2C27A]/40 bg-[#2A1A5E]/40 shadow-lg rounded-2xl backdrop-blur-md"
+                  pointerClassName="text-[#E2C27A] fill-[#E2C27A]"
                   containerClassName="inline-block"
                 >
-                  <span className="font-serif text-5xl sm:text-6xl lg:text-7xl font-black leading-[1.15] tracking-tight text-black px-6 py-2.5 relative z-10 flex items-baseline select-none">
-                    Astro<span className="text-[#FFC000] drop-shadow-[2.5px_2.5px_0px_#000]">Kraft</span>
-                    <span className="inline-flex items-center justify-center border-[2px] sm:border-[3px] border-black rounded-full w-5 h-5 sm:w-6 sm:h-6 text-[8px] sm:text-[10px] font-black font-sans ml-1.5 sm:ml-2 select-none self-start mt-1.5 sm:mt-2.5 shrink-0">
+                  <span className="font-serif text-5xl sm:text-6xl lg:text-7xl font-black leading-[1.15] tracking-tight text-white px-6 py-2.5 relative z-10 flex items-baseline select-none">
+                    Astro<span className="text-[#E2C27A]">Kraft</span>
+                    <span className="inline-flex items-center justify-center border border-white/60 rounded-full w-5 h-5 sm:w-6 sm:h-6 text-[8px] sm:text-[10px] font-bold font-sans ml-1.5 sm:ml-2 select-none self-start mt-1.5 sm:mt-2.5 shrink-0 text-white/90">
                       TM
                     </span>
                   </span>
@@ -147,22 +147,22 @@ export function Hero({ locale, dict }: HeroProps) {
               {/* Overlapping Avatar Group */}
               <div className="flex -space-x-3.5">
                 <img
-                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border-2 border-black object-cover bg-white shadow-[2px_2px_0px_#000] transition-transform hover:-translate-y-1 hover:z-10"
+                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-[#E2C27A]/40 object-cover bg-white shadow-sm transition-transform hover:-translate-y-1 hover:z-10"
                   src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80"
                   alt="Client Avatar 1"
                 />
                 <img
-                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border-2 border-black object-cover bg-white shadow-[2px_2px_0px_#000] transition-transform hover:-translate-y-1 hover:z-10"
+                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-[#E2C27A]/40 object-cover bg-white shadow-sm transition-transform hover:-translate-y-1 hover:z-10"
                   src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80"
                   alt="Client Avatar 2"
                 />
                 <img
-                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border-2 border-black object-cover bg-white shadow-[2px_2px_0px_#000] transition-transform hover:-translate-y-1 hover:z-10"
+                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-[#E2C27A]/40 object-cover bg-white shadow-sm transition-transform hover:-translate-y-1 hover:z-10"
                   src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80"
                   alt="Client Avatar 3"
                 />
                 <img
-                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border-2 border-black object-cover bg-white shadow-[2px_2px_0px_#000] transition-transform hover:-translate-y-1 hover:z-10"
+                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-[#E2C27A]/40 object-cover bg-white shadow-sm transition-transform hover:-translate-y-1 hover:z-10"
                   src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80"
                   alt="Client Avatar 4"
                 />
@@ -173,14 +173,14 @@ export function Hero({ locale, dict }: HeroProps) {
                 <div className="flex items-center gap-1.5">
                   <div className="flex items-center">
                     {[...Array(5)].map((_, i) => (
-                      <span key={i} className="text-[#FFC000] text-sm sm:text-base drop-shadow-[1px_1px_0px_#000]">★</span>
+                      <span key={i} className="text-[#E2C27A] text-sm sm:text-base">★</span>
                     ))}
                   </div>
-                  <span className="font-sans text-xs sm:text-sm font-black text-black bg-white border-2 border-black px-2.5 py-0.5 rounded-full shadow-[2px_2px_0px_#000]">
+                  <span className="font-sans text-xs sm:text-sm font-bold text-white bg-white/10 border border-[#E2C27A]/30 px-2.5 py-0.5 rounded-full shadow-sm">
                     4.9/5 Rating
                   </span>
                 </div>
-                <span className="text-[9px] sm:text-[10px] font-black text-neutral-500 uppercase tracking-wider">
+                <span className="text-[9px] sm:text-[10px] font-bold text-zinc-300 uppercase tracking-wider">
                   {activeLocale === "hin"
                     ? "10,000+ से अधिक संतुष्ट उपयोगकर्ता"
                     : activeLocale === "bn"
@@ -191,18 +191,18 @@ export function Hero({ locale, dict }: HeroProps) {
             </div>
 
             {/* Subline Description */}
-            <p className="max-w-2xl text-black font-semibold text-sm sm:text-base md:text-lg leading-relaxed font-sans text-center lg:text-left">
+            <p className="max-w-2xl text-zinc-200 font-semibold text-sm sm:text-base md:text-lg leading-relaxed font-sans text-center lg:text-left">
               {dict.hero.subtitle}
             </p>
 
-            {/* Action CTAs & Low Friction Checklist */}
+            {/* Action CTAs */}
             <div className="flex flex-col gap-3 w-full sm:w-auto items-center lg:items-start">
               <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mt-2 justify-center lg:justify-start">
                 <div className="w-full sm:w-auto transition-transform duration-150 active:scale-95">
                   <Button
                     variant="default"
                     size="lg"
-                    className="w-full bg-white hover:bg-neutral-100 text-black border-[2.5px] border-black shadow-[4px_4px_0px_#000] hover:shadow-[5px_5px_0px_#000] hover:-translate-y-[1px] hover:-translate-x-[1px] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#000] font-black px-8 h-12 text-sm rounded-full transition-all cursor-pointer flex items-center justify-center gap-2"
+                    className="w-full bg-[#E2C27A] hover:bg-[#E2C27A]/95 text-black border-0 font-bold px-8 h-12 text-sm rounded-full transition-all cursor-pointer flex items-center justify-center gap-2 shadow-md hover:-translate-y-0.5 active:translate-y-[1px]"
                     asChild
                   >
                     <a href={`/${locale}/consultation`}>
@@ -216,18 +216,17 @@ export function Hero({ locale, dict }: HeroProps) {
                   <Button
                     variant="outline"
                     size="lg"
-                    className="w-full bg-[#FFC000] hover:bg-[#FFC000]/90 text-black border-[2.5px] border-black shadow-[4px_4px_0px_#000] hover:shadow-[5px_5px_0px_#000] hover:-translate-y-[1px] hover:-translate-x-[1px] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#000] font-black px-8 h-12 text-sm rounded-full transition-all cursor-pointer flex items-center justify-center gap-2"
+                    className="w-full bg-transparent hover:bg-white/5 text-white border border-[#E2C27A] font-bold px-8 h-12 text-sm rounded-full transition-all cursor-pointer flex items-center justify-center gap-2 shadow-sm hover:-translate-y-0.5 active:translate-y-[1px]"
                     asChild
                   >
                     <a href="tel:+916913230255">
-                      <Phone className="w-4 h-4 shrink-0 text-black" />
+                      <Phone className="w-4 h-4 shrink-0 text-[#E2C27A]" />
                       {labels.call}
                     </a>
                   </Button>
                 </div>
               </div>
             </div>
-
 
           </div>
 
@@ -239,7 +238,7 @@ export function Hero({ locale, dict }: HeroProps) {
           {/* Divine Services Quick Access Row */}
           <div className="w-full flex flex-col gap-5 relative z-20 order-2 lg:order-3 lg:col-span-12 mt-2 lg:mt-12">
             <div className="flex flex-col items-center lg:items-start text-center lg:text-left gap-2">
-              <span className="inline-flex items-center gap-1 px-4 py-1.5 border-[2px] border-black bg-white text-black text-[10px] sm:text-xs font-black uppercase tracking-wider shadow-[2px_2px_0px_#000] rounded-full">
+              <span className="inline-flex items-center gap-1 px-4 py-1.5 border border-[#E2C27A]/30 bg-white/10 text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider rounded-full backdrop-blur-md">
                 ✦ {activeLocale === "hin" ? "हमारी सेवाएं" : activeLocale === "bn" ? "আমাদের পরিষেবা" : "Our Services"}
               </span>
             </div>
@@ -248,8 +247,6 @@ export function Hero({ locale, dict }: HeroProps) {
               {servicesData.map((service) => {
                 const titleText = service.title[activeLocale as keyof typeof service.title] || service.title.en;
                 const descText = service.desc[activeLocale as keyof typeof service.desc] || service.desc.en;
-                const cardBg = bgColors[service.id as keyof typeof bgColors] || "bg-white";
-                const cardHoverBg = hoverColors[service.id as keyof typeof hoverColors] || "hover:bg-white";
 
                 return (
                   <a
@@ -257,7 +254,7 @@ export function Hero({ locale, dict }: HeroProps) {
                     target={service.isExternal ? "_blank" : undefined}
                     rel={service.isExternal ? "noopener noreferrer" : undefined}
                     key={service.id}
-                    className={`group relative flex flex-col items-center justify-between text-center p-5 rounded-2xl border-[3px] border-black ${cardBg} ${cardHoverBg} shadow-[5px_5px_0px_#000] hover:shadow-[7px_7px_0px_#000] hover:-translate-y-1 hover:-translate-x-1 active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#000] transition-all duration-200 cursor-pointer overflow-hidden`}
+                    className="group relative flex flex-col items-center justify-between text-center p-5 rounded-2xl border border-zinc-100 bg-white shadow-sm hover:shadow-md hover:-translate-y-1 active:translate-y-0 transition-all duration-300 cursor-pointer overflow-hidden"
                   >
                     {/* Service Image Frame */}
                     <div className="flex flex-col items-center w-full">
@@ -279,7 +276,7 @@ export function Hero({ locale, dict }: HeroProps) {
                       </p>
                     </div>
 
-                    <span className="inline-flex items-center gap-1 text-[8px] sm:text-[9px] font-extrabold mt-5 px-3 py-1.5 rounded-full border-2 border-black bg-white text-black shadow-[2px_2px_0px_#000] group-hover:bg-[#FFC000] group-hover:shadow-[3px_3px_0px_#000] transition-all duration-200 uppercase">
+                    <span className="inline-flex items-center gap-1 text-[8px] sm:text-[9px] font-bold mt-5 px-3 py-1.5 rounded-full border border-zinc-200 bg-white text-zinc-700 shadow-sm group-hover:bg-[#E2C27A] group-hover:text-black group-hover:border-[#E2C27A] transition-all duration-200 uppercase">
                       {dict.services.cta} →
                     </span>
                   </a>
@@ -289,17 +286,17 @@ export function Hero({ locale, dict }: HeroProps) {
           </div>
 
           {/* Trust Badges */}
-          <div className="grid grid-cols-2 sm:flex sm:flex-wrap justify-center lg:justify-center gap-3 sm:gap-4 mt-8 lg:mt-12 text-[10px] sm:text-xs font-black text-black w-full order-3 lg:order-4 lg:col-span-12">
-            <div className="flex items-center justify-center gap-1.5 px-3 py-2 border-[2px] border-black bg-white shadow-[2px_2px_0px_#000] select-none rounded-xl col-span-1">
-              <UserCheck className="w-4 h-4 text-[#FFC000] stroke-[3px] shrink-0" />
+          <div className="grid grid-cols-2 sm:flex sm:flex-wrap justify-center lg:justify-center gap-3 sm:gap-4 mt-8 lg:mt-12 text-[10px] sm:text-xs font-bold text-white w-full order-3 lg:order-4 lg:col-span-12">
+            <div className="flex items-center justify-center gap-1.5 px-3 py-2 border border-[#E2C27A]/30 bg-[#2A1A5E]/40 text-white select-none rounded-xl col-span-1 shadow-sm">
+              <UserCheck className="w-4 h-4 text-[#E2C27A] stroke-[2px] shrink-0" />
               <span className="truncate">{dict.common.verified}</span>
             </div>
-            <div className="flex items-center justify-center gap-1.5 px-3 py-2 border-[2px] border-black bg-white shadow-[2px_2px_0px_#000] select-none rounded-xl col-span-1">
-              <ShieldCheck className="w-4 h-4 text-[#FFC000] stroke-[3px] shrink-0" />
+            <div className="flex items-center justify-center gap-1.5 px-3 py-2 border border-[#E2C27A]/30 bg-[#2A1A5E]/40 text-white select-none rounded-xl col-span-1 shadow-sm">
+              <ShieldCheck className="w-4 h-4 text-[#E2C27A] stroke-[2px] shrink-0" />
               <span className="truncate">{dict.common.certified}</span>
             </div>
-            <div className="flex items-center justify-center gap-1.5 px-3 py-2 border-[2px] border-black bg-white shadow-[2px_2px_0px_#000] select-none rounded-xl col-span-2 sm:col-span-1 w-full sm:w-auto">
-              <Lock className="w-4 h-4 text-[#FFC000] stroke-[3px] shrink-0" />
+            <div className="flex items-center justify-center gap-1.5 px-3 py-2 border border-[#E2C27A]/30 bg-[#2A1A5E]/40 text-white select-none rounded-xl col-span-2 sm:col-span-1 w-full sm:w-auto shadow-sm">
+              <Lock className="w-4 h-4 text-[#E2C27A] stroke-[2px] shrink-0" />
               <span>{getConfidentialText()}</span>
             </div>
           </div>

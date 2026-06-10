@@ -60,6 +60,8 @@ export interface Globe3DConfig {
   pointLightIntensity?: number;
   /** Background color (null for transparent) */
   backgroundColor?: string | null;
+  /** Emissive color for the globe material */
+  emissiveColor?: string;
 }
 
 interface Globe3DProps {
@@ -311,7 +313,7 @@ function RotatingGlobe({
           bumpScale={config.bumpScale * 0.05}
           roughness={0.7}
           metalness={0.15}
-          emissive={new THREE.Color("#1a2e5c")}
+          emissive={new THREE.Color(config.emissiveColor)}
         />
       </mesh>
 
@@ -433,6 +435,12 @@ function Scene({ markers, config, onMarkerClick, onMarkerHover }: SceneProps) {
         intensity={config.pointLightIntensity * 0.3}
         color="#88ccff"
       />
+      {/* Front fill light to brighten the face visible to the camera */}
+      <directionalLight
+        position={[0, 0, config.radius * 6]}
+        intensity={config.pointLightIntensity * 0.65}
+        color="#ffffff"
+      />
 
       {/* Rotating Globe with Markers */}
       <RotatingGlobe
@@ -521,6 +529,7 @@ const defaultConfig: Required<Globe3DConfig> = {
   ambientIntensity: 0.6,
   pointLightIntensity: 1.5,
   backgroundColor: null,
+  emissiveColor: "#1a2e5c",
 };
 
 export function Globe3D({

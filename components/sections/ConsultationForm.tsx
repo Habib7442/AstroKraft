@@ -5,6 +5,7 @@ import { Briefcase, Heart, Coins, Activity, FileText, GraduationCap, MessageSqua
 import { toast } from "sonner";
 import { useSearchParams } from "next/navigation";
 import ASTROLOGERS_DATA from "@/lib/data/astrologer.json";
+import { cn } from "@/lib/utils";
 
 interface AstrologerInfo {
   name: string;
@@ -202,8 +203,8 @@ export function ConsultationForm({ locale }: ConsultationFormProps) {
       <form onSubmit={handleSubmit} className="space-y-8">
         {/* Step 1: Category Grid */}
         <div className="space-y-4">
-          <h2 className="text-lg font-black text-black uppercase tracking-wider text-center sm:text-left border-b-2 border-black pb-2 flex items-center justify-center sm:justify-start gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#FFC000] border-2 border-black inline-block animate-pulse" />
+          <h2 className="text-lg font-bold text-black uppercase tracking-wider text-center sm:text-left border-b border-zinc-100 pb-2 flex items-center justify-center sm:justify-start gap-2">
+            <span className="w-2 h-2 rounded-full bg-[#E2C27A] inline-block animate-pulse" />
             {t.categoryLabel}
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 w-full">
@@ -217,16 +218,17 @@ export function ConsultationForm({ locale }: ConsultationFormProps) {
                   type="button"
                   key={cat.id}
                   onClick={() => setCategory(cat.id)}
-                  className={`group relative flex flex-col items-center justify-center text-center p-4 rounded-2xl border-[3px] border-black transition-all duration-150 cursor-pointer overflow-hidden ${
+                  className={cn(
+                    "group relative flex flex-col items-center justify-center text-center p-4 rounded-2xl border transition-all duration-300 cursor-pointer shadow-sm hover:shadow-md hover:-translate-y-0.5",
                     isSelected
-                      ? "bg-[#FFC000] shadow-[2px_2px_0px_#000] translate-x-[2px] translate-y-[2px]"
-                      : `${cat.color} shadow-[5px_5px_0px_#000] hover:shadow-[7px_7px_0px_#000] hover:-translate-y-0.5 hover:-translate-x-0.5 active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#000]`
-                  }`}
+                      ? "bg-[#E2C27A] border-[#E2C27A] text-black"
+                      : `${cat.color} border-zinc-200/60 text-black`
+                  )}
                 >
-                  <div className="p-2.5 rounded-full border-2 border-black bg-white group-hover:scale-105 transition-transform">
+                  <div className="p-2.5 rounded-full border border-zinc-200 bg-white group-hover:scale-105 transition-transform">
                     <Icon className="w-5 h-5 text-black shrink-0" />
                   </div>
-                  <h3 className="font-sans text-[11px] sm:text-xs font-black text-black mt-3 leading-snug uppercase tracking-tight line-clamp-2">
+                  <h3 className="font-sans text-[11px] sm:text-xs font-bold text-black mt-3 leading-snug uppercase tracking-tight line-clamp-2">
                     {titleText}
                   </h3>
                 </button>
@@ -237,16 +239,16 @@ export function ConsultationForm({ locale }: ConsultationFormProps) {
 
         {/* Step 2: Input Details Card */}
         <div className="max-w-2xl mx-auto">
-          <div className="bg-white border-[3px] border-black rounded-2xl p-6 sm:p-8 shadow-[6px_6px_0px_#000] space-y-6">
-            <h2 className="text-lg font-black text-black uppercase tracking-wider border-b-2 border-black pb-2 flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-black inline-block" />
+          <div className="bg-white border border-zinc-150 rounded-2xl p-6 sm:p-8 shadow-sm space-y-6">
+            <h2 className="text-lg font-bold text-black uppercase tracking-wider border-b border-zinc-100 pb-2 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#E2C27A] inline-block" />
               {t.detailsLabel}
             </h2>
 
             <div className="space-y-5">
               {/* Full Name */}
               <div className="space-y-2">
-                <label className="text-xs font-black uppercase tracking-wider text-black block">
+                <label className="text-xs font-bold uppercase tracking-wider text-zinc-700 block">
                   {t.nameLabel}
                 </label>
                 <input
@@ -254,7 +256,7 @@ export function ConsultationForm({ locale }: ConsultationFormProps) {
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl border-2 border-black bg-white text-black font-semibold placeholder:text-neutral-400 focus:outline-none focus:bg-amber-50/20 transition-colors"
+                  className="w-full px-4 py-3 rounded-xl border border-zinc-200 bg-white text-black font-semibold placeholder:text-neutral-400 focus:outline-none focus:border-[#E2C27A] focus:ring-1 focus:ring-[#E2C27A]/30 transition-all shadow-sm"
                   placeholder={t.namePlaceholder}
                 />
               </div>
@@ -263,7 +265,7 @@ export function ConsultationForm({ locale }: ConsultationFormProps) {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 {/* Date of Birth */}
                 <div className="space-y-2">
-                  <label className="text-xs font-black uppercase tracking-wider text-black block">
+                  <label className="text-xs font-bold uppercase tracking-wider text-zinc-700 block">
                     {t.dobLabel}
                   </label>
                   <input
@@ -272,13 +274,13 @@ export function ConsultationForm({ locale }: ConsultationFormProps) {
                     value={dob}
                     onChange={(e) => setDob(e.target.value)}
                     placeholder={t.dobPlaceholder}
-                    className="w-full px-4 py-3 rounded-xl border-2 border-black bg-white text-black font-semibold placeholder:text-neutral-400 focus:outline-none focus:bg-amber-50/20 transition-colors"
+                    className="w-full px-4 py-3 rounded-xl border border-zinc-200 bg-white text-black font-semibold placeholder:text-neutral-400 focus:outline-none focus:border-[#E2C27A] focus:ring-1 focus:ring-[#E2C27A]/30 transition-all shadow-sm"
                   />
                 </div>
 
                 {/* Time of Birth */}
                 <div className="space-y-2">
-                  <label className="text-xs font-black uppercase tracking-wider text-black block">
+                  <label className="text-xs font-bold uppercase tracking-wider text-zinc-700 block">
                     {t.tobLabel}
                   </label>
                   <input
@@ -287,14 +289,14 @@ export function ConsultationForm({ locale }: ConsultationFormProps) {
                     value={time}
                     onChange={(e) => setTime(e.target.value)}
                     placeholder={t.tobPlaceholder}
-                    className="w-full px-4 py-3 rounded-xl border-2 border-black bg-white text-black font-semibold placeholder:text-neutral-400 focus:outline-none focus:bg-amber-50/20 transition-colors"
+                    className="w-full px-4 py-3 rounded-xl border border-zinc-200 bg-white text-black font-semibold placeholder:text-neutral-400 focus:outline-none focus:border-[#E2C27A] focus:ring-1 focus:ring-[#E2C27A]/30 transition-all shadow-sm"
                   />
                 </div>
               </div>
 
               {/* Place of Birth Dropdown */}
               <div className="space-y-2">
-                <label className="text-xs font-black uppercase tracking-wider text-black block">
+                <label className="text-xs font-bold uppercase tracking-wider text-zinc-700 block">
                   {t.pobLabel}
                 </label>
                 <div className="relative w-full">
@@ -302,7 +304,7 @@ export function ConsultationForm({ locale }: ConsultationFormProps) {
                     required
                     value={pob}
                     onChange={(e) => setPob(e.target.value)}
-                    className="w-full px-4 py-3 pr-10 rounded-xl border-2 border-black bg-white text-black font-semibold focus:outline-none focus:bg-amber-50/20 transition-colors appearance-none cursor-pointer"
+                    className="w-full px-4 py-3 pr-10 rounded-xl border border-zinc-200 bg-white text-black font-semibold focus:outline-none focus:border-[#E2C27A] focus:ring-1 focus:ring-[#E2C27A]/30 transition-all appearance-none cursor-pointer shadow-sm"
                   >
                     <option value="" disabled className="text-neutral-400">
                       {t.pobPlaceholder}
@@ -313,9 +315,9 @@ export function ConsultationForm({ locale }: ConsultationFormProps) {
                       </option>
                     ))}
                   </select>
-                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-black">
-                    <svg className="h-4.5 w-4.5 stroke-[3px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 9l-7 7-7-7" />
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-zinc-500">
+                    <svg className="h-4 w-4 stroke-[2px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                     </svg>
                   </div>
                 </div>
@@ -326,7 +328,7 @@ export function ConsultationForm({ locale }: ConsultationFormProps) {
             <div className="pt-2">
               <button
                 type="submit"
-                className="w-full bg-[#FFC000] hover:bg-[#FFC000]/95 text-black border-[3px] border-black shadow-[4px_4px_0px_#000] hover:shadow-[5px_5px_0px_#000] hover:-translate-y-[1px] hover:-translate-x-[1px] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#000] font-black py-3.5 text-sm rounded-full transition-all cursor-pointer flex items-center justify-center gap-2 uppercase tracking-wider"
+                className="w-full bg-[#E2C27A] hover:bg-[#d4b36a] text-black shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 font-bold py-3.5 text-sm rounded-full cursor-pointer flex items-center justify-center gap-2 uppercase tracking-wider border border-[#E2C27A]/50"
               >
                 <MessageSquare className="w-4.5 h-4.5 shrink-0 text-black fill-black" />
                 {t.submitBtn}

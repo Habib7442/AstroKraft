@@ -55,6 +55,8 @@ export function Header({ locale, dict }: HeaderProps) {
     { label: dict.nav.blog, href: `/${locale}/blog` },
   ];
 
+  const isHomePage = pathname === "/" || pathname === `/${locale}` || pathname === `/${locale}/`;
+
   return (
     <>
       {/* Main Sticky Header */}
@@ -65,11 +67,20 @@ export function Header({ locale, dict }: HeaderProps) {
             <img
               src="/logo.svg"
               alt="AstroKraft Logo"
-              className="w-8 h-8 object-contain rounded-md border-2 border-black group-hover:rotate-12 transition-all duration-300"
+              className={cn(
+                "w-8 h-8 object-contain rounded-md border group-hover:rotate-12 transition-all duration-300",
+                isHomePage ? "border-[#E2C27A]/30" : "border-zinc-200"
+              )}
             />
-            <span className="font-serif text-2xl font-black tracking-tight text-black flex items-baseline select-none">
-              Astro<span className="text-black">Kraft</span>
-              <span className="inline-flex items-center justify-center border-[1.2px] border-black rounded-full w-3.5 h-3.5 text-[7px] font-black font-sans ml-1 self-start mt-1.5 shrink-0">
+            <span className={cn(
+              "font-serif text-2xl font-black tracking-tight flex items-baseline select-none transition-colors",
+              isHomePage ? "text-white" : "text-black"
+            )}>
+              Astro<span className={isHomePage ? "text-[#E2C27A]" : "text-primary"}>Kraft</span>
+              <span className={cn(
+                "inline-flex items-center justify-center border rounded-full w-3.5 h-3.5 text-[7px] font-black font-sans ml-1 self-start mt-1.5 shrink-0 transition-colors",
+                isHomePage ? "border-[#E2C27A]/40 text-[#E2C27A]" : "border-zinc-300 text-zinc-500"
+              )}>
                 TM
               </span>
             </span>
@@ -81,7 +92,12 @@ export function Header({ locale, dict }: HeaderProps) {
               <a
                 key={item.label}
                 href={item.href}
-                className="text-[14px] font-extrabold text-black hover:text-black/85 transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-black hover:after:w-full after:transition-all after:duration-200"
+                className={cn(
+                  "text-[14px] font-extrabold transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] hover:after:w-full after:transition-all after:duration-200",
+                  isHomePage
+                    ? "text-white/95 hover:text-[#E2C27A] after:bg-[#E2C27A]"
+                    : "text-black/80 hover:text-primary after:bg-primary"
+                )}
               >
                 {item.label}
               </a>
@@ -93,20 +109,39 @@ export function Header({ locale, dict }: HeaderProps) {
             {/* Language Dropdown Selector */}
             <div className="relative group">
               <button
-                className="flex items-center gap-1 px-3 py-1.5 rounded-full border-2 border-black bg-white text-black text-xs font-bold hover:bg-neutral-50 transition-colors shadow-[2px_2px_0px_#000]"
+                className={cn(
+                  "flex items-center gap-1 px-3 py-1.5 rounded-full border text-xs font-bold transition-all duration-200 select-none cursor-pointer shadow-sm",
+                  isHomePage
+                    ? "border-[#E2C27A]/40 bg-white/10 text-white hover:bg-white/20"
+                    : "border-zinc-200 bg-white text-black hover:bg-neutral-50"
+                )}
                 aria-label="Select Language"
               >
                 <span>{LOCALE_LABEL[locale as Locale] || "Language"}</span>
-                <ChevronDown className="w-3 h-3 text-black" />
+                <ChevronDown className={cn("w-3 h-3 transition-colors", isHomePage ? "text-[#E2C27A]" : "text-zinc-500")} />
               </button>
-              <div className="absolute right-0 top-full mt-1.5 w-32 bg-white border-2 border-black rounded-lg shadow-[3px_3px_0px_#000] py-1 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-150 z-50">
+              <div className={cn(
+                "absolute right-0 top-full mt-1.5 w-32 border rounded-xl py-1 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-150 z-50 shadow-lg",
+                isHomePage
+                  ? "bg-[#1A1530] border-[#E2C27A]/30"
+                  : "bg-white border-zinc-100"
+              )}>
                 {LOCALES.map((loc) => (
                   <button
                     key={loc}
                     onClick={() => handleLocaleChange(loc)}
                     className={cn(
-                      "w-full text-left px-3 py-1.5 text-xs hover:bg-neutral-100 hover:text-black transition-colors cursor-pointer font-bold",
-                      locale === loc ? "text-black font-black bg-primary/20" : "text-black"
+                      "w-full text-left px-3 py-1.5 text-xs transition-colors cursor-pointer font-bold",
+                      isHomePage
+                        ? "text-white/90 hover:bg-white/10 hover:text-white"
+                        : "text-black/80 hover:bg-neutral-50 hover:text-primary",
+                      locale === loc
+                        ? isHomePage
+                          ? "text-[#E2C27A] font-black bg-[#E2C27A]/20"
+                          : "text-primary font-black bg-primary/10"
+                        : isHomePage
+                          ? "text-white/80"
+                          : "text-black/70"
                     )}
                   >
                     {LOCALE_LABEL[loc]}
@@ -115,17 +150,20 @@ export function Header({ locale, dict }: HeaderProps) {
               </div>
             </div>
 
-
-
             {/* Primary Action Button */}
             <Button
               variant="default"
               size="lg"
-              className="bg-black hover:bg-neutral-900 text-white border-2 border-black font-bold px-5 rounded-full text-xs cursor-pointer shadow-[2px_2px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#000] transition-all"
+              className={cn(
+                "font-bold px-5 rounded-full text-xs cursor-pointer transition-all duration-200 shadow-sm border-0",
+                isHomePage
+                  ? "bg-[#E2C27A] hover:bg-[#E2C27A]/90 text-black"
+                  : "bg-primary hover:bg-primary/90 text-primary-foreground"
+              )}
               asChild
             >
               <a href={`/${locale}/astrologers`}>
-                <MessageCircle className="w-3.5 h-3.5 mr-1.5 text-white" />
+                <MessageCircle className={cn("w-3.5 h-3.5 mr-1.5", isHomePage ? "text-black" : "text-primary-foreground")} />
                 {dict.common.whatsapp_cta}
               </a>
             </Button>
@@ -136,21 +174,26 @@ export function Header({ locale, dict }: HeaderProps) {
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
               <SheetTrigger asChild>
                 <button
-                  className="p-1.5 rounded-md border-2 border-black text-black bg-white shadow-[2px_2px_0px_#000] hover:bg-neutral-50 transition-colors cursor-pointer"
+                  className={cn(
+                    "p-1.5 rounded-md border transition-all duration-200 cursor-pointer shadow-sm",
+                    isHomePage
+                      ? "border-white/20 text-white bg-white/10 hover:bg-white/20"
+                      : "border-zinc-200 text-black bg-white hover:bg-neutral-50"
+                  )}
                   aria-label="Toggle Navigation Menu"
                 >
                   <Menu className="w-5 h-5" />
                 </button>
               </SheetTrigger>
-              <SheetContent side="right" className="bg-[#FFF9E6] border-l-2 border-black flex flex-col p-6 w-[280px] sm:w-[320px]">
-                <SheetHeader className="text-left px-0 pb-4 border-b-2 border-black">
+              <SheetContent side="right" className="bg-white border-l border-zinc-200 flex flex-col p-6 w-[280px] sm:w-[320px]">
+                <SheetHeader className="text-left px-0 pb-4 border-b border-zinc-100">
                   <SheetTitle className="font-serif text-2xl font-black tracking-tight text-black flex items-baseline select-none">
-                    Astro<span className="text-black">Kraft</span>
-                    <span className="inline-flex items-center justify-center border-[1.2px] border-black rounded-full w-3.5 h-3.5 text-[7px] font-black font-sans ml-1 self-start mt-1.5 shrink-0">
+                    Astro<span className="text-primary">Kraft</span>
+                    <span className="inline-flex items-center justify-center border border-zinc-300 rounded-full w-3.5 h-3.5 text-[7px] font-black font-sans ml-1 self-start mt-1.5 shrink-0 text-zinc-500">
                       TM
                     </span>
                   </SheetTitle>
-                  <SheetDescription className="text-xs text-black font-bold uppercase tracking-wider">
+                  <SheetDescription className="text-xs text-zinc-500 font-bold uppercase tracking-wider">
                     Vedic Guidance & Certified Remedies
                   </SheetDescription>
                 </SheetHeader>
@@ -162,7 +205,7 @@ export function Header({ locale, dict }: HeaderProps) {
                       key={item.label}
                       href={item.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="text-base font-black text-black pb-2 border-b-2 border-black/10 hover:border-black transition-colors"
+                      className="text-base font-bold text-zinc-800 pb-2 border-b border-zinc-100 hover:text-primary hover:border-primary/30 transition-colors"
                     >
                       {item.label}
                     </a>
@@ -170,10 +213,10 @@ export function Header({ locale, dict }: HeaderProps) {
                 </nav>
 
                 {/* Settings & Language inside Drawer */}
-                <div className="flex flex-col gap-6 mt-8 pt-6 border-t-2 border-black/10">
+                <div className="flex flex-col gap-6 mt-8 pt-6 border-t border-zinc-100">
                   {/* Language Selector */}
                   <div className="flex flex-col gap-2">
-                    <label className="text-xs font-black uppercase tracking-wider text-black">
+                    <label className="text-xs font-bold uppercase tracking-wider text-zinc-500">
                       {locale === "hin" ? "भाषा चुनें" : locale === "bn" ? "ভাষা নির্বাচন করুন" : "Select Language"}
                     </label>
                     <div className="grid grid-cols-3 gap-2">
@@ -185,10 +228,10 @@ export function Header({ locale, dict }: HeaderProps) {
                             setMobileMenuOpen(false);
                           }}
                           className={cn(
-                            "px-2 py-1.5 rounded-full border-2 border-black text-center text-xs font-bold transition-all cursor-pointer shadow-[1px_1px_0px_#000] active:translate-x-[0.5px] active:translate-y-[0.5px] active:shadow-none",
+                            "px-2 py-1.5 rounded-full border text-center text-xs font-bold transition-all cursor-pointer shadow-sm",
                             locale === loc
-                              ? "bg-white text-black font-black"
-                              : "bg-[#FFD166] text-black hover:bg-white/50"
+                              ? "bg-primary text-primary-foreground border-primary font-bold"
+                              : "bg-white text-black border-zinc-200 hover:bg-neutral-50"
                           )}
                         >
                           {LOCALE_LABEL[loc]}
@@ -201,12 +244,12 @@ export function Header({ locale, dict }: HeaderProps) {
                 {/* Primary Action CTA */}
                 <div className="mt-auto pt-6">
                   <Button
-                    className="w-full bg-black hover:bg-neutral-900 text-white border-2 border-black font-bold rounded-full h-11 text-sm flex items-center justify-center cursor-pointer shadow-[3px_3px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#000] transition-all"
+                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground border-0 font-bold rounded-full h-11 text-sm flex items-center justify-center cursor-pointer shadow-sm active:translate-y-[1px] transition-all"
                     asChild
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     <a href={`/${locale}/astrologers`}>
-                      <MessageCircle className="w-4 h-4 mr-2 text-white" />
+                      <MessageCircle className="w-4 h-4 mr-2 text-primary-foreground" />
                       {dict.common.whatsapp_cta}
                     </a>
                   </Button>

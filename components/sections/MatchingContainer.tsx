@@ -255,17 +255,17 @@ export function MatchingContainer({ locale }: { locale: string }) {
         <form onSubmit={handleSubmit} className="space-y-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Partner 1 Details */}
-            <Card className="border-[3px] border-black bg-white shadow-[6px_6px_0px_#000] rounded-2xl !overflow-visible">
-              <CardHeader className="border-b-2 border-black pb-4">
-                <CardTitle className="text-lg font-black text-black uppercase tracking-wider flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#FFC000] border-2 border-black inline-block animate-pulse" />
+            <Card className="border border-zinc-150 bg-white shadow-sm rounded-2xl !overflow-visible">
+              <CardHeader className="border-b border-zinc-150 pb-4">
+                <CardTitle className="text-lg font-bold text-black uppercase tracking-wider flex items-center gap-2 font-serif">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#E2C27A] inline-block animate-pulse" />
                   {t.p1Header}
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4 pt-6">
                 {/* Name */}
                 <div className="space-y-2">
-                  <Label>{t.nameLabel}</Label>
+                  <Label className="text-xs font-bold text-neutral-600 uppercase tracking-wider">{t.nameLabel}</Label>
                   <Input
                     value={p1.name}
                     onChange={(e) => setP1({ ...p1, name: e.target.value })}
@@ -275,7 +275,7 @@ export function MatchingContainer({ locale }: { locale: string }) {
 
                 {/* Date of Birth */}
                 <div className="space-y-2">
-                  <Label>{t.dateLabel}</Label>
+                  <Label className="text-xs font-bold text-neutral-600 uppercase tracking-wider">{t.dateLabel}</Label>
                   <Input
                     type="date"
                     value={p1.date}
@@ -285,7 +285,7 @@ export function MatchingContainer({ locale }: { locale: string }) {
 
                 {/* Time of Birth */}
                 <div className="space-y-2">
-                  <Label>{t.timeLabel}</Label>
+                  <Label className="text-xs font-bold text-neutral-600 uppercase tracking-wider">{t.timeLabel}</Label>
                   <Input
                     type="time"
                     value={p1.time}
@@ -295,7 +295,7 @@ export function MatchingContainer({ locale }: { locale: string }) {
 
                 {/* City Autocomplete */}
                 <div className="space-y-2">
-                  <Label>{t.cityLabel}</Label>
+                  <Label className="text-xs font-bold text-neutral-600 uppercase tracking-wider">{t.cityLabel}</Label>
                   <CityAutocomplete
                     defaultValue={p1.cityName}
                     onSelect={handleP1CitySelect}
@@ -306,17 +306,17 @@ export function MatchingContainer({ locale }: { locale: string }) {
             </Card>
 
             {/* Partner 2 Details */}
-            <Card className="border-[3px] border-black bg-white shadow-[6px_6px_0px_#000] rounded-2xl !overflow-visible">
-              <CardHeader className="border-b-2 border-black pb-4">
-                <CardTitle className="text-lg font-black text-black uppercase tracking-wider flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#E5D5FF] border-2 border-black inline-block animate-pulse" />
+            <Card className="border border-zinc-150 bg-white shadow-sm rounded-2xl !overflow-visible">
+              <CardHeader className="border-b border-zinc-150 pb-4">
+                <CardTitle className="text-lg font-bold text-black uppercase tracking-wider flex items-center gap-2 font-serif">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#E5D5FF] inline-block animate-pulse" />
                   {t.p2Header}
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4 pt-6">
                 {/* Name */}
                 <div className="space-y-2">
-                  <Label>{t.nameLabel}</Label>
+                  <Label className="text-xs font-bold text-neutral-600 uppercase tracking-wider">{t.nameLabel}</Label>
                   <Input
                     value={p2.name}
                     onChange={(e) => setP2({ ...p2, name: e.target.value })}
@@ -326,7 +326,7 @@ export function MatchingContainer({ locale }: { locale: string }) {
 
                 {/* Date of Birth */}
                 <div className="space-y-2">
-                  <Label>{t.dateLabel}</Label>
+                  <Label className="text-xs font-bold text-neutral-600 uppercase tracking-wider">{t.dateLabel}</Label>
                   <Input
                     type="date"
                     value={p2.date}
@@ -336,7 +336,7 @@ export function MatchingContainer({ locale }: { locale: string }) {
 
                 {/* Time of Birth */}
                 <div className="space-y-2">
-                  <Label>{t.timeLabel}</Label>
+                  <Label className="text-xs font-bold text-neutral-600 uppercase tracking-wider">{t.timeLabel}</Label>
                   <Input
                     type="time"
                     value={p2.time}
@@ -346,7 +346,7 @@ export function MatchingContainer({ locale }: { locale: string }) {
 
                 {/* City Autocomplete */}
                 <div className="space-y-2">
-                  <Label>{t.cityLabel}</Label>
+                  <Label className="text-xs font-bold text-neutral-600 uppercase tracking-wider">{t.cityLabel}</Label>
                   <CityAutocomplete
                     defaultValue={p2.cityName}
                     onSelect={handleP2CitySelect}
@@ -361,7 +361,7 @@ export function MatchingContainer({ locale }: { locale: string }) {
             <button
               type="submit"
               disabled={loading}
-              className="w-full md:w-auto px-12 py-3.5 bg-[#FFC000] text-black font-black border-2 border-black rounded-xl shadow-[3px_3px_0px_#000] hover:shadow-[5px_5px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[2px_2px_0px_#000] transition-all cursor-pointer text-sm uppercase tracking-wider disabled:opacity-50"
+              className="w-full md:w-auto px-12 py-3.5 bg-[#E2C27A] hover:bg-[#E2C27A]/95 text-black font-bold rounded-full border border-transparent shadow-sm hover:shadow active:scale-[0.98] transition-all cursor-pointer text-sm uppercase tracking-wider disabled:opacity-50"
             >
               {loading ? t.calculating : t.submitBtn}
             </button>
@@ -370,8 +370,8 @@ export function MatchingContainer({ locale }: { locale: string }) {
       ) : (
         /* RESULTS SCREEN */
         <div className="space-y-8 select-none">
-          <div className="flex justify-between items-center border-b-2 border-black pb-4">
-            <h2 className="text-xl sm:text-2xl font-serif text-black font-black uppercase tracking-tight">{t.resultsTitle}</h2>
+          <div className="flex justify-between items-center border-b border-zinc-150 pb-4">
+            <h2 className="text-xl sm:text-2xl font-serif text-black font-bold uppercase tracking-tight">{t.resultsTitle}</h2>
             <button
               onClick={() => {
                 setResult(null);
@@ -394,7 +394,7 @@ export function MatchingContainer({ locale }: { locale: string }) {
                   timezone: 5.5,
                 });
               }}
-              className="px-5 py-2.5 bg-white text-black font-black border-2 border-black rounded-xl shadow-[3px_3px_0px_#000] hover:shadow-[5px_5px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[2px_2px_0px_#000] transition-all cursor-pointer text-xs uppercase tracking-wider"
+              className="px-5 py-2.5 bg-white hover:bg-neutral-50 text-neutral-700 hover:text-black font-bold border border-zinc-200 rounded-full shadow-sm hover:shadow transition-all cursor-pointer text-xs uppercase tracking-wider"
             >
               {t.backBtn}
             </button>
@@ -404,13 +404,13 @@ export function MatchingContainer({ locale }: { locale: string }) {
             {/* Visual Result Card (Left 5 Columns) */}
             <div className="lg:col-span-5 flex flex-col items-center space-y-6">
               {/* Premium shareable result card */}
-              <div className="relative w-full max-w-[380px] p-6 rounded-2xl bg-white border-[3px] border-black shadow-[6px_6px_0px_#000] flex flex-col justify-between overflow-hidden">
+              <div className="relative w-full max-w-[380px] p-6 rounded-2xl bg-white border border-zinc-150 shadow-md flex flex-col justify-between overflow-hidden">
                 {/* Header branding */}
-                <div className="flex justify-between items-center border-b-2 border-black pb-4">
-                  <span className="text-xs font-serif text-black font-black tracking-wider flex items-center gap-0.5">
+                <div className="flex justify-between items-center border-b border-zinc-100 pb-4">
+                  <span className="text-xs font-serif text-black font-bold tracking-wider flex items-center gap-0.5">
                     ✦ AstroKraft<sup className="text-[8px] select-none text-neutral-500 font-sans ml-0.5 mt-0.5">™</sup>
                   </span>
-                  <span className="text-[10px] font-sans text-neutral-500 font-black uppercase tracking-widest">
+                  <span className="text-[10px] font-sans text-neutral-400 font-bold uppercase tracking-wider">
                     {t.cardSubHeader}
                   </span>
                 </div>
@@ -419,13 +419,13 @@ export function MatchingContainer({ locale }: { locale: string }) {
                 <div className="my-6 space-y-4">
                   <div className="flex justify-between items-center">
                     <div className="space-y-0.5">
-                      <div className="text-[10px] uppercase tracking-wider text-neutral-500 font-black">Partner 1</div>
-                      <div className="text-base font-black text-black">{p1.name}</div>
+                      <div className="text-[9px] uppercase tracking-wider text-neutral-400 font-bold">Partner 1</div>
+                      <div className="text-base font-bold text-black font-sans">{p1.name}</div>
                     </div>
                     <div className="text-red-500 font-bold text-xl">❤</div>
                     <div className="space-y-0.5 text-right">
-                      <div className="text-[10px] uppercase tracking-wider text-neutral-500 font-black">Partner 2</div>
-                      <div className="text-base font-black text-black">{p2.name}</div>
+                      <div className="text-[9px] uppercase tracking-wider text-neutral-400 font-bold">Partner 2</div>
+                      <div className="text-base font-bold text-black font-sans">{p2.name}</div>
                     </div>
                   </div>
                 </div>
@@ -448,7 +448,7 @@ export function MatchingContainer({ locale }: { locale: string }) {
                         cx="72"
                         cy="72"
                         r="60"
-                        className="stroke-[#FFC000] fill-none transition-all duration-1000 ease-out"
+                        className="stroke-[#E2C27A] fill-none transition-all duration-1000 ease-out"
                         strokeWidth="10"
                         strokeDasharray={2 * Math.PI * 60}
                         strokeDashoffset={2 * Math.PI * 60 * (1 - result.score / 36)}
@@ -456,27 +456,27 @@ export function MatchingContainer({ locale }: { locale: string }) {
                     </svg>
                     {/* Text Overlay */}
                     <div className="absolute text-center">
-                      <div className="text-3xl font-mono font-black text-black">{result.score}</div>
-                      <div className="text-[10px] uppercase text-neutral-500 font-black tracking-wider">out of 36</div>
+                      <div className="text-3xl font-mono font-bold text-black">{result.score}</div>
+                      <div className="text-[10px] uppercase text-neutral-400 font-bold tracking-wider">out of 36</div>
                     </div>
                   </div>
                   <div className="text-center">
-                    <span className="text-sm font-black text-black font-serif">
+                    <span className="text-sm font-bold text-black font-serif">
                       {result.compatibilityPercent}% Compatibility
                     </span>
                   </div>
                 </div>
 
                 {/* Brief verdict statement */}
-                <div className="mt-4 p-4 rounded-xl border-2 border-black bg-[#E5D5FF] text-xs text-center text-black font-bold shadow-[2px_2px_0px_#000] leading-relaxed">
+                <div className="mt-4 p-4 rounded-xl border border-purple-200 bg-[#E5D5FF]/10 text-xs text-center text-black font-medium leading-relaxed font-sans shadow-sm">
                   "{locale === "hin" ? result.verdict.hin : locale === "bn" ? result.verdict.bn : result.verdict.en}"
                 </div>
 
                 {/* Footer and share CTA */}
-                <div className="mt-6 border-t-2 border-black pt-4 flex justify-center">
+                <div className="mt-6 border-t border-zinc-100 pt-4 flex justify-center">
                   <button
                     onClick={handleShare}
-                    className="w-full px-5 py-3 bg-[#FFC000] text-black font-black border-2 border-black rounded-xl shadow-[3px_3px_0px_#000] hover:shadow-[5px_5px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[2px_2px_0px_#000] transition-all cursor-pointer text-xs uppercase tracking-wider flex items-center justify-center gap-2"
+                    className="w-full px-5 py-3 bg-[#E2C27A] hover:bg-[#E2C27A]/95 text-black font-bold border border-transparent rounded-full shadow-sm hover:shadow active:scale-[0.98] transition-all cursor-pointer text-xs uppercase tracking-wider flex items-center justify-center gap-2 font-sans"
                   >
                     <svg className="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.7" d="M8.684 10.742l4.636-2.318m0 7.152l-4.636-2.318M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -490,34 +490,34 @@ export function MatchingContainer({ locale }: { locale: string }) {
             {/* Guna breakdown Details (Right 7 Columns) */}
             <div className="lg:col-span-7 space-y-6">
               {/* Manglik Dosha Summary */}
-              <Card className="border-[3px] border-black bg-white shadow-[4px_4px_0px_#000] rounded-2xl">
+              <Card className="border border-zinc-150 bg-white shadow-sm rounded-2xl">
                 <CardHeader>
-                  <CardTitle className="text-xs font-black uppercase tracking-wider text-black">{t.manglikTitle}</CardTitle>
+                  <CardTitle className="text-xs font-bold uppercase tracking-wider text-neutral-550 font-serif">{t.manglikTitle}</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <div className="flex gap-4 text-xs font-mono">
                     <span
                       className={cn(
-                        "px-3 py-1 rounded-full border-2 border-black shadow-[1.5px_1.5px_0px_#000] font-black uppercase text-[10px]",
+                        "px-3 py-0.5 rounded-full border text-[10px] font-bold uppercase",
                         result.p1Manglik
-                          ? "bg-[#FFD0C8]"
-                          : "bg-[#C6F6D5]"
+                          ? "bg-rose-50 text-rose-700 border-rose-200"
+                          : "bg-emerald-50 text-emerald-700 border-emerald-200"
                       )}
                     >
                       {result.p1Manglik ? t.p1ManglikText : t.p1NonManglikText}
                     </span>
                     <span
                       className={cn(
-                        "px-3 py-1 rounded-full border-2 border-black shadow-[1.5px_1.5px_0px_#000] font-black uppercase text-[10px]",
+                        "px-3 py-0.5 rounded-full border text-[10px] font-bold uppercase",
                         result.p2Manglik
-                          ? "bg-[#FFD0C8]"
-                          : "bg-[#C6F6D5]"
+                          ? "bg-rose-50 text-rose-700 border-rose-200"
+                          : "bg-emerald-50 text-emerald-700 border-emerald-200"
                       )}
                     >
                       {result.p2Manglik ? t.p2ManglikText : t.p2NonManglikText}
                     </span>
                   </div>
-                  <p className="text-sm text-neutral-700 font-extrabold mt-2 leading-relaxed">
+                  <p className="text-sm text-neutral-600 font-medium mt-2 leading-relaxed font-sans">
                     {result.manglikCompatible ? t.manglikCompatible : t.manglikIncompatible}
                   </p>
                 </CardContent>
@@ -525,20 +525,20 @@ export function MatchingContainer({ locale }: { locale: string }) {
 
               {/* Ashtakoot Grid Breakdown */}
               <div className="space-y-4">
-                <h3 className="text-lg font-serif text-black font-black uppercase tracking-tight">{t.gunaBreakdown}</h3>
+                <h3 className="text-lg font-serif text-black font-bold uppercase tracking-tight">{t.gunaBreakdown}</h3>
                 <div className="grid grid-cols-1 gap-4">
                   {Object.entries(result.gunas).map(([key, item]: [string, any], idx) => (
                     <div
                       key={idx}
-                      className="p-4 rounded-xl border-2 border-black bg-white shadow-[2px_2px_0px_#000] flex flex-col gap-2 hover:bg-[#FFF9E6]/30 transition-all"
+                      className="p-4 rounded-xl border border-zinc-150 bg-white shadow-sm flex flex-col gap-2 hover:bg-[#FFF9E6]/10 transition-all font-sans"
                     >
                       <div className="flex justify-between items-center">
-                        <span className="text-sm font-black text-black">{item.name}</span>
-                        <span className="text-sm font-mono font-black text-black">
+                        <span className="text-sm font-bold text-black font-serif">{item.name}</span>
+                        <span className="text-sm font-mono font-bold text-[#b28b3a]">
                           {item.score} / {item.max}
                         </span>
                       </div>
-                      <p className="text-xs text-neutral-600 font-bold leading-normal">
+                      <p className="text-xs text-neutral-500 font-medium leading-normal">
                         {item.description}
                       </p>
                     </div>

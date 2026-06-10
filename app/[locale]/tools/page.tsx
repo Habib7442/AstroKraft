@@ -147,13 +147,13 @@ export default async function Page({ params }: { params: Promise<PageParams> }) 
         <div className="max-w-6xl mx-auto space-y-12">
           {/* Header Title */}
           <div className="text-center space-y-4">
-            <span className="inline-flex items-center gap-1.5 px-4.5 py-1.5 border-2 border-black bg-[#FFC000] text-black text-[10px] sm:text-xs font-black uppercase tracking-wider shadow-[2.5px_2.5px_0px_#000] select-none rounded-full">
+            <span className="inline-flex items-center gap-1.5 px-4.5 py-1.5 border border-[#E2C27A]/30 bg-[#E2C27A]/10 text-[#b28b3a] text-[10px] sm:text-xs font-bold uppercase tracking-wider shadow-sm select-none rounded-full">
               ✦ 100% Free Celestial Calculations
             </span>
-            <h1 className="text-3xl sm:text-5xl font-serif text-black font-black tracking-tight mt-1">
+            <h1 className="text-3xl sm:text-5xl font-serif text-black font-bold tracking-tight mt-1">
               {t.title}
             </h1>
-            <p className="text-sm sm:text-base text-black font-semibold max-w-2xl mx-auto leading-relaxed">
+            <p className="text-sm sm:text-base text-zinc-650 font-semibold max-w-2xl mx-auto leading-relaxed">
               {t.subtitle}
             </p>
           </div>
@@ -166,48 +166,48 @@ export default async function Page({ params }: { params: Promise<PageParams> }) 
                 <div
                   key={idx}
                   className={cn(
-                    "group relative border-[3px] border-black rounded-2xl flex flex-col justify-between overflow-hidden p-6 select-none text-black shadow-[4px_4px_0px_#000] transition-all duration-200 min-h-[18rem]",
+                    "group relative border border-zinc-150 rounded-2xl flex flex-col justify-between overflow-hidden p-6 select-none text-black shadow-sm transition-all duration-300 min-h-[18rem]",
                     tool.active 
-                      ? cn(toolColors[idx % toolColors.length], "hover:shadow-[6px_6px_0px_#000] hover:-translate-y-0.5 hover:-translate-x-0.5 active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#000] cursor-pointer") 
-                      : "bg-neutral-50/70 border-dashed opacity-60 cursor-not-allowed"
+                      ? cn(toolColors[idx % toolColors.length], "hover:shadow-md hover:-translate-y-1 cursor-pointer") 
+                      : "bg-neutral-50/40 border-dashed border-zinc-200 opacity-60 cursor-not-allowed"
                   )}
                 >
                   <div className="flex flex-col gap-4">
                     <div className="flex justify-between items-start">
                       {/* Icon wrapper */}
                       <div className={cn(
-                        "p-3 rounded-2xl border-2 border-black bg-white shadow-[2px_2px_0px_#000] w-fit",
+                        "p-3 rounded-2xl border border-zinc-150 bg-white shadow-sm w-fit",
                         !tool.active && "opacity-50"
                       )}>
-                        <Icon className={cn("w-6 h-6 stroke-[2.5px]", tool.iconColor)} />
+                        <Icon className={cn("w-6 h-6 stroke-[2px]", tool.iconColor)} />
                       </div>
 
                       {/* Badge if coming soon */}
                       {!tool.active && (
-                        <span className="px-2.5 py-0.5 rounded-full text-[9px] font-black tracking-wider uppercase bg-white border-2 border-black shadow-[1.5px_1.5px_0px_#000] text-black">
+                        <span className="px-2.5 py-0.5 rounded-full text-[9px] font-bold tracking-wider uppercase bg-white border border-zinc-200 shadow-sm text-zinc-500">
                           {t.comingSoon}
                         </span>
                       )}
                     </div>
 
-                    <h3 className="text-lg font-serif font-black text-black">
+                    <h3 className="text-lg font-serif font-bold text-black">
                       {tool.title}
                     </h3>
                   </div>
 
                   <div className="flex flex-col justify-between mt-4 gap-6">
-                    <p className="text-neutral-600 font-semibold text-xs leading-relaxed">
+                    <p className="text-zinc-650 font-semibold text-xs leading-relaxed">
                       {tool.desc}
                     </p>
 
                     {tool.active ? (
                       <a href={tool.href} className="w-full">
-                        <button className="w-full text-xs font-black uppercase tracking-wider py-2.5 rounded-full border-2 border-black bg-white hover:bg-neutral-50 hover:shadow-[3px_3px_0px_#000] hover:-translate-y-[0.5px] hover:-translate-x-[0.5px] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#000] transition-all cursor-pointer shadow-[2px_2px_0px_#000]">
+                        <button className="w-full text-xs font-bold uppercase tracking-wider py-2.5 rounded-full border border-zinc-200 bg-white hover:bg-neutral-50 transition-all duration-250 cursor-pointer shadow-sm">
                           {t.exploreBtn}
                         </button>
                       </a>
                     ) : (
-                      <button disabled className="w-full text-xs font-black uppercase tracking-wider py-2.5 rounded-full border-2 border-black bg-neutral-100 text-neutral-400 cursor-not-allowed opacity-60">
+                      <button disabled className="w-full text-xs font-bold uppercase tracking-wider py-2.5 rounded-full border border-zinc-200 bg-neutral-100 text-neutral-400 cursor-not-allowed opacity-60">
                         {t.comingSoon}
                       </button>
                     )}

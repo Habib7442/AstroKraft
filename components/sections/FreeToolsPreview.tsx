@@ -92,10 +92,10 @@ function FreeToolCard({ tool, t, index }: FreeToolCardProps) {
       radius={300}
       useCanvas={false}
       className={cn(
-        "group relative border-[3px] border-black rounded-2xl flex flex-col justify-between overflow-hidden p-8 select-none text-black shadow-[4px_4px_0px_#000] transition-all duration-200 min-h-[16rem]",
+        "group relative border rounded-2xl flex flex-col justify-between overflow-hidden p-8 select-none text-black shadow-sm transition-all duration-300 min-h-[16rem]",
         tool.active 
-          ? cn(toolColors[index % toolColors.length], "hover:shadow-[6px_6px_0px_#000] hover:-translate-y-0.5 hover:-translate-x-0.5 active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#000] cursor-pointer") 
-          : "bg-neutral-50/70 border-dashed opacity-60 cursor-not-allowed"
+          ? "bg-white border-zinc-150 hover:shadow-md hover:-translate-y-1 cursor-pointer" 
+          : "bg-neutral-50/50 border-dashed border-zinc-200 opacity-60 cursor-not-allowed"
       )}
       style={{}}
     >
@@ -103,15 +103,15 @@ function FreeToolCard({ tool, t, index }: FreeToolCardProps) {
         <div className="flex justify-between items-start">
           {/* Icon wrapper */}
           <div className={cn(
-            "p-3 rounded-2xl border-2 border-black bg-white shadow-[2px_2px_0px_#000] w-fit",
+            "p-3 rounded-2xl border border-zinc-200 bg-white shadow-sm w-fit",
             !tool.active && "opacity-50"
           )}>
-            <Icon className="w-6 h-6 stroke-[2.5px] text-black" />
+            <Icon className="w-6 h-6 stroke-[1.5px] text-black" />
           </div>
 
           {/* Coming Soon status badge */}
           {!tool.active && (
-            <span className="px-2.5 py-0.5 rounded-full text-[9px] font-black tracking-wider uppercase bg-white border-2 border-black shadow-[1.5px_1.5px_0px_#000] text-black">
+            <span className="px-2.5 py-0.5 rounded-full text-[9px] font-bold tracking-wider uppercase bg-white border border-zinc-200 shadow-sm text-zinc-500">
               {t.comingSoon}
             </span>
           )}
@@ -119,25 +119,25 @@ function FreeToolCard({ tool, t, index }: FreeToolCardProps) {
 
         {/* Title & Description */}
         <div className="space-y-2.5">
-          <h3 className="font-serif text-xl font-black text-black">
+          <h3 className="font-serif text-xl font-bold text-black">
             {tool.title}
           </h3>
-          <p className="text-neutral-600 font-semibold text-xs leading-relaxed max-w-lg">
+          <p className="text-zinc-500 font-semibold text-xs leading-relaxed max-w-lg">
             {tool.desc}
           </p>
         </div>
       </div>
 
       {/* Launch / Explore Button */}
-      <div className="mt-8 pt-5 border-t-2 border-black flex justify-end">
+      <div className="mt-8 pt-5 border-t border-zinc-100 flex justify-end">
         {tool.active ? (
           <a href={tool.href} className="w-full sm:w-auto">
-            <button className="w-full sm:w-auto text-xs font-black uppercase tracking-wider py-2.5 px-6 rounded-full border-2 border-black bg-white hover:bg-neutral-50 hover:shadow-[3px_3px_0px_#000] hover:-translate-y-[0.5px] hover:-translate-x-[0.5px] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#000] transition-all cursor-pointer shadow-[2px_2px_0px_#000]">
+            <button className="w-full sm:w-auto text-xs font-bold uppercase tracking-wider py-2.5 px-6 rounded-full border border-zinc-200 bg-white hover:bg-neutral-50 text-zinc-700 hover:text-black transition-all cursor-pointer shadow-sm">
               {t.exploreBtn}
             </button>
           </a>
         ) : (
-          <button disabled className="w-full sm:w-auto text-xs font-black uppercase tracking-wider py-2.5 px-6 rounded-full border-2 border-black bg-neutral-100 text-neutral-400 cursor-not-allowed opacity-60">
+          <button disabled className="w-full sm:w-auto text-xs font-bold uppercase tracking-wider py-2.5 px-6 rounded-full border border-zinc-200 bg-neutral-50 text-neutral-400 cursor-not-allowed opacity-60">
             {t.comingSoon}
           </button>
         )}
@@ -186,7 +186,7 @@ export default function FreeToolsPreview({ locale = "en" }: FreeToolsPreviewProp
   ];
 
   return (
-    <section className="w-full py-16 px-6 md:px-12 lg:px-16 bg-[#FFFDF0]/30 relative overflow-hidden border-t-[3px] border-black">
+    <section className="w-full py-16 px-6 md:px-12 lg:px-16 bg-[#FFFDF0]/30 relative overflow-hidden border-t border-zinc-200">
       {/* Background ambient light */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-amber-200/5 blur-[160px] pointer-events-none -z-10" />
 
@@ -194,13 +194,13 @@ export default function FreeToolsPreview({ locale = "en" }: FreeToolsPreviewProp
         
         {/* Section Heading */}
         <div className="flex flex-col items-center text-center gap-3">
-          <span className="inline-flex items-center gap-1.5 px-4.5 py-1.5 border-2 border-black bg-[#FFC000] text-black text-[10px] sm:text-xs font-black uppercase tracking-wider shadow-[2.5px_2.5px_0px_#000] select-none rounded-full">
+          <span className="inline-flex items-center gap-1.5 px-4.5 py-1.5 border border-[#E2C27A]/30 bg-[#E2C27A]/15 text-primary text-[10px] sm:text-xs font-bold uppercase tracking-wider select-none rounded-full">
             {t.eyebrow}
           </span>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-black">
+          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-black">
             {t.heading}
           </h2>
-          <p className="max-w-2xl text-black font-semibold text-sm sm:text-base font-sans leading-relaxed">
+          <p className="max-w-2xl text-neutral-600 font-semibold text-sm sm:text-base font-sans leading-relaxed">
             {t.subheading}
           </p>
         </div>
@@ -216,7 +216,7 @@ export default function FreeToolsPreview({ locale = "en" }: FreeToolsPreviewProp
         <div className="flex justify-center mt-6">
           <a
             href={`/${locale}/tools`}
-            className="inline-flex items-center gap-2 px-7 py-3 rounded-full border-2 border-black bg-white hover:bg-neutral-50 text-black hover:shadow-[4px_4px_0px_#000] hover:-translate-y-0.5 hover:-translate-x-0.5 active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#000] text-xs font-black font-sans transition-all cursor-pointer shadow-[3px_3px_0px_#000]"
+            className="inline-flex items-center gap-2 px-7 py-3 rounded-full border border-zinc-200 bg-white hover:bg-neutral-50 text-zinc-700 hover:text-black transition-all cursor-pointer text-xs font-bold font-sans shadow-sm"
           >
             {t.viewAllBtn}
           </a>

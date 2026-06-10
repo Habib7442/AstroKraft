@@ -219,23 +219,23 @@ export function PanchangContainer({ locale }: { locale: string }) {
     <div className="max-w-4xl mx-auto space-y-10 select-none">
       {/* Hero Header Block */}
       <div className="text-center space-y-4 max-w-2xl mx-auto">
-        <span className="inline-block px-4 py-1.5 bg-[#FFC000] text-black border-2 border-black rounded-full shadow-[3px_3px_0px_#000] font-black uppercase text-[10px] sm:text-xs tracking-wider mb-2">
+        <span className="inline-block px-4 py-1.5 bg-[#E2C27A]/15 text-[#b28b3a] border border-[#E2C27A]/30 rounded-full font-bold uppercase text-[10px] sm:text-xs tracking-wider mb-2">
           ✦ {t.title} ✦
         </span>
-        <h1 className="text-3xl sm:text-5xl font-black text-black tracking-tight leading-tight uppercase">
+        <h1 className="text-3xl sm:text-5xl font-bold text-black tracking-tight leading-tight uppercase font-serif">
           {t.title}
         </h1>
-        <p className="text-sm sm:text-base text-neutral-600 font-bold max-w-md mx-auto leading-relaxed">
+        <p className="text-sm sm:text-base text-neutral-500 font-medium max-w-md mx-auto leading-relaxed">
           {t.subtitle}
         </p>
       </div>
 
       {!result ? (
         /* Form Card */
-        <Card className="bg-white border-[3px] border-black rounded-2xl shadow-[6px_6px_0px_#000] overflow-hidden">
-          <CardHeader className="bg-[#FFF9E6] border-b-2 border-black p-6">
-            <CardTitle className="text-lg font-black text-black uppercase tracking-wide flex items-center gap-2">
-              <Calendar className="w-5 h-5" />
+        <Card className="bg-white border border-zinc-150 rounded-2xl shadow-sm overflow-hidden">
+          <CardHeader className="bg-[#FFF9E6]/50 border-b border-zinc-150 p-6">
+            <CardTitle className="text-lg font-bold text-black uppercase tracking-wide flex items-center gap-2 font-serif">
+              <Calendar className="w-5 h-5 text-[#E2C27A]" />
               {t.formTitle}
             </CardTitle>
           </CardHeader>
@@ -244,37 +244,37 @@ export function PanchangContainer({ locale }: { locale: string }) {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {/* Date Input */}
                 <div className="space-y-2">
-                  <Label className="text-xs font-black text-black uppercase tracking-wider flex items-center gap-1.5">
-                    <Calendar className="w-4 h-4 text-[#FFC000]" />
+                  <Label className="text-xs font-bold text-neutral-600 uppercase tracking-wider flex items-center gap-1.5">
+                    <Calendar className="w-4 h-4 text-[#E2C27A]" />
                     {t.dateLabel}
                   </Label>
                   <Input
                     type="date"
                     value={formData.date}
                     onChange={(e) => setFormData((prev) => ({ ...prev, date: e.target.value }))}
-                    className="w-full bg-white border-2 border-black font-bold h-12"
+                    className="w-full bg-white border border-zinc-200 focus:border-[#E2C27A] focus:ring-1 focus:ring-[#E2C27A]/20 font-medium h-12 rounded-lg"
                   />
                 </div>
 
                 {/* Time Input */}
                 <div className="space-y-2">
-                  <Label className="text-xs font-black text-black uppercase tracking-wider flex items-center gap-1.5">
-                    <Clock className="w-4 h-4 text-[#FFC000]" />
+                  <Label className="text-xs font-bold text-neutral-600 uppercase tracking-wider flex items-center gap-1.5">
+                    <Clock className="w-4 h-4 text-[#E2C27A]" />
                     {t.timeLabel}
                   </Label>
                   <Input
                     type="time"
                     value={formData.time}
                     onChange={(e) => setFormData((prev) => ({ ...prev, time: e.target.value }))}
-                    className="w-full bg-white border-2 border-black font-bold h-12"
+                    className="w-full bg-white border border-zinc-200 focus:border-[#E2C27A] focus:ring-1 focus:ring-[#E2C27A]/20 font-medium h-12 rounded-lg"
                   />
                 </div>
               </div>
 
               {/* City Selection */}
               <div className="space-y-2">
-                <Label className="text-xs font-black text-black uppercase tracking-wider flex items-center gap-1.5">
-                  <MapPin className="w-4 h-4 text-[#FFC000]" />
+                <Label className="text-xs font-bold text-neutral-600 uppercase tracking-wider flex items-center gap-1.5">
+                  <MapPin className="w-4 h-4 text-[#E2C27A]" />
                   {t.cityLabel}
                 </Label>
                 <CityAutocomplete
@@ -289,10 +289,10 @@ export function PanchangContainer({ locale }: { locale: string }) {
                 type="submit"
                 disabled={loading}
                 className={cn(
-                  "w-full h-12 text-sm font-black uppercase tracking-wider border-2 border-black rounded-xl cursor-pointer transition-all flex items-center justify-center gap-2",
+                  "w-full h-12 text-sm font-bold uppercase tracking-wider rounded-full cursor-pointer transition-all flex items-center justify-center gap-2 border",
                   loading
-                    ? "bg-neutral-100 text-neutral-400"
-                    : "bg-[#FFC000] text-black shadow-[3px_3px_0px_#000] hover:shadow-[5px_5px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[2px_2px_0px_#000]"
+                    ? "bg-neutral-100 text-neutral-400 border-zinc-200"
+                    : "bg-[#E2C27A] hover:bg-[#E2C27A]/95 text-black border-transparent shadow-sm hover:shadow-md active:scale-[0.98]"
                 )}
               >
                 {loading ? t.generating : t.submitBtn}
@@ -305,18 +305,18 @@ export function PanchangContainer({ locale }: { locale: string }) {
         <div className="space-y-8 animate-in fade-in zoom-in duration-300">
           
           {/* Header block with date/time of check */}
-          <div className="bg-[#E5D5FF] border-[3px] border-black rounded-2xl p-6 shadow-[5px_5px_0px_#000] flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="bg-[#E5D5FF]/20 border border-purple-200/50 rounded-2xl p-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-              <h2 className="text-lg sm:text-xl font-black text-black uppercase tracking-wide">
+              <h2 className="text-lg sm:text-xl font-bold text-black uppercase tracking-wide font-serif">
                 {t.resultsTitle} {formData.cityName}
               </h2>
-              <p className="text-xs text-neutral-600 font-bold mt-1">
+              <p className="text-xs text-neutral-500 font-medium mt-1">
                 {formData.date} at {formData.time} (UTC {formData.timezone >= 0 ? `+${formData.timezone}` : formData.timezone})
               </p>
             </div>
             <Button
               onClick={() => setResult(null)}
-              className="bg-white hover:bg-neutral-100 text-black border-2 border-black font-black uppercase text-xs px-5 py-2.5 rounded-xl shadow-[3px_3px_0px_#000] hover:shadow-[4px_4px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[2px_2px_0px_#000] transition-all cursor-pointer w-fit"
+              className="bg-white hover:bg-neutral-50 text-neutral-700 hover:text-black border border-zinc-200 font-bold uppercase text-xs px-5 py-2.5 rounded-full shadow-sm hover:shadow transition-all cursor-pointer w-fit"
             >
               ← {t.backBtn}
             </Button>
@@ -324,52 +324,52 @@ export function PanchangContainer({ locale }: { locale: string }) {
 
           {/* Quick Sun & Moon times bar */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="bg-white border-2 border-black rounded-xl p-4 shadow-[3px_3px_0px_#000] flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-[#FFF2C2] border-2 border-black flex items-center justify-center">
+            <div className="bg-white border border-zinc-150 rounded-xl p-4 shadow-sm flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-[#FFF2C2] border border-amber-200 flex items-center justify-center">
                 <Sun className="w-5 h-5 text-amber-600 fill-amber-500" />
               </div>
               <div>
-                <p className="text-[10px] text-neutral-500 font-black uppercase">{t.sunrise}</p>
-                <p className="text-sm font-black text-black">{formatTime(result.sunrise)}</p>
+                <p className="text-[10px] text-neutral-400 font-bold uppercase tracking-wider">{t.sunrise}</p>
+                <p className="text-sm font-bold text-black font-sans">{formatTime(result.sunrise)}</p>
               </div>
             </div>
-            <div className="bg-white border-2 border-black rounded-xl p-4 shadow-[3px_3px_0px_#000] flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-[#FFE6CC] border-2 border-black flex items-center justify-center">
+            <div className="bg-white border border-zinc-150 rounded-xl p-4 shadow-sm flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-[#FFE6CC] border border-orange-200 flex items-center justify-center">
                 <Sun className="w-5 h-5 text-orange-600 fill-orange-500" />
               </div>
               <div>
-                <p className="text-[10px] text-neutral-500 font-black uppercase">{t.sunset}</p>
-                <p className="text-sm font-black text-black">{formatTime(result.sunset)}</p>
+                <p className="text-[10px] text-neutral-400 font-bold uppercase tracking-wider">{t.sunset}</p>
+                <p className="text-sm font-bold text-black font-sans">{formatTime(result.sunset)}</p>
               </div>
             </div>
-            <div className="bg-white border-2 border-black rounded-xl p-4 shadow-[3px_3px_0px_#000] flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-[#E5D5FF] border-2 border-black flex items-center justify-center">
+            <div className="bg-white border border-zinc-150 rounded-xl p-4 shadow-sm flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-[#E5D5FF] border border-indigo-200 flex items-center justify-center">
                 <Moon className="w-5 h-5 text-indigo-600 fill-indigo-400" />
               </div>
               <div>
-                <p className="text-[10px] text-neutral-500 font-black uppercase">{t.moonrise}</p>
-                <p className="text-sm font-black text-black">{formatTime(result.moonrise)}</p>
+                <p className="text-[10px] text-neutral-400 font-bold uppercase tracking-wider">{t.moonrise}</p>
+                <p className="text-sm font-bold text-black font-sans">{formatTime(result.moonrise)}</p>
               </div>
             </div>
-            <div className="bg-white border-2 border-black rounded-xl p-4 shadow-[3px_3px_0px_#000] flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-[#D2F4FF] border-2 border-black flex items-center justify-center">
+            <div className="bg-white border border-zinc-150 rounded-xl p-4 shadow-sm flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-[#D2F4FF] border border-cyan-200 flex items-center justify-center">
                 <Moon className="w-5 h-5 text-cyan-600 fill-cyan-400" />
               </div>
               <div>
-                <p className="text-[10px] text-neutral-500 font-black uppercase">{t.moonset}</p>
-                <p className="text-sm font-black text-black">{formatTime(result.moonset)}</p>
+                <p className="text-[10px] text-neutral-400 font-bold uppercase tracking-wider">{t.moonset}</p>
+                <p className="text-sm font-bold text-black font-sans">{formatTime(result.moonset)}</p>
               </div>
             </div>
           </div>
 
-          {/* Neo-brutalist navigation tabs */}
-          <div className="flex border-b-[3px] border-black bg-white rounded-xl overflow-hidden border-2 border-black shadow-[3px_3px_0px_#000] select-none p-1">
+          {/* Elegant navigation tabs */}
+          <div className="flex bg-neutral-100/80 rounded-xl overflow-hidden border border-neutral-200/50 select-none p-1">
             <button
               onClick={() => setActiveTab("details")}
               className={cn(
-                "flex-1 text-center py-3 text-xs sm:text-sm font-black uppercase tracking-wider border-2 rounded-lg cursor-pointer transition-all",
+                "flex-1 text-center py-3 text-xs sm:text-sm font-bold uppercase tracking-wider border rounded-lg cursor-pointer transition-all",
                 activeTab === "details"
-                  ? "bg-[#FFC000] text-black border-black shadow-[2px_2px_0px_#000]"
+                  ? "bg-white text-black border-zinc-200 shadow-sm"
                   : "bg-transparent text-neutral-500 border-transparent hover:text-black"
               )}
             >
@@ -378,9 +378,9 @@ export function PanchangContainer({ locale }: { locale: string }) {
             <button
               onClick={() => setActiveTab("auspicious")}
               className={cn(
-                "flex-1 text-center py-3 text-xs sm:text-sm font-black uppercase tracking-wider border-2 rounded-lg cursor-pointer transition-all",
+                "flex-1 text-center py-3 text-xs sm:text-sm font-bold uppercase tracking-wider border rounded-lg cursor-pointer transition-all",
                 activeTab === "auspicious"
-                  ? "bg-[#D1FAE5] text-black border-black shadow-[2px_2px_0px_#000]"
+                  ? "bg-white text-black border-zinc-200 shadow-sm"
                   : "bg-transparent text-neutral-500 border-transparent hover:text-black"
               )}
             >
@@ -389,9 +389,9 @@ export function PanchangContainer({ locale }: { locale: string }) {
             <button
               onClick={() => setActiveTab("inauspicious")}
               className={cn(
-                "flex-1 text-center py-3 text-xs sm:text-sm font-black uppercase tracking-wider border-2 rounded-lg cursor-pointer transition-all",
+                "flex-1 text-center py-3 text-xs sm:text-sm font-bold uppercase tracking-wider border rounded-lg cursor-pointer transition-all",
                 activeTab === "inauspicious"
-                  ? "bg-[#FFE4E6] text-black border-black shadow-[2px_2px_0px_#000]"
+                  ? "bg-white text-black border-zinc-200 shadow-sm"
                   : "bg-transparent text-neutral-500 border-transparent hover:text-black"
               )}
             >
@@ -401,35 +401,35 @@ export function PanchangContainer({ locale }: { locale: string }) {
 
           {/* Tab Content Panels */}
           {activeTab === "details" && (
-            <Card className="bg-white border-[3px] border-black rounded-2xl shadow-[5px_5px_0px_#000] overflow-hidden">
-              <CardContent className="p-0 flex flex-col divide-y-2 divide-black">
+            <Card className="bg-white border border-zinc-150 rounded-2xl shadow-sm overflow-hidden">
+              <CardContent className="p-0 flex flex-col divide-y divide-zinc-100">
                 {/* Vedic Weekday */}
                 <div className="flex flex-col md:flex-row">
-                  <div className="p-4 sm:p-5 font-black text-black bg-[#FFFDF0] border-b-2 md:border-b-0 md:border-r-2 border-black md:w-1/4 text-xs sm:text-sm uppercase tracking-wider flex items-center">
+                  <div className="p-4 sm:p-5 font-bold text-neutral-700 bg-neutral-50 md:border-b-0 md:border-r border-zinc-100 md:w-1/4 text-xs sm:text-sm uppercase tracking-wider flex items-center">
                     {t.weekday}
                   </div>
-                  <div className="p-4 sm:p-5 text-sm sm:text-base font-black text-black flex-1 flex items-center">
+                  <div className="p-4 sm:p-5 text-sm sm:text-base font-bold text-black flex-1 flex items-center font-sans">
                     {result.vaara}
                   </div>
                 </div>
 
                 {/* Tithi */}
                 <div className="flex flex-col md:flex-row">
-                  <div className="p-4 sm:p-5 font-black text-black bg-[#FFFDF0] border-b-2 md:border-b-0 md:border-r-2 border-black md:w-1/4 text-xs sm:text-sm uppercase tracking-wider flex items-center">
+                  <div className="p-4 sm:p-5 font-bold text-neutral-700 bg-neutral-50 md:border-b-0 md:border-r border-zinc-100 md:w-1/4 text-xs sm:text-sm uppercase tracking-wider flex items-center">
                     {t.tithi}
                   </div>
                   <div className="p-4 sm:p-5 space-y-4 flex-1">
                     {result.tithi.map((tithi, idx) => (
                       <div key={idx} className="flex flex-col gap-2 border-l-4 border-amber-400 pl-3 py-1">
                         <div className="flex flex-wrap items-center gap-2">
-                          <span className="text-sm sm:text-base font-black text-black">{tithi.name}</span>
+                          <span className="text-sm sm:text-base font-bold text-black font-sans">{tithi.name}</span>
                           {tithi.paksha && (
-                            <span className="px-2 py-0.5 bg-[#FFF2C2] text-black border border-black rounded text-[10px] font-black uppercase">
+                            <span className="px-2 py-0.5 bg-amber-50 text-amber-750 border border-amber-200 rounded text-[10px] font-bold uppercase">
                               {tithi.paksha}
                             </span>
                           )}
                         </div>
-                        <div className="text-xs text-neutral-500 font-bold flex flex-col sm:flex-row sm:gap-4 gap-1">
+                        <div className="text-xs text-neutral-400 font-semibold flex flex-col sm:flex-row sm:gap-4 gap-1">
                           <span>{t.timeStart}: {formatTime(tithi.start)}</span>
                           <span>{t.timeEnd}: {formatTime(tithi.end)}</span>
                         </div>
@@ -440,21 +440,21 @@ export function PanchangContainer({ locale }: { locale: string }) {
 
                 {/* Nakshatra */}
                 <div className="flex flex-col md:flex-row">
-                  <div className="p-4 sm:p-5 font-black text-black bg-[#FFFDF0] border-b-2 md:border-b-0 md:border-r-2 border-black md:w-1/4 text-xs sm:text-sm uppercase tracking-wider flex items-center">
+                  <div className="p-4 sm:p-5 font-bold text-neutral-700 bg-neutral-50 md:border-b-0 md:border-r border-zinc-100 md:w-1/4 text-xs sm:text-sm uppercase tracking-wider flex items-center">
                     {t.nakshatra}
                   </div>
                   <div className="p-4 sm:p-5 space-y-4 flex-1">
                     {result.nakshatra.map((nak, idx) => (
                       <div key={idx} className="flex flex-col gap-2 border-l-4 border-indigo-400 pl-3 py-1">
                         <div className="flex flex-wrap items-center gap-2">
-                          <span className="text-sm sm:text-base font-black text-black">{nak.name}</span>
+                          <span className="text-sm sm:text-base font-bold text-black font-sans">{nak.name}</span>
                           {nak.lord && (
-                            <span className="px-2 py-0.5 bg-[#E5D5FF] text-black border border-black rounded text-[10px] font-black uppercase">
+                            <span className="px-2 py-0.5 bg-purple-50 text-purple-750 border border-purple-200 rounded text-[10px] font-bold uppercase">
                               {t.lord}: {nak.lord.name} ({nak.lord.vedic_name})
                             </span>
                           )}
                         </div>
-                        <div className="text-xs text-neutral-500 font-bold flex flex-col sm:flex-row sm:gap-4 gap-1">
+                        <div className="text-xs text-neutral-400 font-semibold flex flex-col sm:flex-row sm:gap-4 gap-1">
                           <span>{t.timeStart}: {formatTime(nak.start)}</span>
                           <span>{t.timeEnd}: {formatTime(nak.end)}</span>
                         </div>
@@ -465,14 +465,14 @@ export function PanchangContainer({ locale }: { locale: string }) {
 
                 {/* Yoga */}
                 <div className="flex flex-col md:flex-row">
-                  <div className="p-4 sm:p-5 font-black text-black bg-[#FFFDF0] border-b-2 md:border-b-0 md:border-r-2 border-black md:w-1/4 text-xs sm:text-sm uppercase tracking-wider flex items-center">
+                  <div className="p-4 sm:p-5 font-bold text-neutral-700 bg-neutral-50 md:border-b-0 md:border-r border-zinc-100 md:w-1/4 text-xs sm:text-sm uppercase tracking-wider flex items-center">
                     {t.yoga}
                   </div>
                   <div className="p-4 sm:p-5 space-y-4 flex-1">
                     {result.yoga.map((yoga, idx) => (
                       <div key={idx} className="flex flex-col gap-1 border-l-4 border-purple-400 pl-3 py-1">
-                        <span className="text-sm sm:text-base font-black text-black">{yoga.name}</span>
-                        <div className="text-xs text-neutral-500 font-bold flex flex-col sm:flex-row sm:gap-4 gap-1">
+                        <span className="text-sm sm:text-base font-bold text-black font-sans">{yoga.name}</span>
+                        <div className="text-xs text-neutral-400 font-semibold flex flex-col sm:flex-row sm:gap-4 gap-1">
                           <span>{t.timeStart}: {formatTime(yoga.start)}</span>
                           <span>{t.timeEnd}: {formatTime(yoga.end)}</span>
                         </div>
@@ -483,14 +483,14 @@ export function PanchangContainer({ locale }: { locale: string }) {
 
                 {/* Karana */}
                 <div className="flex flex-col md:flex-row">
-                  <div className="p-4 sm:p-5 font-black text-black bg-[#FFFDF0] border-b-2 md:border-b-0 md:border-r-2 border-black md:w-1/4 text-xs sm:text-sm uppercase tracking-wider flex items-center">
+                  <div className="p-4 sm:p-5 font-bold text-neutral-700 bg-neutral-50 md:border-b-0 md:border-r border-zinc-100 md:w-1/4 text-xs sm:text-sm uppercase tracking-wider flex items-center">
                     {t.karana}
                   </div>
                   <div className="p-4 sm:p-5 space-y-4 flex-1">
                     {result.karana.map((karana, idx) => (
                       <div key={idx} className="flex flex-col gap-1 border-l-4 border-teal-400 pl-3 py-1">
-                        <span className="text-sm sm:text-base font-black text-black">{karana.name}</span>
-                        <div className="text-xs text-neutral-500 font-bold flex flex-col sm:flex-row sm:gap-4 gap-1">
+                        <span className="text-sm sm:text-base font-bold text-black font-sans">{karana.name}</span>
+                        <div className="text-xs text-neutral-400 font-semibold flex flex-col sm:flex-row sm:gap-4 gap-1">
                           <span>{t.timeStart}: {formatTime(karana.start)}</span>
                           <span>{t.timeEnd}: {formatTime(karana.end)}</span>
                         </div>
@@ -506,18 +506,18 @@ export function PanchangContainer({ locale }: { locale: string }) {
             <div className="space-y-6">
               {result.auspicious_period && result.auspicious_period.length > 0 ? (
                 result.auspicious_period.map((period, idx) => (
-                  <Card key={idx} className="bg-white border-2 border-black rounded-2xl shadow-[4px_4px_0px_#000] overflow-hidden">
-                    <CardHeader className="bg-[#D1FAE5] border-b-2 border-black p-4 flex flex-row items-center gap-2">
+                  <Card key={idx} className="bg-white border border-zinc-150 rounded-2xl shadow-sm overflow-hidden">
+                    <CardHeader className="bg-emerald-55 border-b border-zinc-150 p-4 flex flex-row items-center gap-2">
                       <Sparkles className="w-5 h-5 text-emerald-600" />
-                      <CardTitle className="text-sm sm:text-base font-black text-black uppercase tracking-wide">
+                      <CardTitle className="text-sm sm:text-base font-bold text-black uppercase tracking-wide font-serif">
                         {period.name}
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="p-5 space-y-3">
                       {period.period.map((time, tIdx) => (
                         <div key={tIdx} className="flex items-center justify-between text-sm border-b border-neutral-100 last:border-b-0 pb-2 last:pb-0">
-                          <span className="font-bold text-neutral-600">{t.periodTime}</span>
-                          <span className="font-black text-black bg-neutral-50 border border-neutral-300 rounded px-2.5 py-1 text-xs">
+                          <span className="font-semibold text-neutral-500">{t.periodTime}</span>
+                          <span className="font-bold text-neutral-700 bg-neutral-50 border border-neutral-200 rounded px-2.5 py-1 text-xs font-sans">
                             {formatTime(time.start)} — {formatTime(time.end)}
                           </span>
                         </div>
@@ -526,7 +526,7 @@ export function PanchangContainer({ locale }: { locale: string }) {
                   </Card>
                 ))
               ) : (
-                <div className="bg-[#FFFDF0] border-2 border-black border-dashed rounded-xl p-8 text-center text-neutral-500 font-bold text-sm">
+                <div className="bg-neutral-50 border border-zinc-200 border-dashed rounded-xl p-8 text-center text-neutral-500 font-medium text-sm">
                   {t.noData}
                 </div>
               )}
@@ -537,18 +537,18 @@ export function PanchangContainer({ locale }: { locale: string }) {
             <div className="space-y-6">
               {result.inauspicious_period && result.inauspicious_period.length > 0 ? (
                 result.inauspicious_period.map((period, idx) => (
-                  <Card key={idx} className="bg-white border-2 border-black rounded-2xl shadow-[4px_4px_0px_#000] overflow-hidden">
-                    <CardHeader className="bg-[#FFE4E6] border-b-2 border-black p-4 flex flex-row items-center gap-2">
+                  <Card key={idx} className="bg-white border border-zinc-150 rounded-2xl shadow-sm overflow-hidden">
+                    <CardHeader className="bg-[#FFE4E6]/50 border-b border-zinc-150 p-4 flex flex-row items-center gap-2">
                       <AlertTriangle className="w-5 h-5 text-rose-600" />
-                      <CardTitle className="text-sm sm:text-base font-black text-black uppercase tracking-wide">
+                      <CardTitle className="text-sm sm:text-base font-bold text-black uppercase tracking-wide font-serif">
                         {period.name}
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="p-5 space-y-3">
                       {period.period.map((time, tIdx) => (
                         <div key={tIdx} className="flex items-center justify-between text-sm border-b border-neutral-100 last:border-b-0 pb-2 last:pb-0">
-                          <span className="font-bold text-neutral-600">{t.periodTime}</span>
-                          <span className="font-black text-rose-600 bg-rose-50 border border-rose-300 rounded px-2.5 py-1 text-xs">
+                          <span className="font-semibold text-neutral-500">{t.periodTime}</span>
+                          <span className="font-bold text-rose-700 bg-rose-50 border border-rose-200 rounded px-2.5 py-1 text-xs font-sans">
                             {formatTime(time.start)} — {formatTime(time.end)}
                           </span>
                         </div>
@@ -557,7 +557,7 @@ export function PanchangContainer({ locale }: { locale: string }) {
                   </Card>
                 ))
               ) : (
-                <div className="bg-[#FFFDF0] border-2 border-black border-dashed rounded-xl p-8 text-center text-neutral-500 font-bold text-sm">
+                <div className="bg-neutral-50 border border-zinc-200 border-dashed rounded-xl p-8 text-center text-neutral-500 font-medium text-sm">
                   {t.noData}
                 </div>
               )}

@@ -246,19 +246,16 @@ export default function Globe3DDemo({ className, locale = "en" }: Globe3DDemoPro
           role="dialog"
           aria-modal="true"
           aria-labelledby="modal-title"
-          className={cn(
-            "w-full max-w-[330px] sm:max-w-[340px] max-h-[85vh] sm:max-h-[80vh] border-[3px] border-black rounded-2xl shadow-[6px_6px_0px_#000] p-4 flex flex-col gap-3 relative text-black cursor-default transition-all duration-300 transform scale-100 animate-in fade-in zoom-in-95 duration-200 overflow-hidden",
-            selectedKey ? cardColors[selectedKey] || "bg-white" : "bg-white"
-          )}
+          className="w-full max-w-[330px] sm:max-w-[340px] max-h-[85vh] sm:max-h-[80vh] border border-zinc-150 bg-white rounded-2xl shadow-xl p-4 flex flex-col gap-3 relative text-black cursor-default transition-all duration-300 transform scale-100 animate-in fade-in zoom-in-95 duration-200 overflow-hidden"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Close Button */}
           <button
             onClick={() => setSelectedKey(null)}
-            className="absolute top-3.5 right-3.5 p-1 rounded-full text-black hover:bg-neutral-100 hover:text-black border-2 border-black bg-white w-7 h-7 flex items-center justify-center shadow-[1.5px_1.5px_0px_#000] active:translate-x-[0.5px] active:translate-y-[0.5px] active:shadow-none transition-all cursor-pointer z-50 animate-pulse-slow"
+            className="absolute top-3.5 right-3.5 p-1 rounded-full text-zinc-500 hover:bg-neutral-100 hover:text-black border border-zinc-200 bg-white w-7 h-7 flex items-center justify-center shadow-sm transition-all cursor-pointer z-50"
             aria-label="Close details"
           >
-            <X className="w-3.5 h-3.5 stroke-[2.5px]" />
+            <X className="w-3.5 h-3.5 stroke-[1.5px]" />
           </button>
 
           {/* Scrollable Content Wrapper */}
@@ -267,7 +264,7 @@ export default function Globe3DDemo({ className, locale = "en" }: Globe3DDemoPro
             <div className="flex flex-col items-center text-center mt-1">
               {/* Avatar Frame with Pulse Status */}
               <div className="relative shrink-0 mb-1.5">
-                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden border-[3px] border-black bg-white shadow-[2.5px_2.5px_0px_#000] p-0.5 animate-bounce-slow">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden border border-zinc-200 bg-white shadow-sm p-0.5 animate-bounce-slow">
                   <img
                     src={astrologer.src}
                     alt={astrologer.name}
@@ -285,7 +282,7 @@ export default function Globe3DDemo({ className, locale = "en" }: Globe3DDemoPro
                   />
                   <span
                     className={cn(
-                      "relative inline-flex rounded-full h-3 w-3 border-2 border-black",
+                      "relative inline-flex rounded-full h-3 w-3 border border-white",
                       astrologer.status === "online" ? "bg-emerald-500" : "bg-amber-500"
                     )}
                   />
@@ -293,24 +290,23 @@ export default function Globe3DDemo({ className, locale = "en" }: Globe3DDemoPro
               </div>
 
               {/* Text Meta */}
-              <h3 id="modal-title" className="font-serif text-base sm:text-lg font-black tracking-wide text-black">
+              <h3 id="modal-title" className="font-serif text-base sm:text-lg font-bold tracking-wide text-black">
                 {astrologer.name}
               </h3>
-              <p className="text-[10px] sm:text-xs font-black text-black bg-white border-2 border-black px-2.5 py-0.5 rounded-full shadow-[1.5px_1.5px_0px_#000] mt-1.5 leading-none">
+              <p className="text-[10px] sm:text-xs font-bold text-[#b28b3a] bg-[#E2C27A]/10 border border-[#E2C27A]/30 px-2.5 py-0.5 rounded-full shadow-sm mt-1.5 leading-none">
                 {astrologer.specialty[activeLocale] || astrologer.specialty["en"]}
               </p>
-              <p className="text-[10px] sm:text-[11px] text-neutral-600 font-semibold leading-relaxed mt-2.5 max-w-xs font-sans border-t-2 border-black pt-2 px-1 text-center">
+              <p className="text-[10px] sm:text-[11px] text-zinc-500 font-semibold leading-relaxed mt-2.5 max-w-xs font-sans border-t border-zinc-100 pt-2 px-1 text-center">
                 {astrologer.description[activeLocale] || astrologer.description["en"]}
               </p>
               <span
                 className={cn(
-                  "inline-flex items-center gap-1.5 mt-2.5 px-3 py-1 rounded-full text-[9px] sm:text-[10px] font-black uppercase border-2 border-black bg-white text-black shadow-[1.5px_1.5px_0px_#000]",
-                  astrologer.status === "online" ? "text-emerald-600" : "text-amber-600"
+                  "inline-flex items-center gap-1.5 mt-2.5 px-3 py-1 rounded-full text-[9px] sm:text-[10px] font-bold uppercase border border-zinc-200 bg-white text-zinc-700 shadow-sm"
                 )}
               >
                 <span
                   className={cn(
-                    "h-1.5 w-1.5 rounded-full animate-pulse border border-black",
+                    "h-1.5 w-1.5 rounded-full animate-pulse",
                     astrologer.status === "online" ? "bg-emerald-400" : "bg-amber-400"
                   )}
                 />
@@ -319,78 +315,78 @@ export default function Globe3DDemo({ className, locale = "en" }: Globe3DDemoPro
             </div>
 
             {/* Badges & Stats Grid */}
-            <div className="grid grid-cols-2 gap-2 border-y-2 border-black py-2.5 my-1">
-              <div className="flex flex-col items-center justify-center p-2 rounded-xl bg-white border-2 border-black shadow-[2px_2px_0px_#000]">
-                <Award className="w-3.5 h-3.5 text-black stroke-[2.5px] shrink-0 mb-0.5" />
-                <span className="text-[8px] text-neutral-500 font-black uppercase tracking-wider scale-95">Experience</span>
-                <span className="font-serif text-[10px] font-black mt-0.5 text-black">{astrologer.experience} {t("exp")}</span>
+            <div className="grid grid-cols-2 gap-2 border-y border-zinc-100 py-2.5 my-1">
+              <div className="flex flex-col items-center justify-center p-2 rounded-xl bg-white border border-zinc-150 shadow-sm">
+                <Award className="w-3.5 h-3.5 text-zinc-400 stroke-[1.5px] shrink-0 mb-0.5" />
+                <span className="text-[8px] text-zinc-400 font-bold uppercase tracking-wider scale-95">Experience</span>
+                <span className="font-serif text-[10px] font-bold mt-0.5 text-zinc-800">{astrologer.experience} {t("exp")}</span>
               </div>
-              <div className="flex flex-col items-center justify-center p-2 rounded-xl bg-white border-2 border-black shadow-[2px_2px_0px_#000]">
-                <Star className="w-3.5 h-3.5 text-[#FFC000] fill-[#FFC000] stroke-black stroke-[1.5px] shrink-0 mb-0.5" />
-                <span className="text-[8px] text-neutral-500 font-black uppercase tracking-wider scale-95">Rating</span>
-                <span className="font-serif text-[10px] font-black mt-0.5 text-black">{astrologer.rating} / 5</span>
+              <div className="flex flex-col items-center justify-center p-2 rounded-xl bg-white border border-zinc-150 shadow-sm">
+                <Star className="w-3.5 h-3.5 text-[#E2C27A] fill-[#E2C27A] shrink-0 mb-0.5" />
+                <span className="text-[8px] text-zinc-400 font-bold uppercase tracking-wider scale-95">Rating</span>
+                <span className="font-serif text-[10px] font-bold mt-0.5 text-zinc-800">{astrologer.rating} / 5</span>
               </div>
             </div>
 
             {/* Contact Details & Fee Card */}
-            <div className="flex flex-col gap-2 bg-white border-2 border-black rounded-xl p-3 text-[11px] font-black text-black shadow-[3px_3px_0px_#000]">
-              <div className="flex items-center justify-between text-black">
+            <div className="flex flex-col gap-2 bg-white border border-zinc-150 rounded-xl p-3 text-[11px] font-bold text-zinc-700 shadow-sm">
+              <div className="flex items-center justify-between text-zinc-750">
                 <span>💰 Consultation Fee</span>
-                <span className="font-black text-black font-serif text-xs">₹{astrologer.fee.toFixed(2)}</span>
+                <span className="font-bold text-black font-serif text-xs">₹{astrologer.fee.toFixed(2)}</span>
               </div>
-              <div className="flex items-center justify-between text-black">
+              <div className="flex items-center justify-between text-zinc-750">
                 <span>📞 Phone</span>
                 <div className="flex items-center gap-1">
-                  <a href={`tel:${astrologer.phone}`} className="font-bold text-black hover:text-[#FFC000] hover:underline transition-colors">{astrologer.phone}</a>
+                  <a href={`tel:${astrologer.phone}`} className="font-bold text-zinc-850 hover:text-primary hover:underline transition-colors">{astrologer.phone}</a>
                   <button 
                     onClick={() => handleCopyText(astrologer.phone, "Phone number")}
-                    className="p-1 text-black hover:bg-black/5 rounded transition-colors cursor-pointer"
+                    className="p-1 text-zinc-500 hover:bg-black/5 rounded transition-colors cursor-pointer"
                     title="Copy phone number"
                   >
-                    <Copy className="w-3 h-3 text-black stroke-[2px]" />
+                    <Copy className="w-3 h-3 text-zinc-400 stroke-[1.5px]" />
                   </button>
                 </div>
               </div>
-              <div className="flex items-center justify-between text-black">
+              <div className="flex items-center justify-between text-zinc-750">
                 <span>📧 Email</span>
                 <div className="flex items-center gap-1 max-w-[170px]">
-                  <a href={`mailto:${astrologer.email}`} className="font-bold text-black hover:text-[#FFC000] hover:underline transition-colors select-all truncate text-right">{astrologer.email}</a>
+                  <a href={`mailto:${astrologer.email}`} className="font-bold text-zinc-850 hover:text-primary hover:underline transition-colors select-all truncate text-right">{astrologer.email}</a>
                   <button 
                     onClick={() => handleCopyText(astrologer.email, "Email address")}
-                    className="p-1 text-black hover:bg-black/5 rounded transition-colors cursor-pointer shrink-0"
+                    className="p-1 text-zinc-500 hover:bg-black/5 rounded transition-colors cursor-pointer shrink-0"
                     title="Copy email address"
                   >
-                    <Copy className="w-3 h-3 text-black stroke-[2px]" />
+                    <Copy className="w-3 h-3 text-zinc-400 stroke-[1.5px]" />
                   </button>
                 </div>
               </div>
-              <div className="border-t-2 border-black pt-2 mt-1 text-[10px] text-black flex flex-col gap-1">
+              <div className="border-t border-zinc-105 pt-2 mt-1 text-[10px] text-zinc-700 flex flex-col gap-1">
                 <div className="flex items-center justify-between">
-                  <span className="font-black text-black uppercase tracking-wider text-[8px]">Address</span>
+                  <span className="font-bold text-zinc-400 uppercase tracking-wider text-[8px]">Address</span>
                   <button 
                     onClick={() => handleCopyText(astrologer.address[activeLocale] || astrologer.address["en"], "Address")}
-                    className="p-0.5 text-black hover:bg-black/5 rounded transition-colors cursor-pointer"
+                    className="p-0.5 text-zinc-500 hover:bg-black/5 rounded transition-colors cursor-pointer"
                     title="Copy address"
                   >
-                    <Copy className="w-3 h-3 text-black stroke-[2px]" />
+                    <Copy className="w-3 h-3 text-zinc-400 stroke-[1.5px]" />
                   </button>
                 </div>
-                <span className="leading-relaxed font-semibold text-neutral-600">{astrologer.address[activeLocale] || astrologer.address["en"]}</span>
+                <span className="leading-relaxed font-semibold text-zinc-500">{astrologer.address[activeLocale] || astrologer.address["en"]}</span>
               </div>
             </div>
           </div>
 
           {/* Sticky Call to Action Button */}
-          <div className="pt-3 border-t-2 border-black shrink-0 flex gap-2">
+          <div className="pt-3 border-t border-zinc-100 shrink-0 flex gap-2">
             <a
               href={`/${locale}/astrologers/${selectedKey}`}
-              className="flex-1 flex items-center justify-center bg-white border-2 border-black hover:bg-neutral-50 text-black hover:shadow-[3px_3px_0px_#000] hover:-translate-y-[1px] hover:-translate-x-[1px] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#000] transition-all font-black py-2.5 px-2.5 rounded-full text-xs font-sans tracking-wide text-center shadow-[2px_2px_0px_#000]"
+              className="flex-1 flex items-center justify-center bg-white border border-zinc-200 hover:bg-neutral-50 text-zinc-700 hover:text-black transition-all font-bold py-2.5 px-2.5 rounded-full text-xs font-sans tracking-wide text-center shadow-sm"
             >
               View Profile
             </a>
             <a
               href={`/${locale}/consultation?astrologer=${selectedKey}`}
-              className="flex-1 flex items-center justify-center gap-1.5 bg-[#FFC000] hover:bg-[#FFC000]/95 text-black border-2 border-black hover:shadow-[3px_3px_0px_#000] hover:-translate-y-[1px] hover:-translate-x-[1px] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#000] transition-all font-black py-2.5 px-2.5 rounded-full cursor-pointer text-xs font-sans tracking-wide text-center shadow-[2px_2px_0px_#000]"
+              className="flex-1 flex items-center justify-center gap-1.5 bg-[#E2C27A] hover:bg-[#E2C27A]/90 text-black transition-all font-bold py-2.5 px-2.5 rounded-full cursor-pointer text-xs font-sans tracking-wide text-center shadow-sm"
             >
               {t("consult_now")}
             </a>
@@ -408,10 +404,11 @@ export default function Globe3DDemo({ className, locale = "en" }: Globe3DDemoPro
         config={{
           showAtmosphere: false,
           atmosphereColor: "#fbbf24", // Premium gold halo glow to match theme
-          atmosphereIntensity: 1.4,
+          atmosphereIntensity: 2.0, // Vibrant glow
           atmosphereBlur: 3.5,
-          ambientIntensity: 1.2, // Brighter ambient light to lift shadows
-          pointLightIntensity: 2.2, // Stronger point lighting for vibrant surface details
+          ambientIntensity: 1.4, // Brighter ambient light to lift shadows
+          pointLightIntensity: 2.5, // Stronger point lighting for vibrant surface details
+          emissiveColor: "#241852", // Matches the deep spiritual violet backdrop
           bumpScale: 5,
           autoRotateSpeed: 0.35, // Enable slow elegant auto rotation
           initialRotation: { x: 0.35, y: -0.6 } // Center view on Africa/Middle East so London, New Delhi, and Cape Town markers display cleanly at startup
