@@ -1,6 +1,8 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 
+const ZODIAC_WHEEL_SRC = "/assets/zodiac_wheel.png?v=20260610";
+
 export function ZodiacWheel({ className }: { className?: string }) {
   return (
     <div
@@ -10,7 +12,7 @@ export function ZodiacWheel({ className }: { className?: string }) {
       )}
     >
       <img
-        src="/assets/zodiac_wheel.png"
+        src={ZODIAC_WHEEL_SRC}
         alt="Zodiac Wheel"
         className="w-full h-full object-contain opacity-80 dark:opacity-90 rounded-full"
       />

@@ -1,21 +1,36 @@
 "use client";
 
+import Image from "next/image";
 import React from "react";
 import {
-  UserCheck,
-  Gem,
-  Flame,
-  Home,
-  Layout,
-  HeartHandshake,
   ArrowRight,
   Compass,
 } from "lucide-react";
+import servicesData from "@/lib/data/services.json";
 import { cn } from "@/lib/utils";
+
+type ServiceCopy = {
+  title: string;
+  desc: string;
+};
+
+type ServicesDictionary = {
+  services: {
+    title: string;
+    subtitle: string;
+    cta: string;
+    astrologer: ServiceCopy;
+    gemstone: ServiceCopy;
+    kundli_match: ServiceCopy;
+    purohit: ServiceCopy;
+    vastu_consult: ServiceCopy;
+    vastu_plan: ServiceCopy;
+  };
+};
 
 interface ServicesBentoProps {
   locale: string;
-  dict: any;
+  dict: ServicesDictionary;
 }
 
 export function ServicesBento({ locale, dict }: ServicesBentoProps) {
@@ -24,75 +39,69 @@ export function ServicesBento({ locale, dict }: ServicesBentoProps) {
   const cards = [
     {
       id: "astrologer",
+      serviceId: "astrologer",
       title: s.astrologer.title,
       desc: s.astrologer.desc,
       href: `/${locale}/astrologers`,
-      icon: UserCheck,
       badge: "24/7 Live",
       badgeColor: "bg-green-500/10 text-green-500 dark:text-green-400 border-green-500/20",
       className: "lg:col-span-2 lg:row-span-1",
-      iconColor: "text-primary",
       glowColor: "color-mix(in srgb, var(--primary) 10%, transparent)",
     },
     {
       id: "gemstone",
+      serviceId: "gemstone",
       title: s.gemstone.title,
       desc: s.gemstone.desc,
       href: `/${locale}/gemstones`,
-      icon: Gem,
       badge: "Lab Certified",
       badgeColor: "bg-gold/15 text-gold border-gold/30",
       className: "lg:col-span-1 lg:row-span-2",
-      iconColor: "text-gold",
       isVertical: true,
       glowColor: "color-mix(in srgb, var(--gold-line) 12%, transparent)",
     },
     {
       id: "kundli-match",
+      serviceId: "kundli_match",
       title: s.kundli_match.title,
       desc: s.kundli_match.desc,
       href: `/${locale}/tools/matching`,
-      icon: HeartHandshake,
       badge: "100% Free",
       badgeColor: "bg-blue-500/10 text-blue-500 dark:text-blue-400 border-blue-500/20",
       className: "lg:col-span-1 lg:row-span-1",
-      iconColor: "text-blue-500",
       glowColor: "rgba(59, 130, 246, 0.08)",
     },
     {
       id: "purohit",
+      serviceId: "purohit",
       title: s.purohit.title,
       desc: s.purohit.desc,
       href: `/${locale}/purohits`,
-      icon: Flame,
       badge: "Verified Priest",
       badgeColor: "bg-red-500/10 text-red-500 dark:text-red-400 border-red-500/20",
       className: "lg:col-span-1 lg:row-span-1",
-      iconColor: "text-red-500",
       glowColor: "rgba(239, 68, 68, 0.08)",
     },
     {
       id: "vastu-consult",
+      serviceId: "vastu_consult",
       title: s.vastu_consult.title,
       desc: s.vastu_consult.desc,
       href: `/${locale}/vastu`,
-      icon: Home,
       badge: "Expert Audit",
       badgeColor: "bg-purple-500/10 text-purple-500 dark:text-purple-400 border-purple-500/20",
       className: "lg:col-span-1 lg:row-span-1",
-      iconColor: "text-purple-500",
       glowColor: "rgba(168, 85, 247, 0.08)",
     },
     {
       id: "vastu-plan",
+      serviceId: "vastu_plan",
       title: s.vastu_plan.title,
       desc: s.vastu_plan.desc,
       href: `/${locale}/vastu`,
-      icon: Layout,
       badge: "2D Layout",
       badgeColor: "bg-orange-500/10 text-orange-500 dark:text-orange-400 border-orange-500/20",
       className: "lg:col-span-2 lg:row-span-1",
-      iconColor: "text-orange-500",
       glowColor: "rgba(249, 115, 22, 0.08)",
     },
   ];
@@ -119,7 +128,8 @@ export function ServicesBento({ locale, dict }: ServicesBentoProps) {
         {/* Bento Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[minmax(220px,_auto)]">
           {cards.map((card) => {
-            const Icon = card.icon;
+            const serviceImage = servicesData.find((service) => service.id === card.serviceId)?.image;
+
             return (
               <a
                 key={card.id}
@@ -144,9 +154,19 @@ export function ServicesBento({ locale, dict }: ServicesBentoProps) {
                 <div className="flex flex-col gap-4">
                   <div className="flex justify-between items-start">
                     {/* Icon wrapper with soft background */}
-                    <div className={cn("p-3 rounded-lg bg-secondary/50", card.iconColor)}>
-                      <Icon className="w-6 h-6" />
-                    </div>
+                    {serviceImage && (
+                      <div className="rounded-full bg-secondary/50 p-1 shadow-sm">
+                        <Image
+                          src={serviceImage}
+                          alt={card.title}
+                          width={64}
+                          height={64}
+                          sizes="64px"
+                          className="h-14 w-14 rounded-full object-cover"
+                          draggable={false}
+                        />
+                      </div>
+                    )}
                     {/* Custom Badge */}
                     {card.badge && (
                       <span

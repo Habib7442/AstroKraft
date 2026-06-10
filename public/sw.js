@@ -1,4 +1,4 @@
-const CACHE_NAME = 'astrokraft-cache-v2';
+const CACHE_NAME = 'astrokraft-cache-v3';
 const OFFLINE_URLS = [
   '/en/offline',
   '/hin/offline',

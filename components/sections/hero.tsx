@@ -1,37 +1,52 @@
 "use client";
 
+import Image from "next/image";
 import React from "react";
-import { ShieldCheck, Phone, UserCheck, Users, Lock } from "lucide-react";
+import { ShieldCheck, Phone, UserCheck, Lock } from "lucide-react";
 import { Button } from "../ui/button";
 
 import Globe3DDemo from "@/components/3d-globe-demo";
 import { PointerHighlight } from "@/components/ui/pointer-highlight";
 import servicesData from "@/lib/data/services.json";
+import { cn } from "@/lib/utils";
+
+const ZODIAC_WHEEL_SRC = "/assets/zodiac_wheel.png?v=20260610";
+
+type HeroDictionary = {
+  hero: {
+    subtitle: string;
+  };
+  services: {
+    cta: string;
+  };
+  common: {
+    verified: string;
+    certified: string;
+  };
+};
 
 interface HeroProps {
   locale: string;
-  dict: any;
+  dict: HeroDictionary;
+}
+
+function calculateConsultedCount(): number {
+  const now = new Date();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  const totalMinutes = hours * 60 + minutes;
+
+  return 50 + Math.floor(totalMinutes / 15) * 5;
 }
 
 export function Hero({ locale, dict }: HeroProps) {
   const activeLocale = ["en", "hin", "bn"].includes(locale) ? locale : "en";
 
-  const [consultedCount, setConsultedCount] = React.useState(50);
+  const [consultedCount, setConsultedCount] = React.useState(calculateConsultedCount);
 
   React.useEffect(() => {
-    const calculateCount = () => {
-      const now = new Date();
-      const hours = now.getHours();
-      const minutes = now.getMinutes();
-      const totalMinutes = hours * 60 + minutes;
-      // 50 + 5 for every 15 minutes
-      return 50 + Math.floor(totalMinutes / 15) * 5;
-    };
-
-    setConsultedCount(calculateCount());
-
     const timer = setInterval(() => {
-      setConsultedCount(calculateCount());
+      setConsultedCount(calculateConsultedCount());
     }, 60000);
 
     return () => clearInterval(timer);
@@ -72,29 +87,20 @@ export function Hero({ locale, dict }: HeroProps) {
   };
   const labels = labelsObj[activeLocale as keyof typeof labelsObj] || labelsObj.en;
 
-  const bgColors = {
-    astrologer: "bg-[#FFE4A0]",
-    gemstone: "bg-[#E5D5FF]",
-    purohit: "bg-[#FFD0C8]",
-    vastu_consult: "bg-[#C6F6D5]",
-    vastu_plan: "bg-[#E0F2FE]",
-    kundli_match: "bg-[#FEF08A]"
-  };
-
-  const hoverColors = {
-    astrologer: "hover:bg-[#FFD166]",
-    gemstone: "hover:bg-[#D3BFFF]",
-    purohit: "hover:bg-[#FFAEA0]",
-    vastu_consult: "hover:bg-[#A3F1BE]",
-    vastu_plan: "hover:bg-[#B3E1FC]",
-    kundli_match: "hover:bg-[#FDE047]"
+  const serviceButtonStyles: Record<string, string> = {
+    astrologer: "text-[#b28b3a] border-amber-200/50 bg-amber-50/40 group-hover:bg-[#FFE4A0] group-hover:text-black group-hover:border-[#FFE4A0]",
+    gemstone: "text-purple-700 border-purple-200/50 bg-purple-50/40 group-hover:bg-[#E5D5FF] group-hover:text-black group-hover:border-[#E5D5FF]",
+    purohit: "text-rose-600 border-rose-200/50 bg-rose-50/40 group-hover:bg-[#FFD0C8] group-hover:text-black group-hover:border-[#FFD0C8]",
+    vastu_consult: "text-emerald-700 border-emerald-200/50 bg-emerald-50/40 group-hover:bg-[#C6F6D5] group-hover:text-black group-hover:border-[#C6F6D5]",
+    vastu_plan: "text-sky-700 border-sky-200/50 bg-sky-50/40 group-hover:bg-[#E0F2FE] group-hover:text-black group-hover:border-[#E0F2FE]",
+    kundli_match: "text-yellow-700 border-yellow-250/50 bg-yellow-50/40 group-hover:bg-[#FEF08A] group-hover:text-black group-hover:border-[#FEF08A]"
   };
 
   return (
     <section
       className="relative w-full overflow-hidden border-b border-[#E2C27A]/20 pt-20 pb-8 md:pt-32 md:pb-16 lg:pt-32 lg:pb-28 flex flex-col justify-center items-center"
       style={{
-        background: 'linear-gradient(135deg, #0B1026, #2A1A5E, #4C1D95)'
+        background: 'linear-gradient(135deg, #0A1A3F, #103A4A)'
       }}
     >
       {/* Grid Overlay */}
@@ -134,7 +140,7 @@ export function Hero({ locale, dict }: HeroProps) {
               {/* Spinning Zodiac Wheel Badge */}
               <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden shrink-0 select-none animate-spin-slow">
                 <img
-                  src="/assets/zodiac_wheel.png"
+                  src={ZODIAC_WHEEL_SRC}
                   alt="Zodiac Wheel"
                   className="w-full h-full object-cover rounded-full"
                   draggable={false}
@@ -259,9 +265,12 @@ export function Hero({ locale, dict }: HeroProps) {
                     {/* Service Image Frame */}
                     <div className="flex flex-col items-center w-full">
                       <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden group-hover:scale-105 transition-transform duration-200">
-                        <img
+                        <Image
                           src={service.image}
                           alt={titleText}
+                          width={80}
+                          height={80}
+                          sizes="(max-width: 640px) 64px, 80px"
                           className="w-full h-full object-cover select-none p-0.5"
                           draggable={false}
                         />
@@ -276,7 +285,10 @@ export function Hero({ locale, dict }: HeroProps) {
                       </p>
                     </div>
 
-                    <span className="inline-flex items-center gap-1 text-[8px] sm:text-[9px] font-bold mt-5 px-3 py-1.5 rounded-full border border-zinc-200 bg-white text-zinc-700 shadow-sm group-hover:bg-[#E2C27A] group-hover:text-black group-hover:border-[#E2C27A] transition-all duration-200 uppercase">
+                    <span className={cn(
+                      "inline-flex items-center gap-1 text-[8px] sm:text-[9px] font-bold mt-5 px-3 py-1.5 rounded-full border shadow-sm transition-all duration-200 uppercase",
+                      serviceButtonStyles[service.id as keyof typeof serviceButtonStyles] || "border-zinc-200 bg-white text-zinc-700"
+                    )}>
                       {dict.services.cta} →
                     </span>
                   </a>
