@@ -75,18 +75,18 @@ function GemstoneCard({ gem, activeLocale, labels, glowColor, getPrefilledWhatsa
       radius={280}
       useCanvas={false} // Default false to prevent WebGL multiple context scroll lag
       className={cn(
-        "group/gem transition-all duration-300 border border-card-border rounded-2xl flex flex-col justify-between overflow-hidden p-6 select-none relative text-ink-body shadow-card hover:shadow-cardHover backdrop-blur-md hover:-translate-y-1 min-h-[30rem] will-change-transform [transform:translate3d(0,0,0)]"
+        "group/gem transition-all duration-300 border border-white/10 rounded-2xl flex flex-col justify-between overflow-hidden p-6 select-none relative text-slate-200 shadow-card hover:shadow-cardHover backdrop-blur-md hover:-translate-y-1 min-h-[30rem] will-change-transform [transform:translate3d(0,0,0)]"
       )}
       style={{
-        background: `radial-gradient(circle at top right, ${cornerColor} 0%, rgba(255, 255, 255, 0.85) 55%, rgba(255, 255, 255, 0.95) 100%)`
+        background: `radial-gradient(circle at top right, ${cornerColor}1f 0%, rgba(15, 20, 45, 0.65) 55%, rgba(15, 20, 45, 0.85) 100%)`
       }}
     >
       <div className="relative flex flex-col gap-4">
-
+        
         {/* Top image and Type Badge */}
         <div className="flex justify-between items-start gap-4">
           {/* Gemstone Image frame with localized shadow outline */}
-          <div className="relative w-24 h-24 shrink-0 rounded-xl border border-border bg-card-raised p-1.5 overflow-hidden flex items-center justify-center shadow-sm group-hover/gem:scale-105 transition-transform duration-300">
+          <div className="relative w-24 h-24 shrink-0 rounded-xl border border-white/10 bg-white/5 p-1.5 overflow-hidden flex items-center justify-center shadow-sm group-hover/gem:scale-105 transition-transform duration-300">
             <div
               className="absolute inset-0 opacity-10 blur-sm scale-75 pointer-events-none"
               style={{ backgroundColor: glowColor.replace("0.12", "0.5") }}
@@ -101,41 +101,41 @@ function GemstoneCard({ gem, activeLocale, labels, glowColor, getPrefilledWhatsa
 
           {/* Right Head: Price display */}
           <div className="flex flex-col items-end text-right font-sans">
-            <span className="text-[9px] text-ink-muted font-bold uppercase tracking-wider">{labels.priceLabel}</span>
+            <span className="text-[9px] text-slate-400 font-bold uppercase tracking-wider">{labels.priceLabel}</span>
             <span className="font-serif font-bold text-gold text-lg leading-none mt-1">₹{gem.pricePerCarat.toLocaleString()}</span>
-            <span className="text-[9px] text-ink-muted font-bold mt-0.5">{labels.pricePerCt}</span>
+            <span className="text-[9px] text-slate-400 font-bold mt-0.5">{labels.pricePerCt}</span>
           </div>
         </div>
 
         {/* Gemstone Info */}
-        <div className="flex flex-col gap-1.5 mt-1 border-b border-border/40 pb-3">
-          <h3 className="font-serif text-lg md:text-xl font-bold tracking-wide text-ink hover:text-violet transition-colors">
+        <div className="flex flex-col gap-1.5 mt-1 border-b border-white/10 pb-3">
+          <h3 className="font-serif text-lg md:text-xl font-bold tracking-wide text-white hover:text-gold transition-colors">
             {gemName}
           </h3>
-          <p className="text-[11px] text-ink-muted font-semibold leading-relaxed line-clamp-3 font-sans">
+          <p className="text-[11px] text-slate-300 font-medium leading-relaxed line-clamp-3 font-sans">
             {gemDesc}
           </p>
         </div>
 
         {/* Planetary & Zodiac details grid */}
-        <div className="grid grid-cols-3 gap-2 font-sans text-[10px] bg-card-raised border border-border-gold p-2 rounded-xl shadow-sm font-bold text-ink-body">
+        <div className="grid grid-cols-3 gap-2 font-sans text-[10px] bg-white/5 border border-white/10 p-2 rounded-xl shadow-sm font-bold text-slate-200">
           <div className="flex flex-col gap-0.5">
-            <span className="text-ink-muted font-bold uppercase tracking-wider scale-95 origin-left">{labels.planet}</span>
-            <strong className="text-ink font-bold truncate">{gemRuler}</strong>
+            <span className="text-slate-400 font-bold uppercase tracking-wider scale-95 origin-left">{labels.planet}</span>
+            <strong className="text-white font-bold truncate">{gemRuler}</strong>
           </div>
-          <div className="flex flex-col gap-0.5 border-l border-border/40 pl-2">
-            <span className="text-ink-muted font-bold uppercase tracking-wider scale-95 origin-left">{labels.zodiacLabel}</span>
-            <strong className="text-ink font-bold truncate">{gemZodiac}</strong>
+          <div className="flex flex-col gap-0.5 border-l border-white/10 pl-2">
+            <span className="text-slate-400 font-bold uppercase tracking-wider scale-95 origin-left">{labels.zodiacLabel}</span>
+            <strong className="text-white font-bold truncate">{gemZodiac}</strong>
           </div>
-          <div className="flex flex-col gap-0.5 border-l border-border/40 pl-2">
-            <span className="text-ink-muted font-bold uppercase tracking-wider scale-95 origin-left">{labels.origin}</span>
-            <strong className="text-ink font-bold truncate">{gemOrigin}</strong>
+          <div className="flex flex-col gap-0.5 border-l border-white/10 pl-2">
+            <span className="text-slate-400 font-bold uppercase tracking-wider scale-95 origin-left">{labels.origin}</span>
+            <strong className="text-white font-bold truncate">{gemOrigin}</strong>
           </div>
         </div>
 
         {/* Bullet Benefits List */}
         <div className="flex flex-col gap-1.5 font-sans text-xs pt-1">
-          <ul className="flex flex-col gap-1 text-[11px] text-ink-body font-semibold">
+          <ul className="flex flex-col gap-1 text-[11px] text-slate-200 font-medium">
             {gemBenefits.map((benefit, index) => (
               <li key={index} className="flex items-start gap-1.5 leading-snug">
                 <span className="text-gold font-black mt-0.5 shrink-0 select-none">✦</span>
@@ -148,7 +148,7 @@ function GemstoneCard({ gem, activeLocale, labels, glowColor, getPrefilledWhatsa
       </div>
 
       {/* Actions buttons */}
-      <div className="flex items-center gap-2 mt-5 border-t border-border/40 pt-4">
+      <div className="flex items-center gap-2 mt-5 border-t border-white/10 pt-4">
         <a
           href={getPrefilledWhatsappUrl(gemName)}
           target="_blank"
@@ -160,7 +160,7 @@ function GemstoneCard({ gem, activeLocale, labels, glowColor, getPrefilledWhatsa
         </a>
         <button
           disabled
-          className="flex-1 text-[10px] font-bold text-violet/40 py-2.5 px-4 rounded-full border border-violet/20 bg-transparent cursor-not-allowed opacity-50 select-none uppercase tracking-wider"
+          className="flex-1 text-[10px] font-bold text-white/40 py-2.5 px-4 rounded-full border border-white/10 bg-transparent cursor-not-allowed opacity-50 select-none uppercase tracking-wider"
         >
           {labels.buyNowBtn}
         </button>
