@@ -31,7 +31,7 @@ export default async function GemstonesPage({ params }: { params: Promise<PagePa
   const dict = await getDictionary(locale);
 
   return (
-    <div className="flex flex-col min-h-screen bg-background text-foreground overflow-x-hidden pt-20">
+    <div className="flex flex-col min-h-screen bg-[#0B1026] text-white overflow-x-hidden pt-20">
       {/* Navigation Header */}
       <Header locale={locale} dict={dict} />
 

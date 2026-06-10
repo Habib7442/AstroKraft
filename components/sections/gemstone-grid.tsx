@@ -230,7 +230,12 @@ export default function GemstoneGrid({ locale = "en", limit }: GemstoneGridProps
   const labels = labelsObj[activeLocale as keyof typeof labelsObj];
 
   return (
-    <section className="w-full py-16 px-6 md:px-12 lg:px-16 bg-alt stars-bg relative overflow-hidden border-t border-border/40">
+    <section
+      className="w-full py-16 px-6 md:px-12 lg:px-16 stars-bg relative overflow-hidden border-t border-border/20"
+      style={{
+        background: 'linear-gradient(135deg, #0B1026, #2A1A5E, #4C1D95)'
+      }}
+    >
       {/* Decorative ambient glows */}
       <div className="absolute top-24 left-1/4 w-[400px] h-[400px] rounded-full bg-gold/5 blur-[120px] pointer-events-none -z-10" />
       <div className="absolute bottom-24 right-1/4 w-[400px] h-[400px] rounded-full bg-violet/5 blur-[120px] pointer-events-none -z-10" />
@@ -242,10 +247,10 @@ export default function GemstoneGrid({ locale = "en", limit }: GemstoneGridProps
           <span className="inline-flex items-center gap-1.5 px-4.5 py-1.5 border border-card-border bg-gold-soft/10 text-gold text-[10px] sm:text-xs font-bold uppercase tracking-wider select-none rounded-full">
             {labels.eyebrow}
           </span>
-          <h2 className="t-h2 text-ink">
+          <h2 className="t-h2 text-white">
             {labels.heading}
           </h2>
-          <p className="max-w-2xl text-ink-body font-medium text-sm sm:text-base font-sans leading-relaxed">
+          <p className="max-w-2xl text-slate-300 font-medium text-sm sm:text-base font-sans leading-relaxed">
             {labels.subheading}
           </p>
         </div>
