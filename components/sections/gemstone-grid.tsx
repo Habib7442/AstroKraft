@@ -247,7 +247,7 @@ export default function GemstoneGrid({ locale = "en", limit }: GemstoneGridProps
           <span className="inline-flex items-center gap-1.5 px-4.5 py-1.5 border border-card-border bg-gold-soft/10 text-gold text-[10px] sm:text-xs font-bold uppercase tracking-wider select-none rounded-full">
             {labels.eyebrow}
           </span>
-          <h2 className="t-h2 text-white">
+          <h2 className="t-h2 !text-white">
             {labels.heading}
           </h2>
           <p className="max-w-2xl text-slate-300 font-medium text-sm sm:text-base font-sans leading-relaxed">

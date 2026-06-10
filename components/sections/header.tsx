@@ -56,6 +56,8 @@ export function Header({ locale, dict }: HeaderProps) {
   ];
 
   const isHomePage = pathname === "/" || pathname === `/${locale}` || pathname === `/${locale}/`;
+  const isGemstonesPage = pathname.endsWith("/gemstones") || pathname.endsWith("/gemstones/");
+  const useDarkHeader = isHomePage || isGemstonesPage;
 
   return (
     <>
@@ -69,17 +71,17 @@ export function Header({ locale, dict }: HeaderProps) {
               alt="AstroKraft Logo"
               className={cn(
                 "w-8 h-8 object-contain rounded-md border group-hover:rotate-12 transition-all duration-300",
-                isHomePage ? "border-[#E2C27A]/30" : "border-zinc-200"
+                useDarkHeader ? "border-[#E2C27A]/30" : "border-zinc-200"
               )}
             />
             <span className={cn(
               "font-serif text-2xl font-black tracking-tight flex items-baseline select-none transition-colors",
-              isHomePage ? "text-white" : "text-black"
+              useDarkHeader ? "text-white" : "text-black"
             )}>
-              Astro<span className={isHomePage ? "text-[#E2C27A]" : "text-primary"}>Kraft</span>
+              Astro<span className={useDarkHeader ? "text-[#E2C27A]" : "text-primary"}>Kraft</span>
               <span className={cn(
                 "inline-flex items-center justify-center border rounded-full w-3.5 h-3.5 text-[7px] font-black font-sans ml-1 self-start mt-1.5 shrink-0 transition-colors",
-                isHomePage ? "border-[#E2C27A]/40 text-[#E2C27A]" : "border-zinc-300 text-zinc-500"
+                useDarkHeader ? "border-[#E2C27A]/40 text-[#E2C27A]" : "border-zinc-300 text-zinc-500"
               )}>
                 TM
               </span>
@@ -94,7 +96,7 @@ export function Header({ locale, dict }: HeaderProps) {
                 href={item.href}
                 className={cn(
                   "text-[14px] font-extrabold transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] hover:after:w-full after:transition-all after:duration-200",
-                  isHomePage
+                  useDarkHeader
                     ? "text-white/95 hover:text-[#E2C27A] after:bg-[#E2C27A]"
                     : "text-black/80 hover:text-primary after:bg-primary"
                 )}
@@ -111,18 +113,18 @@ export function Header({ locale, dict }: HeaderProps) {
               <button
                 className={cn(
                   "flex items-center gap-1 px-3 py-1.5 rounded-full border text-xs font-bold transition-all duration-200 select-none cursor-pointer shadow-sm",
-                  isHomePage
+                  useDarkHeader
                     ? "border-[#E2C27A]/40 bg-white/10 text-white hover:bg-white/20"
                     : "border-zinc-200 bg-white text-black hover:bg-neutral-50"
                 )}
                 aria-label="Select Language"
               >
                 <span>{LOCALE_LABEL[locale as Locale] || "Language"}</span>
-                <ChevronDown className={cn("w-3 h-3 transition-colors", isHomePage ? "text-[#E2C27A]" : "text-zinc-500")} />
+                <ChevronDown className={cn("w-3 h-3 transition-colors", useDarkHeader ? "text-[#E2C27A]" : "text-zinc-500")} />
               </button>
               <div className={cn(
                 "absolute right-0 top-full mt-1.5 w-32 border rounded-xl py-1 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-150 z-50 shadow-lg",
-                isHomePage
+                useDarkHeader
                   ? "bg-[#1A1530] border-[#E2C27A]/30"
                   : "bg-white border-zinc-100"
               )}>
@@ -132,14 +134,14 @@ export function Header({ locale, dict }: HeaderProps) {
                     onClick={() => handleLocaleChange(loc)}
                     className={cn(
                       "w-full text-left px-3 py-1.5 text-xs transition-colors cursor-pointer font-bold",
-                      isHomePage
+                      useDarkHeader
                         ? "text-white/90 hover:bg-white/10 hover:text-white"
                         : "text-black/80 hover:bg-neutral-50 hover:text-primary",
                       locale === loc
-                        ? isHomePage
+                        ? useDarkHeader
                           ? "text-[#E2C27A] font-black bg-[#E2C27A]/20"
                           : "text-primary font-black bg-primary/10"
-                        : isHomePage
+                        : useDarkHeader
                           ? "text-white/80"
                           : "text-black/70"
                     )}
@@ -156,14 +158,14 @@ export function Header({ locale, dict }: HeaderProps) {
               size="lg"
               className={cn(
                 "font-bold px-5 rounded-full text-xs cursor-pointer transition-all duration-200 shadow-sm border-0",
-                isHomePage
+                useDarkHeader
                   ? "bg-[#E2C27A] hover:bg-[#E2C27A]/90 text-black"
                   : "bg-primary hover:bg-primary/90 text-primary-foreground"
               )}
               asChild
             >
               <a href={`/${locale}/astrologers`}>
-                <MessageCircle className={cn("w-3.5 h-3.5 mr-1.5", isHomePage ? "text-black" : "text-primary-foreground")} />
+                <MessageCircle className={cn("w-3.5 h-3.5 mr-1.5", useDarkHeader ? "text-black" : "text-primary-foreground")} />
                 {dict.common.whatsapp_cta}
               </a>
             </Button>
@@ -176,7 +178,7 @@ export function Header({ locale, dict }: HeaderProps) {
                 <button
                   className={cn(
                     "p-1.5 rounded-md border transition-all duration-200 cursor-pointer shadow-sm",
-                    isHomePage
+                    useDarkHeader
                       ? "border-white/20 text-white bg-white/10 hover:bg-white/20"
                       : "border-zinc-200 text-black bg-white hover:bg-neutral-50"
                   )}
