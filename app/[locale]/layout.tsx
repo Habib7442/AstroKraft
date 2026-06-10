@@ -64,8 +64,8 @@ export default async function RootLayout({
       <body suppressHydrationWarning className="min-h-full flex flex-col bg-background text-foreground">
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
-          forcedTheme="light"
+          defaultTheme="dark"
+          forcedTheme="dark"
           disableTransitionOnChange
         >
           <LenisProvider>

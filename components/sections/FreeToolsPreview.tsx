@@ -92,10 +92,10 @@ function FreeToolCard({ tool, t, index }: FreeToolCardProps) {
       radius={300}
       useCanvas={false}
       className={cn(
-        "group relative border rounded-2xl flex flex-col justify-between overflow-hidden p-8 select-none text-black shadow-sm transition-all duration-300 min-h-[16rem]",
+        "group relative border rounded-2xl flex flex-col justify-between overflow-hidden p-8 select-none shadow-card transition-all duration-300 min-h-[16rem]",
         tool.active 
-          ? "bg-white border-zinc-150 hover:shadow-md hover:-translate-y-1 cursor-pointer" 
-          : "bg-neutral-50/50 border-dashed border-zinc-200 opacity-60 cursor-not-allowed"
+          ? "bg-card border-border-gold hover:bg-card-raised hover:shadow-card hover:-translate-y-1 cursor-pointer text-ink-body" 
+          : "bg-card/40 border-dashed border-border/40 opacity-50 cursor-not-allowed text-ink-muted"
       )}
       style={{}}
     >
@@ -103,15 +103,15 @@ function FreeToolCard({ tool, t, index }: FreeToolCardProps) {
         <div className="flex justify-between items-start">
           {/* Icon wrapper */}
           <div className={cn(
-            "p-3 rounded-2xl border border-zinc-200 bg-white shadow-sm w-fit",
+            "p-3 rounded-2xl border border-border bg-card-raised shadow-sm w-fit",
             !tool.active && "opacity-50"
           )}>
-            <Icon className="w-6 h-6 stroke-[1.5px] text-black" />
+            <Icon className="w-6 h-6 stroke-[1.5px] text-gold" />
           </div>
 
           {/* Coming Soon status badge */}
           {!tool.active && (
-            <span className="px-2.5 py-0.5 rounded-full text-[9px] font-bold tracking-wider uppercase bg-white border border-zinc-200 shadow-sm text-zinc-500">
+            <span className="px-2.5 py-0.5 rounded-full text-[9px] font-bold tracking-wider uppercase bg-card-raised border border-border/40 shadow-sm text-ink-muted">
               {t.comingSoon}
             </span>
           )}
@@ -119,25 +119,25 @@ function FreeToolCard({ tool, t, index }: FreeToolCardProps) {
 
         {/* Title & Description */}
         <div className="space-y-2.5">
-          <h3 className="font-serif text-xl font-bold text-black">
+          <h3 className="font-serif text-xl font-bold text-ink group-hover:text-gold transition-colors">
             {tool.title}
           </h3>
-          <p className="text-zinc-500 font-semibold text-xs leading-relaxed max-w-lg">
+          <p className="text-ink-muted font-semibold text-xs leading-relaxed max-w-lg">
             {tool.desc}
           </p>
         </div>
       </div>
 
       {/* Launch / Explore Button */}
-      <div className="mt-8 pt-5 border-t border-zinc-100 flex justify-end">
+      <div className="mt-8 pt-5 border-t border-border/40 flex justify-end">
         {tool.active ? (
           <a href={tool.href} className="w-full sm:w-auto">
-            <button className="w-full sm:w-auto text-xs font-bold uppercase tracking-wider py-2.5 px-6 rounded-full border border-zinc-200 bg-white hover:bg-neutral-50 text-zinc-700 hover:text-black transition-all cursor-pointer shadow-sm">
+            <button className="w-full sm:w-auto text-xs font-bold uppercase tracking-wider py-2.5 px-6 rounded-full border border-gold-deep bg-transparent hover:bg-gold/8 text-gold transition-all cursor-pointer shadow-sm">
               {t.exploreBtn}
             </button>
           </a>
         ) : (
-          <button disabled className="w-full sm:w-auto text-xs font-bold uppercase tracking-wider py-2.5 px-6 rounded-full border border-zinc-200 bg-neutral-50 text-neutral-400 cursor-not-allowed opacity-60">
+          <button disabled className="w-full sm:w-auto text-xs font-bold uppercase tracking-wider py-2.5 px-6 rounded-full border border-border/40 bg-transparent text-ink-muted/50 cursor-not-allowed opacity-50">
             {t.comingSoon}
           </button>
         )}
@@ -186,21 +186,21 @@ export default function FreeToolsPreview({ locale = "en" }: FreeToolsPreviewProp
   ];
 
   return (
-    <section className="w-full py-16 px-6 md:px-12 lg:px-16 bg-[#FFFDF0]/30 relative overflow-hidden border-t border-zinc-200">
+    <section className="w-full py-16 px-6 md:px-12 lg:px-16 bg-base stars-bg relative overflow-hidden border-t border-border/40">
       {/* Background ambient light */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-amber-200/5 blur-[160px] pointer-events-none -z-10" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-gold/5 blur-[160px] pointer-events-none -z-10" />
 
       <div className="max-w-7xl mx-auto flex flex-col gap-10">
         
         {/* Section Heading */}
         <div className="flex flex-col items-center text-center gap-3">
-          <span className="inline-flex items-center gap-1.5 px-4.5 py-1.5 border border-[#E2C27A]/30 bg-[#E2C27A]/15 text-primary text-[10px] sm:text-xs font-bold uppercase tracking-wider select-none rounded-full">
+          <span className="inline-flex items-center gap-1.5 px-4.5 py-1.5 border border-border-gold bg-gold/10 text-gold text-[10px] sm:text-xs font-bold uppercase tracking-wider select-none rounded-full">
             {t.eyebrow}
           </span>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-black">
+          <h2 className="t-h2 text-ink">
             {t.heading}
           </h2>
-          <p className="max-w-2xl text-neutral-600 font-semibold text-sm sm:text-base font-sans leading-relaxed">
+          <p className="max-w-2xl text-ink-body font-medium text-sm sm:text-base font-sans leading-relaxed">
             {t.subheading}
           </p>
         </div>
@@ -216,7 +216,7 @@ export default function FreeToolsPreview({ locale = "en" }: FreeToolsPreviewProp
         <div className="flex justify-center mt-6">
           <a
             href={`/${locale}/tools`}
-            className="inline-flex items-center gap-2 px-7 py-3 rounded-full border border-zinc-200 bg-white hover:bg-neutral-50 text-zinc-700 hover:text-black transition-all cursor-pointer text-xs font-bold font-sans shadow-sm"
+            className="inline-flex items-center gap-2 px-7 py-3 rounded-full border border-gold-deep bg-transparent hover:bg-gold/8 text-gold transition-all cursor-pointer text-xs font-bold font-sans shadow-sm"
           >
             {t.viewAllBtn}
           </a>

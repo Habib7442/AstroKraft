@@ -32,47 +32,47 @@ export function Footer({ locale, dict }: FooterProps) {
   ];
 
   return (
-    <footer className="relative w-full bg-[#FFF9E6] border-t border-zinc-200 pt-16 pb-8 font-sans overflow-hidden">
+    <footer className="relative w-full bg-[#0A0E26] border-t border-border/40 pt-16 pb-8 font-sans overflow-hidden">
       {/* Decorative background glows */}
-      <div className="absolute -bottom-24 -left-24 w-[300px] h-[300px] rounded-full bg-amber-200/5 blur-[100px] pointer-events-none -z-10" />
-      <div className="absolute -top-24 -right-24 w-[250px] h-[250px] rounded-full bg-purple-200/5 blur-[90px] pointer-events-none -z-10" />
+      <div className="absolute -bottom-24 -left-24 w-[300px] h-[300px] rounded-full bg-gold/5 blur-[100px] pointer-events-none -z-10" />
+      <div className="absolute -top-24 -right-24 w-[250px] h-[250px] rounded-full bg-violet/5 blur-[90px] pointer-events-none -z-10" />
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-zinc-200">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-border/40">
           {/* Brand Info (4 cols) */}
           <div className="lg:col-span-4 flex flex-col gap-4">
             <a href={`/${locale}`} className="flex items-center gap-2.5 self-start group select-none">
               <img
                 src="/logo.svg"
                 alt="AstroKraft Logo"
-                className="w-8 h-8 object-contain rounded-md border border-zinc-200 shadow-sm group-hover:rotate-12 transition-all duration-300"
+                className="w-8 h-8 object-contain rounded-md border border-border/40 shadow-sm group-hover:rotate-12 transition-all duration-300"
               />
-              <span className="font-serif text-2xl font-black tracking-tight text-black flex items-baseline">
-                Astro<span className="text-black">Kraft</span>
-                <span className="inline-flex items-center justify-center border border-zinc-400 rounded-full w-3.5 h-3.5 text-[7px] font-semibold font-sans ml-1 self-start mt-1.5 shrink-0">
+              <span className="font-serif text-2xl font-black tracking-tight text-ink flex items-baseline">
+                Astro<span className="text-gold">Kraft</span>
+                <span className="inline-flex items-center justify-center border border-border-gold rounded-full w-3.5 h-3.5 text-[7px] font-semibold font-sans ml-1 self-start mt-1.5 shrink-0 text-ink-muted">
                   TM
                 </span>
               </span>
             </a>
-            <p className="text-xs text-neutral-600 font-semibold leading-relaxed max-w-sm">
+            <p className="text-xs text-ink-body font-medium leading-relaxed max-w-sm">
               {dict.footer?.desc || "AstroKraft is India's trusted platform for Vedic Astrology, certified gemstones, and divine rituals. Empowering your life journey with ancient wisdom and modern precision."}
             </p>
 
             {/* Contact Details */}
-            <div className="flex flex-col gap-2.5 mt-2 text-xs text-neutral-600 font-semibold">
+            <div className="flex flex-col gap-2.5 mt-2 text-xs text-ink-body font-medium">
               <div className="flex items-center gap-2">
-                <MapPin className="w-3.5 h-3.5 text-zinc-500 stroke-[1.8px] shrink-0" />
+                <MapPin className="w-3.5 h-3.5 text-gold stroke-[1.8px] shrink-0" />
                 <span>India</span>
               </div>
               <div className="flex items-center gap-2">
-                <Phone className="w-3.5 h-3.5 text-zinc-500 stroke-[1.8px] shrink-0" />
-                <a href={`tel:${SITE.contact.phone}`} className="hover:text-black transition-colors font-black">
+                <Phone className="w-3.5 h-3.5 text-gold stroke-[1.8px] shrink-0" />
+                <a href={`tel:${SITE.contact.phone}`} className="hover:text-gold transition-colors font-bold text-ink-body">
                   {SITE.contact.phoneDisplay}
                 </a>
               </div>
               <div className="flex items-center gap-2">
-                <Mail className="w-3.5 h-3.5 text-zinc-500 stroke-[1.8px] shrink-0" />
-                <a href={`mailto:${SITE.contact.email}`} className="hover:text-black transition-colors font-black">
+                <Mail className="w-3.5 h-3.5 text-gold stroke-[1.8px] shrink-0" />
+                <a href={`mailto:${SITE.contact.email}`} className="hover:text-gold transition-colors font-bold text-ink-body">
                   {SITE.contact.email}
                 </a>
               </div>
@@ -84,41 +84,41 @@ export function Footer({ locale, dict }: FooterProps) {
                 href={SITE.social.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full border border-zinc-200 bg-white hover:bg-neutral-50 hover:shadow-md hover:-translate-y-0.5 flex items-center justify-center transition-all duration-150 shadow-sm"
+                className="w-9 h-9 rounded-full border border-border bg-card-raised hover:bg-card-raised/80 hover:shadow-card hover:-translate-y-0.5 flex items-center justify-center transition-all duration-150 shadow-sm"
                 aria-label="Facebook"
               >
-                <img src="/social-icons/facebook.png" alt="Facebook" className="w-[18px] h-[18px] object-contain" />
+                <img src="/social-icons/facebook.png" alt="Facebook" className="w-[18px] h-[18px] object-contain invert-[0.85] brightness-[1.2]" />
               </a>
               <a
                 href={SITE.social.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full border border-zinc-200 bg-white hover:bg-neutral-50 hover:shadow-md hover:-translate-y-0.5 flex items-center justify-center transition-all duration-150 shadow-sm"
+                className="w-9 h-9 rounded-full border border-border bg-card-raised hover:bg-card-raised/80 hover:shadow-card hover:-translate-y-0.5 flex items-center justify-center transition-all duration-150 shadow-sm"
                 aria-label="Instagram"
               >
-                <img src="/social-icons/instagram.png" alt="Instagram" className="w-[18px] h-[18px] object-contain" />
+                <img src="/social-icons/instagram.png" alt="Instagram" className="w-[18px] h-[18px] object-contain invert-[0.85] brightness-[1.2]" />
               </a>
               <a
                 href={`https://wa.me/${SITE.contact.whatsapp}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full border border-zinc-200 bg-white hover:bg-neutral-50 hover:shadow-md hover:-translate-y-0.5 flex items-center justify-center transition-all duration-150 shadow-sm"
+                className="w-9 h-9 rounded-full border border-border bg-card-raised hover:bg-card-raised/80 hover:shadow-card hover:-translate-y-0.5 flex items-center justify-center transition-all duration-150 shadow-sm"
                 aria-label="WhatsApp"
               >
-                <img src="/social-icons/whatsapp.png" alt="WhatsApp" className="w-[18px] h-[18px] object-contain" />
+                <img src="/social-icons/whatsapp.png" alt="WhatsApp" className="w-[18px] h-[18px] object-contain invert-[0.85] brightness-[1.2]" />
               </a>
             </div>
           </div>
 
           {/* Services Column (2 cols) */}
           <div className="lg:col-span-2 flex flex-col gap-4">
-            <h4 className="font-serif text-sm font-black tracking-wider text-black uppercase">
+            <h4 className="font-serif text-sm font-bold tracking-wider text-ink uppercase">
               {dict.footer?.services_heading || "Services"}
             </h4>
-            <ul className="flex flex-col gap-2 text-xs font-semibold">
+            <ul className="flex flex-col gap-2 text-xs font-medium">
               {servicesLinks.map((link) => (
                 <li key={link.label}>
-                  <a href={link.href} className="text-neutral-600 hover:text-black transition-colors hover:underline">
+                  <a href={link.href} className="text-ink-muted hover:text-gold transition-colors hover:underline">
                     {link.label}
                   </a>
                 </li>
@@ -128,13 +128,13 @@ export function Footer({ locale, dict }: FooterProps) {
 
           {/* Free Tools Column (3 cols) */}
           <div className="lg:col-span-3 flex flex-col gap-4">
-            <h4 className="font-serif text-sm font-black tracking-wider text-black uppercase">
+            <h4 className="font-serif text-sm font-bold tracking-wider text-ink uppercase">
               {dict.footer?.tools_heading || "Free Tools"}
             </h4>
-            <ul className="flex flex-col gap-2 text-xs font-semibold">
+            <ul className="flex flex-col gap-2 text-xs font-medium">
               {toolsLinks.map((link) => (
                 <li key={link.label}>
-                  <a href={link.href} className="text-neutral-600 hover:text-black transition-colors hover:underline">
+                  <a href={link.href} className="text-ink-muted hover:text-gold transition-colors hover:underline">
                     {link.label}
                   </a>
                 </li>
@@ -144,13 +144,13 @@ export function Footer({ locale, dict }: FooterProps) {
 
           {/* Legal/Company Column (3 cols) */}
           <div className="lg:col-span-3 flex flex-col gap-4">
-            <h4 className="font-serif text-sm font-black tracking-wider text-black uppercase">
+            <h4 className="font-serif text-sm font-bold tracking-wider text-ink uppercase">
               {dict.footer?.company_heading || "Company"}
             </h4>
-            <ul className="flex flex-col gap-2 text-xs font-semibold">
+            <ul className="flex flex-col gap-2 text-xs font-medium">
               {companyLinks.map((link) => (
                 <li key={link.label}>
-                  <a href={link.href} className="text-neutral-600 hover:text-black transition-colors hover:underline">
+                  <a href={link.href} className="text-ink-muted hover:text-gold transition-colors hover:underline">
                     {link.label}
                   </a>
                 </li>
@@ -160,11 +160,11 @@ export function Footer({ locale, dict }: FooterProps) {
         </div>
 
         {/* Bottom Bar */}
-        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 text-xs text-neutral-600 font-semibold">
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 text-xs text-ink-muted font-medium">
           <div>
             © {new Date().getFullYear()} {SITE.name}. {dict.footer?.copyright || "All rights reserved."}
           </div>
-          <div className="flex items-center gap-2 font-black text-black">
+          <div className="flex items-center gap-2 font-bold text-ink">
             <span>{dict.footer?.devotion || "Made with devotion in India ✦"}</span>
           </div>
         </div>

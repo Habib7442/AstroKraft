@@ -51,17 +51,17 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
   };
 
   return (
-    <section className="w-full py-16 px-6 md:px-12 lg:px-16 bg-[#FFFDF0]/30 relative border-t border-zinc-200">
+    <section className="w-full py-16 px-6 md:px-12 lg:px-16 bg-base stars-bg relative border-t border-border/40">
       <div className="max-w-7xl mx-auto flex flex-col gap-10">
         {/* Section Heading */}
         <div className="flex flex-col items-center text-center gap-3">
-          <span className="inline-flex items-center gap-1.5 px-4.5 py-1.5 border border-[#E2C27A]/30 bg-[#E2C27A]/15 text-[#b28b3a] text-[10px] sm:text-xs font-bold uppercase tracking-wider select-none rounded-full">
+          <span className="inline-flex items-center gap-1.5 px-4.5 py-1.5 border border-border-gold bg-gold/10 text-gold text-[10px] sm:text-xs font-bold uppercase tracking-wider select-none rounded-full">
             ✦ Divine Team of Experts
           </span>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-black">
+          <h2 className="t-h2 text-ink">
             Meet Our Master Astrologers
           </h2>
-          <p className="max-w-2xl text-neutral-600 font-semibold text-sm sm:text-base font-sans leading-relaxed">
+          <p className="max-w-2xl text-ink-body font-medium text-sm sm:text-base font-sans leading-relaxed">
             Consult India's top astrologers and Vastu experts for accurate horoscope compatibility, gemstone selections, and ancient Vedic remedies.
           </p>
         </div>
@@ -82,7 +82,7 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
                 <div
                   key={key}
                   className={cn(
-                    "group/bento bg-white shadow-sm md:col-span-2 md:row-span-2 flex flex-col justify-between rounded-2xl border border-zinc-100 p-6 relative overflow-hidden text-black transition-all duration-300 hover:shadow-md hover:-translate-y-1 min-h-[30rem] md:min-h-0 will-change-transform [transform:translate3d(0,0,0)]"
+                    "group/bento bg-card shadow-card md:col-span-2 md:row-span-2 flex flex-col justify-between rounded-2xl border border-border-gold p-6 relative overflow-hidden text-ink-body transition-all duration-300 hover:bg-card-raised hover:-translate-y-1 min-h-[30rem] md:min-h-0 will-change-transform [transform:translate3d(0,0,0)]"
                   )}
                 >
                   {/* Top: Profile Header & Layout */}
@@ -91,7 +91,7 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
                     <div className="flex flex-col items-start shrink-0">
                       <a href={`/${locale}/astrologers/${key}`} className="block hover:opacity-95 transition-opacity">
                         <div className="relative">
-                          <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border border-zinc-200 bg-white shadow-sm p-1">
+                          <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border border-border bg-card p-1">
                             <img
                               src={ast.src}
                               alt={ast.name}
@@ -102,20 +102,20 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
                           {/* Live Status indicator */}
                           <span className="absolute bottom-0.5 right-0.5 flex h-3.5 w-3.5">
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 bg-emerald-400" />
-                            <span className="relative inline-flex rounded-full h-3.5 w-3.5 border border-white bg-emerald-500 shadow-sm" />
+                            <span className="relative inline-flex rounded-full h-3.5 w-3.5 border border-card bg-emerald-500 shadow-sm" />
                           </span>
                         </div>
                       </a>
 
                       {/* Prominent Badges */}
-                      <span className="mt-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase border border-zinc-200 bg-white text-zinc-700 shadow-sm whitespace-nowrap">
+                      <span className="mt-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase border border-border-gold bg-gold/10 text-gold shadow-sm whitespace-nowrap">
                         ✦ Director
                       </span>
 
                       {/* Languages Spoken */}
                       <div className="flex flex-wrap gap-1.5 mt-3.5 max-w-[120px]">
                         {ast.languages[activeLocale]?.map((lang) => (
-                          <span key={lang} className="px-2 py-0.5 rounded border border-purple-200/50 bg-purple-50 text-[9px] text-purple-700 font-bold uppercase tracking-wider shadow-sm">
+                          <span key={lang} className="px-2 py-0.5 rounded border border-purple-500/30 bg-purple-500/10 text-purple-300 text-[9px] font-bold uppercase tracking-wider shadow-sm">
                             {lang}
                           </span>
                         ))}
@@ -125,65 +125,65 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
                     {/* Right/Bottom: Description and Info */}
                     <div className="flex-1 flex flex-col justify-between gap-4">
                       <div className="flex flex-col gap-2">
-                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-zinc-100 pb-2.5">
-                          <h3 className="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-black hover:text-primary transition-colors">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-border/40 pb-2.5">
+                          <h3 className="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-ink hover:text-gold transition-colors">
                             <a href={`/${locale}/astrologers/${key}`}>
                               {ast.name}
                             </a>
                           </h3>
                           {/* Rating & reviews */}
-                          <div className="flex items-center gap-1.5 bg-white border border-zinc-200 px-3 py-1 rounded-full text-xs font-bold text-black shadow-sm w-fit whitespace-nowrap shrink-0">
+                          <div className="flex items-center gap-1.5 bg-card-raised border border-border-gold px-3 py-1 rounded-full text-xs font-bold text-gold shadow-sm w-fit whitespace-nowrap shrink-0">
                             <Star className="w-3.5 h-3.5 text-[#E2C27A] fill-[#E2C27A] shrink-0" />
                             <span>{ast.rating} / 5</span>
-                            <span className="text-zinc-400 text-[10px] font-bold">({ast.reviews} reviews)</span>
+                            <span className="text-ink-muted text-[10px] font-bold">({ast.reviews} reviews)</span>
                           </div>
                         </div>
 
-                        <span className="text-xs font-bold text-[#b28b3a] bg-[#E2C27A]/10 border border-[#E2C27A]/30 px-2.5 py-0.5 rounded-full w-fit shadow-sm font-sans tracking-wide">
+                        <span className="text-xs font-bold text-gold bg-gold/10 border border-border-gold px-2.5 py-0.5 rounded-full w-fit shadow-sm font-sans tracking-wide">
                           {specialtyText}
                         </span>
 
-                        <p className="text-xs sm:text-sm text-zinc-600 font-semibold leading-relaxed font-sans mt-1">
+                        <p className="text-xs sm:text-sm text-ink-body font-medium leading-relaxed font-sans mt-1">
                           {descText}
                         </p>
                       </div>
 
                       {/* Detail Grid */}
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-1 text-xs">
-                        <div className="flex items-center gap-2.5 text-zinc-500 font-bold">
-                          <Award className="w-4 h-4 text-zinc-400 stroke-[1.5px] shrink-0" />
-                          <span>Experience: <strong className="text-zinc-800 font-bold">{ast.experience} Years</strong></span>
+                        <div className="flex items-center gap-2.5 text-ink-muted font-bold">
+                          <Award className="w-4 h-4 text-ink-muted stroke-[1.5px] shrink-0" />
+                          <span>Experience: <strong className="text-ink-body font-bold">{ast.experience} Years</strong></span>
                         </div>
-                        <div className="flex items-center gap-2.5 text-zinc-500 font-bold">
-                          <MapPin className="w-4 h-4 text-zinc-400 stroke-[1.5px] shrink-0" />
-                          <span className="truncate">Address: <strong className="text-zinc-800 font-bold">{addressText}</strong></span>
+                        <div className="flex items-center gap-2.5 text-ink-muted font-bold">
+                          <MapPin className="w-4 h-4 text-ink-muted stroke-[1.5px] shrink-0" />
+                          <span className="truncate">Address: <strong className="text-ink-body font-bold">{addressText}</strong></span>
                         </div>
-                        <div className="flex items-center gap-2.5 text-zinc-500 font-bold font-sans">
-                          <Phone className="w-4 h-4 text-zinc-400 stroke-[1.5px] shrink-0" />
-                          <span>Phone: <a href={`tel:${ast.phone}`} className="hover:text-primary hover:underline transition-colors">{ast.phone}</a></span>
+                        <div className="flex items-center gap-2.5 text-ink-muted font-bold font-sans">
+                          <Phone className="w-4 h-4 text-ink-muted stroke-[1.5px] shrink-0" />
+                          <span>Phone: <a href={`tel:${ast.phone}`} className="hover:text-gold hover:underline transition-colors">{ast.phone}</a></span>
                         </div>
-                        <div className="flex items-center gap-2.5 text-zinc-500 font-bold font-sans">
-                          <Mail className="w-4 h-4 text-zinc-400 stroke-[1.5px] shrink-0" />
-                          <span className="truncate">Email: <a href={`mailto:${ast.email}`} className="hover:text-primary hover:underline transition-colors">{ast.email}</a></span>
+                        <div className="flex items-center gap-2.5 text-ink-muted font-bold font-sans">
+                          <Mail className="w-4 h-4 text-ink-muted stroke-[1.5px] shrink-0" />
+                          <span className="truncate">Email: <a href={`mailto:${ast.email}`} className="hover:text-gold hover:underline transition-colors">{ast.email}</a></span>
                         </div>
                       </div>
 
                       {/* Bottom Button */}
-                      <div className="flex items-center justify-between gap-4 mt-2 pt-4 border-t border-zinc-100">
+                      <div className="flex items-center justify-between gap-4 mt-2 pt-4 border-t border-border/40">
                         <div className="flex flex-col">
-                          <span className="text-[10px] text-zinc-400 uppercase font-bold tracking-wider">Consultation Fee</span>
-                          <span className="font-serif font-bold text-xl text-black">₹{ast.fee.toFixed(2)}</span>
+                          <span className="text-[10px] text-ink-muted uppercase font-bold tracking-wider">Consultation Fee</span>
+                          <span className="font-serif font-bold text-xl text-ink">₹{ast.fee.toFixed(2)}</span>
                         </div>
                         <div className="flex items-center gap-3">
                           <a
                             href={`/${locale}/astrologers/${key}`}
-                            className="text-xs font-bold text-zinc-700 hover:bg-neutral-50 hover:text-black transition-all px-4 py-2 rounded-full border border-zinc-200 bg-white shadow-sm"
+                            className="text-xs font-bold text-gold border border-gold-deep bg-transparent hover:bg-gold/8 transition-all px-4 py-2 rounded-full shadow-sm"
                           >
                             View Profile
                           </a>
                           <a
                             href={`/${locale}/consultation?astrologer=${key}`}
-                            className="flex items-center justify-center gap-2 bg-[#E2C27A] hover:bg-[#E2C27A]/90 text-black shadow-sm transition-all text-xs font-bold py-2 px-5 rounded-full cursor-pointer"
+                            className="flex items-center justify-center gap-2 bg-violet hover:bg-violet-bright text-white shadow-sm transition-all text-xs font-bold py-2 px-5 rounded-full cursor-pointer border-0"
                           >
                             Consult Now
                           </a>
@@ -201,7 +201,7 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
               <div
                 key={key}
                 className={cn(
-                  "group/bento bg-white shadow-sm row-span-1 flex flex-col justify-between space-y-3.5 rounded-2xl border border-zinc-100 p-4.5 transition-all duration-300 hover:shadow-md hover:-translate-y-1 text-black relative overflow-hidden will-change-transform [transform:translate3d(0,0,0)]"
+                  "group/bento bg-card shadow-card row-span-1 flex flex-col justify-between space-y-3.5 rounded-2xl border border-border-gold p-4.5 transition-all duration-300 hover:bg-card-raised hover:-translate-y-1 text-ink-body relative overflow-hidden will-change-transform [transform:translate3d(0,0,0)]"
                 )}
               >
                 {/* Header info */}
@@ -209,7 +209,7 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
                   {/* Small Avatar Frame with Status */}
                   <div className="relative shrink-0">
                     <a href={`/${locale}/astrologers/${key}`} className="block hover:opacity-95 transition-opacity">
-                      <div className="w-12 h-12 rounded-full overflow-hidden border border-zinc-200 bg-white shadow-sm p-0.5">
+                      <div className="w-12 h-12 rounded-full overflow-hidden border border-border bg-card p-0.5">
                         <img
                           src={ast.src}
                           alt={ast.name}
@@ -224,7 +224,7 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
                           isOnline ? "bg-emerald-400" : "bg-amber-400"
                         )} />
                         <span className={cn(
-                          "relative inline-flex rounded-full h-3 w-3 border border-white",
+                          "relative inline-flex rounded-full h-3 w-3 border border-card",
                           isOnline ? "bg-emerald-500" : "bg-amber-500"
                         )} />
                       </span>
@@ -233,46 +233,46 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
 
                   {/* Right Header: Rating & Experience */}
                   <div className="flex flex-col items-end text-right gap-1 font-sans text-[10px] font-bold">
-                    <div className="flex items-center gap-0.5 bg-white border border-zinc-200 px-1.5 py-0.5 rounded-full shadow-sm text-zinc-700 font-bold">
+                    <div className="flex items-center gap-0.5 bg-card-raised border border-border-gold px-1.5 py-0.5 rounded-full shadow-sm text-gold font-bold">
                       <Star className="w-2.5 h-2.5 text-[#E2C27A] fill-[#E2C27A] shrink-0" />
                       <span>{ast.rating}</span>
                     </div>
-                    <span className="text-zinc-400">{ast.experience} Yrs Exp</span>
+                    <span className="text-ink-muted">{ast.experience} Yrs Exp</span>
                   </div>
                 </div>
 
                 {/* Body info */}
                 <div className="flex-1 flex flex-col justify-between mt-2 gap-3 relative z-10">
                   <div className="flex flex-col gap-1">
-                    <h4 className="font-serif font-bold text-sm text-black tracking-wide hover:text-primary transition-colors">
+                    <h4 className="font-serif font-bold text-sm text-ink tracking-wide hover:text-gold transition-colors">
                       <a href={`/${locale}/astrologers/${key}`}>
                         {ast.name}
                       </a>
                     </h4>
-                    <p className="text-[10px] text-[#b28b3a] font-bold bg-[#E2C27A]/10 border border-[#E2C27A]/30 px-2 py-0.5 rounded-full w-fit shadow-sm leading-none">
+                    <p className="text-[10px] text-gold font-bold bg-gold/10 border border-border-gold px-2 py-0.5 rounded-full w-fit shadow-sm leading-none">
                       {specialtyText}
                     </p>
-                    <p className="text-[11px] text-zinc-500 font-semibold line-clamp-2 leading-relaxed mt-1.5 font-sans">
+                    <p className="text-[11px] text-ink-body font-medium line-clamp-2 leading-relaxed mt-1.5 font-sans">
                       {descText}
                     </p>
                   </div>
 
                   {/* Actions & Fee */}
-                  <div className="flex items-center justify-between border-t border-zinc-100 pt-3.5 mt-3.5 text-[11px]">
+                  <div className="flex items-center justify-between border-t border-border/40 pt-3.5 mt-3.5 text-[11px]">
                     <div className="flex flex-col">
-                      <span className="text-[8px] text-zinc-400 uppercase font-bold tracking-wider">Fee</span>
-                      <span className="font-serif font-bold text-black">₹{ast.fee.toFixed(2)}</span>
+                      <span className="text-[8px] text-ink-muted uppercase font-bold tracking-wider">Fee</span>
+                      <span className="font-serif font-bold text-ink">₹{ast.fee.toFixed(2)}</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <a
                         href={`/${locale}/astrologers/${key}`}
-                        className="text-[10px] font-bold text-zinc-700 hover:bg-neutral-50 hover:text-black transition-all py-1.5 px-3 rounded-full border border-zinc-200 bg-white shadow-sm"
+                        className="text-[10px] font-bold text-gold border border-gold-deep bg-transparent hover:bg-gold/8 transition-all py-1.5 px-3 rounded-full shadow-sm"
                       >
                         Profile
                       </a>
                       <a
                         href={`/${locale}/consultation?astrologer=${key}`}
-                        className="flex items-center justify-center bg-[#E2C27A] hover:bg-[#E2C27A]/90 text-black transition-all py-1.5 px-3.5 rounded-full shadow-sm text-[10px] font-bold cursor-pointer"
+                        className="flex items-center justify-center bg-violet hover:bg-violet-bright text-white transition-all py-1.5 px-3.5 rounded-full shadow-sm text-[10px] font-bold cursor-pointer border-0"
                       >
                         Consult
                       </a>
