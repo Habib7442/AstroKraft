@@ -138,7 +138,7 @@ export default async function Page({ params }: { params: Promise<PageParams> }) 
   ];
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#FFFDF0] text-black overflow-x-hidden">
+    <div className="flex flex-col min-h-screen bg-base stars-bg text-ink-body overflow-x-hidden">
       {/* Navigation Header */}
       <Header locale={locale} dict={dict} />
 
@@ -147,13 +147,13 @@ export default async function Page({ params }: { params: Promise<PageParams> }) 
         <div className="max-w-6xl mx-auto space-y-12">
           {/* Header Title */}
           <div className="text-center space-y-4">
-            <span className="inline-flex items-center gap-1.5 px-4.5 py-1.5 border border-[#E2C27A]/30 bg-[#E2C27A]/10 text-[#b28b3a] text-[10px] sm:text-xs font-bold uppercase tracking-wider shadow-sm select-none rounded-full">
+            <span className="inline-flex items-center gap-1.5 px-4.5 py-1.5 border border-card-border bg-gold-soft/10 text-gold text-[10px] sm:text-xs font-bold uppercase tracking-wider shadow-sm select-none rounded-full">
               ✦ 100% Free Celestial Calculations
             </span>
-            <h1 className="text-3xl sm:text-5xl font-serif text-black font-bold tracking-tight mt-1">
+            <h1 className="text-3xl sm:text-5xl font-serif text-ink font-bold tracking-tight mt-1">
               {t.title}
             </h1>
-            <p className="text-sm sm:text-base text-zinc-650 font-semibold max-w-2xl mx-auto leading-relaxed">
+            <p className="text-sm sm:text-base text-ink-body font-semibold max-w-2xl mx-auto leading-relaxed">
               {t.subtitle}
             </p>
           </div>
@@ -162,52 +162,67 @@ export default async function Page({ params }: { params: Promise<PageParams> }) 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {tools.map((tool, idx) => {
               const Icon = tool.icon;
+              const toolCornerColors = [
+                "#FEF08A", // yellow
+                "#E5D5FF", // purple
+                "#FFD0C8", // peach
+                "#C6F6D5", // green
+                "#E0F2FE", // blue
+                "#FCE7F3", // pink
+              ];
+              const cornerColor = toolCornerColors[idx % toolCornerColors.length];
+
               return (
                 <div
                   key={idx}
                   className={cn(
-                    "group relative border border-zinc-150 rounded-2xl flex flex-col justify-between overflow-hidden p-6 select-none text-black shadow-sm transition-all duration-300 min-h-[18rem]",
+                    "group relative border border-card-border rounded-2xl flex flex-col justify-between overflow-hidden p-6 select-none text-ink-body shadow-card hover:shadow-cardHover transition-all duration-300 min-h-[18rem] backdrop-blur-md hover:-translate-y-1",
                     tool.active 
-                      ? cn(toolColors[idx % toolColors.length], "hover:shadow-md hover:-translate-y-1 cursor-pointer") 
-                      : "bg-neutral-50/40 border-dashed border-zinc-200 opacity-60 cursor-not-allowed"
+                      ? "cursor-pointer" 
+                      : "opacity-60 cursor-not-allowed text-ink-muted"
                   )}
+                  style={{
+                    background: tool.active
+                      ? `radial-gradient(circle at top right, ${cornerColor} 0%, rgba(255, 255, 255, 0.85) 55%, rgba(255, 255, 255, 0.95) 100%)`
+                      : `radial-gradient(circle at top right, ${cornerColor} 0%, rgba(255, 255, 255, 0.90) 45%, rgba(255, 255, 255, 0.95) 100%)`
+                  }}
                 >
                   <div className="flex flex-col gap-4">
                     <div className="flex justify-between items-start">
                       {/* Icon wrapper */}
                       <div className={cn(
-                        "p-3 rounded-2xl border border-zinc-150 bg-white shadow-sm w-fit",
+                        "p-3 rounded-2xl border border-card-border bg-white shadow-sm w-fit",
                         !tool.active && "opacity-50"
                       )}>
-                        <Icon className={cn("w-6 h-6 stroke-[2px]", tool.iconColor)} />
+                        <Icon className={cn("w-6 h-6 stroke-[2px]", tool.active ? "text-gold" : "text-ink-muted")} />
                       </div>
 
                       {/* Badge if coming soon */}
                       {!tool.active && (
-                        <span className="px-2.5 py-0.5 rounded-full text-[9px] font-bold tracking-wider uppercase bg-white border border-zinc-200 shadow-sm text-zinc-500">
+                        <span className="px-2.5 py-0.5 rounded-full text-[9px] font-bold tracking-wider uppercase bg-white border border-card-border shadow-sm text-ink-muted">
                           {t.comingSoon}
                         </span>
                       )}
                     </div>
 
-                    <h3 className="text-lg font-serif font-bold text-black">
+                    <h3 className="text-lg font-serif font-bold text-ink group-hover:text-gold transition-colors">
                       {tool.title}
                     </h3>
                   </div>
 
                   <div className="flex flex-col justify-between mt-4 gap-6">
-                    <p className="text-zinc-650 font-semibold text-xs leading-relaxed">
+                    <p className="text-ink-muted font-semibold text-xs leading-relaxed">
                       {tool.desc}
                     </p>
 
                     {tool.active ? (
                       <a href={tool.href} className="w-full">
-                        <button className="w-full text-xs font-bold uppercase tracking-wider py-2.5 rounded-full border border-zinc-200 bg-white hover:bg-neutral-50 transition-all duration-250 cursor-pointer shadow-sm">
+                        <button className="w-full text-xs font-bold uppercase tracking-wider py-2.5 rounded-full border border-gold-deep bg-transparent hover:bg-gold/8 text-gold transition-all duration-250 cursor-pointer shadow-sm">
                           {t.exploreBtn}
                         </button>
                       </a>
                     ) : (
-                      <button disabled className="w-full text-xs font-bold uppercase tracking-wider py-2.5 rounded-full border border-zinc-200 bg-neutral-100 text-neutral-400 cursor-not-allowed opacity-60">
+                      <button disabled className="w-full text-xs font-bold uppercase tracking-wider py-2.5 rounded-full border border-card-border bg-transparent text-ink-muted/50 cursor-not-allowed opacity-50">
                         {t.comingSoon}
                       </button>
                     )}
