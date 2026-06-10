@@ -406,9 +406,9 @@ export default function Globe3DDemo({ className, locale = "en" }: Globe3DDemoPro
           atmosphereColor: "#fbbf24", // Premium gold halo glow to match theme
           atmosphereIntensity: 2.0, // Vibrant glow
           atmosphereBlur: 3.5,
-          ambientIntensity: 1.4, // Brighter ambient light to lift shadows
-          pointLightIntensity: 2.5, // Stronger point lighting for vibrant surface details
-          emissiveColor: "#241852", // Matches the deep spiritual violet backdrop
+          ambientIntensity: 0.8, // Reduced ambient light to darken and deepen the globe shadows
+          pointLightIntensity: 1.6, // Softened key lighting to prevent washed-out colors
+          emissiveColor: "#12092c", // Darker emissive tint matching the deep Midnight Indigo space backdrop
           bumpScale: 5,
           autoRotateSpeed: 0.35, // Enable slow elegant auto rotation
           initialRotation: { x: 0.35, y: -0.6 } // Center view on Africa/Middle East so London, New Delhi, and Cape Town markers display cleanly at startup

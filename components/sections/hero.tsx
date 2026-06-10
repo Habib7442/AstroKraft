@@ -100,7 +100,7 @@ export function Hero({ locale, dict }: HeroProps) {
     <section
       className="relative w-full overflow-hidden border-b border-[#E2C27A]/20 pt-20 pb-8 md:pt-32 md:pb-16 lg:pt-32 lg:pb-28 flex flex-col justify-center items-center"
       style={{
-        background: 'linear-gradient(135deg, #0A1A3F, #103A4A)'
+        background: 'linear-gradient(135deg, #0B1026, #2A1A5E, #4C1D95)'
       }}
     >
       {/* Grid Overlay */}
