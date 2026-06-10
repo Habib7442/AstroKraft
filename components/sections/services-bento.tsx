@@ -47,6 +47,7 @@ export function ServicesBento({ locale, dict }: ServicesBentoProps) {
       badgeColor: "bg-green-500/10 text-green-500 dark:text-green-400 border-green-500/20",
       className: "lg:col-span-2 lg:row-span-1",
       glowColor: "color-mix(in srgb, var(--primary) 10%, transparent)",
+      cornerColor: "#FEF08A"
     },
     {
       id: "gemstone",
@@ -59,6 +60,7 @@ export function ServicesBento({ locale, dict }: ServicesBentoProps) {
       className: "lg:col-span-1 lg:row-span-2",
       isVertical: true,
       glowColor: "color-mix(in srgb, var(--gold-line) 12%, transparent)",
+      cornerColor: "#E5D5FF"
     },
     {
       id: "kundli-match",
@@ -70,6 +72,7 @@ export function ServicesBento({ locale, dict }: ServicesBentoProps) {
       badgeColor: "bg-blue-500/10 text-blue-500 dark:text-blue-400 border-blue-500/20",
       className: "lg:col-span-1 lg:row-span-1",
       glowColor: "rgba(59, 130, 246, 0.08)",
+      cornerColor: "#E0F2FE"
     },
     {
       id: "purohit",
@@ -81,6 +84,7 @@ export function ServicesBento({ locale, dict }: ServicesBentoProps) {
       badgeColor: "bg-red-500/10 text-red-500 dark:text-red-400 border-red-500/20",
       className: "lg:col-span-1 lg:row-span-1",
       glowColor: "rgba(239, 68, 68, 0.08)",
+      cornerColor: "#FFD0C8"
     },
     {
       id: "vastu-consult",
@@ -92,6 +96,7 @@ export function ServicesBento({ locale, dict }: ServicesBentoProps) {
       badgeColor: "bg-purple-500/10 text-purple-500 dark:text-purple-400 border-purple-500/20",
       className: "lg:col-span-1 lg:row-span-1",
       glowColor: "rgba(168, 85, 247, 0.08)",
+      cornerColor: "#E5D5FF"
     },
     {
       id: "vastu-plan",
@@ -103,6 +108,7 @@ export function ServicesBento({ locale, dict }: ServicesBentoProps) {
       badgeColor: "bg-orange-500/10 text-orange-500 dark:text-orange-400 border-orange-500/20",
       className: "lg:col-span-2 lg:row-span-1",
       glowColor: "rgba(249, 115, 22, 0.08)",
+      cornerColor: "#FFF9E6"
     },
   ];
 
@@ -135,9 +141,12 @@ export function ServicesBento({ locale, dict }: ServicesBentoProps) {
                 key={card.id}
                 href={card.href}
                 className={cn(
-                  "group relative flex flex-col justify-between p-6 sm:p-8 bg-card border border-border rounded-xl transition-all duration-300 hover:border-gold/60 hover:shadow-lg dark:hover:shadow-black/40 overflow-hidden hover:-translate-y-1 hover:scale-[1.015] active:scale-[0.985]",
+                  "group relative flex flex-col justify-between p-6 sm:p-8 backdrop-blur-md border border-border rounded-xl transition-all duration-300 hover:border-gold/60 hover:shadow-lg dark:hover:shadow-black/40 overflow-hidden hover:-translate-y-1 hover:scale-[1.015] active:scale-[0.985]",
                   card.className
                 )}
+                style={{
+                  background: `radial-gradient(circle at top right, ${card.cornerColor} 0%, rgba(255, 255, 255, 0.85) 55%, rgba(255, 255, 255, 0.95) 100%)`
+                }}
               >
                 {/* Fine interactive gold hairline highlight */}
                 <div className="absolute inset-0 border border-transparent group-hover:border-gold/30 rounded-xl pointer-events-none transition-colors duration-300" />

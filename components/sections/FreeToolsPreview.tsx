@@ -92,12 +92,16 @@ function FreeToolCard({ tool, t, index }: FreeToolCardProps) {
       radius={300}
       useCanvas={false}
       className={cn(
-        "group relative border rounded-2xl flex flex-col justify-between overflow-hidden p-8 select-none shadow-card transition-all duration-300 min-h-[16rem]",
+        "group relative border rounded-2xl flex flex-col justify-between overflow-hidden p-8 select-none shadow-card transition-all duration-300 min-h-[16rem] backdrop-blur-md",
         tool.active 
-          ? "bg-card border-border-gold hover:bg-card-raised hover:shadow-card hover:-translate-y-1 cursor-pointer text-ink-body" 
-          : "bg-card/40 border-dashed border-border/40 opacity-50 cursor-not-allowed text-ink-muted"
+          ? "border-border-gold hover:shadow-cardHover hover:-translate-y-1 cursor-pointer text-ink-body" 
+          : "border-dashed border-border/40 opacity-60 cursor-not-allowed text-ink-muted"
       )}
-      style={{}}
+      style={{
+        background: tool.active
+          ? `radial-gradient(circle at top right, ${tool.cornerColor} 0%, rgba(255, 255, 255, 0.85) 55%, rgba(255, 255, 255, 0.95) 100%)`
+          : `radial-gradient(circle at top right, ${tool.cornerColor} 0%, rgba(255, 255, 255, 0.90) 45%, rgba(255, 255, 255, 0.95) 100%)`
+      }}
     >
       <div className="relative flex flex-col gap-5">
         <div className="flex justify-between items-start">
@@ -158,6 +162,7 @@ export default function FreeToolsPreview({ locale = "en" }: FreeToolsPreviewProp
       icon: Compass,
       active: true,
       glowColor: "rgba(220, 180, 80, 0.12)", // Champagne Gold Glow
+      cornerColor: "#FFF9E6",
     },
     {
       title: t.matchingTitle,
@@ -166,6 +171,7 @@ export default function FreeToolsPreview({ locale = "en" }: FreeToolsPreviewProp
       icon: HeartHandshake,
       active: true,
       glowColor: "rgba(168, 85, 247, 0.12)", // Amethyst Purple Glow
+      cornerColor: "#E5D5FF",
     },
     {
       title: t.panchangTitle,
@@ -174,6 +180,7 @@ export default function FreeToolsPreview({ locale = "en" }: FreeToolsPreviewProp
       icon: Calendar,
       active: true,
       glowColor: "rgba(34, 197, 94, 0.08)", // Emerald Green Glow
+      cornerColor: "#C6F6D5",
     },
     {
       title: t.horoscopeTitle,
@@ -182,6 +189,7 @@ export default function FreeToolsPreview({ locale = "en" }: FreeToolsPreviewProp
       icon: Orbit,
       active: false,
       glowColor: "rgba(59, 130, 246, 0.08)", // Blue Glow
+      cornerColor: "#E0F2FE",
     },
   ];
 

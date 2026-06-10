@@ -77,13 +77,26 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
             const descText = ast.description[activeLocale] || ast.description["en"];
             const addressText = ast.address[activeLocale] || ast.address["en"];
 
+            const cardCornerColors: Record<string, string> = {
+              biprangshu_bhattacharjee: "#FFF9E6",
+              acharya_bhakta_vedanta: "#E5D5FF",
+              acharya_sneha: "#FFD0C8",
+              acharya_abhi_shastri: "#FEF08A",
+              astrologer_indrajit_dutta: "#C6F6D5",
+              rishi_acharya: "#E0F2FE"
+            };
+            const cornerColor = cardCornerColors[key] || "#E5D5FF";
+
             if (isMain) {
               return (
                 <div
                   key={key}
                   className={cn(
-                    "group/bento bg-card shadow-card hover:shadow-cardHover md:col-span-2 md:row-span-2 flex flex-col justify-between rounded-2xl border border-card-border p-6 relative overflow-hidden text-ink-body transition-all duration-300 hover:bg-white hover:-translate-y-1 min-h-[30rem] md:min-h-0 will-change-transform [transform:translate3d(0,0,0)]"
+                    "group/bento shadow-card hover:shadow-cardHover md:col-span-2 md:row-span-2 flex flex-col justify-between rounded-2xl border border-card-border p-6 relative overflow-hidden text-ink-body transition-all duration-300 hover:-translate-y-1 min-h-[30rem] md:min-h-0 will-change-transform [transform:translate3d(0,0,0)] backdrop-blur-md"
                   )}
+                  style={{
+                    background: `radial-gradient(circle at top right, ${cornerColor} 0%, rgba(255, 255, 255, 0.85) 55%, rgba(255, 255, 255, 0.95) 100%)`
+                  }}
                 >
                   {/* Top: Profile Header & Layout */}
                   <div className="flex flex-col md:flex-row gap-6 items-stretch relative z-10 h-full w-full">
@@ -201,8 +214,11 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
               <div
                 key={key}
                 className={cn(
-                  "group/bento bg-card shadow-card hover:shadow-cardHover row-span-1 flex flex-col justify-between space-y-3.5 rounded-2xl border border-card-border p-4.5 transition-all duration-300 hover:bg-white hover:-translate-y-1 text-ink-body relative overflow-hidden will-change-transform [transform:translate3d(0,0,0)]"
+                  "group/bento shadow-card hover:shadow-cardHover row-span-1 flex flex-col justify-between space-y-3.5 rounded-2xl border border-card-border p-4.5 transition-all duration-300 hover:-translate-y-1 text-ink-body relative overflow-hidden will-change-transform [transform:translate3d(0,0,0)] backdrop-blur-md"
                 )}
+                style={{
+                  background: `radial-gradient(circle at top right, ${cornerColor} 0%, rgba(255, 255, 255, 0.85) 55%, rgba(255, 255, 255, 0.95) 100%)`
+                }}
               >
                 {/* Header info */}
                 <div className="flex items-start justify-between gap-3 relative z-10">

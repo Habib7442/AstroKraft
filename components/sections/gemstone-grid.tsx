@@ -74,12 +74,14 @@ function GemstoneCard({ gem, activeLocale, labels, glowColor, getPrefilledWhatsa
       radius={280}
       useCanvas={false} // Default false to prevent WebGL multiple context scroll lag
       className={cn(
-        "group/gem transition-all duration-300 border border-card-border rounded-2xl flex flex-col justify-between overflow-hidden p-6 select-none relative text-ink-body shadow-card hover:shadow-cardHover bg-card hover:bg-white hover:-translate-y-1 min-h-[30rem] will-change-transform [transform:translate3d(0,0,0)]"
+        "group/gem transition-all duration-300 border border-card-border rounded-2xl flex flex-col justify-between overflow-hidden p-6 select-none relative text-ink-body shadow-card hover:shadow-cardHover backdrop-blur-md hover:-translate-y-1 min-h-[30rem] will-change-transform [transform:translate3d(0,0,0)]"
       )}
-      style={{}}
+      style={{
+        background: `radial-gradient(circle at top right, ${cornerColor} 0%, rgba(255, 255, 255, 0.85) 55%, rgba(255, 255, 255, 0.95) 100%)`
+      }}
     >
       <div className="relative flex flex-col gap-4">
-        
+
         {/* Top image and Type Badge */}
         <div className="flex justify-between items-start gap-4">
           {/* Gemstone Image frame with localized shadow outline */}
@@ -233,7 +235,7 @@ export default function GemstoneGrid({ locale = "en", limit }: GemstoneGridProps
       <div className="absolute bottom-24 right-1/4 w-[400px] h-[400px] rounded-full bg-violet/5 blur-[120px] pointer-events-none -z-10" />
 
       <div className="max-w-7xl mx-auto flex flex-col gap-10">
-        
+
         {/* Section Heading */}
         <div className="flex flex-col items-center text-center gap-3">
           <span className="inline-flex items-center gap-1.5 px-4.5 py-1.5 border border-card-border bg-gold-soft/10 text-gold text-[10px] sm:text-xs font-bold uppercase tracking-wider select-none rounded-full">
