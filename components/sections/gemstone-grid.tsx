@@ -67,6 +67,7 @@ function GemstoneCard({ gem, activeLocale, labels, glowColor, getPrefilledWhatsa
   const gemRuler = gem.ruler[activeLocale] || gem.ruler["en"];
   const gemOrigin = gem.origin[activeLocale] || gem.origin["en"];
   const gemBenefits = gem.benefits[activeLocale] || gem.benefits["en"] || [];
+  const cornerColor = gemCardColors[gem.id] || "#E5D5FF";
 
   return (
     <CardSpotlight

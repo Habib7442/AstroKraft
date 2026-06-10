@@ -75,6 +75,7 @@ interface FreeToolCardProps {
     icon: React.ComponentType<any>;
     active: boolean;
     glowColor: string;
+    cornerColor: string;
   };
   t: {
     comingSoon: string;
