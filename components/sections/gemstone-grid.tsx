@@ -75,10 +75,11 @@ function GemstoneCard({ gem, activeLocale, labels, glowColor, getPrefilledWhatsa
       radius={280}
       useCanvas={false} // Default false to prevent WebGL multiple context scroll lag
       className={cn(
-        "group/gem transition-all duration-300 border border-white/10 rounded-2xl flex flex-col justify-between overflow-hidden p-6 select-none relative text-slate-200 shadow-card hover:shadow-cardHover backdrop-blur-md hover:-translate-y-1 min-h-[30rem] will-change-transform [transform:translate3d(0,0,0)]"
+        "group/gem transition-all duration-300 border rounded-2xl flex flex-col justify-between overflow-hidden p-6 select-none relative text-slate-200 shadow-card hover:shadow-cardHover backdrop-blur-md hover:-translate-y-1 min-h-[30rem] will-change-transform [transform:translate3d(0,0,0)]"
       )}
       style={{
-        background: `radial-gradient(circle at top right, ${cornerColor}1f 0%, rgba(15, 20, 45, 0.65) 55%, rgba(15, 20, 45, 0.85) 100%)`
+        background: `radial-gradient(circle at top right, ${cornerColor}1f 0%, rgba(15, 20, 45, 0.65) 55%, rgba(15, 20, 45, 0.85) 100%)`,
+        borderColor: `${cornerColor}55`
       }}
     >
       <div className="relative flex flex-col gap-4">
