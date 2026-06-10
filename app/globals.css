@@ -22,7 +22,7 @@
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
-  --color-gold: var(--gold-line);
+  --color-gold: #B8860B;
   --color-surface-muted: var(--surface-muted);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
@@ -46,91 +46,96 @@
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
 
-  /* New Dark Theme Mappings */
-  --color-base: #0E1230;
-  --color-alt: #141A3D;
-  --color-card-raised: #20285E;
-  --color-border-gold: rgba(201, 162, 75, 0.30);
-  --color-gold-deep: #C9A24B;
+  /* New Temple Light Theme Mappings */
+  --color-base: #F7F5FC;
+  --color-alt: #FFFFFF;
+  --color-tint: #F1ECFA;
+  --color-card-raised: #FFFFFF;
+  --color-border-gold: #ECE7F7;
+  --color-card-border: #ECE7F7;
+  --color-gold-deep: #B8860B;
   --color-violet: #5B21B6;
-  --color-violet-bright: #7C3AED;
-  --color-ink: #F4F2FB;
-  --color-ink-body: #C7C3DE;
-  --color-ink-muted: #8E89A8;
+  --color-violet-bright: #6D28D9;
+  --color-violet-band: #3A1A78;
+  --color-gold-soft: #C9A24B;
+  --color-saffron: #E8973A;
+  --color-ink: #221A3D;
+  --color-ink-body: #4A4566;
+  --color-ink-muted: #6E698A;
 }
 
 :root {
-  --background: #0E1230;
-  --surface-muted: #141A3D;
-  --foreground: #F4F2FB;
-  --card: #1A2150;
-  --card-foreground: #F4F2FB;
-  --popover: #1A2150;
-  --popover-foreground: #F4F2FB;
+  --background: #F7F5FC;
+  --surface-muted: #F1ECFA;
+  --foreground: #221A3D;
+  --card: #FFFFFF;
+  --card-foreground: #221A3D;
+  --popover: #FFFFFF;
+  --popover-foreground: #221A3D;
 
   --primary: #5B21B6;
-  --primary-foreground: #F4F2FB;
-  --secondary: #141A3D;
-  --secondary-foreground: #C7C3DE;
-  --accent: #E2C27A;
-  --accent-foreground: #0E1230;
-  --gold-line: rgba(201, 162, 75, 0.30);
+  --primary-foreground: #FFFFFF;
+  --secondary: #FFFFFF;
+  --secondary-foreground: #4A4566;
+  --accent: #B8860B;
+  --accent-foreground: #FFFFFF;
+  --gold-line: #ECE7F7;
 
-  --muted: #141A3D;
-  --muted-foreground: #8E89A8;
-  --border: #2A2F5E;
-  --input: #2A2F5E;
+  --muted: #F1ECFA;
+  --muted-foreground: #6E698A;
+  --border: #ECE7F7;
+  --input: #ECE7F7;
   --ring: #5B21B6;
 
   --radius: 0.75rem;
 
-  --sidebar: #1A2150;
-  --sidebar-foreground: #F4F2FB;
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #221A3D;
   --sidebar-primary: #5B21B6;
-  --sidebar-primary-foreground: #F4F2FB;
-  --sidebar-accent: #20285E;
-  --sidebar-accent-foreground: #F4F2FB;
-  --sidebar-border: #2A2F5E;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #F1ECFA;
+  --sidebar-accent-foreground: #221A3D;
+  --sidebar-border: #ECE7F7;
   --sidebar-ring: #5B21B6;
 
-  --destructive: #F0717A;
-  --destructive-foreground: #F4F2FB;
+  --destructive: #C0392B;
+  --destructive-foreground: #FFFFFF;
 }
 
 .dark {
-  --background: #0E1230;
-  --surface-muted: #141A3D;
-  --foreground: #F4F2FB;
-  --card: #1A2150;
-  --card-foreground: #F4F2FB;
-  --popover: #1A2150;
-  --popover-foreground: #F4F2FB;
+  --background: #F7F5FC;
+  --surface-muted: #F1ECFA;
+  --foreground: #221A3D;
+  --card: #FFFFFF;
+  --card-foreground: #221A3D;
+  --popover: #FFFFFF;
+  --popover-foreground: #221A3D;
 
   --primary: #5B21B6;
-  --primary-foreground: #F4F2FB;
-  --secondary: #141A3D;
-  --secondary-foreground: #C7C3DE;
-  --accent: #E2C27A;
-  --accent-foreground: #0E1230;
-  --gold-line: rgba(201, 162, 75, 0.30);
+  --primary-foreground: #FFFFFF;
+  --secondary: #FFFFFF;
+  --secondary-foreground: #4A4566;
+  --accent: #B8860B;
+  --accent-foreground: #FFFFFF;
+  --gold-line: #ECE7F7;
 
-  --muted: #141A3D;
-  --muted-foreground: #8E89A8;
-  --border: #2A2F5E;
-  --input: #2A2F5E;
+  --muted: #F1ECFA;
+  --muted-foreground: #6E698A;
+  --border: #ECE7F7;
+  --input: #ECE7F7;
   --ring: #5B21B6;
 
-  --sidebar: #1A2150;
-  --sidebar-foreground: #F4F2FB;
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #221A3D;
   --sidebar-primary: #5B21B6;
-  --sidebar-primary-foreground: #F4F2FB;
-  --sidebar-accent: #20285E;
-  --sidebar-accent-foreground: #F4F2FB;
-  --sidebar-border: #2A2F5E;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #F1ECFA;
+  --sidebar-accent-foreground: #221A3D;
+  --sidebar-border: #ECE7F7;
   --sidebar-ring: #5B21B6;
 
-  --destructive: #F0717A;
-  --destructive-foreground: #F4F2FB;
+  --destructive: #C0392B;
+  --destructive-foreground: #FFFFFF;
 }
 
 @layer base {
@@ -205,12 +210,11 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: 0.07;
   background-image:
-    radial-gradient(1.5px 1.5px at 20% 30%, #fff, transparent),
-    radial-gradient(1.5px 1.5px at 70% 20%, #fff, transparent),
-    radial-gradient(1.5px 1.5px at 40% 70%, #fff, transparent),
-    radial-gradient(1.5px 1.5px at 85% 60%, #fff, transparent);
+    radial-gradient(2px 2px at 20% 30%, rgba(91, 33, 182, 0.12), transparent),
+    radial-gradient(2px 2px at 70% 20%, rgba(184, 134, 11, 0.16), transparent),
+    radial-gradient(2px 2px at 40% 70%, rgba(91, 33, 182, 0.10), transparent),
+    radial-gradient(2px 2px at 85% 60%, rgba(184, 134, 11, 0.12), transparent);
 }
 
 /* Fluid Typography Classes */
@@ -220,6 +224,7 @@
   font-size: clamp(2.5rem, 6vw, 4.25rem);
   line-height: 1.05;
   letter-spacing: -0.02em;
+  color: var(--color-ink);
 }
 
 .t-h2 {
@@ -228,6 +233,7 @@
   font-size: clamp(1.6rem, 3vw, 2.4rem);
   line-height: 1.15;
   letter-spacing: -0.01em;
+  color: var(--color-ink);
 }
 
 .t-body {
@@ -250,4 +256,16 @@
 .t-price {
   font-family: var(--font-geist-mono);
   font-weight: 500;
+  color: var(--color-gold);
+}
+
+/* Explicit ink text colors for light theme visibility */
+p.text-ink-body, span.text-ink-body, div.text-ink-body, strong.text-ink-body, a.text-ink-body, .text-ink-body {
+  color: #4A4566 !important;
+}
+p.text-ink-muted, span.text-ink-muted, div.text-ink-muted, strong.text-ink-muted, a.text-ink-muted, .text-ink-muted {
+  color: #6E698A !important;
+}
+h1.text-ink, h2.text-ink, h3.text-ink, h4.text-ink, p.text-ink, span.text-ink, div.text-ink, .text-ink {
+  color: #221A3D !important;
 }

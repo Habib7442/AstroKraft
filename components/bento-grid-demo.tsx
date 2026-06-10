@@ -55,7 +55,7 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
       <div className="max-w-7xl mx-auto flex flex-col gap-10">
         {/* Section Heading */}
         <div className="flex flex-col items-center text-center gap-3">
-          <span className="inline-flex items-center gap-1.5 px-4.5 py-1.5 border border-border-gold bg-gold/10 text-gold text-[10px] sm:text-xs font-bold uppercase tracking-wider select-none rounded-full">
+          <span className="inline-flex items-center gap-1.5 px-4.5 py-1.5 border border-card-border bg-gold-soft/10 text-gold text-[10px] sm:text-xs font-bold uppercase tracking-wider select-none rounded-full">
             ✦ Divine Team of Experts
           </span>
           <h2 className="t-h2 text-ink">
@@ -82,7 +82,7 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
                 <div
                   key={key}
                   className={cn(
-                    "group/bento bg-card shadow-card md:col-span-2 md:row-span-2 flex flex-col justify-between rounded-2xl border border-border-gold p-6 relative overflow-hidden text-ink-body transition-all duration-300 hover:bg-card-raised hover:-translate-y-1 min-h-[30rem] md:min-h-0 will-change-transform [transform:translate3d(0,0,0)]"
+                    "group/bento bg-card shadow-card hover:shadow-cardHover md:col-span-2 md:row-span-2 flex flex-col justify-between rounded-2xl border border-card-border p-6 relative overflow-hidden text-ink-body transition-all duration-300 hover:bg-white hover:-translate-y-1 min-h-[30rem] md:min-h-0 will-change-transform [transform:translate3d(0,0,0)]"
                   )}
                 >
                   {/* Top: Profile Header & Layout */}
@@ -108,14 +108,14 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
                       </a>
 
                       {/* Prominent Badges */}
-                      <span className="mt-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase border border-border-gold bg-gold/10 text-gold shadow-sm whitespace-nowrap">
+                      <span className="mt-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase border border-card-border bg-gold-soft/10 text-gold shadow-sm whitespace-nowrap">
                         ✦ Director
                       </span>
 
                       {/* Languages Spoken */}
                       <div className="flex flex-wrap gap-1.5 mt-3.5 max-w-[120px]">
                         {ast.languages[activeLocale]?.map((lang) => (
-                          <span key={lang} className="px-2 py-0.5 rounded border border-purple-500/30 bg-purple-500/10 text-purple-300 text-[9px] font-bold uppercase tracking-wider shadow-sm">
+                          <span key={lang} className="px-2 py-0.5 rounded border border-violet/20 bg-violet/5 text-violet text-[9px] font-bold uppercase tracking-wider shadow-sm">
                             {lang}
                           </span>
                         ))}
@@ -126,20 +126,20 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
                     <div className="flex-1 flex flex-col justify-between gap-4">
                       <div className="flex flex-col gap-2">
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-border/40 pb-2.5">
-                          <h3 className="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-ink hover:text-gold transition-colors">
+                          <h3 className="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-ink hover:text-violet transition-colors">
                             <a href={`/${locale}/astrologers/${key}`}>
                               {ast.name}
                             </a>
                           </h3>
                           {/* Rating & reviews */}
-                          <div className="flex items-center gap-1.5 bg-card-raised border border-border-gold px-3 py-1 rounded-full text-xs font-bold text-gold shadow-sm w-fit whitespace-nowrap shrink-0">
-                            <Star className="w-3.5 h-3.5 text-[#E2C27A] fill-[#E2C27A] shrink-0" />
+                          <div className="flex items-center gap-1.5 bg-base border border-card-border px-3 py-1 rounded-full text-xs font-bold text-gold shadow-sm w-fit whitespace-nowrap shrink-0">
+                            <Star className="w-3.5 h-3.5 text-[#B8860B] fill-[#B8860B] shrink-0" />
                             <span>{ast.rating} / 5</span>
                             <span className="text-ink-muted text-[10px] font-bold">({ast.reviews} reviews)</span>
                           </div>
                         </div>
 
-                        <span className="text-xs font-bold text-gold bg-gold/10 border border-border-gold px-2.5 py-0.5 rounded-full w-fit shadow-sm font-sans tracking-wide">
+                        <span className="text-xs font-bold text-violet bg-violet/5 border border-violet/10 px-2.5 py-0.5 rounded-full w-fit shadow-sm font-sans tracking-wide">
                           {specialtyText}
                         </span>
 
@@ -160,11 +160,11 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
                         </div>
                         <div className="flex items-center gap-2.5 text-ink-muted font-bold font-sans">
                           <Phone className="w-4 h-4 text-ink-muted stroke-[1.5px] shrink-0" />
-                          <span>Phone: <a href={`tel:${ast.phone}`} className="hover:text-gold hover:underline transition-colors">{ast.phone}</a></span>
+                          <span>Phone: <a href={`tel:${ast.phone}`} className="hover:text-violet hover:underline transition-colors">{ast.phone}</a></span>
                         </div>
                         <div className="flex items-center gap-2.5 text-ink-muted font-bold font-sans">
                           <Mail className="w-4 h-4 text-ink-muted stroke-[1.5px] shrink-0" />
-                          <span className="truncate">Email: <a href={`mailto:${ast.email}`} className="hover:text-gold hover:underline transition-colors">{ast.email}</a></span>
+                          <span className="truncate">Email: <a href={`mailto:${ast.email}`} className="hover:text-violet hover:underline transition-colors">{ast.email}</a></span>
                         </div>
                       </div>
 
@@ -177,7 +177,7 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
                         <div className="flex items-center gap-3">
                           <a
                             href={`/${locale}/astrologers/${key}`}
-                            className="text-xs font-bold text-gold border border-gold-deep bg-transparent hover:bg-gold/8 transition-all px-4 py-2 rounded-full shadow-sm"
+                            className="text-xs font-bold text-violet border border-violet bg-white hover:bg-[#F3EEFB] transition-all px-4 py-2 rounded-full shadow-sm"
                           >
                             View Profile
                           </a>
@@ -201,7 +201,7 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
               <div
                 key={key}
                 className={cn(
-                  "group/bento bg-card shadow-card row-span-1 flex flex-col justify-between space-y-3.5 rounded-2xl border border-border-gold p-4.5 transition-all duration-300 hover:bg-card-raised hover:-translate-y-1 text-ink-body relative overflow-hidden will-change-transform [transform:translate3d(0,0,0)]"
+                  "group/bento bg-card shadow-card hover:shadow-cardHover row-span-1 flex flex-col justify-between space-y-3.5 rounded-2xl border border-card-border p-4.5 transition-all duration-300 hover:bg-white hover:-translate-y-1 text-ink-body relative overflow-hidden will-change-transform [transform:translate3d(0,0,0)]"
                 )}
               >
                 {/* Header info */}
@@ -233,8 +233,8 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
 
                   {/* Right Header: Rating & Experience */}
                   <div className="flex flex-col items-end text-right gap-1 font-sans text-[10px] font-bold">
-                    <div className="flex items-center gap-0.5 bg-card-raised border border-border-gold px-1.5 py-0.5 rounded-full shadow-sm text-gold font-bold">
-                      <Star className="w-2.5 h-2.5 text-[#E2C27A] fill-[#E2C27A] shrink-0" />
+                    <div className="flex items-center gap-0.5 bg-base border border-card-border px-1.5 py-0.5 rounded-full shadow-sm text-gold font-bold">
+                      <Star className="w-2.5 h-2.5 text-[#B8860B] fill-[#B8860B] shrink-0" />
                       <span>{ast.rating}</span>
                     </div>
                     <span className="text-ink-muted">{ast.experience} Yrs Exp</span>
@@ -244,12 +244,12 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
                 {/* Body info */}
                 <div className="flex-1 flex flex-col justify-between mt-2 gap-3 relative z-10">
                   <div className="flex flex-col gap-1">
-                    <h4 className="font-serif font-bold text-sm text-ink tracking-wide hover:text-gold transition-colors">
+                    <h4 className="font-serif font-bold text-sm text-ink tracking-wide hover:text-violet transition-colors">
                       <a href={`/${locale}/astrologers/${key}`}>
                         {ast.name}
                       </a>
                     </h4>
-                    <p className="text-[10px] text-gold font-bold bg-gold/10 border border-border-gold px-2 py-0.5 rounded-full w-fit shadow-sm leading-none">
+                    <p className="text-[10px] text-violet font-bold bg-violet/5 border border-violet/10 px-2 py-0.5 rounded-full w-fit shadow-sm leading-none">
                       {specialtyText}
                     </p>
                     <p className="text-[11px] text-ink-body font-medium line-clamp-2 leading-relaxed mt-1.5 font-sans">
@@ -266,7 +266,7 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
                     <div className="flex items-center gap-2">
                       <a
                         href={`/${locale}/astrologers/${key}`}
-                        className="text-[10px] font-bold text-gold border border-gold-deep bg-transparent hover:bg-gold/8 transition-all py-1.5 px-3 rounded-full shadow-sm"
+                        className="text-[10px] font-bold text-violet border border-violet bg-white hover:bg-[#F3EEFB] transition-all py-1.5 px-3 rounded-full shadow-sm"
                       >
                         Profile
                       </a>
