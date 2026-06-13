@@ -93,6 +93,8 @@ Update this file after every completed feature. Any AI agent reading this should
 - **Floating WhatsApp FAB**: Implemented a global fixed floating action button (FAB) using `/social-icons/whatsapp.png` mapped with localized prefilled chat texts.
 - **Zodiac Wheel Speed Adjustment**: Decreased the rotation animation duration from 80s to 30s to make the zodiac wheel rotate moderately faster.
 - **Gemstone Grid Position Priority**: Moved the Featured Gemstones section immediately after the Hero section to optimize visibility and conversions for gemstone sales.
+- **Gemstone Grid Mobile Refactoring**: Optimized the gemstone grid layout to support 2 columns on mobile. Reduced image sizes, text sizes, clamped descriptions, hid planetary grids and benefit lists on mobile screens, and converted inquiry buttons to full-width modules.
+- **Mobile Menu Sidebar Separator Fix**: Conditionally omitted the bottom border on the last link (`Blog`) inside the navigation sheet drawer to eliminate a double-line divider layout glitch.
 
 ---
 
