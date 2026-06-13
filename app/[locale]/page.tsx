@@ -3,6 +3,7 @@ import { getDictionary } from "@/lib/i18n";
 import { isValidLocale } from "@/lib/seo";
 import { Header } from "@/components/sections/header";
 import { Hero } from "@/components/sections/hero";
+import { ServicesRow } from "@/components/sections/services-row";
 import { Footer } from "@/components/sections/footer";
 import BentoGridDemo from "@/components/bento-grid-demo";
 import GemstoneGrid from "@/components/sections/gemstone-grid";
@@ -30,6 +31,9 @@ export default async function Page({ params }: { params: Promise<PageParams> }) 
       <main className="flex-1">
         {/* Observatory Hero Spotlight Section */}
         <Hero locale={locale} dict={dict} />
+
+        {/* Premium Standalone Services Row Section */}
+        <ServicesRow locale={locale} dict={dict} />
 
 
         {/* Bento Grid showcasing Astrologers */}

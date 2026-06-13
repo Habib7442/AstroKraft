@@ -238,61 +238,7 @@ export function Hero({ locale, dict }: HeroProps) {
             <Globe3DDemo className="h-full w-full" locale={locale} />
           </div>
 
-          {/* Divine Services Quick Access Row */}
-          <div className="w-full flex flex-col gap-5 relative z-20 order-2 lg:order-3 lg:col-span-12 mt-2 lg:mt-12">
-            <div className="flex flex-col items-center lg:items-start text-center lg:text-left gap-2">
-              <span className="inline-flex items-center gap-1 px-4 py-1.5 border border-[#E2C27A]/30 bg-white/10 text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider rounded-full backdrop-blur-md">
-                ✦ {activeLocale === "hin" ? "हमारी सेवाएं" : activeLocale === "bn" ? "আমাদের পরিষেবা" : "Our Services"}
-              </span>
-            </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-5 w-full">
-              {servicesData.map((service) => {
-                const titleText = service.title[activeLocale as keyof typeof service.title] || service.title.en;
-                const descText = service.desc[activeLocale as keyof typeof service.desc] || service.desc.en;
-
-                return (
-                  <a
-                    href={service.isExternal ? service.link : `/${locale}${service.link}`}
-                    target={service.isExternal ? "_blank" : undefined}
-                    rel={service.isExternal ? "noopener noreferrer" : undefined}
-                    key={service.id}
-                    className="group relative flex flex-col items-center justify-between text-center p-5 rounded-2xl border border-zinc-100 bg-white shadow-sm hover:shadow-md hover:-translate-y-1 active:translate-y-0 transition-all duration-300 cursor-pointer overflow-hidden"
-                  >
-                    {/* Service Image Frame */}
-                    <div className="flex flex-col items-center w-full">
-                      <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden group-hover:scale-105 transition-transform duration-200">
-                        <Image
-                          src={service.image}
-                          alt={titleText}
-                          width={80}
-                          height={80}
-                          sizes="(max-width: 640px) 64px, 80px"
-                          className="w-full h-full object-cover select-none p-0.5"
-                          draggable={false}
-                        />
-                      </div>
-
-                      <h3 className="font-sans text-xs sm:text-sm font-extrabold text-black mt-4 tracking-tight line-clamp-2 uppercase">
-                        {titleText}
-                      </h3>
-
-                      <p className="text-[10px] sm:text-xs text-black/75 font-bold mt-1.5 leading-snug line-clamp-2">
-                        {descText}
-                      </p>
-                    </div>
-
-                    <span className={cn(
-                      "inline-flex items-center gap-1 text-[8px] sm:text-[9px] font-bold mt-5 px-3 py-1.5 rounded-full border shadow-sm transition-all duration-200 uppercase",
-                      serviceButtonStyles[service.id as keyof typeof serviceButtonStyles] || "border-zinc-200 bg-white text-zinc-700"
-                    )}>
-                      {dict.services.cta} →
-                    </span>
-                  </a>
-                );
-              })}
-            </div>
-          </div>
 
           {/* Trust Badges */}
           <div className="grid grid-cols-2 sm:flex sm:flex-wrap justify-center lg:justify-center gap-3 sm:gap-4 mt-8 lg:mt-12 text-[10px] sm:text-xs font-bold text-white w-full order-3 lg:order-4 lg:col-span-12">
