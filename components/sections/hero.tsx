@@ -269,11 +269,11 @@ export function Hero({ locale, dict }: HeroProps) {
                   </span>
                 </PointerHighlight>
               </h1>
-              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden shrink-0 select-none animate-spin-slow">
+              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden shrink-0 select-none animate-spin-slow will-change-transform [transform:translate3d(0,0,0)]">
                 <img
                   src={ZODIAC_WHEEL_SRC}
                   alt="Zodiac Wheel"
-                  className="w-full h-full object-cover rounded-full"
+                  className="w-full h-full object-cover rounded-full [transform:translate3d(0,0,0)]"
                   draggable={false}
                 />
               </div>

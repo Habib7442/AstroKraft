@@ -35,6 +35,11 @@ export default async function Page({ params }: { params: Promise<PageParams> }) 
 
         <div className="max-w-7xl mx-auto h-px w-full bg-gradient-to-r from-transparent via-border/50 to-transparent" />
 
+        {/* Featured Gemstones Section */}
+        <GemstoneGrid locale={locale} limit={3} />
+
+        <div className="max-w-7xl mx-auto h-px w-full bg-gradient-to-r from-transparent via-border/50 to-transparent" />
+
         {/* Premium Standalone Services Row Section */}
         <ServicesRow locale={locale} dict={dict} />
 
@@ -42,11 +47,6 @@ export default async function Page({ params }: { params: Promise<PageParams> }) 
 
         {/* Trust Metrics Section */}
         <WhyChoose locale={locale} />
-
-        <div className="max-w-7xl mx-auto h-px w-full bg-gradient-to-r from-transparent via-border/50 to-transparent" />
-
-        {/* Featured Gemstones Section */}
-        <GemstoneGrid locale={locale} limit={3} />
 
         <div className="max-w-7xl mx-auto h-px w-full bg-gradient-to-r from-transparent via-border/50 to-transparent" />
 

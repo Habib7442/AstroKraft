@@ -88,6 +88,11 @@ Update this file after every completed feature. Any AI agent reading this should
 - **Astrologer Profile Page Refactored**: Redesigned both the left profile metadata column and the right profile details columns of `astrologer-profile-client.tsx` to remove all neo-brutalist black borders and drop shadows, upgrading the interface to the premium modern celestial aesthetic. Fixed a button syntax error in the copy address section.
 - **Service Card WebP Icons & Hero Palette Update**: Updated homepage service cards to render WebP service icons from `lib/data/services.json` through `next/image`, aligned the Services Bento cards with the same shared service icon dataset, and changed the hero background to `linear-gradient(135deg, #0A1A3F, #103A4A)` per the deep navy to teal direction.
 - **Zodiac Wheel Cache Bust**: Added a version query to all `/assets/zodiac_wheel.png` render paths and bumped the service worker cache name to `astrokraft-cache-v3` so replaced wheel artwork is not served from the old PWA image cache.
+- **Why Choose Section Added**: Extracted why choose features into a new trust metrics component right after the Premium Services row with customizable translations, vertical separators, and a specialized Vedic divider.
+- **Consultation Selector Modal**: Integrated the 6 categories list directly inside the Hero component and built a pop-up details modal overlay that triggers when clicking a category, validating input details before redirecting users to WhatsApp.
+- **Floating WhatsApp FAB**: Implemented a global fixed floating action button (FAB) using `/social-icons/whatsapp.png` mapped with localized prefilled chat texts.
+- **Zodiac Wheel Speed Adjustment**: Decreased the rotation animation duration from 80s to 30s to make the zodiac wheel rotate moderately faster.
+- **Gemstone Grid Position Priority**: Moved the Featured Gemstones section immediately after the Hero section to optimize visibility and conversions for gemstone sales.
 
 ---
 
