@@ -83,7 +83,7 @@ function GemstoneCard({ gem, activeLocale, labels, glowColor, getPrefilledWhatsa
       }}
     >
       <div className="relative flex flex-col gap-4">
-        
+
         {/* Top image and Type Badge */}
         <div className="flex justify-between items-start gap-4">
           {/* Gemstone Image frame with localized shadow outline */}

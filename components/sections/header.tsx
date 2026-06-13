@@ -202,12 +202,15 @@ export function Header({ locale, dict }: HeaderProps) {
 
                 {/* Navigation Links inside Drawer */}
                 <nav className="flex flex-col gap-4 mt-6">
-                  {navItems.map((item) => (
+                  {navItems.map((item, idx) => (
                     <a
                       key={item.label}
                       href={item.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="text-base font-bold text-zinc-800 pb-2 border-b border-zinc-100 hover:text-primary hover:border-primary/30 transition-colors"
+                      className={cn(
+                        "text-base font-bold text-zinc-800 pb-2 hover:text-primary hover:border-primary/30 transition-colors",
+                        idx !== navItems.length - 1 && "border-b border-zinc-100"
+                      )}
                     >
                       {item.label}
                     </a>
