@@ -196,10 +196,7 @@ export function Hero({ locale, dict }: HeroProps) {
               </div>
             </div>
 
-            {/* Subline Description */}
-            <p className="max-w-2xl text-zinc-200 font-semibold text-sm sm:text-base md:text-lg leading-relaxed font-sans text-center lg:text-left">
-              {dict.hero.subtitle}
-            </p>
+
 
             {/* Action CTAs */}
             <div className="flex flex-col gap-3 w-full sm:w-auto items-center lg:items-start">
