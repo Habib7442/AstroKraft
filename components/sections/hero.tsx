@@ -2,8 +2,9 @@
 
 import Image from "next/image";
 import React from "react";
-import { ShieldCheck, Phone, UserCheck, Lock } from "lucide-react";
+import { ShieldCheck, Phone, UserCheck, Lock, Briefcase, Heart, Coins, Activity, FileText, GraduationCap, X, MessageSquare } from "lucide-react";
 import { Button } from "../ui/button";
+import { toast } from "sonner";
 
 import Globe3DDemo from "@/components/3d-globe-demo";
 import { PointerHighlight } from "@/components/ui/pointer-highlight";
@@ -11,6 +12,98 @@ import servicesData from "@/lib/data/services.json";
 import { cn } from "@/lib/utils";
 
 const ZODIAC_WHEEL_SRC = "/assets/zodiac_wheel.png?v=20260610";
+
+const CITIES = [
+  "Silchar, Assam",
+  "Karimganj, Assam",
+  "Hailakandi, Assam",
+  "Guwahati, Assam",
+  "Kolkata, West Bengal",
+  "Delhi, NCR",
+  "Mumbai, Maharashtra",
+  "Bengaluru, Karnataka",
+  "Chennai, Tamil Nadu",
+  "Hyderabad, Telangana",
+  "Pune, Maharashtra",
+  "Jaipur, Rajasthan",
+  "Patna, Bihar",
+  "Lucknow, Uttar Pradesh",
+  "Ahmedabad, Gujarat",
+  "Bhubaneswar, Odisha",
+  "Ranchi, Jharkhand",
+  "Agartala, Tripura",
+  "Shillong, Meghalaya",
+  "Imphal, Manipur"
+];
+
+const modalTranslations = {
+  en: {
+    title: "Enter Your Birth Details",
+    nameLabel: "Full Name",
+    namePlaceholder: "Enter your full name",
+    dobLabel: "Date of Birth",
+    dobPlaceholder: "DD/MM/YYYY (e.g., 15/08/1989)",
+    tobLabel: "Time of Birth",
+    tobPlaceholder: "HH:MM AM/PM or 24-hr (e.g., 02:30 PM)",
+    pobLabel: "Place of Birth",
+    pobPlaceholder: "Select place of birth",
+    submitBtn: "Consult via WhatsApp",
+    validationError: "Please fill in all details.",
+    redirecting: "Redirecting to WhatsApp...",
+    categories: {
+      career: "Career & Business",
+      love: "Love & Marriage",
+      finance: "Finance & Wealth",
+      health: "Health & Well-being",
+      kundli: "Kundli Guidance",
+      education: "Education & Studies"
+    }
+  },
+  hin: {
+    title: "अपना जन्म विवरण दर्ज करें",
+    nameLabel: "पूरा नाम",
+    namePlaceholder: "अपना पूरा नाम दर्ज करें",
+    dobLabel: "जन्म तिथि",
+    dobPlaceholder: "दिन/महीना/साल (जैसे, 15/08/1989)",
+    tobLabel: "जन्म समय",
+    tobPlaceholder: "समय (जैसे, 02:30 PM)",
+    pobLabel: "जन्म स्थान",
+    pobPlaceholder: "जन्म स्थान चुनें",
+    submitBtn: "व्हाट्सएप द्वारा परामर्श करें",
+    validationError: "कृपया सभी विवरण भरें।",
+    redirecting: "व्हाट्सएप पर रीडायरेक्ट किया जा रहा है...",
+    categories: {
+      career: "करियर और व्यवसाय",
+      love: "प्रेम और विवाह",
+      finance: "वित्त और संपत्ति",
+      health: "स्वास्थ्य और कल्याण",
+      kundli: "कुंडली मार्गदर्शन",
+      education: "शिक्षा और अध्ययन"
+    }
+  },
+  bn: {
+    title: "আপনার জন্মের বিবরণ লিখুন",
+    nameLabel: "সম্পূর্ণ নাম",
+    namePlaceholder: "আপনার সম্পূর্ণ নাম লিখুন",
+    dobLabel: "জন্ম তারিখ",
+    dobPlaceholder: "দিন/মাস/বছর (যেমন, 15/08/1989)",
+    tobLabel: "জন্মের সময়",
+    tobPlaceholder: "সময় (যেমন, 02:30 PM)",
+    pobLabel: "জন্মস্থান",
+    pobPlaceholder: "জন্মস্থান নির্বাচন করুন",
+    submitBtn: "হোয়াটসঅ্যাপের মাধ্যমে পরামর্শ করুন",
+    validationError: "দয়া করে সমস্ত বিবরণ পূরণ করুন।",
+    redirecting: "হোয়াটসঅ্যাপে রিডাইরেক্ট করা হচ্ছে...",
+    categories: {
+      career: "কর্মজীবন ও ব্যবসা",
+      love: "প্রেম ও বিবাহ",
+      finance: "অর্থ ও সম্পদ",
+      health: "স্বাস্থ্য ও কল্যাণ",
+      kundli: "কোষ্ঠী নির্দেশিকা",
+      education: "শিক্ষা ও পড়াশোনা"
+    }
+  }
+} as const;
 
 type HeroDictionary = {
   hero: {
@@ -43,6 +136,14 @@ export function Hero({ locale, dict }: HeroProps) {
   const activeLocale = ["en", "hin", "bn"].includes(locale) ? locale : "en";
 
   const [consultedCount, setConsultedCount] = React.useState(calculateConsultedCount);
+  const [selectedCategory, setSelectedCategory] = React.useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [formData, setFormData] = React.useState({
+    name: "",
+    dob: "",
+    time: "",
+    pob: ""
+  });
 
   React.useEffect(() => {
     const timer = setInterval(() => {
@@ -87,14 +188,49 @@ export function Hero({ locale, dict }: HeroProps) {
   };
   const labels = labelsObj[activeLocale as keyof typeof labelsObj] || labelsObj.en;
 
-  const serviceButtonStyles: Record<string, string> = {
-    astrologer: "text-[#b28b3a] border-amber-200/50 bg-amber-50/40 group-hover:bg-[#FFE4A0] group-hover:text-black group-hover:border-[#FFE4A0]",
-    gemstone: "text-purple-700 border-purple-200/50 bg-purple-50/40 group-hover:bg-[#E5D5FF] group-hover:text-black group-hover:border-[#E5D5FF]",
-    purohit: "text-rose-600 border-rose-200/50 bg-rose-50/40 group-hover:bg-[#FFD0C8] group-hover:text-black group-hover:border-[#FFD0C8]",
-    vastu_consult: "text-emerald-700 border-emerald-200/50 bg-emerald-50/40 group-hover:bg-[#C6F6D5] group-hover:text-black group-hover:border-[#C6F6D5]",
-    vastu_plan: "text-sky-700 border-sky-200/50 bg-sky-50/40 group-hover:bg-[#E0F2FE] group-hover:text-black group-hover:border-[#E0F2FE]",
-    kundli_match: "text-yellow-700 border-yellow-250/50 bg-yellow-50/40 group-hover:bg-[#FEF08A] group-hover:text-black group-hover:border-[#FEF08A]"
+  const tModal = modalTranslations[activeLocale as keyof typeof modalTranslations] || modalTranslations.en;
+
+  const handleCategorySelect = (catId: string) => {
+    setSelectedCategory(catId);
+    setIsModalOpen(true);
   };
+
+  const handleModalSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!selectedCategory || !formData.name || !formData.dob || !formData.time || !formData.pob) {
+      toast.error(tModal.validationError);
+      return;
+    }
+
+    const categoryLabel = tModal.categories[selectedCategory as keyof typeof tModal.categories] || selectedCategory;
+
+    const message = `Hello AstroKraft! I would like to get a WhatsApp Consultation.\n\n` +
+                    `*Details:*\n` +
+                    `• Name: ${formData.name}\n` +
+                    `• Category: ${categoryLabel}\n` +
+                    `• Date of Birth: ${formData.dob}\n` +
+                    `• Time of Birth: ${formData.time}\n` +
+                    `• Place of Birth: ${formData.pob}`;
+
+    const whatsappUrl = `https://api.whatsapp.com/send/?phone=916913230255&text=${encodeURIComponent(message)}&type=phone_number&app_absent=0`;
+    
+    toast.success(tModal.redirecting);
+    
+    setTimeout(() => {
+      window.open(whatsappUrl, "_blank");
+      setIsModalOpen(false);
+      setFormData({ name: "", dob: "", time: "", pob: "" });
+    }, 1000);
+  };
+
+  const heroCategories = [
+    { id: "career", icon: Briefcase, color: "bg-[#FFE4A0]", label: { en: "CAREER &\nBUSINESS", hin: "करियर और\nव्यवसाय", bn: "কর্মজীবন ও\nব্যবসা" } },
+    { id: "love", icon: Heart, color: "bg-[#E5D5FF]", label: { en: "LOVE &\nMARRIAGE", hin: "प्रेम और\nविवाह", bn: "প্রেম ও\nবিবাহ" } },
+    { id: "finance", icon: Coins, color: "bg-[#FFD0C8]", label: { en: "FINANCE &\nWEALTH", hin: "वित्त और\nसंपत्ति", bn: "অর্থ ও\nসম্পদ" } },
+    { id: "health", icon: Activity, color: "bg-[#C6F6D5]", label: { en: "HEALTH &\nWELL-BEING", hin: "स्वास्थ्य और\nकल्याण", bn: "স্বাস্থ্য ও\nকল্যাণ" } },
+    { id: "kundli", icon: FileText, color: "bg-[#FEF08A]", label: { en: "KUNDLI\nGUIDANCE", hin: "कुंडली\nमार्गदर्शन", bn: "কোষ্ঠী\nনির্দেশিকা" } },
+    { id: "education", icon: GraduationCap, color: "bg-[#E0F2FE]", label: { en: "EDUCATION &\nSTUDIES", hin: "शिक्षा और\nअध्ययन", bn: "শিক্ষা ও\nপড়াশোনা" } }
+  ];
 
   return (
     <section
@@ -103,14 +239,11 @@ export function Hero({ locale, dict }: HeroProps) {
         background: 'linear-gradient(135deg, #0B1026, #2A1A5E, #4C1D95)'
       }}
     >
-      {/* Grid Overlay */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:3.5rem_3.5rem] pointer-events-none z-0" />
 
       <div className="max-w-7xl w-full mx-auto px-6 md:px-12 lg:px-16 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-14 items-center w-full">
-          {/* Left Column: Text Content & CTAs */}
           <div className="flex flex-col items-center lg:items-start text-center lg:text-left gap-7 md:gap-8 lg:col-span-7 w-full order-1">
-            {/* Top Badges: Eyebrow label */}
             <div className="flex flex-wrap gap-2.5 items-center justify-center lg:justify-start">
               <span className="inline-flex items-center gap-1.5 px-4 py-1.5 border border-[#E2C27A]/30 bg-white/10 text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider shadow-sm select-none rounded-full backdrop-blur-md">
                 <span className="relative flex h-2 w-2 shrink-0">
@@ -121,7 +254,6 @@ export function Hero({ locale, dict }: HeroProps) {
               </span>
             </div>
 
-            {/* Display Title & Zodiac Wheel */}
             <div className="flex flex-col md:flex-row items-center justify-center lg:justify-start gap-5 w-full">
               <h1 className="max-w-3xl">
                 <PointerHighlight
@@ -137,7 +269,6 @@ export function Hero({ locale, dict }: HeroProps) {
                   </span>
                 </PointerHighlight>
               </h1>
-              {/* Spinning Zodiac Wheel Badge */}
               <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden shrink-0 select-none animate-spin-slow">
                 <img
                   src={ZODIAC_WHEEL_SRC}
@@ -148,9 +279,7 @@ export function Hero({ locale, dict }: HeroProps) {
               </div>
             </div>
 
-            {/* Social Proof: Overlapping Avatars & 4.9/5 Rating */}
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3.5 select-none w-full">
-              {/* Overlapping Avatar Group */}
               <div className="flex -space-x-3.5">
                 <img
                   className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-[#E2C27A]/40 object-cover bg-white shadow-sm transition-transform hover:-translate-y-1 hover:z-10"
@@ -174,7 +303,6 @@ export function Hero({ locale, dict }: HeroProps) {
                 />
               </div>
 
-              {/* Rating and Count */}
               <div className="flex flex-col items-center lg:items-start gap-0.5">
                 <div className="flex items-center gap-1.5">
                   <div className="flex items-center">
@@ -196,9 +324,38 @@ export function Hero({ locale, dict }: HeroProps) {
               </div>
             </div>
 
+            <div className="w-full flex flex-col gap-3 items-center lg:items-start select-none">
+              <div className="flex items-center gap-2 text-[10px] sm:text-xs font-extrabold uppercase tracking-wider text-zinc-300">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#E2C27A] inline-block animate-pulse shrink-0" />
+                {activeLocale === "hin" ? "परामर्श श्रेणी चुनें" : activeLocale === "bn" ? "পরামর্শ বিভাগ নির্বাচন করুন" : "Select Consultation Category"}
+              </div>
+              
+              <div className="grid grid-cols-3 sm:grid-cols-6 gap-3.5 w-full max-w-2xl">
+                {heroCategories.map((cat) => {
+                  const Icon = cat.icon;
+                  const titleText = cat.label[activeLocale as keyof typeof cat.label] || cat.label.en;
+                  return (
+                    <button
+                      type="button"
+                      key={cat.id}
+                      onClick={() => handleCategorySelect(cat.id)}
+                      className={cn(
+                        "group flex flex-col items-center justify-center p-3 rounded-2xl border border-zinc-200/25 transition-all duration-300 cursor-pointer shadow-sm hover:shadow-md hover:-translate-y-0.5 text-black",
+                        cat.color
+                      )}
+                    >
+                      <div className="p-2 rounded-full border border-zinc-200 bg-white group-hover:scale-105 transition-transform shrink-0">
+                        <Icon className="w-4 h-4 text-black shrink-0" />
+                      </div>
+                      <h3 className="font-sans text-[8px] sm:text-[9px] font-black text-black mt-2 leading-tight uppercase tracking-tight text-center whitespace-pre-line shrink-0">
+                        {titleText}
+                      </h3>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
 
-
-            {/* Action CTAs */}
             <div className="flex flex-col gap-3 w-full sm:w-auto items-center lg:items-start">
               <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mt-2 justify-center lg:justify-start">
                 <div className="w-full sm:w-auto transition-transform duration-150 active:scale-95">
@@ -230,33 +387,124 @@ export function Hero({ locale, dict }: HeroProps) {
                 </div>
               </div>
             </div>
-
           </div>
 
-          {/* Right Column: 3D Globe Component */}
           <div className="lg:col-span-5 w-full flex justify-center items-center relative h-[350px] sm:h-[450px] lg:h-[500px] order-4 lg:order-2">
             <Globe3DDemo className="h-full w-full" locale={locale} />
           </div>
-
-
-
-          {/* Trust Badges */}
-          <div className="grid grid-cols-2 sm:flex sm:flex-wrap justify-center lg:justify-center gap-3 sm:gap-4 mt-8 lg:mt-12 text-[10px] sm:text-xs font-bold text-white w-full order-3 lg:order-4 lg:col-span-12">
-            <div className="flex items-center justify-center gap-1.5 px-3 py-2 border border-[#E2C27A]/30 bg-[#2A1A5E]/40 text-white select-none rounded-xl col-span-1 shadow-sm">
-              <UserCheck className="w-4 h-4 text-[#E2C27A] stroke-[2px] shrink-0" />
-              <span className="truncate">{dict.common.verified}</span>
-            </div>
-            <div className="flex items-center justify-center gap-1.5 px-3 py-2 border border-[#E2C27A]/30 bg-[#2A1A5E]/40 text-white select-none rounded-xl col-span-1 shadow-sm">
-              <ShieldCheck className="w-4 h-4 text-[#E2C27A] stroke-[2px] shrink-0" />
-              <span className="truncate">{dict.common.certified}</span>
-            </div>
-            <div className="flex items-center justify-center gap-1.5 px-3 py-2 border border-[#E2C27A]/30 bg-[#2A1A5E]/40 text-white select-none rounded-xl col-span-2 sm:col-span-1 w-full sm:w-auto shadow-sm">
-              <Lock className="w-4 h-4 text-[#E2C27A] stroke-[2px] shrink-0" />
-              <span>{getConfidentialText()}</span>
-            </div>
-          </div>
         </div>
       </div>
+
+      {isModalOpen && selectedCategory && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-fade-in select-none">
+          <div className="relative w-full max-w-lg bg-white border border-zinc-150 rounded-3xl p-6 sm:p-8 shadow-2xl animate-scale-up space-y-6">
+            
+            <button
+              onClick={() => setIsModalOpen(false)}
+              className="absolute top-4 right-4 p-2 text-zinc-400 hover:text-black rounded-full hover:bg-zinc-100 transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="space-y-2 text-center pb-3 border-b border-zinc-100">
+              <span className={cn(
+                "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-black uppercase text-black",
+                heroCategories.find(c => c.id === selectedCategory)?.color
+              )}>
+                {React.createElement(heroCategories.find(c => c.id === selectedCategory)?.icon || Briefcase, { className: "w-3 h-3 text-black shrink-0" })}
+                {tModal.categories[selectedCategory as keyof typeof tModal.categories]}
+              </span>
+              <h2 className="text-xl font-extrabold text-black uppercase tracking-wide">
+                {tModal.title}
+              </h2>
+            </div>
+
+            <form onSubmit={handleModalSubmit} className="space-y-5">
+              <div className="space-y-1.5">
+                <label className="text-[10px] font-black uppercase tracking-wider text-zinc-700 block">
+                  {tModal.nameLabel}
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  className="w-full px-4 py-2.5 rounded-xl border border-zinc-250 bg-white text-black font-semibold placeholder:text-neutral-400 focus:outline-none focus:border-[#E2C27A] focus:ring-1 focus:ring-[#E2C27A]/30 transition-all shadow-sm"
+                  placeholder={tModal.namePlaceholder}
+                />
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-black uppercase tracking-wider text-zinc-700 block">
+                    {tModal.dobLabel}
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={formData.dob}
+                    onChange={(e) => setFormData({ ...formData, dob: e.target.value })}
+                    placeholder={tModal.dobPlaceholder}
+                    className="w-full px-4 py-2.5 rounded-xl border border-zinc-250 bg-white text-black font-semibold placeholder:text-neutral-400 focus:outline-none focus:border-[#E2C27A] focus:ring-1 focus:ring-[#E2C27A]/30 transition-all shadow-sm"
+                  />
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-black uppercase tracking-wider text-zinc-700 block">
+                    {tModal.tobLabel}
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={formData.time}
+                    onChange={(e) => setFormData({ ...formData, time: e.target.value })}
+                    placeholder={tModal.tobPlaceholder}
+                    className="w-full px-4 py-2.5 rounded-xl border border-zinc-250 bg-white text-black font-semibold placeholder:text-neutral-400 focus:outline-none focus:border-[#E2C27A] focus:ring-1 focus:ring-[#E2C27A]/30 transition-all shadow-sm"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-[10px] font-black uppercase tracking-wider text-zinc-700 block">
+                  {tModal.pobLabel}
+                </label>
+                <div className="relative w-full">
+                  <select
+                    required
+                    value={formData.pob}
+                    onChange={(e) => setFormData({ ...formData, pob: e.target.value })}
+                    className="w-full px-4 py-2.5 pr-10 rounded-xl border border-zinc-250 bg-white text-black font-semibold focus:outline-none focus:border-[#E2C27A] focus:ring-1 focus:ring-[#E2C27A]/30 transition-all appearance-none cursor-pointer shadow-sm"
+                  >
+                    <option value="" disabled className="text-neutral-400">
+                      {tModal.pobPlaceholder}
+                    </option>
+                    {CITIES.map((city) => (
+                      <option key={city} value={city} className="text-black font-semibold">
+                        {city}
+                      </option>
+                    ))}
+                  </select>
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-zinc-500">
+                    <svg className="h-4 w-4 stroke-[2px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-2">
+                <button
+                  type="submit"
+                  className="w-full bg-[#E2C27A] hover:bg-[#d4b36a] text-black shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 font-bold py-3 text-sm rounded-full cursor-pointer flex items-center justify-center gap-2 uppercase tracking-wider border border-[#E2C27A]/50"
+                >
+                  <MessageSquare className="w-4.5 h-4.5 shrink-0 text-black fill-black" />
+                  {tModal.submitBtn}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

@@ -9,6 +9,7 @@ import { LenisProvider } from "@/components/providers/lenis-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { ExcitementToaster } from "@/components/excitement-toaster";
 import { PwaRegister } from "@/components/PwaRegister";
+import { WhatsAppFab } from "@/components/whatsapp-fab";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -73,6 +74,7 @@ export default async function RootLayout({
             <Toaster position="top-right" closeButton />
             <ExcitementToaster />
             <PwaRegister />
+            <WhatsAppFab />
           </LenisProvider>
         </ThemeProvider>
       </body>

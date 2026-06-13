@@ -4,6 +4,7 @@ import { isValidLocale } from "@/lib/seo";
 import { Header } from "@/components/sections/header";
 import { Hero } from "@/components/sections/hero";
 import { ServicesRow } from "@/components/sections/services-row";
+import { WhyChoose } from "@/components/sections/why-choose";
 import { Footer } from "@/components/sections/footer";
 import BentoGridDemo from "@/components/bento-grid-demo";
 import GemstoneGrid from "@/components/sections/gemstone-grid";
@@ -32,15 +33,27 @@ export default async function Page({ params }: { params: Promise<PageParams> }) 
         {/* Observatory Hero Spotlight Section */}
         <Hero locale={locale} dict={dict} />
 
+        <div className="max-w-7xl mx-auto h-px w-full bg-gradient-to-r from-transparent via-border/50 to-transparent" />
+
         {/* Premium Standalone Services Row Section */}
         <ServicesRow locale={locale} dict={dict} />
 
+        <div className="max-w-7xl mx-auto h-px w-full bg-gradient-to-r from-transparent via-border/50 to-transparent" />
+
+        {/* Trust Metrics Section */}
+        <WhyChoose locale={locale} />
+
+        <div className="max-w-7xl mx-auto h-px w-full bg-gradient-to-r from-transparent via-border/50 to-transparent" />
+
+        {/* Featured Gemstones Section */}
+        <GemstoneGrid locale={locale} limit={3} />
+
+        <div className="max-w-7xl mx-auto h-px w-full bg-gradient-to-r from-transparent via-border/50 to-transparent" />
 
         {/* Bento Grid showcasing Astrologers */}
         <BentoGridDemo locale={locale} />
 
-        {/* Featured Gemstones Section */}
-        <GemstoneGrid locale={locale} limit={3} />
+        <div className="max-w-7xl mx-auto h-px w-full bg-gradient-to-r from-transparent via-border/50 to-transparent" />
 
         {/* Free Interactive Tools Section */}
         <FreeToolsPreview locale={locale} />

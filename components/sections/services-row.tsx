@@ -26,11 +26,14 @@ export function ServicesRow({ locale, dict }: ServicesRowProps) {
     <section className="w-full py-16 px-6 md:px-12 lg:px-16 bg-base stars-bg relative overflow-hidden border-b border-border/40">
       <div className="max-w-7xl mx-auto flex flex-col gap-8 relative z-10">
         
-        {/* Section Heading Badge */}
-        <div className="flex flex-col items-center text-center gap-2">
-          <span className="inline-flex items-center gap-1 px-4.5 py-1.5 border border-card-border bg-gold-soft/10 text-gold text-[10px] sm:text-xs font-bold uppercase tracking-wider rounded-full select-none">
-            ✦ {activeLocale === "hin" ? "हमारी सेवाएं" : activeLocale === "bn" ? "আমাদের পরিষেবা" : "Our Services"}
+        {/* Section Heading */}
+        <div className="flex flex-col items-center text-center gap-3 mb-4">
+          <span className="inline-flex items-center gap-1.5 px-4.5 py-1.5 border border-card-border bg-gold-soft/10 text-gold text-[10px] sm:text-xs font-bold uppercase tracking-wider select-none rounded-full">
+            ✦ {activeLocale === "hin" ? "दिव्य सेवाएं" : activeLocale === "bn" ? "স্বর্গীয় পরিষেবা" : "Divine Offerings"}
           </span>
+          <h2 className="t-h2 text-ink">
+            {activeLocale === "hin" ? "हमारी प्रीमियम सेवाएं" : activeLocale === "bn" ? "আমাদের প্রিমিয়াম পরিষেবা" : "Our Premium Services"}
+          </h2>
         </div>
 
         {/* Services Grid */}
