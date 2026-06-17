@@ -39,7 +39,7 @@ export async function POST(req: NextRequest) {
       "astrokraftwebsitemanagement@gmail.com"
     ];
 
-    const isAdmin = role === "admin" || user.email.startsWith("admin@") || allowedEmails.includes(user.email);
+    const isAdmin = role === "admin" || allowedEmails.includes(user.email);
     if (!isAdmin) {
       return NextResponse.json({ error: "Unauthorized - Not an admin" }, { status: 401 });
     }

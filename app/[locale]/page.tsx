@@ -66,7 +66,6 @@ export default async function Page({ params }: { params: Promise<PageParams> }) 
 
   const isAdmin = user && (
     role === "admin" ||
-    user.email.startsWith("admin@") ||
     allowedEmails.includes(user.email)
   );
 
