@@ -10,6 +10,12 @@ interface FooterProps {
 }
 
 export function Footer({ locale, dict }: FooterProps) {
+  const [year, setYear] = React.useState(2026);
+
+  React.useEffect(() => {
+    setYear(new Date().getFullYear());
+  }, []);
+
   const servicesLinks = [
     { label: dict.services.astrologer.title, href: `/${locale}/astrologers` },
     { label: dict.services.gemstone.title, href: `/${locale}/gemstones` },
@@ -167,7 +173,7 @@ export function Footer({ locale, dict }: FooterProps) {
         {/* Bottom Bar */}
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 text-xs text-zinc-300 font-medium">
           <div>
-            © {new Date().getFullYear()} {SITE.name}. {dict.footer?.copyright || "All rights reserved."}
+            © {year} {SITE.name}. {dict.footer?.copyright || "All rights reserved."}
           </div>
           <div className="flex items-center gap-2 font-bold text-white">
             <span>{dict.footer?.devotion || "Made with devotion in India ✦"}</span>

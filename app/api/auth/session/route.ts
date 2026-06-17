@@ -4,8 +4,8 @@ import { createServerClient } from '@insforge/sdk/ssr';
 import { insforgeAdmin } from '@/lib/insforge-admin';
 
 export async function GET() {
+  const cookieStore = await cookies();
   try {
-    const cookieStore = await cookies();
     
     // Create server client using request cookies
     const client = createServerClient({
