@@ -159,7 +159,7 @@ export async function POST(req: NextRequest) {
 
     // 7. Generate secure room ID
     const timestamp = Date.now();
-    const roomId = `call_${customer.id.substring(0, 8)}_${astrologer.id.substring(0, 8)}_${timestamp}`;
+    const roomId = `call_${customer.id}_${astrologer.id}_${timestamp}`;
     const astrologerZegoId = `astrologer_${astrologer.id}`;
 
     return NextResponse.json({
