@@ -17,7 +17,7 @@ CREATE TABLE users (
 CREATE TABLE wallets (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID UNIQUE NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    balance NUMERIC(10, 2) DEFAULT 0.00 NOT NULL,
+    balance NUMERIC(10, 2) DEFAULT 0.00 NOT NULL CHECK (balance >= 0),
     updated_at TIMESTAMPTZ DEFAULT now() NOT NULL
 );
 
