@@ -113,6 +113,7 @@ Update this file after every completed feature. Any AI agent reading this should
 - **Categories Fallback SVGs Removed**: Completely removed all inline fallback SVGs and custom drawing logic from `hero-ecommerce.tsx`. If a category doesn't have an uploaded image, it now falls back to a clean, optimized PNG placeholder (`/gemstones/placeholder.png`).
 - **Astrologer signup role fix**: Fixed a logic bug in `app/api/auth/sign-up/route.ts` where the backend evaluated the raw client-supplied `role` parameter instead of the computed `finalRole` when deciding whether to seed an astrologer profile record.
 - **Call-Start Endpoint Security & Idempotency**: Added session authentication, roomId structure validation, duplicate session detection (idempotency check), and automated transaction rollback on status update failure in `app/api/zego/call-start/route.ts` to prevent unauthorized call session creation and database state inconsistencies.
+- **Gemstone Quality Pricing Tiers & Best Seller Badges**: Added 3 distinct pricing tiers (Basic, Semi-Premium, Premium) for gemstone products with customizable prices and sale prices in Sanity schemas, admin forms, and dynamic quality selection buttons on card layouts. Implemented a universal 'Best Selling' toggle showing badges across catalog listings.
 
 ---
 
