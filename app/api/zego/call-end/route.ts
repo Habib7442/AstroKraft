@@ -98,37 +98,80 @@ export async function POST(req: NextRequest) {
     const billableMinutes = Math.max(1, Math.ceil(durationSeconds / 60));
     const totalCharge = billableMinutes * ratePerMin;
 
-    if (customerId) {
-      // Query customer's wallet first
-      const { data: wallet } = await insforgeAdmin.database
-        .from('wallets')
-        .select('id, balance')
-        .eq('user_id', customerId)
-        .maybeSingle();
+    let deductSuccess = false;
+    let walletDeductError: any = null;
+    let walletRecord: any = null;
 
-      if (wallet) {
-        const newBalance = Number(wallet.balance) - totalCharge;
-        
-        // Deduct total charge from customer's wallet balance
-        const { error: walletDeductError } = await insforgeAdmin.database
+    if (customerId) {
+      // Retry up to 5 times for Optimistic Concurrency Control (OCC) to prevent double-spending race conditions
+      for (let attempt = 1; attempt <= 5; attempt++) {
+        const { data: wallet, error: fetchError } = await insforgeAdmin.database
+          .from('wallets')
+          .select('id, balance')
+          .eq('user_id', customerId)
+          .maybeSingle();
+
+        if (fetchError) {
+          walletDeductError = fetchError;
+          break;
+        }
+
+        if (!wallet) {
+          walletDeductError = new Error("Customer wallet record not found");
+          break;
+        }
+
+        walletRecord = wallet;
+        const currentBalance = Number(wallet.balance);
+
+        if (currentBalance < totalCharge) {
+          walletDeductError = new Error(`Insufficient wallet balance. Available: ₹${currentBalance}, Required: ₹${totalCharge}`);
+          break;
+        }
+
+        const newBalance = currentBalance - totalCharge;
+
+        // Perform conditional update: only update if balance matches what we read
+        const { data: updatedWallet, error: updateError } = await insforgeAdmin.database
           .from('wallets')
           .update({ balance: newBalance })
-          .eq('id', wallet.id);
+          .eq('id', wallet.id)
+          .eq('balance', currentBalance)
+          .select()
+          .maybeSingle();
 
-        if (walletDeductError) {
-          console.error("Failed to deduct wallet balance:", walletDeductError);
-        } else {
-          // Log the debit record in public.wallet_transactions
-          await insforgeAdmin.database
-            .from('wallet_transactions')
-            .insert([{
-              wallet_id: wallet.id,
-              amount: -totalCharge,
-              type: 'debit',
-              reason: `Call consultation charge (Room: ${roomId.substring(0, 15)})`,
-              reference_id: roomId
-            }]);
+        if (updateError) {
+          walletDeductError = updateError;
+          break;
         }
+
+        if (updatedWallet) {
+          deductSuccess = true;
+          break;
+        }
+
+        // Concurrency conflict detected (balance was changed by another thread). Retry.
+        console.warn(`[ZEGO BILLING] Concurrency conflict detected on wallet update for customer ${customerId} (attempt ${attempt}/5). Retrying...`);
+        await new Promise((resolve) => setTimeout(resolve, attempt * 50));
+      }
+
+      if (!deductSuccess) {
+        console.error("Failed to deduct wallet balance:", walletDeductError);
+        return NextResponse.json(
+          { error: walletDeductError?.message || "Concurrent transaction conflict, please try again" },
+          { status: 409 }
+        );
+      } else if (walletRecord) {
+        // Log the debit record in public.wallet_transactions
+        await insforgeAdmin.database
+          .from('wallet_transactions')
+          .insert([{
+            wallet_id: walletRecord.id,
+            amount: -totalCharge,
+            type: 'debit',
+            reason: `Call consultation charge (Room: ${roomId.substring(0, 15)})`,
+            reference_id: roomId
+          }]);
       }
     }
 
