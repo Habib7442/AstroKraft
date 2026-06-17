@@ -37,6 +37,38 @@ export function Header({ locale, dict }: HeaderProps) {
 
   const isHomePage = pathname === `/${locale}` || pathname === `/${locale}/` || pathname === "/";
 
+  const isItemActive = (href: string) => {
+    if (typeof window === "undefined") return false;
+    try {
+      const currentPath = window.location.pathname;
+      const currentSearch = window.location.search;
+      
+      const url = new URL(href, window.location.origin);
+      
+      if (currentPath !== url.pathname) return false;
+      
+      const urlParams = new URLSearchParams(url.search);
+      const currentParams = new URLSearchParams(currentSearch);
+      
+      if (urlParams.toString()) {
+        for (const [key, value] of urlParams.entries()) {
+          if (currentParams.get(key) !== value) return false;
+        }
+        return true;
+      }
+      
+      if (currentSearch) {
+        if (currentParams.get("category") === "rudraksha") {
+          return false;
+        }
+      }
+      
+      return true;
+    } catch (e) {
+      return false;
+    }
+  };
+
   // Auto-slide effect
   useEffect(() => {
     if (!banners || banners.length <= 1 || isHovered) return;
@@ -274,20 +306,26 @@ export function Header({ locale, dict }: HeaderProps) {
         </div>
 
         {/* Bottom Horizontal Scrolling Navigation Bar */}
-        <div className="w-full bg-[#1e1639] border-t border-white/5 py-1.5 overflow-x-auto scrollbar-none px-4">
-          <div className="max-w-7xl mx-auto flex items-center gap-5 w-max md:w-full md:px-2">
-
-
+        <div className="w-full bg-[#1e1639] border-t border-[#E2C27A]/10 py-2.5 overflow-x-auto scrollbar-none px-4">
+          <div className="max-w-7xl mx-auto flex items-center gap-2.5 w-max md:w-full md:px-2">
             {/* Mapped Categories */}
-            {navItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className="text-xs font-bold text-white/95 hover:text-[#E2C27A] transition-colors shrink-0 whitespace-nowrap"
-              >
-                {item.label}
-              </a>
-            ))}
+            {navItems.map((item) => {
+              const active = mounted && isItemActive(item.href);
+              return (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className={cn(
+                    "text-[11px] font-black uppercase tracking-wider px-4.5 py-1.5 rounded-full transition-all duration-200 shrink-0 whitespace-nowrap select-none border",
+                    active
+                      ? "bg-[#E2C27A] text-[#120d26] border-[#E2C27A] shadow-md shadow-black/20 scale-105"
+                      : "bg-[#251e44] text-white/80 hover:bg-[#32295a] hover:text-white border-white/5 hover:border-white/10 active:scale-95"
+                  )}
+                >
+                  {item.label}
+                </a>
+              );
+            })}
           </div>
         </div>
       </header>

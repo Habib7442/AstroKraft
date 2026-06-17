@@ -54,6 +54,40 @@ export function AdminDashboard({
   const [consultations, setConsultations] = useState(initialConsultations);
   const [astrologers, setAstrologers] = useState(initialAstrologers);
 
+  // Group products by category dynamically with search filtering & category tabs
+  const [productSearch, setProductSearch] = useState("");
+  const [debouncedProductSearch, setDebouncedProductSearch] = useState("");
+  const [selectedProductCategory, setSelectedProductCategory] = useState<string>("All");
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedProductSearch(productSearch);
+    }, 250);
+    return () => clearTimeout(handler);
+  }, [productSearch]);
+
+  // Filtered products list
+  const filteredProducts = products.filter((p: any) => {
+    const matchesSearch = 
+      !debouncedProductSearch || 
+      p.name?.toLowerCase().includes(debouncedProductSearch.toLowerCase()) || 
+      (p.description && p.description.toLowerCase().includes(debouncedProductSearch.toLowerCase()));
+    return matchesSearch;
+  });
+
+  // Group filtered products by category
+  const filteredProductsByCategory: Record<string, any[]> = {};
+  filteredProducts.forEach((product: any) => {
+    const categoryName = product.category?.name || "Uncategorized";
+    if (!filteredProductsByCategory[categoryName]) {
+      filteredProductsByCategory[categoryName] = [];
+    }
+    filteredProductsByCategory[categoryName].push(product);
+  });
+
+  // All unique category names from original products list (to display as tabs)
+  const uniqueProductCategories = ["All", ...Array.from(new Set(products.map((p: any) => p.category?.name || "Uncategorized").filter(Boolean)))];
+
   // Upload states
   const [uploading, setUploading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -1317,74 +1351,133 @@ export function AdminDashboard({
                 </form>
               </div>
 
-              <div className="bg-white border border-zinc-200 rounded-3xl p-6 shadow-sm space-y-4">
-                <h3 className="text-sm font-black uppercase tracking-wider text-zinc-500">Gemstones & Catalog Products</h3>
-                
-                <div className="w-full overflow-x-auto">
-                  <table className="w-full text-left border-collapse text-xs">
-                    <thead>
-                      <tr className="border-b border-zinc-150 text-zinc-500 font-bold uppercase text-[10px] tracking-wider">
-                        <th className="pb-3 pr-4">Photo</th>
-                        <th className="pb-3 pr-4">Name</th>
-                        <th className="pb-3 pr-4">Price</th>
-                        <th className="pb-3 pr-4 text-center">Status</th>
-                        <th className="pb-3 text-right">Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-zinc-100">
-                      {products.map((item: any) => (
-                        <tr key={item._id} className="hover:bg-zinc-50/50">
-                          <td className="py-3.5 pr-4">
-                            <div className="w-10 h-10 rounded-lg overflow-hidden border border-zinc-200 relative bg-zinc-100">
-                              <img src={item.image ? urlFor(item.image).url() : "/placeholder-image.jpg"} alt={item.name} className="w-full h-full object-cover" />
-                            </div>
-                          </td>
-                          <td className="py-3.5 pr-4 font-black">
-                            <div className="flex flex-col gap-0.5">
-                              <span>{item.name}</span>
-                              {item.isBestSelling && (
-                                <span className="inline-block bg-amber-150 text-amber-800 text-[8px] font-black uppercase px-1.5 py-0.5 rounded w-fit scale-90 origin-left">
-                                  🔥 Best Seller
-                                </span>
-                              )}
-                            </div>
-                          </td>
-                          <td className="py-3.5 pr-4 font-semibold">₹{item.salePrice || item.price}</td>
-                          <td className="py-3.5 pr-4 text-center">
-                            <button
-                              onClick={() => handleToggleActive(item._id, item.isActive, "products")}
-                              className={cn(
-                                "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-black uppercase cursor-pointer transition-colors shadow-sm",
-                                item.isActive 
-                                  ? "bg-emerald-50 text-emerald-700 border border-emerald-200" 
-                                  : "bg-zinc-100 text-zinc-500 border border-zinc-200"
-                              )}
-                            >
-                              {item.isActive ? <Eye className="w-3 h-3" /> : <EyeOff className="w-3 h-3" />}
-                              <span>{item.isActive ? "Shown" : "Hidden"}</span>
-                            </button>
-                          </td>
-                          <td className="py-3.5 text-right space-x-2">
-                            <button 
-                              onClick={() => handleStartEditProduct(item)}
-                              className="p-1.5 rounded-lg text-blue-500 hover:bg-blue-50 transition-colors cursor-pointer border border-transparent hover:border-blue-200"
-                              title="Edit Product"
-                            >
-                              <Pencil className="w-4 h-4" />
-                            </button>
-                            <button 
-                              onClick={() => handleDelete(item._id, "products")}
-                              className="p-1.5 rounded-lg text-red-500 hover:bg-red-50 transition-colors cursor-pointer border border-transparent hover:border-red-200"
-                              title="Delete Product"
-                            >
-                              <Trash className="w-4.5 h-4.5" />
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+              <div className="bg-white border border-zinc-200 rounded-3xl p-6 shadow-sm space-y-6">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-zinc-150 pb-4">
+                  <h3 className="text-sm font-black uppercase tracking-wider text-zinc-500">Gemstones & Catalog Products</h3>
+                  
+                  {/* Debounced Search Bar */}
+                  <div className="relative max-w-xs w-full">
+                    <input
+                      type="text"
+                      value={productSearch}
+                      onChange={e => setProductSearch(e.target.value)}
+                      placeholder="Search products..."
+                      className="w-full pl-8 pr-4 py-1.5 text-xs font-semibold rounded-xl border border-zinc-200 focus:outline-none focus:border-[#120d26] bg-zinc-50/50"
+                    />
+                    <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-zinc-400 text-xs select-none">🔍</span>
+                  </div>
                 </div>
+
+                {/* Category Tabs */}
+                {products.length > 0 && (
+                  <div className="flex flex-wrap gap-1.5 pb-2 select-none border-b border-zinc-100">
+                    {uniqueProductCategories.map((catName) => {
+                      const count = catName === "All" 
+                        ? filteredProducts.length 
+                        : (filteredProductsByCategory[catName]?.length || 0);
+                      return (
+                        <button
+                          key={catName}
+                          onClick={() => setSelectedProductCategory(catName)}
+                          className={cn(
+                            "px-3 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all cursor-pointer shadow-sm border",
+                            selectedProductCategory === catName
+                              ? "bg-[#120d26] text-white border-[#120d26]"
+                              : "bg-zinc-50 text-zinc-600 border-zinc-200 hover:bg-zinc-100 hover:text-zinc-800"
+                          )}
+                        >
+                          {catName} ({count})
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+                
+                {filteredProducts.length === 0 ? (
+                  <div className="text-center py-8 text-zinc-400 text-xs font-semibold select-none">
+                    {products.length === 0 ? "No products created yet." : "No products match your search query."}
+                  </div>
+                ) : (
+                  Object.entries(filteredProductsByCategory)
+                    .filter(([name]) => selectedProductCategory === "All" || name === selectedProductCategory)
+                    .map(([categoryName, items]) => (
+                      <div key={categoryName} className="space-y-3 pt-4 border-t border-zinc-100 first:border-t-0 first:pt-0">
+                        {selectedProductCategory === "All" && (
+                          <div className="flex items-center justify-between bg-zinc-50 border border-zinc-200/60 py-2 px-4 rounded-xl">
+                            <span className="text-[10px] font-black uppercase tracking-wider text-violet-700">
+                              📁 {categoryName} ({items.length})
+                            </span>
+                          </div>
+                        )}
+
+                        <div className="w-full overflow-x-auto">
+                          <table className="w-full text-left border-collapse text-xs">
+                            <thead>
+                              <tr className="border-b border-zinc-150 text-zinc-500 font-bold uppercase text-[9px] tracking-wider">
+                                <th className="pb-3 pr-4 w-[60px]">Photo</th>
+                                <th className="pb-3 pr-4">Name</th>
+                                <th className="pb-3 pr-4 w-[120px]">Price</th>
+                                <th className="pb-3 pr-4 w-[120px] text-center">Status</th>
+                                <th className="pb-3 text-right w-[100px]">Actions</th>
+                              </tr>
+                            </thead>
+                            <tbody className="divide-y divide-zinc-100">
+                              {items.map((item: any) => (
+                                <tr key={item._id} className="hover:bg-zinc-50/50">
+                                  <td className="py-3 pr-4">
+                                    <div className="w-9 h-9 rounded-lg overflow-hidden border border-zinc-200 relative bg-zinc-100">
+                                      <img src={item.image ? urlFor(item.image).url() : "/placeholder-image.jpg"} alt={item.name} className="w-full h-full object-cover" />
+                                    </div>
+                                  </td>
+                                  <td className="py-3 pr-4 font-black">
+                                    <div className="flex flex-col gap-0.5">
+                                      <span>{item.name}</span>
+                                      {item.isBestSelling && (
+                                        <span className="inline-block bg-amber-150 text-amber-800 text-[8px] font-black uppercase px-1.5 py-0.5 rounded w-fit scale-90 origin-left">
+                                          🔥 Best Seller
+                                        </span>
+                                      )}
+                                    </div>
+                                  </td>
+                                  <td className="py-3 pr-4 font-semibold">₹{item.salePrice || item.price}</td>
+                                  <td className="py-3 pr-4 text-center">
+                                    <button
+                                      onClick={() => handleToggleActive(item._id, item.isActive, "products")}
+                                      className={cn(
+                                        "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-black uppercase cursor-pointer transition-colors shadow-sm",
+                                        item.isActive 
+                                          ? "bg-emerald-50 text-emerald-700 border border-emerald-200" 
+                                          : "bg-zinc-100 text-zinc-500 border border-zinc-200"
+                                      )}
+                                    >
+                                      {item.isActive ? <Eye className="w-3 h-3" /> : <EyeOff className="w-3 h-3" />}
+                                      <span>{item.isActive ? "Shown" : "Hidden"}</span>
+                                    </button>
+                                  </td>
+                                  <td className="py-3 text-right space-x-2">
+                                    <button 
+                                      onClick={() => handleStartEditProduct(item)}
+                                      className="p-1.5 rounded-lg text-blue-500 hover:bg-blue-50 transition-colors cursor-pointer border border-transparent hover:border-blue-200"
+                                      title="Edit Product"
+                                    >
+                                      <Pencil className="w-4 h-4" />
+                                    </button>
+                                    <button 
+                                      onClick={() => handleDelete(item._id, "products")}
+                                      className="p-1.5 rounded-lg text-red-500 hover:bg-red-50 transition-colors cursor-pointer border border-transparent hover:border-red-200"
+                                      title="Delete Product"
+                                    >
+                                      <Trash className="w-4.5 h-4.5" />
+                                    </button>
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    ))
+                )}
               </div>
             </div>
           )}

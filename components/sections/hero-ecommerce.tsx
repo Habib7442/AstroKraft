@@ -1,7 +1,7 @@
 "use client";
 
-import React from "react";
-import { useRouter } from "next/navigation";
+import React, { useEffect } from "react";
+import { useRouter, usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { urlFor } from "@/sanity/lib/image";
 import { useCMSStore } from "@/lib/store/useCMSStore";
@@ -24,7 +24,48 @@ interface HeroEcommerceProps {
 export function HeroEcommerce({ locale }: HeroEcommerceProps) {
   const initialCategories = useCMSStore((state) => state.categories);
   const router = useRouter();
+  const pathname = usePathname();
   const activeLocale = ["en", "hin", "bn"].includes(locale) ? locale : "en";
+
+  const isHome = pathname === `/${locale}` || pathname === `/${locale}/` || pathname === "/";
+
+  const handleCategoryClick = (cat: CategoryItem) => {
+    const isConsult = cat.href.includes("consultation") || cat.href.includes("consult");
+    const isRudraksha = cat.href.includes("rudraksha");
+    const targetId = isConsult 
+      ? "services-section" 
+      : isRudraksha 
+        ? "rudraksha-section" 
+        : "gemstones-section";
+
+    if (isHome) {
+      const el = document.getElementById(targetId);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    } else {
+      router.push(`/${locale}?scroll=${targetId}`);
+    }
+  };
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const scrollToId = params.get("scroll");
+      if (scrollToId) {
+        const timer = setTimeout(() => {
+          const el = document.getElementById(scrollToId);
+          if (el) {
+            el.scrollIntoView({ behavior: "smooth", block: "start" });
+            const url = new URL(window.location.href);
+            url.searchParams.delete("scroll");
+            window.history.replaceState({}, "", url.pathname + url.search);
+          }
+        }, 300);
+        return () => clearTimeout(timer);
+      }
+    }
+  }, []);
 
   const categoriesList: CategoryItem[] = (initialCategories || []).map((cat: any) => {
     const slugVal = cat.slug?.current || cat.name.toLowerCase().replace(/\s+/g, "-");
@@ -87,7 +128,7 @@ export function HeroEcommerce({ locale }: HeroEcommerceProps) {
               return (
                 <div
                   key={cat.id}
-                  onClick={() => router.push(cat.href)}
+                  onClick={() => handleCategoryClick(cat)}
                   className={cn(
                     "bg-[#FFFDF4]/95 border border-[#E2C27A]/30 rounded-2xl p-4 sm:p-5 flex flex-col justify-between shadow-[0_4px_20px_rgba(0,0,0,0.15)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.3)] hover:-translate-y-1.5 active:translate-y-0 transition-all duration-300 cursor-pointer group",
                     isLastCard && categoriesList.length === 5 ? "col-span-2 md:col-span-2 lg:col-span-1" : ""

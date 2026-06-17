@@ -5,6 +5,7 @@ import { BentoGrid } from "@/components/ui/bento-grid";
 import ASTROLOGERS_DATA from "@/lib/data/astrologer.json";
 import { Star, Award, MessageCircle, Phone, Mail, MapPin } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ExploreAllButton } from "@/components/shared/ExploreAllButton";
 
 interface AstrologerInfo {
   name: string;
@@ -302,6 +303,11 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
             );
           })}
         </BentoGrid>
+
+        <ExploreAllButton
+          href={`/${locale}/astrologers`}
+          label={activeLocale === "hin" ? "सभी ज्योतिषियों की खोज करें" : activeLocale === "bn" ? "সমস্ত জ্যোতিষীদের দেখুন" : "Explore All Astrologers"}
+        />
       </div>
     </section>
   );

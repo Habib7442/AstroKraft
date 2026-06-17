@@ -116,7 +116,12 @@ export default async function Page({ params }: { params: Promise<PageParams> }) 
 
 
         {/* Featured Gemstones Section */}
-        <GemstoneGrid locale={locale} initialProducts={products} />
+        <GemstoneGrid locale={locale} initialProducts={products} productType="gemstone" />
+
+        <div className="max-w-7xl mx-auto h-px w-full bg-gradient-to-r from-transparent via-border/50 to-transparent" />
+
+        {/* Featured Rudraksha Section */}
+        <GemstoneGrid locale={locale} initialProducts={products} productType="rudraksha" />
 
         <div className="max-w-7xl mx-auto h-px w-full bg-gradient-to-r from-transparent via-border/50 to-transparent" />
 

@@ -8,6 +8,7 @@ import { urlFor } from "@/sanity/lib/image";
 import { client } from "@/sanity/lib/client";
 import { productsQuery } from "@/sanity/lib/queries";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ExploreAllButton } from "@/components/shared/ExploreAllButton";
 
 interface GemInfo {
   id: string;
@@ -358,9 +359,16 @@ interface GemstoneGridProps {
   limit?: number;
   initialProducts?: any[];
   isCarousel?: boolean;
+  productType?: "gemstone" | "rudraksha";
 }
 
-export default function GemstoneGrid({ locale = "en", limit, initialProducts, isCarousel = true }: GemstoneGridProps) {
+export default function GemstoneGrid({ 
+  locale = "en", 
+  limit, 
+  initialProducts, 
+  isCarousel = true,
+  productType = "gemstone"
+}: GemstoneGridProps) {
   const activeLocale = ["en", "hin", "bn"].includes(locale) ? locale : "en";
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   
@@ -408,13 +416,19 @@ export default function GemstoneGrid({ locale = "en", limit, initialProducts, is
     return catName.includes("gemstone") || catName.includes("gem") || catSlug.includes("gemstone") || catSlug.includes("gem");
   };
 
-  const dbGemstones = products.filter(isGem);
+  const isRudraksha = (p: any) => {
+    const catName = p.category?.name?.toLowerCase() || "";
+    const catSlug = p.category?.slug?.current?.toLowerCase() || "";
+    return catName.includes("rudraksha") || catSlug.includes("rudraksha");
+  };
 
-  // Map products. If database products have gemstones, use them; otherwise, use GEMS fallback.
+  const dbProductsFiltered = products.filter(productType === "rudraksha" ? isRudraksha : isGem);
+
+  // Map products. If database products have items, use them; otherwise, use GEMS fallback.
   let gemsList: GemInfo[] = [];
-  if (dbGemstones.length > 0) {
-    gemsList = dbGemstones.map(mapSanityProductToGemInfo);
-  } else {
+  if (dbProductsFiltered.length > 0) {
+    gemsList = dbProductsFiltered.map(mapSanityProductToGemInfo);
+  } else if (productType === "gemstone") {
     gemsList = Object.values(GEMS).map((gem) => ({
       ...gem,
       name: gem.name,
@@ -428,7 +442,7 @@ export default function GemstoneGrid({ locale = "en", limit, initialProducts, is
     }));
   }
 
-  // Sort gemstones so that Best Sellers appear first
+  // Sort so that Best Sellers appear first
   gemsList = [...gemsList].sort((a, b) => {
     const aBest = a.isBestSelling ? 1 : 0;
     const bBest = b.isBestSelling ? 1 : 0;
@@ -439,41 +453,49 @@ export default function GemstoneGrid({ locale = "en", limit, initialProducts, is
     gemsList = gemsList.slice(0, limit);
   }
 
+  if (gemsList.length === 0) return null;
+
   // Dictionary fallbacks for header elements
   const labelsObj = {
     en: {
-      eyebrow: "✦ Certified Remedies & Treasures",
-      heading: "Explore Certified Gemstones",
-      subheading: "Find lab-certified, natural gemstones aligned with your birth chart. Enhance planetary influences and invite positivity into your life.",
+      eyebrow: productType === "rudraksha" ? "✦ Sacred Spiritual Beads" : "✦ Certified Remedies & Treasures",
+      heading: productType === "rudraksha" ? "Explore Sacred Rudraksha" : "Explore Certified Gemstones",
+      subheading: productType === "rudraksha"
+        ? "Find authentic, laboratory-tested Rudraksha beads to awaken inner peace, energy alignment, and divine protection."
+        : "Find lab-certified, natural gemstones aligned with your birth chart. Enhance planetary influences and invite positivity into your life.",
       planet: "Ruler",
       zodiacLabel: "Zodiac",
       origin: "Origin",
       priceLabel: "Price starting at",
-      pricePerCt: "/ Carat",
+      pricePerCt: productType === "rudraksha" ? "/ Piece" : "/ Carat",
       inquireBtn: "Inquire",
       buyNowBtn: "Buy Now"
     },
     hin: {
-      eyebrow: "✦ प्रमाणित उपचार और रत्न",
-      heading: "प्रमाणित रत्नों की खोज करें",
-      subheading: "अपनी जन्म कुंडली के अनुसार प्रमाणित, प्राकृतिक रत्न खोजें। ग्रहों के प्रभावों को बढ़ाएं और जीवन में सकारात्मकता लाएं।",
+      eyebrow: productType === "rudraksha" ? "✦ पवित्र आध्यात्मिक मनके" : "✦ प्रमाणित उपचार और रत्न",
+      heading: productType === "rudraksha" ? "प्राकृतिक रुद्राक्ष की खोज करें" : "प्रमाणित रत्नों की खोज करें",
+      subheading: productType === "rudraksha"
+        ? "आंतरिक शांति, ऊर्जा संतुलन और दैवीय सुरक्षा के लिए प्रमाणित, प्राकृतिक रुद्राक्ष मनके खोजें।"
+        : "अपनी जन्म कुंडली के अनुसार प्रमाणित, प्राकृतिक रत्न खोजें। ग्रहों के प्रभावों को बढ़ाएं और जीवन में सकारात्मकता लाएं।",
       planet: "स्वामी",
       zodiacLabel: "राशि",
       origin: "उत्पत्ति",
       priceLabel: "शुरुआती कीमत",
-      pricePerCt: "/ कैरेट",
+      pricePerCt: productType === "rudraksha" ? "/ पीस" : "/ कैरेट",
       inquireBtn: "पूछताछ करें",
       buyNowBtn: "अभी खरीदें"
     },
     bn: {
-      eyebrow: "✦ প্রত্যয়িত প্রতিকার ও রত্নাবলী",
-      heading: "প্রত্যয়িত রত্ন পাথর খুঁজুন",
-      subheading: "আপনার জন্মপত্রিকা অনুযায়ী প্রাকৃতিক এবং ল্যাব-প্রত্যয়িত রত্ন পাথর নির্বাচন করুন। গ্রহের শুভ প্রভাব বাড়ান ও জীবনে সাফল্য আনুন।",
+      eyebrow: productType === "rudraksha" ? "✦ পবিত্র আধ্যাত্মিক রুদ্রাক্ষ" : "✦ প্রত্যয়িত প্রতিকার ও রত্নাবলী",
+      heading: productType === "rudraksha" ? "প্রাকৃতিক রুদ্রাক্ষ অনুসন্ধান করুন" : "প্রত্যয়িত রত্ন পাথর খুঁজুন",
+      subheading: productType === "rudraksha"
+        ? "মানসিক শান্তি, শক্তি নিয়ন্ত্রণ এবং স্বর্গীয় সুরক্ষার জন্য ল্যাব-প্রত্যয়িত প্রাকৃতিক রুদ্রাক্ষ নির্বাচন করুন।"
+        : "আপনার জন্মপত্রিকা অনুযায়ী প্রাকৃতিক এবং ল্যাব-প্রত্যয়িত রত্ন পাথর নির্বাচন করুন। গ্রহের শুভ প্রভাব বাড়ান ও জীবনে সাফল্য আনুন।",
       planet: "অধিপতি",
       zodiacLabel: "রাশি",
       origin: "উৎস",
       priceLabel: "মূল্য শুরু",
-      pricePerCt: "/ ক্যারেট",
+      pricePerCt: productType === "rudraksha" ? "/ পিস" : "/ ক্যারেট",
       inquireBtn: "যোগাযোগ করুন",
       buyNowBtn: "এখনই কিনুন"
     }
@@ -482,6 +504,7 @@ export default function GemstoneGrid({ locale = "en", limit, initialProducts, is
 
   return (
     <section
+      id={productType === "rudraksha" ? "rudraksha-section" : "gemstones-section"}
       className="w-full py-16 relative overflow-hidden border-t border-zinc-100"
       style={{
         background: "linear-gradient(to bottom, #FFFBF0 0%, #FFF8E7 100%)"
@@ -579,6 +602,15 @@ export default function GemstoneGrid({ locale = "en", limit, initialProducts, is
               </div>
             )}
           </div>
+        )}
+
+        {isCarousel && (
+          <ExploreAllButton
+            href={productType === "rudraksha" ? `/${locale}/gemstones?category=rudraksha` : `/${locale}/gemstones`}
+            label={productType === "rudraksha"
+              ? (activeLocale === "hin" ? "सभी रुद्राक्ष देखें" : activeLocale === "bn" ? "সমস্ত রুদ্রাক্ষ দেখুন" : "Explore All Rudraksha")
+              : (activeLocale === "hin" ? "सभी रत्नों की खोज करें" : activeLocale === "bn" ? "সমস্ত রত্ন পাথর দেখুন" : "Explore All Gemstones")}
+          />
         )}
       </div>
     </section>
