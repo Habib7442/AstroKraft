@@ -61,7 +61,7 @@ ALTER TABLE astrologer_profiles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE call_sessions ENABLE ROW LEVEL SECURITY;
 
 -- users policies
-CREATE POLICY "Allow public read access to users" ON users FOR SELECT USING (true);
+CREATE POLICY "Allow users to read their own record" ON users FOR SELECT USING (auth.uid() = id);
 CREATE POLICY "Allow users to update their own profile" ON users FOR UPDATE USING (auth.uid() = id);
 
 -- wallets policies
