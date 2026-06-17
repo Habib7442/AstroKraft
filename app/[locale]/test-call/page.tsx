@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { getDictionary } from "@/lib/i18n";
 import { isValidLocale } from "@/lib/seo";
 import { Header } from "@/components/sections/header";
@@ -11,6 +11,11 @@ interface PageParams {
 
 export default async function Page({ params }: { params: Promise<PageParams> }) {
   const { locale } = await params;
+
+  // Gate test call page behind environment variable flag to prevent public misuse in production
+  if (process.env.NEXT_PUBLIC_ENABLE_TEST_CALL_PAGE !== 'true') {
+    redirect(`/${locale}`);
+  }
 
   if (!isValidLocale(locale)) {
     notFound();

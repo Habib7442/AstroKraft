@@ -44,6 +44,22 @@ export async function POST(request: Request) {
       .maybeSingle();
 
     if (!dbUser) {
+      let finalRole = role;
+      if (finalRole !== 'astrologer' && finalRole !== 'admin') {
+        finalRole = 'user';
+      }
+
+      const adminEmails = (process.env.ADMIN_EMAILS || "")
+        .split(",")
+        .map((e) => e.trim().toLowerCase())
+        .filter(Boolean);
+
+      if (adminEmails.includes(authUser.email?.toLowerCase() || "")) {
+        finalRole = "admin";
+      } else if (finalRole === "admin") {
+        finalRole = "user";
+      }
+
       const { data: newUser, error: dbError } = await insforgeAdmin
         .database
         .from('users')
@@ -52,7 +68,7 @@ export async function POST(request: Request) {
           phone: cleanPhone,
           email: authUser.email,
           name: name || authUser.profile?.name || email.split('@')[0],
-          role
+          role: finalRole
         }])
         .select()
         .single();
@@ -77,6 +93,22 @@ export async function POST(request: Request) {
 
       if (walletError) {
         console.error('Wallet initialization failed:', walletError);
+      }
+
+      // 5. If registering as an astrologer, initialize profile
+      if (finalRole === 'astrologer') {
+        const { error: profileError } = await insforgeAdmin
+          .database
+          .from('astrologer_profiles')
+          .insert([{
+            user_id: authUser.id,
+            rate_per_min: 15.00,
+            status: 'online'
+          }]);
+
+        if (profileError) {
+          console.error('Astrologer profile initialization failed:', profileError);
+        }
       }
     }
 

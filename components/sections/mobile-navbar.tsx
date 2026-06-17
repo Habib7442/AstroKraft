@@ -4,6 +4,7 @@ import React from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { Home, Grid, ShoppingBag, User } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useAuthStore } from "@/lib/store/useAuthStore";
 
 interface MobileNavbarProps {
   locale: string;
@@ -12,6 +13,7 @@ interface MobileNavbarProps {
 export function MobileNavbar({ locale }: MobileNavbarProps) {
   const pathname = usePathname();
   const router = useRouter();
+  const { user } = useAuthStore();
 
   const navItems = [
     {
@@ -29,14 +31,14 @@ export function MobileNavbar({ locale }: MobileNavbarProps) {
     {
       label: "Cart",
       icon: ShoppingBag,
-      href: `/${locale}/consultation`, // Consultation or checkout bag
-      active: pathname.includes("/consultation"),
+      href: `/${locale}/cart`,
+      active: pathname.includes("/cart"),
     },
     {
       label: "Profile",
       icon: User,
-      href: `/${locale}/sign-in`,
-      active: pathname.includes("/sign-in") || pathname.includes("/sign-up") || pathname.includes("/astrologer/login"),
+      href: user ? `/${locale}/profile` : `/${locale}/sign-in`,
+      active: pathname.includes("/profile") || pathname.includes("/sign-in") || pathname.includes("/sign-up") || pathname.includes("/astrologer/login"),
     },
   ];
 

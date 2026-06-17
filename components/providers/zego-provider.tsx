@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
+import { useAuthStore } from "@/lib/store/useAuthStore";
 
 interface ZegoContextType {
   initZegoSignaling: (userId: string, userName: string) => Promise<void>;
@@ -21,6 +22,7 @@ export function useZego() {
 }
 
 export function ZegoProvider({ children }: { children: React.ReactNode }) {
+  const { user } = useAuthStore();
   const [isZegoActive, setIsZegoActive] = useState(false);
   const [activeCallId, setActiveCallId] = useState<string | null>(null);
   const zpRef = useRef<any>(null);
@@ -92,16 +94,32 @@ export function ZegoProvider({ children }: { children: React.ReactNode }) {
             onJoinRoom: () => {
               // console.log("[ZEGO] Joined WebRTC voice call room.");
               // Trigger billing ticker start
-              fetch("/api/zego/call-start", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                  roomId: zp.getRoomID(),
-                  customerId: callerIsCustomer(userId) ? userId : "customer_user",
-                  astrologerId: callerIsCustomer(userId) ? "astrologer_user" : userId,
-                  ratePerMin: 15
-                })
-              }).catch(() => {});
+              const currentRoomId = zp.getRoomID();
+              if (currentRoomId) {
+                const parts = currentRoomId.split("_");
+                let parsedCustomerId = "customer_user";
+                let parsedAstrologerId = "astrologer_user";
+                
+                if (parts.length >= 4 && parts[0] === "call") {
+                  parsedCustomerId = parts[1];
+                  parsedAstrologerId = parts[2];
+                } else {
+                  // Fallback for development/sandbox mode
+                  parsedCustomerId = callerIsCustomer(userId) ? userId : "customer_1";
+                  parsedAstrologerId = callerIsCustomer(userId) ? "acharya_abhi_shastri" : userId;
+                }
+
+                fetch("/api/zego/call-start", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({
+                    roomId: currentRoomId,
+                    customerId: parsedCustomerId,
+                    astrologerId: parsedAstrologerId,
+                    ratePerMin: 15
+                  })
+                }).catch(() => {});
+              }
             },
             onLeaveRoom: () => {
               // console.log("[ZEGO] Left WebRTC room.");
@@ -190,36 +208,49 @@ export function ZegoProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  // Automatically initialize Zego listener for mock session on load (simulation)
+  // Automatically initialize Zego listener for authenticated session or mock session (simulation)
   useEffect(() => {
-    // Determine user role for mock setup:
-    // In production, load actual authenticated user ID and role
-    const isAstrologerSession = typeof window !== "undefined" && window.location.search.includes("role=astrologer");
-    
-    // Dynamically derive the astrologer ID from the pathname if available
-    let astrologerId = "acharya_abhi_shastri";
-    if (typeof window !== "undefined") {
-      const pathMatch = window.location.pathname.match(/\/astrologers\/([a-zA-Z0-9_-]+)/);
-      if (pathMatch && pathMatch[1]) {
-        astrologerId = pathMatch[1];
+    if (user) {
+      // Initialize with actual authenticated user details
+      const zegoId = user.role === "astrologer" ? `astrologer_${user.id}` : user.id;
+      const zegoName = user.name || (user.role === "astrologer" ? "Master Consultant" : "Astro Customer");
+      initZegoSignaling(zegoId, zegoName);
+    } else {
+      // No authenticated user. Check if we should initialize mock session (dev / sandbox only)
+      const isDev = process.env.NODE_ENV === "development";
+      const isSandbox = typeof window !== "undefined" && window.location.search.includes("sandbox=true");
+      
+      if (isDev || isSandbox) {
+        const isAstrologerSession = typeof window !== "undefined" && window.location.search.includes("role=astrologer");
+        
+        let astrologerId = "acharya_abhi_shastri";
+        if (typeof window !== "undefined") {
+          const pathMatch = window.location.pathname.match(/\/astrologers\/([a-zA-Z0-9_-]+)/);
+          if (pathMatch && pathMatch[1]) {
+            astrologerId = pathMatch[1];
+          }
+        }
+
+        const mockId = isAstrologerSession ? `astrologer_${astrologerId}` : "customer_1";
+        const mockName = isAstrologerSession 
+          ? (astrologerId === "test_astrologer" ? "Test Astrologer" : "Acharya Abhi Shastri") 
+          : "Astro Customer";
+
+        initZegoSignaling(mockId, mockName);
       }
     }
-
-    const mockId = isAstrologerSession ? `astrologer_${astrologerId}` : "customer_1";
-    const mockName = isAstrologerSession 
-      ? (astrologerId === "test_astrologer" ? "Test Astrologer" : "Acharya Abhi Shastri") 
-      : "Astro Customer";
-
-    initZegoSignaling(mockId, mockName);
 
     return () => {
       if (zpRef.current) {
         try {
           zpRef.current.destroy();
+          zpRef.current = null;
         } catch (e) {}
       }
+      setIsZegoActive(false);
+      initializingRef.current = false;
     };
-  }, []);
+  }, [user]);
 
   return (
     <ZegoContext.Provider value={{ initZegoSignaling, startCall, isZegoActive, activeCallId }}>

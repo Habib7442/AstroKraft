@@ -39,22 +39,24 @@ export function Header({ locale, dict }: HeaderProps) {
 
   // Auto-slide effect
   useEffect(() => {
-    if (banners.length <= 1 || isHovered) return;
+    if (!banners || banners.length <= 1 || isHovered) return;
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % banners.length);
     }, 4000); // slide every 4 seconds
     return () => clearInterval(interval);
-  }, [banners.length, isHovered]);
+  }, [banners?.length, isHovered]);
 
   const handlePrevSlide = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
+    if (!banners || banners.length === 0) return;
     setCurrentSlide((prev) => (prev - 1 + banners.length) % banners.length);
   };
 
   const handleNextSlide = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
+    if (!banners || banners.length === 0) return;
     setCurrentSlide((prev) => (prev + 1) % banners.length);
   };
 
@@ -75,7 +77,7 @@ export function Header({ locale, dict }: HeaderProps) {
 
   const handleLogout = async () => {
     await logout();
-    window.location.href = `/${locale}`;
+    router.push(`/${locale}`);
   };
 
   const handleLocaleChange = (newLocale: string) => {

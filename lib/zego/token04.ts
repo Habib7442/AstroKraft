@@ -18,21 +18,26 @@ export function generateToken04(
   // 1. Parameter Validation
   if (!appID || typeof appID !== "number") throw new Error("Invalid appID");
   if (!userID || typeof userID !== "string") throw new Error("Invalid userID");
-  if (!secret || secret.length !== 32) throw new Error("Secret must be 32 bytes");
+  if (!secret) throw new Error("Secret is required");
+
+  const secretBuffer = Buffer.from(secret, "utf8");
+  if (secretBuffer.length !== 32) {
+    throw new Error("Secret must be exactly 32 bytes when UTF-8 encoded");
+  }
 
   const VERSION_FLAG = "04";
   const createTime = Math.floor(Date.now() / 1000);
   const tokenInfo = {
     app_id: appID,
     user_id: userID,
-    nonce: Math.floor(Math.random() * 2147483648),
+    nonce: randomBytes(4).readUInt32BE(0) % 2147483648,
     ctime: createTime,
     expire: createTime + effectiveTimeInSeconds,
     payload: payload || "",
   };
 
   // 2. AES-256-GCM Encryption
-  const key = Buffer.from(secret, "utf8");
+  const key = secretBuffer;
   const nonce = randomBytes(12); // GCM standard nonce length
   const cipher = createCipheriv("aes-256-gcm", key, nonce);
 

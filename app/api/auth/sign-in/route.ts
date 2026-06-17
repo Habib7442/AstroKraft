@@ -50,7 +50,7 @@ export async function POST(request: Request) {
         .insert([{
           id: authUser.id,
           email: authUser.email,
-          phone: authUser.id, // fallback phone as id since it is a unique field
+          phone: `phone_${authUser.id.substring(0, 8)}`, // fallback phone placeholder
           name: authUser.profile?.name || email.split('@')[0],
           role: 'user'
         }])

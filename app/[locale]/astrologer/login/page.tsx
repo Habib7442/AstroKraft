@@ -40,8 +40,12 @@ export default function AstrologerLoginPage() {
 
       toast.success(`Welcome Master Consultant, ${data.user.name || "Astrologer"}!`);
       
-      // Redirect to the astrologers listing page (or partner portal dashboard if implemented)
-      window.location.href = `/${locale}/astrologers`;
+      // Redirect to admin dashboard or astrologers listing page based on role
+      if (data.user.role === "admin") {
+        window.location.href = "/admin";
+      } else {
+        window.location.href = `/${locale}/astrologers`;
+      }
     } catch (error: any) {
       toast.error(error.message || "Invalid credentials or unauthorized role.");
     } finally {

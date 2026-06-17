@@ -55,7 +55,7 @@ function mapSanityProductToGemInfo(product: any): GemInfo {
       hin: "प्रमाणित",
       bn: "প্রত্যয়িত"
     },
-    pricePerCarat: product.salePrice || product.price,
+    pricePerCarat: product.salePrice ?? product.price,
     src: imageUrl,
     benefits: {
       en: product.carats ? [`Weight: ${product.carats} Carats`, "100% Natural & Energized"] : ["100% Natural & Energized"],

@@ -55,9 +55,10 @@ export const useAuthStore = create<AuthState>((set) => ({
     try {
       await insforge.auth.signOut();
       await fetch("/api/auth/sign-out", { method: "POST" });
-      set({ user: null, wallet: null });
     } catch (error) {
       console.error("Error signing out:", error);
+    } finally {
+      set({ user: null, wallet: null });
     }
   }
 }));

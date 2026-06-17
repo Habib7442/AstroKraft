@@ -53,6 +53,14 @@ export const productType = defineType({
       title: 'Sale Price (₹)',
       type: 'number',
       description: 'Optional discount price.',
+      validation: (Rule) =>
+        Rule.min(0).custom((salePrice, context) => {
+          const price = (context.document as any)?.price
+          if (salePrice && price && salePrice > price) {
+            return 'Sale price must be less than or equal to base price'
+          }
+          return true
+        }),
     }),
     defineField({
       name: 'carats',

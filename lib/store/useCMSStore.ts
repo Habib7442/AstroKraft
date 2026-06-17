@@ -1,22 +1,23 @@
 import { create } from "zustand";
+import type { Banner, Category, Product, Consultation, Astrologer } from "@/types/sanity";
 
 interface CMSState {
-  banners: any[];
-  categories: any[];
-  products: any[];
-  consultations: any[];
-  astrologers: any[];
-  setBanners: (banners: any[]) => void;
-  setCategories: (categories: any[]) => void;
-  setProducts: (products: any[]) => void;
-  setConsultations: (consultations: any[]) => void;
-  setAstrologers: (astrologers: any[]) => void;
+  banners: Banner[];
+  categories: Category[];
+  products: Product[];
+  consultations: Consultation[];
+  astrologers: Astrologer[];
+  setBanners: (banners: Banner[]) => void;
+  setCategories: (categories: Category[]) => void;
+  setProducts: (products: Product[]) => void;
+  setConsultations: (consultations: Consultation[]) => void;
+  setAstrologers: (astrologers: Astrologer[]) => void;
   initializeData: (data: {
-    banners?: any[];
-    categories?: any[];
-    products?: any[];
-    consultations?: any[];
-    astrologers?: any[];
+    banners?: Banner[];
+    categories?: Category[];
+    products?: Product[];
+    consultations?: Consultation[];
+    astrologers?: Astrologer[];
   }) => void;
 }
 
