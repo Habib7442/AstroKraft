@@ -157,6 +157,21 @@ export async function POST(req: NextRequest) {
 
     if (statusError) {
       console.error("Failed to update astrologer status to busy:", statusError);
+      
+      // Roll back the call session insert to prevent state inconsistency
+      const { error: rollbackError } = await insforgeAdmin.database
+        .from('call_sessions')
+        .delete()
+        .eq('room_id', roomId);
+        
+      if (rollbackError) {
+        console.error("Critical: Failed to roll back call session insert:", rollbackError);
+      }
+
+      return NextResponse.json(
+        { error: "Failed to mark astrologer as busy. Call session aborted." },
+        { status: 500 }
+      );
     }
 
     console.log(`[ZEGO BILLING] Call Session Started: Room ${roomId} at ${startedAt}`);

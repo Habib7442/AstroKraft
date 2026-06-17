@@ -112,7 +112,7 @@ Update this file after every completed feature. Any AI agent reading this should
 - **Sanity CDN Image Optimizations**: Optimized page weight by configuring the Sanity CDN URL builder in `header.tsx` (banners), `hero-ecommerce.tsx` (categories), and `gemstone-grid.tsx` (product catalog) to resize, crop, and auto-convert images to highly compressed format streams.
 - **Categories Fallback SVGs Removed**: Completely removed all inline fallback SVGs and custom drawing logic from `hero-ecommerce.tsx`. If a category doesn't have an uploaded image, it now falls back to a clean, optimized PNG placeholder (`/gemstones/placeholder.png`).
 - **Astrologer signup role fix**: Fixed a logic bug in `app/api/auth/sign-up/route.ts` where the backend evaluated the raw client-supplied `role` parameter instead of the computed `finalRole` when deciding whether to seed an astrologer profile record.
-- **Call-Start Endpoint Security & Idempotency**: Added session authentication, roomId structure validation, and duplicate session detection (idempotency check) in `app/api/zego/call-start/route.ts` to prevent unauthorized call session creation.
+- **Call-Start Endpoint Security & Idempotency**: Added session authentication, roomId structure validation, duplicate session detection (idempotency check), and automated transaction rollback on status update failure in `app/api/zego/call-start/route.ts` to prevent unauthorized call session creation and database state inconsistencies.
 
 ---
 
