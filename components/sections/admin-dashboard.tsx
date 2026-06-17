@@ -394,6 +394,46 @@ export function AdminDashboard({
       );
       return;
     }
+
+    // Validate non-negative prices and sale price restrictions
+    if (isGemstone) {
+      const basic = Number(productForm.priceBasic);
+      const saleBasic = productForm.salePriceBasic ? Number(productForm.salePriceBasic) : null;
+      const semi = productForm.priceSemiPremium ? Number(productForm.priceSemiPremium) : null;
+      const saleSemi = productForm.salePriceSemiPremium ? Number(productForm.salePriceSemiPremium) : null;
+      const prem = productForm.pricePremium ? Number(productForm.pricePremium) : null;
+      const salePrem = productForm.salePricePremium ? Number(productForm.salePricePremium) : null;
+
+      if (basic < 0 || (saleBasic !== null && saleBasic < 0) || (semi !== null && semi < 0) || (saleSemi !== null && saleSemi < 0) || (prem !== null && prem < 0) || (salePrem !== null && salePrem < 0)) {
+        toast.error("Prices cannot be negative.");
+        return;
+      }
+
+      if (saleBasic !== null && saleBasic > basic) {
+        toast.error("Basic sale price cannot exceed the basic base price.");
+        return;
+      }
+      if (semi !== null && saleSemi !== null && saleSemi > semi) {
+        toast.error("Semi-Premium sale price cannot exceed the semi-premium base price.");
+        return;
+      }
+      if (prem !== null && salePrem !== null && salePrem > prem) {
+        toast.error("Premium sale price cannot exceed the premium base price.");
+        return;
+      }
+    } else {
+      const price = Number(productForm.price);
+      const salePrice = productForm.salePrice ? Number(productForm.salePrice) : null;
+      if (price < 0 || (salePrice !== null && salePrice < 0)) {
+        toast.error("Price cannot be negative.");
+        return;
+      }
+      if (salePrice !== null && salePrice > price) {
+        toast.error("Sale price cannot exceed the base price.");
+        return;
+      }
+    }
+
     setSubmitting(true);
 
     const doc: any = {
@@ -482,6 +522,10 @@ export function AdminDashboard({
     e.preventDefault();
     if (!consultationForm.title || !consultationForm.baseFee) {
       toast.error("Service Title and Base Fee are required.");
+      return;
+    }
+    if (Number(consultationForm.baseFee) < 0) {
+      toast.error("Base Fee cannot be negative.");
       return;
     }
     setSubmitting(true);
@@ -1062,6 +1106,7 @@ export function AdminDashboard({
                               <label className="text-[9px] font-black uppercase text-zinc-500 block">Basic Price (₹) *</label>
                               <input 
                                 type="number" 
+                                min="0"
                                 value={productForm.priceBasic}
                                 onChange={e => setProductForm({ ...productForm, priceBasic: e.target.value })}
                                 className="w-full px-3 py-1.5 text-xs font-semibold rounded-lg border border-zinc-200 focus:outline-none focus:border-[#120d26] bg-white"
@@ -1072,6 +1117,7 @@ export function AdminDashboard({
                               <label className="text-[9px] font-black uppercase text-zinc-500 block">Basic Sale Price (₹)</label>
                               <input 
                                 type="number" 
+                                min="0"
                                 value={productForm.salePriceBasic}
                                 onChange={e => setProductForm({ ...productForm, salePriceBasic: e.target.value })}
                                 className="w-full px-3 py-1.5 text-xs font-semibold rounded-lg border border-zinc-200 focus:outline-none focus:border-[#120d26] bg-white"
@@ -1088,6 +1134,7 @@ export function AdminDashboard({
                               <label className="text-[9px] font-black uppercase text-zinc-500 block">Semi-Premium Price (₹)</label>
                               <input 
                                 type="number" 
+                                min="0"
                                 value={productForm.priceSemiPremium}
                                 onChange={e => setProductForm({ ...productForm, priceSemiPremium: e.target.value })}
                                 className="w-full px-3 py-1.5 text-xs font-semibold rounded-lg border border-zinc-200 focus:outline-none focus:border-[#120d26] bg-white"
@@ -1098,6 +1145,7 @@ export function AdminDashboard({
                               <label className="text-[9px] font-black uppercase text-zinc-500 block">Semi-Premium Sale Price (₹)</label>
                               <input 
                                 type="number" 
+                                min="0"
                                 value={productForm.salePriceSemiPremium}
                                 onChange={e => setProductForm({ ...productForm, salePriceSemiPremium: e.target.value })}
                                 className="w-full px-3 py-1.5 text-xs font-semibold rounded-lg border border-zinc-200 focus:outline-none focus:border-[#120d26] bg-white"
@@ -1114,6 +1162,7 @@ export function AdminDashboard({
                               <label className="text-[9px] font-black uppercase text-zinc-500 block">Premium Price (₹)</label>
                               <input 
                                 type="number" 
+                                min="0"
                                 value={productForm.pricePremium}
                                 onChange={e => setProductForm({ ...productForm, pricePremium: e.target.value })}
                                 className="w-full px-3 py-1.5 text-xs font-semibold rounded-lg border border-zinc-200 focus:outline-none focus:border-[#120d26] bg-white"
@@ -1124,6 +1173,7 @@ export function AdminDashboard({
                               <label className="text-[9px] font-black uppercase text-zinc-500 block">Premium Sale Price (₹)</label>
                               <input 
                                 type="number" 
+                                min="0"
                                 value={productForm.salePricePremium}
                                 onChange={e => setProductForm({ ...productForm, salePricePremium: e.target.value })}
                                 className="w-full px-3 py-1.5 text-xs font-semibold rounded-lg border border-zinc-200 focus:outline-none focus:border-[#120d26] bg-white"
@@ -1139,6 +1189,7 @@ export function AdminDashboard({
                           <label className="text-[10px] font-black uppercase text-zinc-700 block">Base Price (₹)</label>
                           <input 
                             type="number" 
+                            min="0"
                             required 
                             value={productForm.price}
                             onChange={e => setProductForm({ ...productForm, price: Number(e.target.value) })}
@@ -1151,6 +1202,7 @@ export function AdminDashboard({
                           <label className="text-[10px] font-black uppercase text-zinc-700 block">Sale Price (₹)</label>
                           <input 
                             type="number" 
+                            min="0"
                             value={productForm.salePrice}
                             onChange={e => setProductForm({ ...productForm, salePrice: e.target.value })}
                             className="w-full px-4 py-2 text-xs font-semibold rounded-xl border border-zinc-200 focus:outline-none focus:border-[#120d26]"
@@ -1350,6 +1402,7 @@ export function AdminDashboard({
                       <label className="text-[10px] font-black uppercase text-zinc-700 block">Base Fee (₹)</label>
                       <input 
                         type="number" 
+                        min="0"
                         required 
                         value={consultationForm.baseFee}
                         onChange={e => setConsultationForm({ ...consultationForm, baseFee: Number(e.target.value) })}
