@@ -97,7 +97,7 @@ export async function POST(request: Request) {
     }
 
     // 5. If registering as an astrologer, initialize profile
-    if (role === 'astrologer') {
+    if (finalRole === 'astrologer') {
       const { error: profileError } = await insforgeAdmin
         .database
         .from('astrologer_profiles')
