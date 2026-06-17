@@ -195,7 +195,7 @@ export default function FreeToolsPreview({ locale = "en" }: FreeToolsPreviewProp
   ];
 
   return (
-    <section className="w-full py-16 px-6 md:px-12 lg:px-16 bg-base stars-bg relative overflow-hidden border-t border-border/40">
+    <section className="w-full py-16 px-4 sm:px-6 lg:px-8 bg-base stars-bg relative overflow-hidden border-t border-border/40">
       {/* Background ambient light */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-gold/5 blur-[160px] pointer-events-none -z-10" />
 

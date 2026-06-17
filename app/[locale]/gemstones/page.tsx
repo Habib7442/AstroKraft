@@ -4,6 +4,8 @@ import { isValidLocale } from "@/lib/seo";
 import { Header } from "@/components/sections/header";
 import { Footer } from "@/components/sections/footer";
 import GemstoneGrid from "@/components/sections/gemstone-grid";
+import { client } from "@/sanity/lib/client";
+import { productsQuery } from "@/sanity/lib/queries";
 
 interface PageParams {
   locale: string;
@@ -30,6 +32,14 @@ export default async function GemstonesPage({ params }: { params: Promise<PagePa
 
   const dict = await getDictionary(locale);
 
+  // Fetch products dynamically from Sanity CMS with revalidation enabled
+  let products = [];
+  try {
+    products = await client.fetch(productsQuery, {}, { next: { revalidate: 60 } });
+  } catch (error) {
+    console.error("Failed to fetch products from Sanity for gemstones page:", error);
+  }
+
   return (
     <div className="flex flex-col min-h-screen bg-[#0B1026] text-white overflow-x-hidden pt-20">
       {/* Navigation Header */}
@@ -38,7 +48,7 @@ export default async function GemstonesPage({ params }: { params: Promise<PagePa
       {/* Main Content Area */}
       <main className="flex-1">
         {/* Reusable, optimized Gemstone Catalog Grid */}
-        <GemstoneGrid locale={locale} />
+        <GemstoneGrid locale={locale} initialProducts={products} />
       </main>
 
       {/* Structured Footer Section */}

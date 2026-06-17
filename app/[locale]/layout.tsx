@@ -1,32 +1,13 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Fraunces } from "next/font/google";
-import "../globals.css";
-import "lenis/dist/lenis.css";
-import { cn } from "@/lib/utils";
-import { LOCALES, constructMetadata, isValidLocale } from "@/lib/seo";
+import { isValidLocale, constructMetadata } from "@/lib/seo";
 import { ThemeProvider } from "@/components/theme-provider";
 import { LenisProvider } from "@/components/providers/lenis-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { ExcitementToaster } from "@/components/excitement-toaster";
 import { PwaRegister } from "@/components/PwaRegister";
 import { WhatsAppFab } from "@/components/whatsapp-fab";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
-  subsets: ["latin"],
-  display: "swap",
-});
+import { ZegoProvider } from "@/components/providers/zego-provider";
+import { MobileNavbar } from "@/components/sections/mobile-navbar";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -34,51 +15,34 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return constructMetadata({ locale: activeLocale });
 }
 
-export async function generateStaticParams() {
-  return LOCALES.map((locale) => ({ locale }));
-}
-
 interface LayoutProps {
   children: React.ReactNode;
   params: Promise<any>;
 }
 
-export default async function RootLayout({
+export default async function LocalizedLayout({
   children,
   params,
 }: LayoutProps) {
   const { locale } = await params;
 
   return (
-    <html
-      lang={locale}
-      suppressHydrationWarning
-      className={cn(
-        "h-full",
-        "antialiased",
-        geistSans.variable,
-        geistMono.variable,
-        fraunces.variable,
-        "font-sans"
-      )}
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="light"
+      forcedTheme="light"
+      disableTransitionOnChange
     >
-      <body suppressHydrationWarning className="min-h-full flex flex-col bg-background text-foreground">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          forcedTheme="light"
-          disableTransitionOnChange
-        >
-          <LenisProvider>
-            {children}
-            <Toaster position="top-right" closeButton />
-            <ExcitementToaster />
-            <PwaRegister />
-            <WhatsAppFab />
-          </LenisProvider>
-        </ThemeProvider>
-      </body>
-    </html>
+      <LenisProvider>
+        <ZegoProvider>
+          {children}
+          <Toaster position="top-right" closeButton />
+          <ExcitementToaster />
+          <PwaRegister />
+          <WhatsAppFab />
+          <MobileNavbar locale={locale} />
+        </ZegoProvider>
+      </LenisProvider>
+    </ThemeProvider>
   );
 }
-

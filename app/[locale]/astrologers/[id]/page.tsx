@@ -20,7 +20,8 @@ const VALID_IDS = [
   "acharya_bhakta_vedanta",
   "astrologer_indrajit_dutta",
   "rishi_acharya",
-  "biprangshu_bhattacharjee"
+  "biprangshu_bhattacharjee",
+  "test_astrologer"
 ];
 
 /**

@@ -42,7 +42,7 @@ export function Footer({ locale, dict }: FooterProps) {
       <div className="absolute -bottom-24 -left-24 w-[300px] h-[300px] rounded-full bg-amber-250/5 blur-[100px] pointer-events-none -z-10" />
       <div className="absolute -top-24 -right-24 w-[250px] h-[250px] rounded-full bg-purple-250/5 blur-[90px] pointer-events-none -z-10" />
 
-      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-white/10">
           {/* Brand Info (4 cols) */}
           <div className="lg:col-span-4 flex flex-col gap-4">

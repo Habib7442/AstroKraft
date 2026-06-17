@@ -122,8 +122,8 @@ export function WhyChoose({ locale }: WhyChooseProps) {
   const currentData = content[activeLocale as keyof typeof content] || content.en;
 
   return (
-    <section className="w-full py-12 px-6 md:px-12 lg:px-16 bg-base relative overflow-hidden">
-      <div className="max-w-7xl mx-auto relative z-10">
+    <section className="w-full py-12 bg-base relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="bg-[#120B24] border border-[#ECD9A0]/20 rounded-2xl p-8 md:p-10 shadow-2xl relative overflow-hidden">
           {/* Subtle star overlay inside card */}
           <div className="absolute inset-0 bg-stars-pattern opacity-10 pointer-events-none" />

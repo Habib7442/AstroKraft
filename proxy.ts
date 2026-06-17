@@ -2,11 +2,13 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { LOCALES, DEFAULT_LOCALE } from './lib/seo';
 
+import { updateSession } from '@insforge/sdk/ssr';
+
 /**
  * Next.js 16 Proxy entry point.
  * Intercepts incoming requests and redirects to localized routes if the locale prefix is missing.
  */
-export function proxy(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // 1. Check if the path already has a locale prefix (e.g. /en, /hi, /bn, etc.)
@@ -14,13 +16,39 @@ export function proxy(request: NextRequest) {
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   );
 
-  if (pathnameHasLocale) {
-    return NextResponse.next();
+  let response: NextResponse;
+
+  // 0. Redirect any localized /locale/admin requests to the standalone /admin route
+  const localeAdminMatch = LOCALES.some(
+    (locale) => pathname === `/${locale}/admin` || pathname.startsWith(`/${locale}/admin/`)
+  );
+  if (localeAdminMatch) {
+    const cleanPath = pathname.replace(/^\/[a-z]{2,3}\/admin/, '/admin');
+    request.nextUrl.pathname = cleanPath;
+    return NextResponse.redirect(request.nextUrl);
   }
 
-  // 2. Redirect to default locale prefix (en)
-  request.nextUrl.pathname = `/${DEFAULT_LOCALE}${pathname}`;
-  return NextResponse.redirect(request.nextUrl);
+  if (pathname === '/admin' || pathname.startsWith('/admin/')) {
+    response = NextResponse.next({ request });
+  } else if (pathnameHasLocale) {
+    response = NextResponse.next({ request });
+  } else {
+    // 2. Redirect to default locale prefix (en)
+    request.nextUrl.pathname = `/${DEFAULT_LOCALE}${pathname}`;
+    response = NextResponse.redirect(request.nextUrl);
+  }
+
+  // Synchronize authentication session cookies
+  try {
+    await updateSession({
+      requestCookies: request.cookies as any,
+      responseCookies: response.cookies as any,
+    });
+  } catch (error) {
+    console.error('Session sync error:', error);
+  }
+
+  return response;
 }
 
 export const config = {

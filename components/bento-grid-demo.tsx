@@ -38,7 +38,8 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
     "acharya_sneha",
     "acharya_abhi_shastri",
     "astrologer_indrajit_dutta",
-    "rishi_acharya"
+    "rishi_acharya",
+    "test_astrologer"
   ];
 
   const cardColors: Record<string, string> = {
@@ -47,11 +48,12 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
     acharya_sneha: "bg-[#FFD0C8]",
     acharya_abhi_shastri: "bg-[#FEF08A]",
     astrologer_indrajit_dutta: "bg-[#C6F6D5]",
-    rishi_acharya: "bg-[#E0F2FE]"
+    rishi_acharya: "bg-[#E0F2FE]",
+    test_astrologer: "bg-[#FFF9E6]"
   };
 
   return (
-    <section className="w-full py-16 px-6 md:px-12 lg:px-16 bg-base stars-bg relative border-t border-border/40">
+    <section className="w-full py-16 px-4 sm:px-6 lg:px-8 bg-base stars-bg relative border-t border-border/40">
       <div className="max-w-7xl mx-auto flex flex-col gap-10">
         {/* Section Heading */}
         <div className="flex flex-col items-center text-center gap-3">
@@ -83,7 +85,8 @@ export default function BentoGridDemo({ locale = "en" }: BentoGridDemoProps) {
               acharya_sneha: "#FFD0C8",
               acharya_abhi_shastri: "#FEF08A",
               astrologer_indrajit_dutta: "#C6F6D5",
-              rishi_acharya: "#E0F2FE"
+              rishi_acharya: "#E0F2FE",
+              test_astrologer: "#FFF9E6"
             };
             const cornerColor = cardCornerColors[key] || "#E5D5FF";
 

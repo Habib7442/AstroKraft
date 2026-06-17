@@ -23,8 +23,8 @@ export function ServicesRow({ locale, dict }: ServicesRowProps) {
   const activeLocale = ["en", "hin", "bn"].includes(locale) ? locale : "en";
 
   return (
-    <section className="w-full py-16 px-6 md:px-12 lg:px-16 bg-base stars-bg relative overflow-hidden border-b border-border/40">
-      <div className="max-w-7xl mx-auto flex flex-col gap-8 relative z-10">
+    <section className="w-full py-16 bg-base stars-bg relative overflow-hidden border-b border-border/40">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-8 relative z-10">
         
         {/* Section Heading */}
         <div className="flex flex-col items-center text-center gap-3 mb-4">

@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { CardSpotlight } from "@/components/ui/card-spotlight";
 import GEMS_DATA from "@/lib/data/gems.json";
 import { cn } from "@/lib/utils";
+import { urlFor } from "@/sanity/lib/image";
 
 interface GemInfo {
   id: string;
@@ -19,6 +20,50 @@ interface GemInfo {
 }
 
 const GEMS = GEMS_DATA as Record<string, GemInfo>;
+
+function mapSanityProductToGemInfo(product: any): GemInfo {
+  const imageUrl = product.image ? urlFor(product.image).width(200).height(200).fit('crop').auto('format').url() : "/gemstones/placeholder.png";
+  return {
+    id: product._id,
+    name: {
+      en: product.name,
+      hin: product.name,
+      bn: product.name
+    },
+    type: {
+      en: product.category?.name || "Gemstone",
+      hin: product.category?.name || "रत्न",
+      bn: product.category?.name || "রত্ন"
+    },
+    description: {
+      en: product.description || "",
+      hin: product.description || "",
+      bn: product.description || ""
+    },
+    zodiac: {
+      en: product.rashi?.join(", ") || "All",
+      hin: product.rashi?.join(", ") || "सभी",
+      bn: product.rashi?.join(", ") || "সব"
+    },
+    ruler: {
+      en: "Various",
+      hin: "विविध",
+      bn: "বিভিন্ন"
+    },
+    origin: {
+      en: "Certified",
+      hin: "प्रमाणित",
+      bn: "প্রত্যয়িত"
+    },
+    pricePerCarat: product.salePrice || product.price,
+    src: imageUrl,
+    benefits: {
+      en: product.carats ? [`Weight: ${product.carats} Carats`, "100% Natural & Energized"] : ["100% Natural & Energized"],
+      hin: product.carats ? [`वजन: ${product.carats} कैरेट`, "100% प्राकृतिक और सक्रिय"] : ["100% प्राकृतिक और सक्रिय"],
+      bn: product.carats ? [`ওজন: ${product.carats} ক্যারেট`, "১০০% প্রাকৃতিক ও সক্রিয়"] : ["১০০% প্রাকৃতিক ও সক্রিয়"]
+    }
+  };
+}
 
 // Map gemstones to custom, luxurious glow colors representing their physical hue
 const GLOW_COLORS: Record<string, string> = {
@@ -169,13 +214,13 @@ function GemstoneCard({ gem, activeLocale, labels, glowColor, getPrefilledWhatsa
     </CardSpotlight>
   );
 }
-
 interface GemstoneGridProps {
   locale?: string;
   limit?: number;
+  initialProducts?: any[];
 }
 
-export default function GemstoneGrid({ locale = "en", limit }: GemstoneGridProps) {
+export default function GemstoneGrid({ locale = "en", limit, initialProducts }: GemstoneGridProps) {
   const activeLocale = ["en", "hin", "bn"].includes(locale) ? locale : "en";
 
   const getPrefilledWhatsappUrl = (name: string) => {
@@ -183,7 +228,14 @@ export default function GemstoneGrid({ locale = "en", limit }: GemstoneGridProps
     return `https://wa.me/916913230255?text=${encodeURIComponent(text)}`;
   };
 
-  let gemsList = Object.values(GEMS);
+  // If initialProducts is provided and not empty, map and use it. Otherwise, use GEMS.
+  let gemsList: GemInfo[] = [];
+  if (initialProducts && initialProducts.length > 0) {
+    gemsList = initialProducts.map(mapSanityProductToGemInfo);
+  } else {
+    gemsList = Object.values(GEMS);
+  }
+
   const showViewAll = limit !== undefined && gemsList.length > limit;
   if (limit !== undefined) {
     gemsList = gemsList.slice(0, limit);
@@ -232,7 +284,7 @@ export default function GemstoneGrid({ locale = "en", limit }: GemstoneGridProps
 
   return (
     <section
-      className="w-full py-16 px-6 md:px-12 lg:px-16 stars-bg relative overflow-hidden border-t border-border/20"
+      className="w-full py-16 stars-bg relative overflow-hidden border-t border-border/20"
       style={{
         background: 'linear-gradient(135deg, #0B1026, #2A1A5E, #4C1D95)'
       }}
@@ -241,7 +293,7 @@ export default function GemstoneGrid({ locale = "en", limit }: GemstoneGridProps
       <div className="absolute top-24 left-1/4 w-[400px] h-[400px] rounded-full bg-gold/5 blur-[120px] pointer-events-none -z-10" />
       <div className="absolute bottom-24 right-1/4 w-[400px] h-[400px] rounded-full bg-violet/5 blur-[120px] pointer-events-none -z-10" />
 
-      <div className="max-w-7xl mx-auto flex flex-col gap-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-10">
 
         {/* Section Heading */}
         <div className="flex flex-col items-center text-center gap-3">

@@ -269,3 +269,12 @@ p.text-ink-muted, span.text-ink-muted, div.text-ink-muted, strong.text-ink-muted
 h1.text-ink, h2.text-ink, h3.text-ink, h4.text-ink, p.text-ink, span.text-ink, div.text-ink, .text-ink {
   color: #221A3D !important;
 }
+
+/* Category Card Title Style - Highly Visible Dark Blue with Gold Hover */
+.category-title-custom {
+  color: #0B1026 !important;
+}
+.category-title-custom:hover, 
+.group:hover .category-title-custom {
+  color: #b28b3a !important;
+}
