@@ -31,7 +31,7 @@ export default async function AstrologersPage({ params }: { params: Promise<Page
   const dict = await getDictionary(locale);
 
   return (
-    <div className="flex flex-col min-h-screen bg-background text-foreground overflow-x-hidden pt-20">
+    <div className="flex flex-col min-h-screen bg-background text-foreground overflow-x-hidden">
       {/* Navigation Header */}
       <Header locale={locale} dict={dict} />
 

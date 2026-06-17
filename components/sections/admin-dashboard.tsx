@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Plus, Trash, Eye, EyeOff, Upload, Save, FileText, LayoutDashboard, ShoppingBag, FolderHeart, Users, HelpCircle, ArrowLeft, LogOut, Pencil } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
@@ -28,6 +28,19 @@ export function AdminDashboard({
 }: AdminDashboardProps) {
   const [activeTab, setActiveTab] = useState<TabType>("banners");
   const { logout } = useAuthStore();
+
+  // Keep-alive to prevent database cold-start timeouts and refresh auth cookies
+  useEffect(() => {
+    // Initial warm-up ping
+    fetch("/api/auth/session").catch(() => {});
+
+    // Periodic ping every 4 minutes (before token expires or DB goes to sleep)
+    const interval = setInterval(() => {
+      fetch("/api/auth/session").catch(() => {});
+    }, 4 * 60 * 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleAdminLogout = async () => {
     await logout();

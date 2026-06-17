@@ -116,7 +116,7 @@ export default async function Page({ params }: { params: Promise<PageParams> }) 
 
 
         {/* Featured Gemstones Section */}
-        <GemstoneGrid locale={locale} limit={3} />
+        <GemstoneGrid locale={locale} initialProducts={products} />
 
         <div className="max-w-7xl mx-auto h-px w-full bg-gradient-to-r from-transparent via-border/50 to-transparent" />
 
