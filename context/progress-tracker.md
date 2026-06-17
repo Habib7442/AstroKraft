@@ -111,6 +111,7 @@ Update this file after every completed feature. Any AI agent reading this should
 - **Type-Safe Route Handler Revalidation**: Updated the admin write API (`/api/admin/write/route.ts`) to use `revalidateTag(tag, "weeks")` to purge cached data type-safely. Removed `updateTag` because it is restricted to Server Actions and throws runtime errors in API routes.
 - **Sanity CDN Image Optimizations**: Optimized page weight by configuring the Sanity CDN URL builder in `header.tsx` (banners), `hero-ecommerce.tsx` (categories), and `gemstone-grid.tsx` (product catalog) to resize, crop, and auto-convert images to highly compressed format streams.
 - **Categories Fallback SVGs Removed**: Completely removed all inline fallback SVGs and custom drawing logic from `hero-ecommerce.tsx`. If a category doesn't have an uploaded image, it now falls back to a clean, optimized PNG placeholder (`/gemstones/placeholder.png`).
+- **Astrologer signup role fix**: Fixed a logic bug in `app/api/auth/sign-up/route.ts` where the backend evaluated the raw client-supplied `role` parameter instead of the computed `finalRole` when deciding whether to seed an astrologer profile record.
 
 ---
 
