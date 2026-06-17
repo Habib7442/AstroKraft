@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
+import { cookies } from "next/headers";
+import { createServerClient } from "@insforge/sdk/ssr";
 import { insforgeAdmin } from "@/lib/insforge-admin";
 
 async function resolveUser(identifier: string, defaultRole: 'user' | 'astrologer' = 'user') {
@@ -63,7 +65,46 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 1. Resolve customer and get wallet balance
+    // 1. Authenticate request session
+    const cookieStore = await cookies();
+    const client = createServerClient({
+      cookies: cookieStore,
+      baseUrl: process.env.NEXT_PUBLIC_INSFORGE_URL || "",
+      anonKey: process.env.NEXT_PUBLIC_INSFORGE_ANON_KEY || ""
+    });
+
+    let authenticatedUser = null;
+    try {
+      const { data } = await client.auth.getCurrentUser();
+      authenticatedUser = data?.user || null;
+    } catch (err) {
+      console.error("Auth check failed in precheck API:", err);
+    }
+
+    const isDev = process.env.NODE_ENV === "development";
+    const userId = authenticatedUser?.id;
+
+    // Allow mock IDs in development
+    const isMockDev = isDev && (!userId || userId.startsWith("mock_") || customerId === "mock_customer_1" || customerId === "customer_1");
+
+    if (!isMockDev) {
+      if (!userId) {
+        return NextResponse.json({ error: "Unauthorized - Authentication required" }, { status: 401 });
+      }
+
+      // Enforce authorization: user can only check their own wallet details
+      if (userId !== customerId) {
+        return NextResponse.json(
+          { error: "Forbidden - You cannot perform precheck on behalf of another user" },
+          { status: 403 }
+        );
+      }
+    }
+
+    // 2. Audit log precheck request
+    console.log(`[ZEGO PRECHECK AUDIT] User: ${userId || 'MockDev'} initiated pre-call check for Astrologer: ${astrologerId} (Customer: ${customerId})`);
+
+    // 3. Resolve customer and get wallet balance
     const customer = await resolveUser(customerId, 'user');
     if (!customer) {
       return NextResponse.json({ error: "Failed to resolve customer profile" }, { status: 404 });
@@ -77,7 +118,7 @@ export async function POST(req: NextRequest) {
 
     const balance = wallet ? Number(wallet.balance) : 0.00;
 
-    // 2. Resolve astrologer and get rate/status
+    // 4. Resolve astrologer and get rate/status
     const astrologer = await resolveUser(astrologerId, 'astrologer');
     if (!astrologer) {
       return NextResponse.json({ error: "Failed to resolve astrologer profile" }, { status: 404 });
@@ -92,7 +133,7 @@ export async function POST(req: NextRequest) {
     const ratePerMin = profile ? Number(profile.rate_per_min) : 15.00;
     const status = profile ? profile.status : 'offline';
 
-    // 3. Security Gate: Balance Check
+    // 5. Security Gate: Balance Check
     if (balance < ratePerMin) {
       return NextResponse.json({
         ok: false,
@@ -101,7 +142,7 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // 4. Status Gate: Availability Check
+    // 6. Status Gate: Availability Check
     if (status !== 'online') {
       return NextResponse.json({
         ok: false,
@@ -110,7 +151,7 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // 5. Generate secure room ID
+    // 7. Generate secure room ID
     const timestamp = Date.now();
     const roomId = `call_${customer.id.substring(0, 8)}_${astrologer.id.substring(0, 8)}_${timestamp}`;
     const astrologerZegoId = `astrologer_${astrologer.id}`;
