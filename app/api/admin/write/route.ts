@@ -34,12 +34,12 @@ export async function POST(req: NextRequest) {
       console.error("DB role query error in write API:", dbErr);
     }
 
-    const allowedEmails = [
-      "habib7442@gmail.com",
-      "astrokraftwebsitemanagement@gmail.com"
-    ];
+    const adminEmails = (process.env.ADMIN_EMAILS || "")
+      .split(",")
+      .map((e) => e.trim().toLowerCase())
+      .filter(Boolean);
 
-    const isAdmin = role === "admin" || allowedEmails.includes(user.email);
+    const isAdmin = role === "admin" || adminEmails.includes(user.email.toLowerCase());
     if (!isAdmin) {
       return NextResponse.json({ error: "Unauthorized - Not an admin" }, { status: 401 });
     }

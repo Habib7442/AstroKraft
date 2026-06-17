@@ -52,7 +52,12 @@ export async function POST(request: Request) {
     const cleanPhone = phone || `phone_${authUser.id.substring(0, 8)}`;
 
     let finalRole = role;
-    if (email.startsWith("admin@") || email === "habib7442@gmail.com" || email === "astrokraftwebsitemanager@gmail.com") {
+    const adminEmails = (process.env.ADMIN_EMAILS || "")
+      .split(",")
+      .map((e) => e.trim().toLowerCase())
+      .filter(Boolean);
+
+    if (adminEmails.includes(email.toLowerCase())) {
       finalRole = "admin";
     }
 

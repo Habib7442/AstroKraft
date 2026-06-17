@@ -59,14 +59,14 @@ export default async function Page({ params }: { params: Promise<PageParams> }) 
     console.error("Database user role fetch error on homepage:", e);
   }
 
-  const allowedEmails = [
-    "habib7442@gmail.com",
-    "astrokraftwebsitemanagement@gmail.com"
-  ];
+  const adminEmails = (process.env.ADMIN_EMAILS || "")
+    .split(",")
+    .map((e) => e.trim().toLowerCase())
+    .filter(Boolean);
 
   const isAdmin = user && (
     role === "admin" ||
-    allowedEmails.includes(user.email)
+    adminEmails.includes(user.email.toLowerCase())
   );
 
   if (isAdmin) {
