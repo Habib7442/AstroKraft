@@ -30,7 +30,7 @@ export function WhatsAppFab() {
       href={whatsappUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 bg-[#25D366] hover:bg-[#20ba56] text-white rounded-full shadow-lg hover:shadow-xl hover:scale-110 active:scale-95 transition-all duration-300 group cursor-pointer border border-white/20 will-change-transform [transform:translate3d(0,0,0)]"
+      className="fixed bottom-20 lg:bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 bg-[#25D366] hover:bg-[#20ba56] text-white rounded-full shadow-lg hover:shadow-xl hover:scale-110 active:scale-95 transition-all duration-300 group cursor-pointer border border-white/20 will-change-transform [transform:translate3d(0,0,0)]"
       aria-label="Chat on WhatsApp"
     >
       {/* Dynamic green glow rings */}
