@@ -25,6 +25,13 @@ export interface Product {
   description?: string;
   price: number;
   salePrice?: number;
+  priceBasic?: number;
+  salePriceBasic?: number;
+  priceSemiPremium?: number;
+  salePriceSemiPremium?: number;
+  pricePremium?: number;
+  salePricePremium?: number;
+  isBestSelling?: boolean;
   carats?: number;
   rashi?: string[];
   isActive?: boolean;

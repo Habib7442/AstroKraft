@@ -54,7 +54,27 @@ export function AdminDashboard({
   const [categoryPreview, setCategoryPreview] = useState("");
   const [editingCategoryId, setEditingCategoryId] = useState<string | null>(null);
 
-  const [productForm, setProductForm] = useState({ name: "", description: "", price: 0, salePrice: "", carats: "", categoryId: "", imageAssetId: "" });
+  const [productForm, setProductForm] = useState({
+    name: "",
+    description: "",
+    price: 0,
+    salePrice: "",
+    priceBasic: "",
+    salePriceBasic: "",
+    priceSemiPremium: "",
+    salePriceSemiPremium: "",
+    pricePremium: "",
+    salePricePremium: "",
+    isBestSelling: false,
+    carats: "",
+    categoryId: "",
+    imageAssetId: ""
+  });
+
+  const selectedCategory = categories.find(cat => cat._id === productForm.categoryId);
+  const isGemstone = selectedCategory?.slug?.current?.toLowerCase().includes("gemstone") || 
+                    selectedCategory?.name?.toLowerCase().includes("gemstone") || 
+                    selectedCategory?.name?.toLowerCase().includes("gem");
   const [productPreview, setProductPreview] = useState("");
   const [editingProductId, setEditingProductId] = useState<string | null>(null);
 
@@ -111,6 +131,13 @@ export function AdminDashboard({
       description: item.description || "",
       price: item.price || 0,
       salePrice: item.salePrice ? String(item.salePrice) : "",
+      priceBasic: item.priceBasic ? String(item.priceBasic) : "",
+      salePriceBasic: item.salePriceBasic ? String(item.salePriceBasic) : "",
+      priceSemiPremium: item.priceSemiPremium ? String(item.priceSemiPremium) : "",
+      salePriceSemiPremium: item.salePriceSemiPremium ? String(item.salePriceSemiPremium) : "",
+      pricePremium: item.pricePremium ? String(item.pricePremium) : "",
+      salePricePremium: item.salePricePremium ? String(item.salePricePremium) : "",
+      isBestSelling: !!item.isBestSelling,
       carats: item.carats ? String(item.carats) : "",
       categoryId: item.category?._id || "",
       imageAssetId: item.image?.asset?._ref || ""
@@ -359,8 +386,12 @@ export function AdminDashboard({
 
   const handleAddProduct = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!productForm.name || !productForm.price || !productForm.categoryId || !productForm.imageAssetId) {
-      toast.error("Fill required fields: Name, Category, Price, and Product Image.");
+    const hasRequiredPrice = isGemstone ? !!productForm.priceBasic : !!productForm.price;
+    if (!productForm.name || !hasRequiredPrice || !productForm.categoryId || !productForm.imageAssetId) {
+      toast.error(isGemstone 
+        ? "Fill required fields: Name, Category, Basic Price, and Product Image." 
+        : "Fill required fields: Name, Category, Base Price, and Product Image."
+      );
       return;
     }
     setSubmitting(true);
@@ -372,8 +403,17 @@ export function AdminDashboard({
         current: productForm.name.toLowerCase().replace(/\s+/g, "-")
       },
       description: productForm.description || undefined,
-      price: Number(productForm.price),
-      salePrice: productForm.salePrice ? Number(productForm.salePrice) : null,
+      price: isGemstone ? Number(productForm.priceBasic) : Number(productForm.price),
+      salePrice: isGemstone
+        ? (productForm.salePriceBasic ? Number(productForm.salePriceBasic) : null)
+        : (productForm.salePrice ? Number(productForm.salePrice) : null),
+      priceBasic: isGemstone && productForm.priceBasic ? Number(productForm.priceBasic) : null,
+      salePriceBasic: isGemstone && productForm.salePriceBasic ? Number(productForm.salePriceBasic) : null,
+      priceSemiPremium: isGemstone && productForm.priceSemiPremium ? Number(productForm.priceSemiPremium) : null,
+      salePriceSemiPremium: isGemstone && productForm.salePriceSemiPremium ? Number(productForm.salePriceSemiPremium) : null,
+      pricePremium: isGemstone && productForm.pricePremium ? Number(productForm.pricePremium) : null,
+      salePricePremium: isGemstone && productForm.salePricePremium ? Number(productForm.salePricePremium) : null,
+      isBestSelling: !!productForm.isBestSelling,
       carats: productForm.carats ? Number(productForm.carats) : null,
       category: {
         _type: "reference",
@@ -411,7 +451,22 @@ export function AdminDashboard({
         } else {
           setProducts([...products, { ...data.result, category: resolvedCategory, image: { asset: { url: productPreview, _ref: productForm.imageAssetId } } }]);
         }
-        setProductForm({ name: "", description: "", price: 0, salePrice: "", carats: "", categoryId: "", imageAssetId: "" });
+        setProductForm({ 
+          name: "", 
+          description: "", 
+          price: 0, 
+          salePrice: "", 
+          priceBasic: "", 
+          salePriceBasic: "", 
+          priceSemiPremium: "", 
+          salePriceSemiPremium: "", 
+          pricePremium: "", 
+          salePricePremium: "", 
+          isBestSelling: false,
+          carats: "", 
+          categoryId: "", 
+          imageAssetId: "" 
+        });
         setProductPreview("");
       } else {
         toast.error(data.error || "Failed to save product.");
@@ -993,29 +1048,129 @@ export function AdminDashboard({
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="space-y-1.5">
-                        <label className="text-[10px] font-black uppercase text-zinc-700 block">Base Price (₹)</label>
-                        <input 
-                          type="number" 
-                          required 
-                          value={productForm.price}
-                          onChange={e => setProductForm({ ...productForm, price: Number(e.target.value) })}
-                          className="w-full px-4 py-2 text-xs font-semibold rounded-xl border border-zinc-200 focus:outline-none focus:border-[#120d26]"
-                          placeholder="4999"
-                        />
-                      </div>
+                    {isGemstone ? (
+                      <div className="space-y-3.5 border-t border-zinc-100 pt-3.5">
+                        <div className="text-[10px] font-black text-violet-700 uppercase tracking-widest flex items-center gap-1.5 select-none">
+                          <span className="w-1.5 h-1.5 rounded-full bg-violet-600 animate-pulse" />
+                          Quality Tier Pricing (Gemstones)
+                        </div>
+                        
+                        <div className="border border-zinc-100 rounded-2xl p-3 bg-zinc-50/50 space-y-3">
+                          <span className="text-[9px] font-extrabold uppercase text-zinc-400">Basic Tier</span>
+                          <div className="grid grid-cols-2 gap-4">
+                            <div className="space-y-1.5">
+                              <label className="text-[9px] font-black uppercase text-zinc-500 block">Basic Price (₹) *</label>
+                              <input 
+                                type="number" 
+                                value={productForm.priceBasic}
+                                onChange={e => setProductForm({ ...productForm, priceBasic: e.target.value })}
+                                className="w-full px-3 py-1.5 text-xs font-semibold rounded-lg border border-zinc-200 focus:outline-none focus:border-[#120d26] bg-white"
+                                placeholder="2999"
+                              />
+                            </div>
+                            <div className="space-y-1.5">
+                              <label className="text-[9px] font-black uppercase text-zinc-500 block">Basic Sale Price (₹)</label>
+                              <input 
+                                type="number" 
+                                value={productForm.salePriceBasic}
+                                onChange={e => setProductForm({ ...productForm, salePriceBasic: e.target.value })}
+                                className="w-full px-3 py-1.5 text-xs font-semibold rounded-lg border border-zinc-200 focus:outline-none focus:border-[#120d26] bg-white"
+                                placeholder="1999"
+                              />
+                            </div>
+                          </div>
+                        </div>
 
-                      <div className="space-y-1.5">
-                        <label className="text-[10px] font-black uppercase text-zinc-700 block">Sale Price (₹)</label>
-                        <input 
-                          type="number" 
-                          value={productForm.salePrice}
-                          onChange={e => setProductForm({ ...productForm, salePrice: e.target.value })}
-                          className="w-full px-4 py-2 text-xs font-semibold rounded-xl border border-zinc-200 focus:outline-none focus:border-[#120d26]"
-                          placeholder="3999"
-                        />
+                        <div className="border border-zinc-100 rounded-2xl p-3 bg-zinc-50/50 space-y-3">
+                          <span className="text-[9px] font-extrabold uppercase text-zinc-400">Semi-Premium Tier</span>
+                          <div className="grid grid-cols-2 gap-4">
+                            <div className="space-y-1.5">
+                              <label className="text-[9px] font-black uppercase text-zinc-500 block">Semi-Premium Price (₹)</label>
+                              <input 
+                                type="number" 
+                                value={productForm.priceSemiPremium}
+                                onChange={e => setProductForm({ ...productForm, priceSemiPremium: e.target.value })}
+                                className="w-full px-3 py-1.5 text-xs font-semibold rounded-lg border border-zinc-200 focus:outline-none focus:border-[#120d26] bg-white"
+                                placeholder="5999"
+                              />
+                            </div>
+                            <div className="space-y-1.5">
+                              <label className="text-[9px] font-black uppercase text-zinc-500 block">Semi-Premium Sale Price (₹)</label>
+                              <input 
+                                type="number" 
+                                value={productForm.salePriceSemiPremium}
+                                onChange={e => setProductForm({ ...productForm, salePriceSemiPremium: e.target.value })}
+                                className="w-full px-3 py-1.5 text-xs font-semibold rounded-lg border border-zinc-200 focus:outline-none focus:border-[#120d26] bg-white"
+                                placeholder="4999"
+                              />
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="border border-zinc-100 rounded-2xl p-3 bg-zinc-50/50 space-y-3">
+                          <span className="text-[9px] font-extrabold uppercase text-zinc-400">Premium Tier</span>
+                          <div className="grid grid-cols-2 gap-4">
+                            <div className="space-y-1.5">
+                              <label className="text-[9px] font-black uppercase text-zinc-500 block">Premium Price (₹)</label>
+                              <input 
+                                type="number" 
+                                value={productForm.pricePremium}
+                                onChange={e => setProductForm({ ...productForm, pricePremium: e.target.value })}
+                                className="w-full px-3 py-1.5 text-xs font-semibold rounded-lg border border-zinc-200 focus:outline-none focus:border-[#120d26] bg-white"
+                                placeholder="9999"
+                              />
+                            </div>
+                            <div className="space-y-1.5">
+                              <label className="text-[9px] font-black uppercase text-zinc-500 block">Premium Sale Price (₹)</label>
+                              <input 
+                                type="number" 
+                                value={productForm.salePricePremium}
+                                onChange={e => setProductForm({ ...productForm, salePricePremium: e.target.value })}
+                                className="w-full px-3 py-1.5 text-xs font-semibold rounded-lg border border-zinc-200 focus:outline-none focus:border-[#120d26] bg-white"
+                                placeholder="8999"
+                              />
+                            </div>
+                          </div>
+                        </div>
                       </div>
+                    ) : (
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-1.5">
+                          <label className="text-[10px] font-black uppercase text-zinc-700 block">Base Price (₹)</label>
+                          <input 
+                            type="number" 
+                            required 
+                            value={productForm.price}
+                            onChange={e => setProductForm({ ...productForm, price: Number(e.target.value) })}
+                            className="w-full px-4 py-2 text-xs font-semibold rounded-xl border border-zinc-200 focus:outline-none focus:border-[#120d26]"
+                            placeholder="4999"
+                          />
+                        </div>
+
+                        <div className="space-y-1.5">
+                          <label className="text-[10px] font-black uppercase text-zinc-700 block">Sale Price (₹)</label>
+                          <input 
+                            type="number" 
+                            value={productForm.salePrice}
+                            onChange={e => setProductForm({ ...productForm, salePrice: e.target.value })}
+                            className="w-full px-4 py-2 text-xs font-semibold rounded-xl border border-zinc-200 focus:outline-none focus:border-[#120d26]"
+                            placeholder="3999"
+                          />
+                        </div>
+                      </div>
+                    )}
+
+                    <div className="flex items-center gap-2 py-1 select-none">
+                      <input 
+                        type="checkbox" 
+                        id="isBestSelling"
+                        checked={productForm.isBestSelling}
+                        onChange={e => setProductForm({ ...productForm, isBestSelling: e.target.checked })}
+                        className="w-4 h-4 rounded border-zinc-300 text-violet-600 focus:ring-violet-500 cursor-pointer"
+                      />
+                      <label htmlFor="isBestSelling" className="text-[10px] font-black uppercase text-zinc-700 cursor-pointer">
+                        Best Seller / Top Product
+                      </label>
                     </div>
                     
                     <div className="space-y-1.5">
@@ -1058,7 +1213,22 @@ export function AdminDashboard({
                           type="button"
                           onClick={() => {
                             setEditingProductId(null);
-                            setProductForm({ name: "", description: "", price: 0, salePrice: "", carats: "", categoryId: "", imageAssetId: "" });
+                            setProductForm({ 
+                              name: "", 
+                              description: "", 
+                              price: 0, 
+                              salePrice: "", 
+                              priceBasic: "", 
+                              salePriceBasic: "", 
+                              priceSemiPremium: "", 
+                              salePriceSemiPremium: "", 
+                              pricePremium: "", 
+                              salePricePremium: "", 
+                              isBestSelling: false,
+                              carats: "", 
+                              categoryId: "", 
+                              imageAssetId: "" 
+                            });
                             setProductPreview("");
                           }}
                           className="flex-1 bg-zinc-200 text-zinc-700 hover:bg-zinc-300 transition-colors font-bold py-2.5 text-xs rounded-xl cursor-pointer text-center uppercase tracking-wider"
@@ -1104,7 +1274,16 @@ export function AdminDashboard({
                               <img src={item.image ? urlFor(item.image).url() : "/placeholder-image.jpg"} alt={item.name} className="w-full h-full object-cover" />
                             </div>
                           </td>
-                          <td className="py-3.5 pr-4 font-black">{item.name}</td>
+                          <td className="py-3.5 pr-4 font-black">
+                            <div className="flex flex-col gap-0.5">
+                              <span>{item.name}</span>
+                              {item.isBestSelling && (
+                                <span className="inline-block bg-amber-150 text-amber-800 text-[8px] font-black uppercase px-1.5 py-0.5 rounded w-fit scale-90 origin-left">
+                                  🔥 Best Seller
+                                </span>
+                              )}
+                            </div>
+                          </td>
                           <td className="py-3.5 pr-4 font-semibold">₹{item.salePrice || item.price}</td>
                           <td className="py-3.5 pr-4 text-center">
                             <button

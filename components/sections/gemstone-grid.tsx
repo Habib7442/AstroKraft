@@ -15,6 +15,13 @@ interface GemInfo {
   ruler: Record<string, string>;
   origin: Record<string, string>;
   pricePerCarat: number;
+  priceBasic?: number;
+  salePriceBasic?: number;
+  priceSemiPremium?: number;
+  salePriceSemiPremium?: number;
+  pricePremium?: number;
+  salePricePremium?: number;
+  isBestSelling?: boolean;
   src: string;
   benefits: Record<string, string[]>;
 }
@@ -56,6 +63,13 @@ function mapSanityProductToGemInfo(product: any): GemInfo {
       bn: "প্রত্যয়িত"
     },
     pricePerCarat: product.salePrice ?? product.price,
+    priceBasic: product.priceBasic,
+    salePriceBasic: product.salePriceBasic,
+    priceSemiPremium: product.priceSemiPremium,
+    salePriceSemiPremium: product.salePriceSemiPremium,
+    pricePremium: product.pricePremium,
+    salePricePremium: product.salePricePremium,
+    isBestSelling: product.isBestSelling,
     src: imageUrl,
     benefits: {
       en: product.carats ? [`Weight: ${product.carats} Carats`, "100% Natural & Energized"] : ["100% Natural & Energized"],
@@ -64,6 +78,7 @@ function mapSanityProductToGemInfo(product: any): GemInfo {
     }
   };
 }
+
 
 // Map gemstones to custom, luxurious glow colors representing their physical hue
 const GLOW_COLORS: Record<string, string> = {
@@ -106,6 +121,7 @@ interface GemstoneCardProps {
 }
 
 function GemstoneCard({ gem, activeLocale, labels, glowColor, getPrefilledWhatsappUrl }: GemstoneCardProps) {
+  const [selectedTier, setSelectedTier] = useState<"basic" | "semi_premium" | "premium">("basic");
   const gemName = gem.name[activeLocale] || gem.name["en"];
   const gemDesc = gem.description[activeLocale] || gem.description["en"];
   const gemZodiac = gem.zodiac[activeLocale] || gem.zodiac["en"];
@@ -114,22 +130,57 @@ function GemstoneCard({ gem, activeLocale, labels, glowColor, getPrefilledWhatsa
   const gemBenefits = gem.benefits[activeLocale] || gem.benefits["en"] || [];
   const cornerColor = gemCardColors[gem.id] || "#E5D5FF";
 
+  // Tier pricing fallbacks: if not specified, Basic is the product's main price, and Semi-Premium / Premium are scaled
+  const basicPrice = gem.priceBasic ?? gem.pricePerCarat;
+  const basicSalePrice = gem.salePriceBasic ?? (gem.priceBasic ? gem.salePriceBasic : undefined);
+
+  const semiPremiumPrice = gem.priceSemiPremium ?? Math.round(basicPrice * 1.5);
+  const semiPremiumSalePrice = gem.salePriceSemiPremium ?? (gem.priceSemiPremium ? gem.salePriceSemiPremium : undefined);
+
+  const premiumPrice = gem.pricePremium ?? Math.round(basicPrice * 2.5);
+  const premiumSalePrice = gem.salePricePremium ?? (gem.pricePremium ? gem.salePricePremium : undefined);
+
+  const getActivePrice = () => {
+    switch (selectedTier) {
+      case "semi_premium":
+        return { base: semiPremiumPrice, sale: semiPremiumSalePrice };
+      case "premium":
+        return { base: premiumPrice, sale: premiumSalePrice };
+      case "basic":
+      default:
+        return { base: basicPrice, sale: basicSalePrice };
+    }
+  };
+
+  const { base: activeBase, sale: activeSale } = getActivePrice();
+  const hasSale = activeSale !== undefined && activeSale !== null && activeSale < activeBase;
+  const displayPrice = hasSale ? activeSale! : activeBase;
+
+  const activeTierLabel = selectedTier === "premium" ? "Premium" : selectedTier === "semi_premium" ? "Semi-Premium" : "Basic";
+  const whatsappUrl = getPrefilledWhatsappUrl(`${gemName} (${activeTierLabel} Quality)`);
+
   return (
     <CardSpotlight
       color={glowColor}
       radius={280}
       useCanvas={false} // Default false to prevent WebGL multiple context scroll lag
       className={cn(
-        "group/gem transition-all duration-300 border rounded-2xl flex flex-col justify-between overflow-hidden p-6 select-none relative text-slate-200 shadow-card hover:shadow-cardHover backdrop-blur-md hover:-translate-y-1 min-h-[30rem] will-change-transform [transform:translate3d(0,0,0)]"
+        "group/gem transition-all duration-300 border rounded-2xl flex flex-col justify-between overflow-hidden p-6 select-none relative text-slate-200 shadow-card hover:shadow-cardHover backdrop-blur-md hover:-translate-y-1 min-h-[33rem] will-change-transform [transform:translate3d(0,0,0)]"
       )}
       style={{
         background: `radial-gradient(circle at top right, ${cornerColor}1f 0%, rgba(15, 20, 45, 0.65) 55%, rgba(15, 20, 45, 0.85) 100%)`,
         borderColor: `${cornerColor}55`
       }}
     >
-      <div className="relative flex flex-col gap-4">
+      {/* Top Product Badge */}
+      {gem.isBestSelling && (
+        <div className="absolute top-0 left-0 bg-gradient-to-r from-amber-500 via-orange-500 to-[#E2C27A] text-black text-[9px] font-black uppercase tracking-wider px-3.5 py-1.5 rounded-br-xl shadow-md z-20 flex items-center gap-1 select-none animate-pulse">
+          🔥 Best Seller
+        </div>
+      )}
 
-        {/* Top image and Type Badge */}
+      <div className="relative flex flex-col gap-4">
+        {/* Top image and Price */}
         <div className="flex justify-between items-start gap-4">
           {/* Gemstone Image frame with localized shadow outline */}
           <div className="relative w-24 h-24 shrink-0 rounded-xl border border-white/10 bg-white/5 p-1.5 overflow-hidden flex items-center justify-center shadow-sm group-hover/gem:scale-105 transition-transform duration-300">
@@ -148,7 +199,16 @@ function GemstoneCard({ gem, activeLocale, labels, glowColor, getPrefilledWhatsa
           {/* Right Head: Price display */}
           <div className="flex flex-col items-end text-right font-sans">
             <span className="text-[9px] text-slate-400 font-bold uppercase tracking-wider">{labels.priceLabel}</span>
-            <span className="font-serif font-bold text-gold text-lg leading-none mt-1">₹{gem.pricePerCarat.toLocaleString()}</span>
+            <div className="flex flex-col items-end mt-1">
+              {hasSale && (
+                <span className="text-[10px] text-slate-400/80 line-through leading-none font-bold mb-0.5">
+                  ₹{activeBase.toLocaleString()}
+                </span>
+              )}
+              <span className="font-serif font-bold text-gold text-lg leading-none">
+                ₹{displayPrice.toLocaleString()}
+              </span>
+            </div>
             <span className="text-[9px] text-slate-400 font-bold mt-0.5">{labels.pricePerCt}</span>
           </div>
         </div>
@@ -179,6 +239,46 @@ function GemstoneCard({ gem, activeLocale, labels, glowColor, getPrefilledWhatsa
           </div>
         </div>
 
+        {/* Quality Tiers Selection Pills */}
+        <div className="flex flex-col gap-1.5 mt-1">
+          <span className="text-[9px] text-slate-400 font-black uppercase tracking-wider">Select Quality</span>
+          <div className="flex bg-black/30 border border-white/10 rounded-full p-0.5 w-full justify-between gap-1 text-[9px] font-black uppercase tracking-wider select-none">
+            <button
+              onClick={() => setSelectedTier("basic")}
+              className={cn(
+                "flex-1 py-1.5 rounded-full text-center transition-all cursor-pointer",
+                selectedTier === "basic"
+                  ? "bg-[#E2C27A] text-black font-black shadow-sm"
+                  : "text-slate-300 hover:text-white"
+              )}
+            >
+              Basic
+            </button>
+            <button
+              onClick={() => setSelectedTier("semi_premium")}
+              className={cn(
+                "flex-1 py-1.5 rounded-full text-center transition-all cursor-pointer",
+                selectedTier === "semi_premium"
+                  ? "bg-[#E2C27A] text-black font-black shadow-sm"
+                  : "text-slate-300 hover:text-white"
+              )}
+            >
+              Semi-Prem
+            </button>
+            <button
+              onClick={() => setSelectedTier("premium")}
+              className={cn(
+                "flex-1 py-1.5 rounded-full text-center transition-all cursor-pointer",
+                selectedTier === "premium"
+                  ? "bg-[#E2C27A] text-black font-black shadow-sm"
+                  : "text-slate-300 hover:text-white"
+              )}
+            >
+              Premium
+            </button>
+          </div>
+        </div>
+
         {/* Bullet Benefits List */}
         <div className="flex flex-col gap-1.5 font-sans text-xs pt-1">
           <ul className="flex flex-col gap-1 text-[11px] text-slate-200 font-medium">
@@ -190,13 +290,12 @@ function GemstoneCard({ gem, activeLocale, labels, glowColor, getPrefilledWhatsa
             ))}
           </ul>
         </div>
-
       </div>
 
       {/* Actions buttons */}
       <div className="flex items-center gap-2 mt-5 border-t border-white/10 pt-4">
         <a
-          href={getPrefilledWhatsappUrl(gemName)}
+          href={whatsappUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="flex-1 flex items-center justify-center gap-1.5 bg-violet hover:bg-violet-bright text-white border-0 font-bold py-2.5 px-4 rounded-full shadow-sm text-[10px] font-sans cursor-pointer text-center uppercase tracking-wider transition-all duration-200"
@@ -214,6 +313,7 @@ function GemstoneCard({ gem, activeLocale, labels, glowColor, getPrefilledWhatsa
     </CardSpotlight>
   );
 }
+
 interface GemstoneGridProps {
   locale?: string;
   limit?: number;

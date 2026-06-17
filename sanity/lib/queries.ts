@@ -37,6 +37,13 @@ export const productsQuery = defineQuery(`
     description,
     price,
     salePrice,
+    priceBasic,
+    salePriceBasic,
+    priceSemiPremium,
+    salePriceSemiPremium,
+    pricePremium,
+    salePricePremium,
+    isBestSelling,
     carats,
     rashi
   }
@@ -57,6 +64,13 @@ export const productsByCategoryQuery = defineQuery(`
     description,
     price,
     salePrice,
+    priceBasic,
+    salePriceBasic,
+    priceSemiPremium,
+    salePriceSemiPremium,
+    pricePremium,
+    salePricePremium,
+    isBestSelling,
     carats,
     rashi
   }
@@ -156,11 +170,19 @@ export const adminProductsQuery = defineQuery(`
     description,
     price,
     salePrice,
+    priceBasic,
+    salePriceBasic,
+    priceSemiPremium,
+    salePriceSemiPremium,
+    pricePremium,
+    salePricePremium,
+    isBestSelling,
     carats,
     rashi,
     isActive
   }
 `)
+
 
 export const adminConsultationsQuery = defineQuery(`
   *[_type == "consultation"] {
