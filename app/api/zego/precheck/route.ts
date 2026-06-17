@@ -16,7 +16,13 @@ async function resolveUser(identifier: string, defaultRole: 'user' | 'astrologer
   const { data: user } = await query.maybeSingle();
   
   if (!user) {
-    // Dynamically seed the user/astrologer for testing
+    const isDev = process.env.NODE_ENV === "development";
+    // Disable dynamic user/wallet seeding in production to close the free credit exploit
+    if (!isDev) {
+      return null;
+    }
+
+    // Dynamically seed the user/astrologer for testing (dev environment only)
     const insertPayload: any = {
       phone: isUuid ? `phone_${identifier.substring(0, 8)}` : identifier,
       email: isUuid ? `${identifier}@example.com` : `${identifier}@astrokraft.com`,
@@ -27,7 +33,7 @@ async function resolveUser(identifier: string, defaultRole: 'user' | 'astrologer
       insertPayload.id = identifier;
     }
     
-    const { data: newUser, error } = await insforgeAdmin.database
+    const { data: newUser } = await insforgeAdmin.database
       .from('users')
       .insert([insertPayload])
       .select()
