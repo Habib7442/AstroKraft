@@ -43,7 +43,6 @@ export interface Consultation {
   slug: { current: string };
   image?: any;
   description?: string;
-  baseFee: number;
   assignedAstrologers?: { _ref: string; _type: 'reference' }[];
   isActive?: boolean;
 }
@@ -56,5 +55,7 @@ export interface Astrologer {
   specializations: string[];
   languages: string[];
   bio?: string;
+  baseFee: number;
+  consultationCategory?: any;
   isActive?: boolean;
 }

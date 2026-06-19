@@ -32,11 +32,14 @@ export function HeroEcommerce({ locale }: HeroEcommerceProps) {
   const handleCategoryClick = (cat: CategoryItem) => {
     const isConsult = cat.href.includes("consultation") || cat.href.includes("consult");
     const isRudraksha = cat.href.includes("rudraksha");
+    const isBracelet = cat.href.includes("bracelet") || cat.href.includes("crystal-bracelets");
     const targetId = isConsult 
       ? "services-section" 
       : isRudraksha 
         ? "rudraksha-section" 
-        : "gemstones-section";
+        : isBracelet
+          ? "bracelets-section"
+          : "gemstones-section";
 
     if (isHome) {
       const el = document.getElementById(targetId);

@@ -50,6 +50,20 @@ export const astrologerType = defineType({
       type: 'text',
     }),
     defineField({
+      name: 'baseFee',
+      title: 'Consultation Fee (₹)',
+      type: 'number',
+      validation: (Rule) => Rule.required().min(0),
+      initialValue: 0,
+    }),
+    defineField({
+      name: 'consultationCategory',
+      title: 'Consultation Category Expertise',
+      description: 'Select the primary consultation category expertise (optional)',
+      type: 'reference',
+      to: [{ type: 'consultation' }],
+    }),
+    defineField({
       name: 'isActive',
       title: 'Show / Hide Astrologer',
       type: 'boolean',

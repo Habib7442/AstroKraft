@@ -125,11 +125,11 @@ export function AdminDashboard({
   const [productPreview, setProductPreview] = useState("");
   const [editingProductId, setEditingProductId] = useState<string | null>(null);
 
-  const [consultationForm, setConsultationForm] = useState({ title: "", description: "", baseFee: 0, imageAssetId: "" });
+  const [consultationForm, setConsultationForm] = useState({ title: "", description: "", imageAssetId: "" });
   const [consultationPreview, setConsultationPreview] = useState("");
   const [editingConsultationId, setEditingConsultationId] = useState<string | null>(null);
 
-  const [astrologerForm, setAstrologerForm] = useState({ name: "", bio: "", photoAssetId: "", specializations: "", languages: "" });
+  const [astrologerForm, setAstrologerForm] = useState({ name: "", bio: "", photoAssetId: "", specializations: "", languages: "", baseFee: 0, consultationCategoryId: "" });
   const [astrologerPreview, setAstrologerPreview] = useState("");
   const [editingAstrologerId, setEditingAstrologerId] = useState<string | null>(null);
 
@@ -205,7 +205,6 @@ export function AdminDashboard({
     setConsultationForm({
       title: item.title || "",
       description: item.description || "",
-      baseFee: item.baseFee || 0,
       imageAssetId: item.image?.asset?._ref || ""
     });
     let imgUrl = "";
@@ -226,7 +225,9 @@ export function AdminDashboard({
       bio: item.bio || "",
       photoAssetId: item.photo?.asset?._ref || "",
       specializations: item.specializations?.join(", ") || "",
-      languages: item.languages?.join(", ") || ""
+      languages: item.languages?.join(", ") || "",
+      baseFee: item.baseFee || 0,
+      consultationCategoryId: item.consultationCategory?._id || ""
     });
     let imgUrl = "";
     if (item.photo) {
@@ -567,12 +568,8 @@ export function AdminDashboard({
 
   const handleAddConsultation = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!consultationForm.title || !consultationForm.baseFee) {
-      toast.error("Service Title and Base Fee are required.");
-      return;
-    }
-    if (Number(consultationForm.baseFee) < 0) {
-      toast.error("Base Fee cannot be negative.");
+    if (!consultationForm.title) {
+      toast.error("Service Title is required.");
       return;
     }
     setSubmitting(true);
@@ -584,7 +581,6 @@ export function AdminDashboard({
         current: consultationForm.title.toLowerCase().replace(/\s+/g, "-")
       },
       description: consultationForm.description || undefined,
-      baseFee: Number(consultationForm.baseFee),
       image: consultationForm.imageAssetId ? {
         _type: "image",
         asset: {
@@ -614,7 +610,7 @@ export function AdminDashboard({
         } else {
           setConsultations([...consultations, { ...data.result, image: consultationForm.imageAssetId ? { asset: { url: consultationPreview, _ref: consultationForm.imageAssetId } } : null }]);
         }
-        setConsultationForm({ title: "", description: "", baseFee: 0, imageAssetId: "" });
+        setConsultationForm({ title: "", description: "", imageAssetId: "" });
         setConsultationPreview("");
       } else {
         toast.error(data.error || "Failed to save consultation.");
@@ -652,7 +648,12 @@ export function AdminDashboard({
           _type: "reference",
           _ref: astrologerForm.photoAssetId
         }
-      }
+      },
+      baseFee: Number(astrologerForm.baseFee) || 0,
+      consultationCategory: astrologerForm.consultationCategoryId ? {
+        _type: "reference",
+        _ref: astrologerForm.consultationCategoryId
+      } : null
     };
 
     try {
@@ -669,13 +670,27 @@ export function AdminDashboard({
 
       if (data.success) {
         toast.success(editingAstrologerId ? "Astrologer profile updated!" : "Astrologer profile added!");
+        
+        const updatedCat = astrologerForm.consultationCategoryId 
+          ? consultations.find(c => c._id === astrologerForm.consultationCategoryId) 
+          : null;
+
         if (editingAstrologerId) {
-          setAstrologers(astrologers.map(a => a._id === editingAstrologerId ? { ...a, ...doc, photo: { asset: { url: astrologerPreview, _ref: astrologerForm.photoAssetId } } } : a));
+          setAstrologers(astrologers.map(a => a._id === editingAstrologerId ? { 
+            ...a, 
+            ...doc, 
+            photo: { asset: { url: astrologerPreview, _ref: astrologerForm.photoAssetId } },
+            consultationCategory: updatedCat
+          } : a));
           setEditingAstrologerId(null);
         } else {
-          setAstrologers([...astrologers, { ...data.result, photo: { asset: { url: astrologerPreview, _ref: astrologerForm.photoAssetId } } }]);
+          setAstrologers([...astrologers, { 
+            ...data.result, 
+            photo: { asset: { url: astrologerPreview, _ref: astrologerForm.photoAssetId } },
+            consultationCategory: updatedCat
+          }]);
         }
-        setAstrologerForm({ name: "", bio: "", photoAssetId: "", specializations: "", languages: "" });
+        setAstrologerForm({ name: "", bio: "", photoAssetId: "", specializations: "", languages: "", baseFee: 0, consultationCategoryId: "" });
         setAstrologerPreview("");
       } else {
         toast.error(data.error || "Failed to save astrologer.");
@@ -1505,19 +1520,6 @@ export function AdminDashboard({
                     </div>
 
                     <div className="space-y-1.5">
-                      <label className="text-[10px] font-black uppercase text-zinc-700 block">Base Fee (₹)</label>
-                      <input 
-                        type="number" 
-                        min="0"
-                        required 
-                        value={consultationForm.baseFee}
-                        onChange={e => setConsultationForm({ ...consultationForm, baseFee: Number(e.target.value) })}
-                        className="w-full px-4 py-2 text-xs font-semibold rounded-xl border border-zinc-200 focus:outline-none focus:border-[#120d26]"
-                        placeholder="500"
-                      />
-                    </div>
-                    
-                    <div className="space-y-1.5">
                       <label className="text-[10px] font-black uppercase text-zinc-700 block">Description</label>
                       <textarea 
                         value={consultationForm.description}
@@ -1557,7 +1559,7 @@ export function AdminDashboard({
                           type="button"
                           onClick={() => {
                             setEditingConsultationId(null);
-                            setConsultationForm({ title: "", description: "", baseFee: 0, imageAssetId: "" });
+                            setConsultationForm({ title: "", description: "", imageAssetId: "" });
                             setConsultationPreview("");
                           }}
                           className="flex-1 bg-zinc-200 text-zinc-700 hover:bg-zinc-300 transition-colors font-bold py-2.5 text-xs rounded-xl cursor-pointer text-center uppercase tracking-wider"
@@ -1590,7 +1592,6 @@ export function AdminDashboard({
                       <tr className="border-b border-zinc-150 text-zinc-500 font-bold uppercase text-[10px] tracking-wider">
                         <th className="pb-3 pr-4">Icon</th>
                         <th className="pb-3 pr-4">Title</th>
-                        <th className="pb-3 pr-4">Fee</th>
                         <th className="pb-3 pr-4 text-center">Status</th>
                         <th className="pb-3 text-right">Actions</th>
                       </tr>
@@ -1604,7 +1605,6 @@ export function AdminDashboard({
                             </div>
                           </td>
                           <td className="py-3.5 pr-4 font-black">{item.title}</td>
-                          <td className="py-3.5 pr-4 font-semibold">₹{item.baseFee}</td>
                           <td className="py-3.5 pr-4 text-center">
                             <button
                               onClick={() => handleToggleActive(item._id, item.isActive, "consultations")}
@@ -1697,6 +1697,35 @@ export function AdminDashboard({
                         placeholder="Expert astrologer with 12+ years experience..."
                       />
                     </div>
+
+                    <div className="space-y-1.5">
+                      <label className="text-[10px] font-black uppercase text-zinc-700 block">Consultation Fee (₹)</label>
+                      <input 
+                        type="number" 
+                        min="0"
+                        required 
+                        value={astrologerForm.baseFee}
+                        onChange={e => setAstrologerForm({ ...astrologerForm, baseFee: Number(e.target.value) })}
+                        className="w-full px-4 py-2 text-xs font-semibold rounded-xl border border-zinc-200 focus:outline-none focus:border-[#120d26]"
+                        placeholder="500"
+                      />
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <label className="text-[10px] font-black uppercase text-zinc-700 block">Consultation Category Expertise (Optional)</label>
+                      <select 
+                        value={astrologerForm.consultationCategoryId}
+                        onChange={e => setAstrologerForm({ ...astrologerForm, consultationCategoryId: e.target.value })}
+                        className="w-full px-4 py-2 text-xs font-semibold rounded-xl border border-zinc-200 focus:outline-none focus:border-[#120d26] bg-white font-sans text-xs"
+                      >
+                        <option value="">None / Unassigned</option>
+                        {consultations.map((item: any) => (
+                          <option key={item._id} value={item._id}>
+                            {item.title}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                   </div>
 
                   <div className="flex flex-col gap-3">
@@ -1728,7 +1757,7 @@ export function AdminDashboard({
                           type="button"
                           onClick={() => {
                             setEditingAstrologerId(null);
-                            setAstrologerForm({ name: "", bio: "", photoAssetId: "", specializations: "", languages: "" });
+                            setAstrologerForm({ name: "", bio: "", photoAssetId: "", specializations: "", languages: "", baseFee: 0, consultationCategoryId: "" });
                             setAstrologerPreview("");
                           }}
                           className="flex-1 bg-zinc-200 text-zinc-700 hover:bg-zinc-300 transition-colors font-bold py-2.5 text-xs rounded-xl cursor-pointer text-center uppercase tracking-wider"
@@ -1762,6 +1791,8 @@ export function AdminDashboard({
                         <th className="pb-3 pr-4">Photo</th>
                         <th className="pb-3 pr-4">Name</th>
                         <th className="pb-3 pr-4">Languages</th>
+                        <th className="pb-3 pr-4">Fee</th>
+                        <th className="pb-3 pr-4">Category</th>
                         <th className="pb-3 pr-4 text-center">Status</th>
                         <th className="pb-3 text-right">Actions</th>
                       </tr>
@@ -1776,6 +1807,8 @@ export function AdminDashboard({
                           </td>
                           <td className="py-3.5 pr-4 font-black">{item.name}</td>
                           <td className="py-3.5 pr-4 font-semibold">{item.languages?.join(", ")}</td>
+                          <td className="py-3.5 pr-4 font-semibold">₹{item.baseFee || 0}</td>
+                          <td className="py-3.5 pr-4 font-semibold text-zinc-500">{item.consultationCategory?.title || "—"}</td>
                           <td className="py-3.5 pr-4 text-center">
                             <button
                               onClick={() => handleToggleActive(item._id, item.isActive, "astrologers")}

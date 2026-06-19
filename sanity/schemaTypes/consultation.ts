@@ -35,12 +35,6 @@ export const consultationType = defineType({
       type: 'text',
     }),
     defineField({
-      name: 'baseFee',
-      title: 'Base Consultation Fee (₹)',
-      type: 'number',
-      validation: (Rule) => Rule.required().min(0),
-    }),
-    defineField({
       name: 'assignedAstrologers',
       title: 'Assigned Astrologers',
       type: 'array',

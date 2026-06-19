@@ -84,14 +84,14 @@ export const consultationsQuery = defineQuery(`
     slug,
     image,
     description,
-    baseFee,
     assignedAstrologers[]-> {
       _id,
       name,
       slug,
       photo,
       specializations,
-      languages
+      languages,
+      baseFee
     }
   }
 `)
@@ -105,7 +105,13 @@ export const astrologersQuery = defineQuery(`
     photo,
     specializations,
     languages,
-    bio
+    bio,
+    baseFee,
+    consultationCategory-> {
+      _id,
+      title,
+      slug
+    }
   }
 `)
 
@@ -191,7 +197,6 @@ export const adminConsultationsQuery = defineQuery(`
     slug,
     image,
     description,
-    baseFee,
     isActive,
     assignedAstrologers[]-> {
       _id,
@@ -199,7 +204,8 @@ export const adminConsultationsQuery = defineQuery(`
       slug,
       photo,
       specializations,
-      languages
+      languages,
+      baseFee
     }
   }
 `)
@@ -213,7 +219,13 @@ export const adminAstrologersQuery = defineQuery(`
     specializations,
     languages,
     bio,
-    isActive
+    isActive,
+    baseFee,
+    consultationCategory-> {
+      _id,
+      title,
+      slug
+    }
   }
 `)
 

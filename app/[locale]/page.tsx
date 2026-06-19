@@ -6,10 +6,10 @@ import { HeroEcommerce } from "@/components/sections/hero-ecommerce";
 
 import { ServicesRow } from "@/components/sections/services-row";
 import { Footer } from "@/components/sections/footer";
-import BentoGridDemo from "@/components/bento-grid-demo";
+import { AstrologersRow } from "@/components/sections/astrologers-row";
 import GemstoneGrid from "@/components/sections/gemstone-grid";
 import FreeToolsPreview from "@/components/sections/FreeToolsPreview";
-import { getConsultations, getProducts, getCategories, getBanners } from "@/lib/actions/sanity";
+import { getConsultations, getProducts, getCategories, getBanners, getAstrologers } from "@/lib/actions/sanity";
 import { cookies } from "next/headers";
 import { createServerClient } from "@insforge/sdk/ssr";
 import { CMSStoreInitializer } from "@/components/providers/cms-store-initializer";
@@ -79,17 +79,20 @@ export default async function Page({ params }: { params: Promise<PageParams> }) 
   let products = [];
   let categories = [];
   let banners = [];
+  let astrologers = [];
   try {
-    const [fetchedConsultations, fetchedProducts, fetchedCategories, fetchedBanners] = await Promise.all([
+    const [fetchedConsultations, fetchedProducts, fetchedCategories, fetchedBanners, fetchedAstrologers] = await Promise.all([
       getConsultations(),
       getProducts(),
       getCategories(),
-      getBanners()
+      getBanners(),
+      getAstrologers()
     ]);
     consultations = fetchedConsultations;
     products = fetchedProducts;
     categories = fetchedCategories;
     banners = fetchedBanners;
+    astrologers = fetchedAstrologers;
   } catch (error) {
     console.error("Failed to fetch dynamic data from Sanity:", error);
   }
@@ -134,8 +137,8 @@ export default async function Page({ params }: { params: Promise<PageParams> }) 
 
         <div className="max-w-7xl mx-auto h-px w-full bg-gradient-to-r from-transparent via-border/50 to-transparent" />
 
-        {/* Bento Grid showcasing Astrologers */}
-        <BentoGridDemo locale={locale} />
+        {/* Astrologers Horizontal Scroll Row Section */}
+        <AstrologersRow locale={locale} astrologers={astrologers} />
 
         <div className="max-w-7xl mx-auto h-px w-full bg-gradient-to-r from-transparent via-border/50 to-transparent" />
 
