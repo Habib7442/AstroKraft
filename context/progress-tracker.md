@@ -124,6 +124,7 @@ Update this file after every completed feature. Any AI agent reading this should
 - **Crystal Bracelets Category Showcase Added**: Configured `GemstoneGrid` and the homepage layout to dynamically support, filter, and show crystal bracelets fetched from Sanity/Insforge. Embedded premium, localized mock items as safe fallbacks in English, Hindi, and Bengali if the dataset is not yet seeded in Sanity.
 - **Dedicated Crystal Bracelets Catalog Page**: Created a separate localized page for crystal bracelets at `/[locale]/bracelets` rendering a dedicated grid, custom page metadata, header/footer navigation, and updated search parameter mappings on the gemstones page to support bracelets as well.
 - **Dedicated Rudraksha Catalog Page**: Created a separate localized page for Rudraksha at `/[locale]/rudraksha` rendering a dedicated grid, custom page metadata, header/footer navigation. Completely cleaned up search parameter mappings on the gemstones page to keep these categories separate.
+- **Conditional EMI Badges Display**: Configured the EMI Available details box in `GemstoneCard` to only display for the default `"gemstone"` product category, hiding it for lower-priced categories such as Rudraksha and Crystal Bracelets.
 
 ---
 

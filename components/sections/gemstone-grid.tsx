@@ -141,9 +141,10 @@ interface GemstoneCardProps {
   activeLocale: string;
   labels: any;
   getPrefilledWhatsappUrl: (name: string) => string;
+  productType?: "gemstone" | "rudraksha" | "crystal-bracelets";
 }
 
-function GemstoneCard({ gem, activeLocale, labels, getPrefilledWhatsappUrl }: GemstoneCardProps) {
+function GemstoneCard({ gem, activeLocale, labels, getPrefilledWhatsappUrl, productType }: GemstoneCardProps) {
   const [selectedTier, setSelectedTier] = useState<"basic" | "semi_premium" | "premium">("basic");
   const gemName = gem.name[activeLocale] || gem.name["en"];
   const gemDesc = gem.description[activeLocale] || gem.description["en"];
@@ -307,28 +308,30 @@ function GemstoneCard({ gem, activeLocale, labels, getPrefilledWhatsappUrl }: Ge
         </div>
 
         {/* Highlighted EMI Option Section */}
-        <div 
-          className="mt-1 p-2 rounded-xl flex items-center gap-2 border shadow-sm select-none"
-          style={{
-            background: "linear-gradient(135deg, #FFFDF5 0%, #FFF9E6 100%)",
-            borderColor: `${cornerColor}bb`
-          }}
-        >
+        {productType === "gemstone" && (
           <div 
-            className="w-6 h-6 rounded-lg flex items-center justify-center shrink-0"
-            style={{ backgroundColor: `${cornerColor}66` }}
+            className="mt-1 p-2 rounded-xl flex items-center gap-2 border shadow-sm select-none"
+            style={{
+              background: "linear-gradient(135deg, #FFFDF5 0%, #FFF9E6 100%)",
+              borderColor: `${cornerColor}bb`
+            }}
           >
-            <span className="text-xs">💳</span>
+            <div 
+              className="w-6 h-6 rounded-lg flex items-center justify-center shrink-0"
+              style={{ backgroundColor: `${cornerColor}66` }}
+            >
+              <span className="text-xs">💳</span>
+            </div>
+            <div className="flex flex-col font-sans leading-tight text-left">
+              <strong className="font-bold text-[9px]" style={{ color: "#78350F" }}>
+                EMI Option Available
+              </strong>
+              <span className="font-medium text-[8px]" style={{ color: "#6E698A" }}>
+                Bajaj Finance & Card EMI
+              </span>
+            </div>
           </div>
-          <div className="flex flex-col font-sans leading-tight text-left">
-            <strong className="font-bold text-[9px]" style={{ color: "#78350F" }}>
-              EMI Option Available
-            </strong>
-            <span className="font-medium text-[8px]" style={{ color: "#6E698A" }}>
-              Bajaj Finance & Card EMI
-            </span>
-          </div>
-        </div>
+        )}
       </div>
 
       {/* Actions buttons */}
@@ -740,6 +743,7 @@ export default function GemstoneGrid({
                       activeLocale={activeLocale}
                       labels={labels}
                       getPrefilledWhatsappUrl={getPrefilledWhatsappUrl}
+                      productType={productType}
                     />
                   );
                 })}
@@ -754,6 +758,7 @@ export default function GemstoneGrid({
                       activeLocale={activeLocale}
                       labels={labels}
                       getPrefilledWhatsappUrl={getPrefilledWhatsappUrl}
+                      productType={productType}
                     />
                   );
                 })}
