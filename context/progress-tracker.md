@@ -125,6 +125,7 @@ Update this file after every completed feature. Any AI agent reading this should
 - **Dedicated Crystal Bracelets Catalog Page**: Created a separate localized page for crystal bracelets at `/[locale]/bracelets` rendering a dedicated grid, custom page metadata, header/footer navigation, and updated search parameter mappings on the gemstones page to support bracelets as well.
 - **Dedicated Rudraksha Catalog Page**: Created a separate localized page for Rudraksha at `/[locale]/rudraksha` rendering a dedicated grid, custom page metadata, header/footer navigation. Completely cleaned up search parameter mappings on the gemstones page to keep these categories separate.
 - **Conditional EMI Badges Display**: Configured the EMI Available details box in `GemstoneCard` to only display for the default `"gemstone"` product category, hiding it for lower-priced categories such as Rudraksha and Crystal Bracelets.
+- **Conditional Quality Selector Display**: Limited the "Select Quality" pills (Basic, Semi-Premium, Premium) to only show on the default `"gemstone"` product category, ensuring that other categories like Rudraksha and Crystal Bracelets show a single flat price and clean catalog design without quality selectors.
 
 ---
 

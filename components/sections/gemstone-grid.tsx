@@ -182,7 +182,9 @@ function GemstoneCard({ gem, activeLocale, labels, getPrefilledWhatsappUrl, prod
   const displayPrice = hasSale ? activeSale! : activeBase;
 
   const activeTierLabel = selectedTier === "premium" ? "Premium" : selectedTier === "semi_premium" ? "Semi-Premium" : "Basic";
-  const whatsappUrl = getPrefilledWhatsappUrl(`${gemName} (${activeTierLabel} Quality)`);
+  const whatsappUrl = productType === "gemstone"
+    ? getPrefilledWhatsappUrl(`${gemName} (${activeTierLabel} Quality)`)
+    : getPrefilledWhatsappUrl(gemName);
 
   return (
     <CardSpotlight
@@ -268,44 +270,46 @@ function GemstoneCard({ gem, activeLocale, labels, getPrefilledWhatsappUrl, prod
         </div>
 
         {/* Quality Tiers Selection Pills */}
-        <div className="flex flex-col gap-1 mt-1">
-          <span className="text-[8px] text-zinc-500 font-black uppercase tracking-wider">Select Quality</span>
-          <div className="flex bg-zinc-100 border border-zinc-200/60 rounded-full p-0.5 w-full justify-between gap-1 text-[8px] font-black uppercase tracking-wider select-none">
-            <button
-              onClick={() => setSelectedTier("basic")}
-              className={cn(
-                "flex-1 py-1 rounded-full text-center transition-all cursor-pointer",
-                selectedTier === "basic"
-                  ? "bg-[#E2C27A] text-black font-black shadow-sm"
-                  : "text-zinc-600 hover:text-zinc-900"
-              )}
-            >
-              Basic
-            </button>
-            <button
-              onClick={() => setSelectedTier("semi_premium")}
-              className={cn(
-                "flex-1 py-1 rounded-full text-center transition-all cursor-pointer",
-                selectedTier === "semi_premium"
-                  ? "bg-[#E2C27A] text-black font-black shadow-sm"
-                  : "text-zinc-600 hover:text-zinc-900"
-              )}
-            >
-              Semi-Prem
-            </button>
-            <button
-              onClick={() => setSelectedTier("premium")}
-              className={cn(
-                "flex-1 py-1 rounded-full text-center transition-all cursor-pointer",
-                selectedTier === "premium"
-                  ? "bg-[#E2C27A] text-black font-black shadow-sm"
-                  : "text-zinc-600 hover:text-zinc-900"
-              )}
-            >
-              Premium
-            </button>
+        {productType === "gemstone" && (
+          <div className="flex flex-col gap-1 mt-1">
+            <span className="text-[8px] text-zinc-500 font-black uppercase tracking-wider">Select Quality</span>
+            <div className="flex bg-zinc-100 border border-zinc-200/60 rounded-full p-0.5 w-full justify-between gap-1 text-[8px] font-black uppercase tracking-wider select-none">
+              <button
+                onClick={() => setSelectedTier("basic")}
+                className={cn(
+                  "flex-1 py-1 rounded-full text-center transition-all cursor-pointer",
+                  selectedTier === "basic"
+                    ? "bg-[#E2C27A] text-black font-black shadow-sm"
+                    : "text-zinc-600 hover:text-zinc-900"
+                )}
+              >
+                Basic
+              </button>
+              <button
+                onClick={() => setSelectedTier("semi_premium")}
+                className={cn(
+                  "flex-1 py-1 rounded-full text-center transition-all cursor-pointer",
+                  selectedTier === "semi_premium"
+                    ? "bg-[#E2C27A] text-black font-black shadow-sm"
+                    : "text-zinc-600 hover:text-zinc-900"
+                )}
+              >
+                Semi-Prem
+              </button>
+              <button
+                onClick={() => setSelectedTier("premium")}
+                className={cn(
+                  "flex-1 py-1 rounded-full text-center transition-all cursor-pointer",
+                  selectedTier === "premium"
+                    ? "bg-[#E2C27A] text-black font-black shadow-sm"
+                    : "text-zinc-600 hover:text-zinc-900"
+                )}
+              >
+                Premium
+              </button>
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Highlighted EMI Option Section */}
         {productType === "gemstone" && (
