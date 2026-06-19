@@ -126,6 +126,7 @@ Update this file after every completed feature. Any AI agent reading this should
 - **Dedicated Rudraksha Catalog Page**: Created a separate localized page for Rudraksha at `/[locale]/rudraksha` rendering a dedicated grid, custom page metadata, header/footer navigation. Completely cleaned up search parameter mappings on the gemstones page to keep these categories separate.
 - **Conditional EMI Badges Display**: Configured the EMI Available details box in `GemstoneCard` to only display for the default `"gemstone"` product category, hiding it for lower-priced categories such as Rudraksha and Crystal Bracelets.
 - **Conditional Quality Selector Display**: Limited the "Select Quality" pills (Basic, Semi-Premium, Premium) to only show on the default `"gemstone"` product category, ensuring that other categories like Rudraksha and Crystal Bracelets show a single flat price and clean catalog design without quality selectors.
+- **Mobile Bottom Tabbar Background Palette Matched**: Updated the background of the mobile bottom sticky tab bar in `mobile-navbar.tsx` to match the exact dark celestial gradient color of the hero section (`linear-gradient(135deg, #0B1026 0%, #2A1A5E 50%, #4C1D95 100%)`). Restyled inactive/active states with high-contrast text and icon colors, and changed the border color to a subtle gold hue.
 
 ---
 

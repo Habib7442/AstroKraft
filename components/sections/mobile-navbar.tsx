@@ -43,7 +43,12 @@ export function MobileNavbar({ locale }: MobileNavbarProps) {
   ];
 
   return (
-    <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/95 dark:bg-zinc-950/95 backdrop-blur-md border-t border-zinc-200 dark:border-zinc-800 shadow-[0_-4px_12px_rgba(0,0,0,0.05)] px-6 py-2 pb-safe">
+    <div 
+      className="lg:hidden fixed bottom-0 left-0 right-0 z-50 backdrop-blur-md border-t border-[#E2C27A]/20 shadow-[0_-4px_16px_rgba(0,0,0,0.2)] px-6 py-2 pb-safe"
+      style={{
+        background: "linear-gradient(135deg, #0B1026 0%, #2A1A5E 50%, #4C1D95 100%)"
+      }}
+    >
       <div className="flex items-center justify-between max-w-md mx-auto">
         {navItems.map((item) => {
           const Icon = item.icon;
@@ -57,16 +62,16 @@ export function MobileNavbar({ locale }: MobileNavbarProps) {
                 className={cn(
                   "w-5 h-5 transition-colors duration-250",
                   item.active
-                    ? "text-[#E2C27A] dark:text-[#E2C27A] stroke-[2.5px]"
-                    : "text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 stroke-[2px]"
+                    ? "text-[#E2C27A] stroke-[2.5px]"
+                    : "text-zinc-300/80 hover:text-white stroke-[2px]"
                 )}
               />
               <span
                 className={cn(
                   "text-[10px] font-black tracking-wide uppercase transition-colors duration-250",
                   item.active
-                    ? "text-black dark:text-white"
-                    : "text-zinc-400 dark:text-zinc-500"
+                    ? "text-white"
+                    : "text-zinc-400 hover:text-zinc-200"
                 )}
               >
                 {item.label}
