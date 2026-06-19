@@ -65,14 +65,20 @@ export default async function AdminPage() {
   let consultations = [];
   let astrologers = [];
 
+  console.log("[AdminPage] Debug info:");
+  console.log("  - NEXT_PUBLIC_SANITY_PROJECT_ID:", process.env.NEXT_PUBLIC_SANITY_PROJECT_ID);
+  console.log("  - NEXT_PUBLIC_SANITY_DATASET:", process.env.NEXT_PUBLIC_SANITY_DATASET);
+  console.log("  - NEXT_PUBLIC_SANITY_API_VERSION:", process.env.NEXT_PUBLIC_SANITY_API_VERSION);
+  console.log("  - Starting pre-fetch of Sanity CMS data...");
+
   try {
     const [
-      fetchedBanners,
-      fetchedCategories,
-      fetchedProducts,
-      fetchedConsultations,
-      fetchedAstrologers
-    ] = await Promise.all([
+      bannersResult,
+      categoriesResult,
+      productsResult,
+      consultationsResult,
+      astrologersResult
+    ] = await Promise.allSettled([
       getAdminBanners(),
       getAdminCategories(),
       getAdminProducts(),
@@ -80,13 +86,43 @@ export default async function AdminPage() {
       getAdminAstrologers(),
     ]);
 
-    banners = fetchedBanners;
-    categories = fetchedCategories;
-    products = fetchedProducts;
-    consultations = fetchedConsultations;
-    astrologers = fetchedAstrologers;
+    if (bannersResult.status === "fulfilled") {
+      banners = bannersResult.value || [];
+      console.log(`[AdminPage] Banners fetched: ${banners.length}`);
+    } else {
+      console.error("[AdminPage] Banners fetch failed:", bannersResult.reason);
+    }
+
+    if (categoriesResult.status === "fulfilled") {
+      categories = categoriesResult.value || [];
+      console.log(`[AdminPage] Categories fetched: ${categories.length}`);
+    } else {
+      console.error("[AdminPage] Categories fetch failed:", categoriesResult.reason);
+    }
+
+    if (productsResult.status === "fulfilled") {
+      products = productsResult.value || [];
+      console.log(`[AdminPage] Products fetched: ${products.length}`);
+    } else {
+      console.error("[AdminPage] Products fetch failed:", productsResult.reason);
+    }
+
+    if (consultationsResult.status === "fulfilled") {
+      consultations = consultationsResult.value || [];
+      console.log(`[AdminPage] Consultations fetched: ${consultations.length}`);
+    } else {
+      console.error("[AdminPage] Consultations fetch failed:", consultationsResult.reason);
+    }
+
+    if (astrologersResult.status === "fulfilled") {
+      astrologers = astrologersResult.value || [];
+      console.log(`[AdminPage] Astrologers fetched: ${astrologers.length}`);
+    } else {
+      console.error("[AdminPage] Astrologers fetch failed:", astrologersResult.reason);
+    }
+
   } catch (error) {
-    console.error("Failed to load initial Sanity data for admin dashboard:", error);
+    console.error("Failed to execute Promise.allSettled for Sanity data:", error);
   }
 
   return (

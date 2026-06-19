@@ -19,15 +19,23 @@ export async function generateMetadata({
   const { locale } = await params;
   if (!isValidLocale(locale)) return {};
 
-  const dict = await getDictionary(locale);
+  const title = 
+    locale === "hin" 
+      ? "हीलिंग क्रिस्टल ब्रेसलेट्स | AstroKraft" 
+      : locale === "bn" 
+      ? "হিলিং ক্রিস্টাল ব্রেসলেট | AstroKraft" 
+      : "Healing Crystal Bracelets | AstroKraft";
+
+  const description = 
+    "Explore natural, laboratory-tested crystal bracelets recommended for energy alignment, aura protection, luck, and abundance.";
 
   return {
-    title: `${dict.nav.gemstones} | AstroKraft`,
-    description: "Explore lab-certified natural gemstones recommended for your birth chart. Find the perfect stone for luck, career, relationships, and health.",
+    title,
+    description,
   };
 }
 
-export default async function GemstonesPage({ 
+export default async function BraceletsPage({ 
   params 
 }: { 
   params: Promise<PageParams>;
@@ -40,12 +48,12 @@ export default async function GemstonesPage({
 
   const dict = await getDictionary(locale);
 
-  // Fetch products dynamically from Sanity CMS with revalidation enabled
+  // Fetch products dynamically from Sanity CMS
   let products = [];
   try {
     products = await client.fetch(productsQuery, {}, { next: { revalidate: 60 } });
   } catch (error) {
-    console.error("Failed to fetch products from Sanity for gemstones page:", error);
+    console.error("Failed to fetch products from Sanity for bracelets page:", error);
   }
 
   return (
@@ -60,7 +68,7 @@ export default async function GemstonesPage({
           locale={locale} 
           initialProducts={products} 
           isCarousel={false} 
-          productType="gemstone"
+          productType="crystal-bracelets"
         />
       </main>
 

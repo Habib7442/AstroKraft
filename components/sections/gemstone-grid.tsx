@@ -204,24 +204,33 @@ function GemstoneCard({ gem, activeLocale, labels, getPrefilledWhatsappUrl }: Ge
       )}
 
       <div className="relative flex flex-col gap-3">
-        {/* Top image and Price */}
-        <div className="flex justify-between items-start gap-3 mt-1">
-          {/* Gemstone Image frame */}
-          <div className="relative w-20 h-20 shrink-0 rounded-xl border border-zinc-100 bg-zinc-50 p-1.5 overflow-hidden flex items-center justify-center shadow-sm group-hover/gem:scale-105 transition-transform duration-300">
-            <div
-              className="absolute inset-0 opacity-10 blur-sm scale-75 pointer-events-none"
-              style={{ backgroundColor: glowColor.replace("0.08", "0.3") }}
-            />
-            <img
-              src={gem.src}
-              alt={gemName}
-              className="w-full h-full object-contain rounded-lg select-none"
-              draggable={false}
-            />
+        {/* Large Gemstone Image frame */}
+        <div className="relative w-full h-32 shrink-0 rounded-xl border border-zinc-150/80 bg-zinc-50/50 p-2 overflow-hidden flex items-center justify-center shadow-sm">
+          <div
+            className="absolute inset-0 opacity-15 blur-md scale-90 pointer-events-none"
+            style={{ backgroundColor: glowColor.replace("0.08", "0.4") }}
+          />
+          <img
+            src={gem.src}
+            alt={gemName}
+            className="h-full object-contain rounded-lg select-none z-10 transition-transform duration-300 group-hover/gem:scale-110"
+            draggable={false}
+          />
+        </div>
+
+        {/* Gemstone Info & Price Row */}
+        <div className="flex justify-between items-start gap-2 border-b border-zinc-100 pb-2">
+          <div className="flex flex-col gap-0.5 min-w-0 flex-1">
+            <h3 className="font-serif text-sm sm:text-base font-bold tracking-wide transition-colors truncate" style={{ color: "#221A3D" }}>
+              {gemName}
+            </h3>
+            <p className="text-[10px] font-medium leading-relaxed line-clamp-2 font-sans h-7" style={{ color: "#4A4566" }}>
+              {gemDesc}
+            </p>
           </div>
 
-          {/* Right Head: Price display */}
-          <div className="flex flex-col items-end text-right font-sans">
+          {/* Price display */}
+          <div className="flex flex-col items-end text-right font-sans shrink-0 ml-1">
             <span className="text-[8px] font-bold uppercase tracking-wider" style={{ color: "#6E698A" }}>
               {labels.priceLabel}
             </span>
@@ -231,7 +240,7 @@ function GemstoneCard({ gem, activeLocale, labels, getPrefilledWhatsappUrl }: Ge
                   ₹{activeBase.toLocaleString()}
                 </span>
               )}
-              <span className="font-serif font-bold text-base leading-none" style={{ color: "#78350F" }}>
+              <span className="font-serif font-bold text-sm sm:text-base leading-none" style={{ color: "#78350F" }}>
                 ₹{displayPrice.toLocaleString()}
               </span>
             </div>
@@ -239,16 +248,6 @@ function GemstoneCard({ gem, activeLocale, labels, getPrefilledWhatsappUrl }: Ge
               {labels.pricePerCt}
             </span>
           </div>
-        </div>
-
-        {/* Gemstone Info */}
-        <div className="flex flex-col gap-1 border-b border-zinc-100 pb-2">
-          <h3 className="font-serif text-sm sm:text-base font-bold tracking-wide transition-colors truncate" style={{ color: "#221A3D" }}>
-            {gemName}
-          </h3>
-          <p className="text-[10px] font-medium leading-relaxed line-clamp-2 font-sans h-7" style={{ color: "#4A4566" }}>
-            {gemDesc}
-          </p>
         </div>
 
         {/* Planetary & Zodiac details grid */}
@@ -359,7 +358,7 @@ interface GemstoneGridProps {
   limit?: number;
   initialProducts?: any[];
   isCarousel?: boolean;
-  productType?: "gemstone" | "rudraksha";
+  productType?: "gemstone" | "rudraksha" | "crystal-bracelets";
 }
 
 export default function GemstoneGrid({ 
@@ -422,9 +421,21 @@ export default function GemstoneGrid({
     return catName.includes("rudraksha") || catSlug.includes("rudraksha");
   };
 
-  const dbProductsFiltered = products.filter(productType === "rudraksha" ? isRudraksha : isGem);
+  const isCrystalBracelet = (p: any) => {
+    const catName = p.category?.name?.toLowerCase() || "";
+    const catSlug = p.category?.slug?.current?.toLowerCase() || "";
+    return catName.includes("bracelet") || catSlug.includes("bracelet") || catName.includes("crystal") || catSlug.includes("crystal");
+  };
 
-  // Map products. If database products have items, use them; otherwise, use GEMS fallback.
+  const dbProductsFiltered = products.filter(
+    productType === "crystal-bracelets"
+      ? isCrystalBracelet
+      : productType === "rudraksha"
+      ? isRudraksha
+      : isGem
+  );
+
+  // Map products. If database products have items, use them; otherwise, use fallbacks.
   let gemsList: GemInfo[] = [];
   if (dbProductsFiltered.length > 0) {
     gemsList = dbProductsFiltered.map(mapSanityProductToGemInfo);
@@ -440,6 +451,117 @@ export default function GemstoneGrid({
       pricePerCarat: gem.pricePerCarat,
       src: gem.src
     }));
+  } else if (productType === "crystal-bracelets") {
+    gemsList = [
+      {
+        id: "mock-bracelet-1",
+        name: {
+          en: "Amethyst Crystal Bracelet",
+          hin: "एमेथिस्ट क्रिस्टल ब्रेसलेट",
+          bn: "অ্যামিথিস্ট ক্রিস্টাল ব্রেসলেট"
+        },
+        type: {
+          en: "Crystal Bracelet",
+          hin: "क्रिस्टल ब्रेसलेट",
+          bn: "ক্রিস্টাল ব্রেসলেট"
+        },
+        description: {
+          en: "Natural amethyst beads bracelet for mental peace, stress relief, and spiritual growth.",
+          hin: "मानसिक शांति, तनाव मुक्ति और आध्यात्मिक विकास के लिए प्राकृतिक एमेथिस्ट ब्रेसलेट।",
+          bn: "মানসিক শান্তি, মানসিক চাপ উপশম এবং আধ্যাত্মিক উন্নতির জন্য প্রাকৃতিক অ্যামিথিস্ট ব্রেসলেট।"
+        },
+        zodiac: {
+          en: "Capricorn, Aquarius",
+          hin: "मकर, कुंभ",
+          bn: "মকর, কুম্ভ"
+        },
+        ruler: {
+          en: "Saturn (Shani)",
+          hin: "शनि",
+          bn: "শনি"
+        },
+        origin: {
+          en: "Brazil",
+          hin: "ब्राजील",
+          bn: "ব্রাজিল"
+        },
+        pricePerCarat: 899,
+        isBestSelling: true,
+        src: "/assets/gems/amethyst.webp"
+      },
+      {
+        id: "mock-bracelet-2",
+        name: {
+          en: "Tiger's Eye Bracelet",
+          hin: "टाइगर आई ब्रेसलेट",
+          bn: "टाइगर्स আই ব্রেসলেট"
+        },
+        type: {
+          en: "Crystal Bracelet",
+          hin: "क्रिस्टल ब्रेसলেট",
+          bn: "ক্রিস্টাল ব্রেসলেট"
+        },
+        description: {
+          en: "Authentic Tiger's Eye beads for courage, focus, prosperity, and willpower.",
+          hin: "साहस, एकाग्रता, समृद्धि और इच्छाशक्ति के लिए प्रामाणिक टाइगर आई ब्रेसलेट।",
+          bn: "সাহস, একাগ্রতা, সমৃদ্ধি এবং ইচ্ছাশক্তির জন্য আসল টাইগার্স আই ব্রেসলেট।"
+        },
+        zodiac: {
+          en: "Leo, Gemini",
+          hin: "सिंह, मिथुन",
+          bn: "সিংহ, মিথুন"
+        },
+        ruler: {
+          en: "Sun & Mars",
+          hin: "सूर्य और मंगल",
+          bn: "সূর্য ও মঙ্গল"
+        },
+        origin: {
+          en: "South Africa",
+          hin: "दक्षिण अफ्रीका",
+          bn: "দক্ষিণ আফ্রিকা"
+        },
+        pricePerCarat: 750,
+        isBestSelling: false,
+        src: "/assets/gems/citrine.webp"
+      },
+      {
+        id: "mock-bracelet-3",
+        name: {
+          en: "Rose Quartz Healing Bracelet",
+          hin: "रोज क्वार्ट्ज ब्रेसलेट",
+          bn: "রোজ কোয়ার্টজ ব্রেসলেট"
+        },
+        type: {
+          en: "Crystal Bracelet",
+          hin: "क्रिस्टल ब्रेसলেট",
+          bn: "ক্রিস্টাল ব্রেসলেট"
+        },
+        description: {
+          en: "Universal love crystal bracelet to attract positivity, harmony, and emotional healing.",
+          hin: "सकारात्मकता, सद्भाव और भावनात्मक उपचार को आकर्षित करने के लिए सार्वभौमिक प्रेम क्रिस्टल ब्रेसलेट।",
+          bn: "ইতিবাচকতা, সম্প্রীতি এবং মানসিক নিরাময় আকর্ষণ করার জন্য সার্বজনীন ভালোবাসার ক্রিস্টাল ব্রেসলেট।"
+        },
+        zodiac: {
+          en: "Taurus, Libra",
+          hin: "वृष, तुला",
+          bn: "বৃষ, তুলা"
+        },
+        ruler: {
+          en: "Venus (Shukra)",
+          hin: "शुक्र",
+          bn: "শুক্র"
+        },
+        origin: {
+          en: "Madagascar",
+          hin: "मेडागास्कर",
+          bn: "মাদাগাস্কার"
+        },
+        pricePerCarat: 999,
+        isBestSelling: true,
+        src: "/assets/gems/opal.webp"
+      }
+    ];
   }
 
   // Sort so that Best Sellers appear first
@@ -458,44 +580,74 @@ export default function GemstoneGrid({
   // Dictionary fallbacks for header elements
   const labelsObj = {
     en: {
-      eyebrow: productType === "rudraksha" ? "✦ Sacred Spiritual Beads" : "✦ Certified Remedies & Treasures",
-      heading: productType === "rudraksha" ? "Explore Sacred Rudraksha" : "Explore Certified Gemstones",
+      eyebrow: productType === "rudraksha" 
+        ? "✦ Sacred Spiritual Beads" 
+        : productType === "crystal-bracelets"
+        ? "✦ Natural Energy & Healing Bracelets"
+        : "✦ Certified Remedies & Treasures",
+      heading: productType === "rudraksha" 
+        ? "Explore Sacred Rudraksha" 
+        : productType === "crystal-bracelets"
+        ? "Explore Crystal Bracelets"
+        : "Explore Certified Gemstones",
       subheading: productType === "rudraksha"
         ? "Find authentic, laboratory-tested Rudraksha beads to awaken inner peace, energy alignment, and divine protection."
+        : productType === "crystal-bracelets"
+        ? "Discover authentic healing crystal bracelets configured to align your energy centers, protect your aura, and attract abundance."
         : "Find lab-certified, natural gemstones aligned with your birth chart. Enhance planetary influences and invite positivity into your life.",
       planet: "Ruler",
       zodiacLabel: "Zodiac",
       origin: "Origin",
       priceLabel: "Price starting at",
-      pricePerCt: productType === "rudraksha" ? "/ Piece" : "/ Carat",
+      pricePerCt: (productType === "rudraksha" || productType === "crystal-bracelets") ? "/ Piece" : "/ Carat",
       inquireBtn: "Inquire",
       buyNowBtn: "Buy Now"
     },
     hin: {
-      eyebrow: productType === "rudraksha" ? "✦ पवित्र आध्यात्मिक मनके" : "✦ प्रमाणित उपचार और रत्न",
-      heading: productType === "rudraksha" ? "प्राकृतिक रुद्राक्ष की खोज करें" : "प्रमाणित रत्नों की खोज करें",
+      eyebrow: productType === "rudraksha" 
+        ? "✦ पवित्र आध्यात्मिक मनके" 
+        : productType === "crystal-bracelets"
+        ? "✦ प्राकृतिक ऊर्जा और हीलिंग ब्रेसलेट्स"
+        : "✦ प्रमाणित उपचार और रत्न",
+      heading: productType === "rudraksha" 
+        ? "प्राकृतिक रुद्राक्ष की खोज करें" 
+        : productType === "crystal-bracelets"
+        ? "क्रिस्टल ब्रेसलेट्स की खोज करें"
+        : "प्रमाणित रत्नों की खोज करें",
       subheading: productType === "rudraksha"
         ? "आंतरिक शांति, ऊर्जा संतुलन और दैवीय सुरक्षा के लिए प्रमाणित, प्राकृतिक रुद्राक्ष मनके खोजें।"
+        : productType === "crystal-bracelets"
+        ? "ऊर्जा केंद्रों को संतुलित करने, आभा की रक्षा करने और समृद्धि को आकर्षित करने के लिए प्रामाणिक हीलिंग क्रिस्टल ब्रेसलेट्स खोजें।"
         : "अपनी जन्म कुंडली के अनुसार प्रमाणित, प्राकृतिक रत्न खोजें। ग्रहों के प्रभावों को बढ़ाएं और जीवन में सकारात्मकता लाएं।",
       planet: "स्वामी",
       zodiacLabel: "राशि",
       origin: "उत्पत्ति",
       priceLabel: "शुरुआती कीमत",
-      pricePerCt: productType === "rudraksha" ? "/ पीस" : "/ कैरेट",
+      pricePerCt: (productType === "rudraksha" || productType === "crystal-bracelets") ? "/ पीस" : "/ कैरेट",
       inquireBtn: "पूछताछ करें",
       buyNowBtn: "अभी खरीदें"
     },
     bn: {
-      eyebrow: productType === "rudraksha" ? "✦ পবিত্র আধ্যাত্মিক রুদ্রাক্ষ" : "✦ প্রত্যয়িত প্রতিকার ও রত্নাবলী",
-      heading: productType === "rudraksha" ? "প্রাকৃতিক রুদ্রাক্ষ অনুসন্ধান করুন" : "প্রত্যয়িত রত্ন পাথর খুঁজুন",
+      eyebrow: productType === "rudraksha" 
+        ? "✦ পবিত্র আধ্যাত্মিক রুদ্রাক্ষ" 
+        : productType === "crystal-bracelets"
+        ? "✦ প্রাকৃতিক শক্তি ও হিলিং ব্রেসলেট"
+        : "✦ প্রত্যয়িত প্রতিকার ও রত্নাবলী",
+      heading: productType === "rudraksha" 
+        ? "প্রাকৃতিক রুদ্রাক্ষ অনুসন্ধান করুন" 
+        : productType === "crystal-bracelets"
+        ? "ক্রিস্টাল ব্রেসলেট অনুসন্ধান করুন"
+        : "প্রত্যয়িত রত্ন পাথর খুঁজুন",
       subheading: productType === "rudraksha"
         ? "মানসিক শান্তি, শক্তি নিয়ন্ত্রণ এবং স্বর্গীয় সুরক্ষার জন্য ল্যাব-প্রত্যয়িত প্রাকৃতিক রুদ্রাক্ষ নির্বাচন করুন।"
+        : productType === "crystal-bracelets"
+        ? "আপনার চক্র নিয়ন্ত্রণ করতে, নেতিবাচক শক্তি দূর করতে এবং সমৃদ্ধি আকর্ষণ করতে আসল ক্রিস্টাল ব্রেসলেট নির্বাচন করুন।"
         : "আপনার জন্মপত্রিকা অনুযায়ী প্রাকৃতিক এবং ল্যাব-প্রত্যয়িত রত্ন পাথর নির্বাচন করুন। গ্রহের শুভ প্রভাব বাড়ান ও জীবনে সাফল্য আনুন।",
       planet: "অধিপতি",
       zodiacLabel: "রাশি",
       origin: "উৎস",
       priceLabel: "মূল্য শুরু",
-      pricePerCt: productType === "rudraksha" ? "/ পিস" : "/ ক্যারেট",
+      pricePerCt: (productType === "rudraksha" || productType === "crystal-bracelets") ? "/ পিস" : "/ ক্যারেট",
       inquireBtn: "যোগাযোগ করুন",
       buyNowBtn: "এখনই কিনুন"
     }
@@ -504,7 +656,13 @@ export default function GemstoneGrid({
 
   return (
     <section
-      id={productType === "rudraksha" ? "rudraksha-section" : "gemstones-section"}
+      id={
+        productType === "rudraksha" 
+          ? "rudraksha-section" 
+          : productType === "crystal-bracelets"
+          ? "bracelets-section"
+          : "gemstones-section"
+      }
       className="w-full py-16 relative overflow-hidden border-t border-zinc-100"
       style={{
         background: "linear-gradient(to bottom, #FFFBF0 0%, #FFF8E7 100%)"
@@ -606,10 +764,20 @@ export default function GemstoneGrid({
 
         {isCarousel && (
           <ExploreAllButton
-            href={productType === "rudraksha" ? `/${locale}/gemstones?category=rudraksha` : `/${locale}/gemstones`}
-            label={productType === "rudraksha"
-              ? (activeLocale === "hin" ? "सभी रुद्राक्ष देखें" : activeLocale === "bn" ? "সমস্ত রুদ্রাক্ষ দেখুন" : "Explore All Rudraksha")
-              : (activeLocale === "hin" ? "सभी रत्नों की खोज करें" : activeLocale === "bn" ? "সমস্ত রত্ন পাথর দেখুন" : "Explore All Gemstones")}
+            href={
+              productType === "rudraksha" 
+                ? `/${locale}/rudraksha` 
+                : productType === "crystal-bracelets"
+                ? `/${locale}/bracelets`
+                : `/${locale}/gemstones`
+            }
+            label={
+              productType === "rudraksha"
+                ? (activeLocale === "hin" ? "सभी रुद्राक्ष देखें" : activeLocale === "bn" ? "সমস্ত রুদ্রাক্ষ দেখুন" : "Explore All Rudraksha")
+                : productType === "crystal-bracelets"
+                ? (activeLocale === "hin" ? "सभी ब्रेसलेट्स देखें" : activeLocale === "bn" ? "সমস্ত ব্রেসলেট দেখুন" : "Explore All Bracelets")
+                : (activeLocale === "hin" ? "सभी रत्नों की खोज करें" : activeLocale === "bn" ? "সমস্ত রত্ন পাথর দেখুন" : "Explore All Gemstones")
+            }
           />
         )}
       </div>

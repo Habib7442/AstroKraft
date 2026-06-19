@@ -24,6 +24,12 @@ export function ServicesRow({ locale, dict }: ServicesRowProps) {
 
   return (
     <section id="services-section" className="w-full py-16 bg-base stars-bg relative overflow-hidden border-b border-border/40">
+      <style>{`
+        .no-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-8 relative z-10">
         
         {/* Section Heading */}
@@ -36,8 +42,14 @@ export function ServicesRow({ locale, dict }: ServicesRowProps) {
           </h2>
         </div>
 
-        {/* Services Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-5 w-full">
+        {/* Services Horizontal Scroll Row */}
+        <div 
+          className="flex overflow-x-auto gap-4 sm:gap-5 w-full no-scrollbar scroll-smooth py-2 px-1 select-none"
+          style={{
+            scrollbarWidth: "none",
+            msOverflowStyle: "none"
+          }}
+        >
           {servicesData.map((service) => {
             const titleText = service.title[activeLocale as keyof typeof service.title] || service.title.en;
             const descText = service.desc[activeLocale as keyof typeof service.desc] || service.desc.en;
@@ -48,7 +60,7 @@ export function ServicesRow({ locale, dict }: ServicesRowProps) {
                 target={service.isExternal ? "_blank" : undefined}
                 rel={service.isExternal ? "noopener noreferrer" : undefined}
                 key={service.id}
-                className="group relative flex flex-col items-center justify-between text-center p-5 rounded-2xl border border-card-border bg-white shadow-card hover:shadow-cardHover hover:-translate-y-1 active:translate-y-0 transition-all duration-300 cursor-pointer overflow-hidden min-h-[16rem]"
+                className="group relative flex flex-col items-center justify-between text-center p-5 rounded-2xl border border-card-border bg-white shadow-card hover:shadow-cardHover hover:-translate-y-1 active:translate-y-0 transition-all duration-300 cursor-pointer overflow-hidden min-h-[16rem] w-[180px] sm:w-[220px] shrink-0"
               >
                 {/* Service Details */}
                 <div className="flex flex-col items-center w-full">

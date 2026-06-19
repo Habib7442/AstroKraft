@@ -5,7 +5,6 @@ import { Header } from "@/components/sections/header";
 import { HeroEcommerce } from "@/components/sections/hero-ecommerce";
 
 import { ServicesRow } from "@/components/sections/services-row";
-import { WhyChoose } from "@/components/sections/why-choose";
 import { Footer } from "@/components/sections/footer";
 import BentoGridDemo from "@/components/bento-grid-demo";
 import GemstoneGrid from "@/components/sections/gemstone-grid";
@@ -130,8 +129,8 @@ export default async function Page({ params }: { params: Promise<PageParams> }) 
 
         <div className="max-w-7xl mx-auto h-px w-full bg-gradient-to-r from-transparent via-border/50 to-transparent" />
 
-        {/* Trust Metrics Section */}
-        <WhyChoose locale={locale} />
+        {/* Crystal Bracelets Section */}
+        <GemstoneGrid locale={locale} initialProducts={products} productType="crystal-bracelets" />
 
         <div className="max-w-7xl mx-auto h-px w-full bg-gradient-to-r from-transparent via-border/50 to-transparent" />
 
