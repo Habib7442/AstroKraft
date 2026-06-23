@@ -93,7 +93,7 @@ function FreeToolCard({ tool, t, index }: FreeToolCardProps) {
       radius={300}
       useCanvas={false}
       className={cn(
-        "group relative border rounded-2xl flex flex-col justify-between overflow-hidden p-8 select-none shadow-card transition-all duration-300 min-h-[16rem] backdrop-blur-md",
+        "group relative border rounded-2xl flex flex-col justify-between overflow-hidden p-5 select-none shadow-card transition-all duration-300 min-h-[15rem] w-[210px] sm:w-[240px] shrink-0 backdrop-blur-md",
         tool.active 
           ? "border-border-gold hover:shadow-cardHover hover:-translate-y-1 cursor-pointer text-ink-body" 
           : "border-dashed border-border/40 opacity-60 cursor-not-allowed text-ink-muted"
@@ -104,45 +104,45 @@ function FreeToolCard({ tool, t, index }: FreeToolCardProps) {
           : `radial-gradient(circle at top right, ${tool.cornerColor} 0%, rgba(255, 255, 255, 0.90) 45%, rgba(255, 255, 255, 0.95) 100%)`
       }}
     >
-      <div className="relative flex flex-col gap-5">
+      <div className="relative flex flex-col gap-4">
         <div className="flex justify-between items-start">
           {/* Icon wrapper */}
           <div className={cn(
-            "p-3 rounded-2xl border border-border bg-card-raised shadow-sm w-fit",
+            "p-2.5 rounded-xl border border-border bg-card-raised shadow-sm w-fit",
             !tool.active && "opacity-50"
           )}>
-            <Icon className="w-6 h-6 stroke-[1.5px] text-gold" />
+            <Icon className="w-5 h-5 stroke-[1.5px] text-gold" />
           </div>
 
           {/* Coming Soon status badge */}
           {!tool.active && (
-            <span className="px-2.5 py-0.5 rounded-full text-[9px] font-bold tracking-wider uppercase bg-card-raised border border-border/40 shadow-sm text-ink-muted">
+            <span className="px-2 py-0.5 rounded-full text-[8px] font-bold tracking-wider uppercase bg-card-raised border border-border/40 shadow-sm text-ink-muted">
               {t.comingSoon}
             </span>
           )}
         </div>
 
         {/* Title & Description */}
-        <div className="space-y-2.5">
-          <h3 className="font-serif text-xl font-bold text-ink group-hover:text-gold transition-colors">
+        <div className="space-y-1.5 text-left">
+          <h3 className="font-serif text-sm sm:text-base font-bold text-ink group-hover:text-gold transition-colors">
             {tool.title}
           </h3>
-          <p className="text-ink-muted font-semibold text-xs leading-relaxed max-w-lg">
+          <p className="text-ink-muted font-semibold text-[10px] sm:text-xs leading-relaxed line-clamp-4 h-16">
             {tool.desc}
           </p>
         </div>
       </div>
 
       {/* Launch / Explore Button */}
-      <div className="mt-8 pt-5 border-t border-border/40 flex justify-end">
+      <div className="mt-4 pt-3.5 border-t border-border/40 flex justify-end">
         {tool.active ? (
-          <a href={tool.href} className="w-full sm:w-auto">
-            <button className="w-full sm:w-auto text-xs font-bold uppercase tracking-wider py-2.5 px-6 rounded-full border border-gold-deep bg-transparent hover:bg-gold/8 text-gold transition-all cursor-pointer shadow-sm">
+          <a href={tool.href} className="w-full">
+            <button className="w-full text-[10px] font-bold uppercase tracking-wider py-2 px-4 rounded-full border border-gold-deep bg-transparent hover:bg-gold/8 text-gold transition-all cursor-pointer shadow-sm">
               {t.exploreBtn}
             </button>
           </a>
         ) : (
-          <button disabled className="w-full sm:w-auto text-xs font-bold uppercase tracking-wider py-2.5 px-6 rounded-full border border-border/40 bg-transparent text-ink-muted/50 cursor-not-allowed opacity-50">
+          <button disabled className="w-full text-[10px] font-bold uppercase tracking-wider py-2 px-4 rounded-full border border-border/40 bg-transparent text-ink-muted/50 cursor-not-allowed opacity-50">
             {t.comingSoon}
           </button>
         )}
@@ -171,8 +171,8 @@ export default function FreeToolsPreview({ locale = "en" }: FreeToolsPreviewProp
       href: `/${locale}/tools/matching`,
       icon: HeartHandshake,
       active: true,
-      glowColor: "rgba(168, 85, 247, 0.12)", // Amethyst Purple Glow
-      cornerColor: "#E5D5FF",
+      glowColor: "rgba(220, 180, 80, 0.12)", // Unified Champagne Gold Glow
+      cornerColor: "#FFF9E6",
     },
     {
       title: t.panchangTitle,
@@ -180,8 +180,8 @@ export default function FreeToolsPreview({ locale = "en" }: FreeToolsPreviewProp
       href: `/${locale}/tools/panchang`,
       icon: Calendar,
       active: true,
-      glowColor: "rgba(34, 197, 94, 0.08)", // Emerald Green Glow
-      cornerColor: "#C6F6D5",
+      glowColor: "rgba(220, 180, 80, 0.12)", // Unified Champagne Gold Glow
+      cornerColor: "#FFF9E6",
     },
     {
       title: t.horoscopeTitle,
@@ -189,13 +189,20 @@ export default function FreeToolsPreview({ locale = "en" }: FreeToolsPreviewProp
       href: "#",
       icon: Orbit,
       active: false,
-      glowColor: "rgba(59, 130, 246, 0.08)", // Blue Glow
-      cornerColor: "#E0F2FE",
+      glowColor: "rgba(220, 180, 80, 0.12)", // Unified Champagne Gold Glow
+      cornerColor: "#FFF9E6",
     },
   ];
 
   return (
     <section className="w-full py-16 px-4 sm:px-6 lg:px-8 bg-base stars-bg relative overflow-hidden border-t border-border/40">
+      {/* Scrollbar CSS */}
+      <style>{`
+        .no-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
+
       {/* Background ambient light */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-gold/5 blur-[160px] pointer-events-none -z-10" />
 
@@ -214,8 +221,14 @@ export default function FreeToolsPreview({ locale = "en" }: FreeToolsPreviewProp
           </p>
         </div>
 
-        {/* Tools Showcase Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
+        {/* Tools Showcase Horizontal Scroll Row */}
+        <div 
+          className="flex overflow-x-auto gap-4 sm:gap-5 w-full no-scrollbar scroll-smooth py-2 px-1 select-none relative z-10"
+          style={{
+            scrollbarWidth: "none",
+            msOverflowStyle: "none"
+          }}
+        >
           {tools.map((tool, index) => (
             <FreeToolCard key={index} tool={tool} t={t} index={index} />
           ))}
