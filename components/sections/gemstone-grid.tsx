@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import { CardSpotlight } from "@/components/ui/card-spotlight";
 import GEMS_DATA from "@/lib/data/gems.json";
 import { cn } from "@/lib/utils";
@@ -146,6 +147,14 @@ interface GemstoneCardProps {
 
 function GemstoneCard({ gem, activeLocale, labels, getPrefilledWhatsappUrl, productType }: GemstoneCardProps) {
   const [selectedTier, setSelectedTier] = useState<"basic" | "semi_premium" | "premium">("basic");
+  const [isZoomed, setIsZoomed] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    return () => setMounted(false);
+  }, []);
+
   const gemName = gem.name[activeLocale] || gem.name["en"];
   const gemDesc = gem.description[activeLocale] || gem.description["en"];
   const gemZodiac = gem.zodiac[activeLocale] || gem.zodiac["en"];
@@ -187,11 +196,12 @@ function GemstoneCard({ gem, activeLocale, labels, getPrefilledWhatsappUrl, prod
     : getPrefilledWhatsappUrl(gemName);
 
   return (
-    <CardSpotlight
-      color={glowColor}
-      radius={180}
-      useCanvas={false}
-      className={cn(
+    <>
+      <CardSpotlight
+        color={glowColor}
+        radius={180}
+        useCanvas={false}
+        className={cn(
         "group/gem transition-all duration-300 border rounded-2xl flex flex-col justify-between overflow-hidden p-4 select-none relative shadow-sm hover:shadow-md bg-white hover:-translate-y-1 min-h-[25rem] w-[275px] shrink-0 will-change-transform [transform:translate3d(0,0,0)]"
       )}
       style={{
@@ -208,7 +218,10 @@ function GemstoneCard({ gem, activeLocale, labels, getPrefilledWhatsappUrl, prod
 
       <div className="relative flex flex-col gap-3">
         {/* Large Gemstone Image frame */}
-        <div className="relative w-full h-32 shrink-0 rounded-xl border border-zinc-150/80 bg-zinc-50/50 p-2 overflow-hidden flex items-center justify-center shadow-sm">
+        <div 
+          onClick={() => setIsZoomed(true)}
+          className="relative w-full h-32 shrink-0 rounded-xl border border-zinc-150/80 bg-zinc-50/50 p-2 overflow-hidden flex items-center justify-center shadow-sm cursor-zoom-in hover:border-[#E2C27A]/80 transition-colors"
+        >
           <div
             className="absolute inset-0 opacity-15 blur-md scale-90 pointer-events-none"
             style={{ backgroundColor: glowColor.replace("0.08", "0.4") }}
@@ -357,6 +370,44 @@ function GemstoneCard({ gem, activeLocale, labels, getPrefilledWhatsappUrl, prod
         </button>
       </div>
     </CardSpotlight>
+
+    {mounted && isZoomed && createPortal(
+      <div 
+        className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/90 backdrop-blur-md animate-in fade-in duration-250"
+        onClick={() => setIsZoomed(false)}
+      >
+        {/* Close button */}
+        <button 
+          className="absolute top-6 right-6 bg-white/10 hover:bg-white/20 text-white rounded-full p-3 transition-colors z-50 cursor-pointer border-0"
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsZoomed(false);
+          }}
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+        
+        <div className="relative max-w-[90vw] max-h-[85vh] flex flex-col items-center gap-4 select-none">
+          <img
+            src={gem.src}
+            alt={gemName}
+            className="max-w-full max-h-[75vh] object-contain rounded-2xl shadow-2xl animate-in zoom-in-95 duration-250 cursor-zoom-out"
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsZoomed(false);
+            }}
+            draggable={false}
+          />
+          <h3 className="text-white text-xl sm:text-2xl font-serif font-bold text-center tracking-wide">
+            {gemName}
+          </h3>
+        </div>
+      </div>,
+      document.body
+    )}
+  </>
   );
 }
 
