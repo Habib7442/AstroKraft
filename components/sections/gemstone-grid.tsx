@@ -201,8 +201,9 @@ function GemstoneCard({ gem, activeLocale, labels, getPrefilledWhatsappUrl, prod
         color={glowColor}
         radius={180}
         useCanvas={false}
-        className={cn(
-        "group/gem transition-all duration-300 border rounded-2xl flex flex-col justify-between overflow-hidden p-4 select-none relative shadow-sm hover:shadow-md bg-white hover:-translate-y-1 min-h-[25rem] w-[275px] shrink-0 will-change-transform [transform:translate3d(0,0,0)]"
+      className={cn(
+        "group/gem transition-all duration-300 border rounded-2xl flex flex-col justify-between overflow-hidden p-4 select-none relative shadow-sm hover:shadow-md bg-white hover:-translate-y-1 w-[275px] shrink-0 will-change-transform [transform:translate3d(0,0,0)]",
+        productType === "gemstone" ? "min-h-[25rem]" : "min-h-[20rem]"
       )}
       style={{
         background: `radial-gradient(circle at top right, ${cornerColor}22 0%, rgba(255, 255, 255, 0.9) 60%, rgba(255, 255, 255, 1) 100%)`,
