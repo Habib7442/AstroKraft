@@ -112,7 +112,7 @@ export function AstrologersRow({ locale, astrologers = [] }: AstrologersRowProps
                   </a>
 
                   {/* Name */}
-                  <h3 className="font-sans text-xs sm:text-sm font-extrabold text-ink mt-4 tracking-tight text-center line-clamp-1 uppercase hover:text-violet transition-colors">
+                  <h3 className="font-sans text-xs sm:text-sm font-extrabold text-ink mt-4 tracking-tight text-center uppercase hover:text-violet transition-colors">
                     <a href={`/${locale}/astrologers/${ast.slug}`}>
                       {ast.name}
                     </a>
