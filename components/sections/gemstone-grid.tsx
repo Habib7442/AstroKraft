@@ -238,7 +238,7 @@ function GemstoneCard({ gem, activeLocale, labels, getPrefilledWhatsappUrl, prod
         {/* Gemstone Info & Price Row */}
         <div className="flex justify-between items-start gap-2 border-b border-zinc-100 pb-2">
           <div className="flex flex-col gap-0.5 min-w-0 flex-1">
-            <h3 className="font-serif text-sm sm:text-base font-bold tracking-wide transition-colors truncate" style={{ color: "#221A3D" }}>
+            <h3 className="font-serif text-sm sm:text-base font-bold tracking-wide transition-colors" style={{ color: "#221A3D" }}>
               {gemName}
             </h3>
             <p className="text-[10px] font-medium leading-relaxed line-clamp-2 font-sans h-7" style={{ color: "#4A4566" }}>
