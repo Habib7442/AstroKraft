@@ -732,7 +732,7 @@ export default function GemstoneGrid({
         origin: {
           en: "India",
           hin: "भारत",
-          bn: "भारत"
+          bn: "ভারত"
         },
         pricePerCarat: 5100,
         isBestSelling: true,
