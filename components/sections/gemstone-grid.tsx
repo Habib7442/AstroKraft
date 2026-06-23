@@ -141,7 +141,7 @@ interface GemstoneCardProps {
   activeLocale: string;
   labels: any;
   getPrefilledWhatsappUrl: (name: string) => string;
-  productType?: "gemstone" | "rudraksha" | "crystal-bracelets";
+  productType?: "gemstone" | "rudraksha" | "crystal-bracelets" | "vastu-products";
 }
 
 function GemstoneCard({ gem, activeLocale, labels, getPrefilledWhatsappUrl, productType }: GemstoneCardProps) {
@@ -365,7 +365,7 @@ interface GemstoneGridProps {
   limit?: number;
   initialProducts?: any[];
   isCarousel?: boolean;
-  productType?: "gemstone" | "rudraksha" | "crystal-bracelets";
+  productType?: "gemstone" | "rudraksha" | "crystal-bracelets" | "vastu-products";
 }
 
 export default function GemstoneGrid({ 
@@ -434,11 +434,19 @@ export default function GemstoneGrid({
     return catName.includes("bracelet") || catSlug.includes("bracelet") || catName.includes("crystal") || catSlug.includes("crystal");
   };
 
+  const isVastuProduct = (p: any) => {
+    const catName = p.category?.name?.toLowerCase() || "";
+    const catSlug = p.category?.slug?.current?.toLowerCase() || "";
+    return catName.includes("vastu") || catSlug.includes("vastu");
+  };
+
   const dbProductsFiltered = products.filter(
     productType === "crystal-bracelets"
       ? isCrystalBracelet
       : productType === "rudraksha"
       ? isRudraksha
+      : productType === "vastu-products"
+      ? isVastuProduct
       : isGem
   );
 
@@ -569,6 +577,153 @@ export default function GemstoneGrid({
         src: "/assets/gems/opal.webp"
       }
     ];
+  } else if (productType === "vastu-products") {
+    gemsList = [
+      {
+        id: "mock-vastu-1",
+        name: {
+          en: "Vastu Painting New House",
+          hin: "वास्तु पेंटिंग नया घर",
+          bn: "বাস্তু পেইন্টিং নতুন বাড়ি"
+        },
+        type: {
+          en: "Vastu Painting",
+          hin: "वास्तु पेंटिंग",
+          bn: "বাস্তু পেইন্টিং"
+        },
+        description: {
+          en: "Specialized Vastu painting to attract positive energy and prosperity to a new house.",
+          hin: "नए घर में सकारात्मक ऊर्जा और समृद्धि को आकर्षित करने के लिए विशेष वास्तु पेंटिंग।",
+          bn: "নতুন বাড়িতে ইতিবাচক শক্তি এবং সমৃদ্ধি আকর্ষণ করার জন্য বিশেষ বাস্তু পেইন্টিং।"
+        },
+        zodiac: {
+          en: "All",
+          hin: "सभी",
+          bn: "সব"
+        },
+        ruler: {
+          en: "Sun (Surya)",
+          hin: "सूर्य",
+          bn: "সূর্য"
+        },
+        origin: {
+          en: "India",
+          hin: "भारत",
+          bn: "ভারত"
+        },
+        pricePerCarat: 2499,
+        isBestSelling: true,
+        src: "/gemstones/placeholder.png"
+      },
+      {
+        id: "mock-vastu-2",
+        name: {
+          en: "Vastu Painting Money Flow (flowing river)",
+          hin: "वास्तु पेंटिंग मनी फ्लो (बहती नदी)",
+          bn: "বাস্তু পেইন্টিং মানি ফ্লো (বহমান নদী)"
+        },
+        type: {
+          en: "Vastu Painting",
+          hin: "वास्तु पेंटिंग",
+          bn: "বাস্তু পেইন্টিং"
+        },
+        description: {
+          en: "Flowing water painting representing continuous abundance and cash flow.",
+          hin: "निरंतर प्रचुरता और धन प्रवाह का प्रतिनिधित्व करने वाली बहती नदी की पेंटिंग।",
+          bn: "অবিরাম প্রাচুর্য এবং অর্থ প্রবাহের প্রতিনিধিত্বকারী বহমান নদীর পেইন্টিং।"
+        },
+        zodiac: {
+          en: "All",
+          hin: "सभी",
+          bn: "সব"
+        },
+        ruler: {
+          en: "Varuna",
+          hin: "वरुण",
+          bn: "বরুণ"
+        },
+        origin: {
+          en: "India",
+          hin: "भारत",
+          bn: "ভারত"
+        },
+        pricePerCarat: 3100,
+        isBestSelling: true,
+        src: "/gemstones/placeholder.png"
+      },
+      {
+        id: "mock-vastu-3",
+        name: {
+          en: "Vastu Painting Business Growth (Seven Horses)",
+          hin: "वास्तु पेंटिंग बिजनेस ग्रोथ (सात घोड़े)",
+          bn: "বাস্তু পেইন্টিং বিজনেস গ্রোথ (সাতটি ঘোড়া)"
+        },
+        type: {
+          en: "Vastu Painting",
+          hin: "वास्तु पेंटिंग",
+          bn: "বাস্তু পেইন্টিং"
+        },
+        description: {
+          en: "Running seven horses painting to boost success, speed, and business growth.",
+          hin: "सफलता, गति और व्यावसायिक विकास को बढ़ावा देने के लिए दौड़ते सात घोड़ों की पेंटिंग।",
+          bn: "সাফল্য, গতি এবং ব্যবসায়িক বৃদ্ধি বাড়াতে চলমান সাতটি ঘোড়ার পেইন্টিং।"
+        },
+        zodiac: {
+          en: "All",
+          hin: "सभी",
+          bn: "সব"
+        },
+        ruler: {
+          en: "Mars (Mangal)",
+          hin: "मंगल",
+          bn: "মঙ্গল"
+        },
+        origin: {
+          en: "India",
+          hin: "भारत",
+          bn: "भारत"
+        },
+        pricePerCarat: 5100,
+        isBestSelling: true,
+        src: "/gemstones/placeholder.png"
+      },
+      {
+        id: "mock-vastu-4",
+        name: {
+          en: "Shree Yantra (brass)",
+          hin: "श्री यंत्र (पीतल)",
+          bn: "শ্রী যন্ত্র (পিতল)"
+        },
+        type: {
+          en: "Vastu Yantra",
+          hin: "वास्तु यंत्र",
+          bn: "বাস্তু যন্ত্র"
+        },
+        description: {
+          en: "Brass Shree Yantra for wealth, abundance, and removing financial blocks.",
+          hin: "धन, समृद्धि और वित्तीय बाधाओं को दूर करने के लिए पीतल का श्री यंत्र।",
+          bn: "সম্পদ, প্রাচুর্য এবং আর্থিক বাধা দূর করতে পিতলের শ্রী যন্ত্র।"
+        },
+        zodiac: {
+          en: "All",
+          hin: "सभी",
+          bn: "সব"
+        },
+        ruler: {
+          en: "Laxmi",
+          hin: "लक्ष्मी",
+          bn: "লক্ষ্মী"
+        },
+        origin: {
+          en: "India",
+          hin: "भारत",
+          bn: "ভারত"
+        },
+        pricePerCarat: 699,
+        isBestSelling: false,
+        src: "/gemstones/placeholder.png"
+      }
+    ];
   }
 
   // Sort so that Best Sellers appear first
@@ -591,22 +746,28 @@ export default function GemstoneGrid({
         ? "✦ Sacred Spiritual Beads" 
         : productType === "crystal-bracelets"
         ? "✦ Natural Energy & Healing Bracelets"
+        : productType === "vastu-products"
+        ? "✦ Harmonious Space & Vastu Remedies"
         : "✦ Certified Remedies & Treasures",
       heading: productType === "rudraksha" 
         ? "Explore Sacred Rudraksha" 
         : productType === "crystal-bracelets"
         ? "Explore Crystal Bracelets"
+        : productType === "vastu-products"
+        ? "Explore Vastu Products"
         : "Explore Certified Gemstones",
       subheading: productType === "rudraksha"
         ? "Find authentic, laboratory-tested Rudraksha beads to awaken inner peace, energy alignment, and divine protection."
         : productType === "crystal-bracelets"
         ? "Discover authentic healing crystal bracelets configured to align your energy centers, protect your aura, and attract abundance."
+        : productType === "vastu-products"
+        ? "Optimize the flow of energy in your home or office with our authentic, certified Vastu yantras, paintings, and remedies."
         : "Find lab-certified, natural gemstones aligned with your birth chart. Enhance planetary influences and invite positivity into your life.",
       planet: "Ruler",
       zodiacLabel: "Zodiac",
       origin: "Origin",
       priceLabel: "Price starting at",
-      pricePerCt: (productType === "rudraksha" || productType === "crystal-bracelets") ? "/ Piece" : "/ Carat",
+      pricePerCt: (productType === "rudraksha" || productType === "crystal-bracelets" || productType === "vastu-products") ? "/ Piece" : "/ Carat",
       inquireBtn: "Inquire",
       buyNowBtn: "Buy Now"
     },
@@ -615,22 +776,28 @@ export default function GemstoneGrid({
         ? "✦ पवित्र आध्यात्मिक मनके" 
         : productType === "crystal-bracelets"
         ? "✦ प्राकृतिक ऊर्जा और हीलिंग ब्रेसलेट्स"
+        : productType === "vastu-products"
+        ? "✦ सामंजस्यपूर्ण स्थान और वास्तु उपाय"
         : "✦ प्रमाणित उपचार और रत्न",
       heading: productType === "rudraksha" 
         ? "प्राकृतिक रुद्राक्ष की खोज करें" 
         : productType === "crystal-bracelets"
         ? "क्रिस्टल ब्रेसलेट्स की खोज करें"
+        : productType === "vastu-products"
+        ? "वास्तु उत्पादों की खोज करें"
         : "प्रमाणित रत्नों की खोज करें",
       subheading: productType === "rudraksha"
         ? "आंतरिक शांति, ऊर्जा संतुलन और दैवीय सुरक्षा के लिए प्रमाणित, प्राकृतिक रुद्राक्ष मनके खोजें।"
         : productType === "crystal-bracelets"
         ? "ऊर्जा केंद्रों को संतुलित करने, आभा की रक्षा करने और समृद्धि को आकर्षित करने के लिए प्रामाणिक हीलिंग क्रिस्टल ब्रेसलेट्स खोजें।"
+        : productType === "vastu-products"
+        ? "ऊर्जा के प्रवाह को अनुकूलित करने और सद्भाव लाने के लिए हमारे प्रामाणिक, प्रमाणित वास्तु यंत्र, पेंटिंग और उपचार देखें।"
         : "अपनी जन्म कुंडली के अनुसार प्रमाणित, प्राकृतिक रत्न खोजें। ग्रहों के प्रभावों को बढ़ाएं और जीवन में सकारात्मकता लाएं।",
       planet: "स्वामी",
       zodiacLabel: "राशि",
       origin: "उत्पत्ति",
       priceLabel: "शुरुआती कीमत",
-      pricePerCt: (productType === "rudraksha" || productType === "crystal-bracelets") ? "/ पीस" : "/ कैरेट",
+      pricePerCt: (productType === "rudraksha" || productType === "crystal-bracelets" || productType === "vastu-products") ? "/ पीस" : "/ कैरेट",
       inquireBtn: "पूछताछ करें",
       buyNowBtn: "अभी खरीदें"
     },
@@ -639,22 +806,28 @@ export default function GemstoneGrid({
         ? "✦ পবিত্র আধ্যাত্মিক রুদ্রাক্ষ" 
         : productType === "crystal-bracelets"
         ? "✦ প্রাকৃতিক শক্তি ও হিলিং ব্রেসলেট"
+        : productType === "vastu-products"
+        ? "✦ সুসংগত স্থান ও বাস্তু প্রতিকার"
         : "✦ প্রত্যয়িত প্রতিকার ও রত্নাবলী",
       heading: productType === "rudraksha" 
         ? "প্রাকৃতিক রুদ্রাক্ষ অনুসন্ধান করুন" 
         : productType === "crystal-bracelets"
         ? "ক্রিস্টাল ব্রেসলেট অনুসন্ধান করুন"
+        : productType === "vastu-products"
+        ? "বাস্তু পণ্য অনুসন্ধান করুন"
         : "প্রত্যয়িত রত্ন পাথর খুঁজুন",
       subheading: productType === "rudraksha"
         ? "মানসিক শান্তি, শক্তি নিয়ন্ত্রণ এবং স্বর্গীয় সুরক্ষার জন্য ল্যাব-প্রত্যয়িত প্রাকৃতিক রুদ্রাক্ষ নির্বাচন করুন।"
         : productType === "crystal-bracelets"
         ? "আপনার চক্র নিয়ন্ত্রণ করতে, নেতিবাচক শক্তি দূর করতে এবং সমৃদ্ধি আকর্ষণ করতে আসল ক্রিস্টাল ব্রেসলেট নির্বাচন করুন।"
+        : productType === "vastu-products"
+        ? "আপনার বাড়ি বা অফিসে শক্তির প্রবাহ উন্নত করতে আমাদের আসল, প্রত্যয়িত বাস্তু যন্ত্র, পেইন্টিং এবং প্রতিকারগুলি আবিষ্কার করুন।"
         : "আপনার জন্মপত্রিকা অনুযায়ী প্রাকৃতিক এবং ল্যাব-প্রত্যয়িত রত্ন পাথর নির্বাচন করুন। গ্রহের শুভ প্রভাব বাড়ান ও জীবনে সাফল্য আনুন।",
       planet: "অধিপতি",
       zodiacLabel: "রাশি",
       origin: "উৎস",
       priceLabel: "মূল্য শুরু",
-      pricePerCt: (productType === "rudraksha" || productType === "crystal-bracelets") ? "/ পিস" : "/ ক্যারেট",
+      pricePerCt: (productType === "rudraksha" || productType === "crystal-bracelets" || productType === "vastu-products") ? "/ পিস" : "/ ক্যারেট",
       inquireBtn: "যোগাযোগ করুন",
       buyNowBtn: "এখনই কিনুন"
     }
@@ -668,6 +841,8 @@ export default function GemstoneGrid({
           ? "rudraksha-section" 
           : productType === "crystal-bracelets"
           ? "bracelets-section"
+          : productType === "vastu-products"
+          ? "vastu-section"
           : "gemstones-section"
       }
       className="w-full py-16 relative overflow-hidden border-t border-zinc-100"
@@ -778,6 +953,8 @@ export default function GemstoneGrid({
                 ? `/${locale}/rudraksha` 
                 : productType === "crystal-bracelets"
                 ? `/${locale}/bracelets`
+                : productType === "vastu-products"
+                ? `/${locale}/vastu-products`
                 : `/${locale}/gemstones`
             }
             label={
@@ -785,6 +962,8 @@ export default function GemstoneGrid({
                 ? (activeLocale === "hin" ? "सभी रुद्राक्ष देखें" : activeLocale === "bn" ? "সমস্ত রুদ্রাক্ষ দেখুন" : "Explore All Rudraksha")
                 : productType === "crystal-bracelets"
                 ? (activeLocale === "hin" ? "सभी ब्रेसलेट्स देखें" : activeLocale === "bn" ? "সমস্ত ব্রেসলেট দেখুন" : "Explore All Bracelets")
+                : productType === "vastu-products"
+                ? (activeLocale === "hin" ? "सभी वास्तु उत्पाद देखें" : activeLocale === "bn" ? "সমস্ত বাস্তু পণ্য দেখুন" : "Explore All Vastu Products")
                 : (activeLocale === "hin" ? "सभी रत्नों की खोज करें" : activeLocale === "bn" ? "সমস্ত রত্ন পাথর দেখুন" : "Explore All Gemstones")
             }
           />

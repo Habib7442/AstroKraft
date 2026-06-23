@@ -130,6 +130,7 @@ Update this file after every completed feature. Any AI agent reading this should
 - **Category Grid Smooth Scroll Fixed for Bracelets**: Updated the category click handler in `hero-ecommerce.tsx` to correctly target `bracelets-section` when clicking the Crystal Bracelets card, enabling seamless smooth scrolling.
 - **Consultation Fee Shift & Astrologer Categorization**: Shifted the `baseFee` field from the consultation categories to individual astrologer profiles in Sanity schemas and the custom admin panel. Added an optional `consultationCategory` reference selection to the astrologer form and schema to allow categorizing astrologers by their specific expertise category.
 - **Dynamic Astrologers Horizontal Scroll Row**: Replaced the large homepage bento grid with a horizontal scrollable row of small, clean astrologer cards (`components/sections/astrologers-row.tsx`) displaying photo, name, expertise, languages, and fees. Configured the server page to fetch records dynamically from Sanity with a safe mock fallback.
+- **Vastu Products Showcase & Catalog**: Extended the `GemstoneGrid` to support `productType="vastu-products"`, implementing Vastu filter queries and customized i18n copy/price unit mapping. Added a Vastu products showcase grid to the homepage and created a dedicated `/[locale]/vastu-products` page, updating category clicks inside `hero-ecommerce.tsx` to route directly.
 
 ---
 

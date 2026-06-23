@@ -137,6 +137,11 @@ export default async function Page({ params }: { params: Promise<PageParams> }) 
 
         <div className="max-w-7xl mx-auto h-px w-full bg-gradient-to-r from-transparent via-border/50 to-transparent" />
 
+        {/* Vastu Products Section */}
+        <GemstoneGrid locale={locale} initialProducts={products} productType="vastu-products" />
+
+        <div className="max-w-7xl mx-auto h-px w-full bg-gradient-to-r from-transparent via-border/50 to-transparent" />
+
         {/* Astrologers Horizontal Scroll Row Section */}
         <AstrologersRow locale={locale} astrologers={astrologers} />
 

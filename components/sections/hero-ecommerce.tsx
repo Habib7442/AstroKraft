@@ -33,13 +33,16 @@ export function HeroEcommerce({ locale }: HeroEcommerceProps) {
     const isConsult = cat.href.includes("consultation") || cat.href.includes("consult");
     const isRudraksha = cat.href.includes("rudraksha");
     const isBracelet = cat.href.includes("bracelet") || cat.href.includes("crystal-bracelets");
+    const isVastu = cat.href.includes("vastu");
     const targetId = isConsult 
       ? "services-section" 
       : isRudraksha 
         ? "rudraksha-section" 
         : isBracelet
           ? "bracelets-section"
-          : "gemstones-section";
+          : isVastu
+            ? "vastu-section"
+            : "gemstones-section";
 
     if (isHome) {
       const el = document.getElementById(targetId);
@@ -80,7 +83,15 @@ export function HeroEcommerce({ locale }: HeroEcommerceProps) {
         hin: cat.name,
         bn: cat.name
       },
-      href: slugVal.includes("consult") ? `/${locale}/consultation` : `/${locale}/gemstones?category=${slugVal}`,
+      href: slugVal.includes("consult") 
+        ? `/${locale}/consultation` 
+        : slugVal.includes("rudraksha")
+        ? `/${locale}/rudraksha`
+        : (slugVal.includes("bracelet") || slugVal.includes("crystal-bracelets"))
+        ? `/${locale}/bracelets`
+        : (slugVal.includes("vastu") || slugVal.includes("vastu-products"))
+        ? `/${locale}/vastu-products`
+        : `/${locale}/gemstones?category=${slugVal}`,
       imageUrl: imageUrl
     };
   });
