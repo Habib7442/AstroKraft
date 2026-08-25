@@ -20,7 +20,7 @@ export function Footer({ locale, dict }: FooterProps) {
     { label: dict.services.astrologer.title, href: `/${locale}/astrologers` },
     { label: dict.services.gemstone.title, href: `/${locale}/gemstones` },
     { label: dict.nav.free_tools, href: `/${locale}/tools` },
-    { label: dict.footer?.vastu_consultant || "Vastu Consultant", href: `/${locale}/vastu-products` },
+    { label: dict.footer?.vastu_consultant || "Vastu Products", href: `/${locale}/vastu-products` },
   ];
 
   const toolsLinks = [

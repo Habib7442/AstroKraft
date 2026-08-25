@@ -11,6 +11,13 @@ export function BannerCarousel() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
 
+  // Keep currentSlide in range if the CMS banner list shrinks
+  useEffect(() => {
+    if (banners?.length) {
+      setCurrentSlide((previous) => Math.min(previous, banners.length - 1));
+    }
+  }, [banners?.length]);
+
   // Auto-slide effect
   useEffect(() => {
     if (!banners || banners.length <= 1 || isHovered) return;
@@ -94,13 +101,15 @@ export function BannerCarousel() {
         <>
           <button
             onClick={handlePrevSlide}
-            className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/40 hover:bg-[#E2C27A] hover:text-black text-white border border-white/10 hover:border-transparent transition-all cursor-pointer opacity-0 group-hover/carousel:opacity-100 z-10 shadow-md"
+            aria-label="Previous banner"
+            className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/40 hover:bg-[#E2C27A] hover:text-black text-white border border-white/10 hover:border-transparent transition-all cursor-pointer opacity-0 group-hover/carousel:opacity-100 focus-visible:opacity-100 z-10 shadow-md"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
           <button
             onClick={handleNextSlide}
-            className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/40 hover:bg-[#E2C27A] hover:text-black text-white border border-white/10 hover:border-transparent transition-all cursor-pointer opacity-0 group-hover/carousel:opacity-100 z-10 shadow-md"
+            aria-label="Next banner"
+            className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/40 hover:bg-[#E2C27A] hover:text-black text-white border border-white/10 hover:border-transparent transition-all cursor-pointer opacity-0 group-hover/carousel:opacity-100 focus-visible:opacity-100 z-10 shadow-md"
           >
             <ChevronRight className="w-5 h-5" />
           </button>
