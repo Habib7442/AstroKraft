@@ -16,9 +16,16 @@ export async function generateMetadata({ params }: { params: Promise<PageParams>
 
   const dict = await getDictionary(locale);
 
+  const description =
+    locale === "hin"
+      ? "सटीक कुंडली मिलान, रत्न चयन और प्राचीन वैदिक उपायों के लिए भारत के शीर्ष ज्योतिषियों और वास्तु विशेषज्ञों से परामर्श करें।"
+      : locale === "bn"
+      ? "সঠিক কুন্ডলী মিলন, রত্ন নির্বাচন এবং প্রাচীন বৈদিক প্রতিকারের জন্য ভারতের শীর্ষ জ্যোতিষী ও বাস্তু বিশেষজ্ঞদের সাথে পরামর্শ করুন।"
+      : "Consult India's top astrologers and Vastu experts for accurate horoscope compatibility, gemstone selections, and ancient Vedic remedies.";
+
   return constructMetadata({
     title: dict.nav.astrologers,
-    description: "Consult India's top astrologers and Vastu experts for accurate horoscope compatibility, gemstone selections, and ancient Vedic remedies.",
+    description,
     path: "/astrologers",
     locale,
   });

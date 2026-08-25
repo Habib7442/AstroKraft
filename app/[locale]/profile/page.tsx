@@ -14,8 +14,11 @@ export async function generateMetadata({ params }: { params: Promise<PageParams>
   const { locale } = await params;
   if (!isValidLocale(locale)) return {};
 
+  const title =
+    locale === "hin" ? "मेरी प्रोफ़ाइल" : locale === "bn" ? "আমার প্রোফাইল" : "My Profile";
+
   return constructMetadata({
-    title: "My Profile",
+    title,
     path: "/profile",
     locale,
     noIndex: true,

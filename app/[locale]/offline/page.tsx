@@ -18,8 +18,11 @@ export async function generateMetadata({ params }: { params: Promise<PageParams>
   const { locale } = await params;
   if (!isValidLocale(locale)) return {};
 
+  const title =
+    locale === "hin" ? "आप ऑफ़लाइन हैं" : locale === "bn" ? "আপনি অফলাইনে আছেন" : "You're Offline";
+
   return constructMetadata({
-    title: "You're Offline",
+    title,
     path: "/offline",
     locale,
     noIndex: true,

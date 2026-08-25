@@ -10,9 +10,21 @@ interface PageParams {
 }
 
 const heading = {
-  en: { title: "Privacy Policy", updated: "Last updated: August 2026" },
-  hin: { title: "गोपनीयता नीति", updated: "अंतिम अद्यतन: अगस्त 2026" },
-  bn: { title: "গোপনীয়তা নীতি", updated: "সর্বশেষ আপডেট: আগস্ট ২০২৬" },
+  en: {
+    title: "Privacy Policy",
+    updated: "Last updated: August 2026",
+    description: `${SITE.name}'s privacy policy — what information we collect, how it is used, and how it is protected.`,
+  },
+  hin: {
+    title: "गोपनीयता नीति",
+    updated: "अंतिम अद्यतन: अगस्त 2026",
+    description: `${SITE.name} की गोपनीयता नीति — हम कौन सी जानकारी एकत्र करते हैं, इसका उपयोग कैसे किया जाता है, और इसे कैसे सुरक्षित रखा जाता है।`,
+  },
+  bn: {
+    title: "গোপনীয়তা নীতি",
+    updated: "সর্বশেষ আপডেট: আগস্ট ২০২৬",
+    description: `${SITE.name}-এর গোপনীয়তা নীতি — আমরা কী তথ্য সংগ্রহ করি, তা কীভাবে ব্যবহৃত হয়, এবং কীভাবে সুরক্ষিত রাখা হয়।`,
+  },
 } as const;
 
 export async function generateMetadata({ params }: { params: Promise<PageParams> }): Promise<Metadata> {
@@ -23,7 +35,7 @@ export async function generateMetadata({ params }: { params: Promise<PageParams>
 
   return constructMetadata({
     title: t.title,
-    description: `${SITE.name}'s privacy policy — what information we collect, how it is used, and how it is protected.`,
+    description: t.description,
     path: "/privacy",
     locale,
   });
@@ -51,7 +63,7 @@ export default async function PrivacyPage({ params }: { params: Promise<PagePara
           <div className="space-y-8 text-sm text-neutral-700 font-medium leading-relaxed">
             <section>
               <h2 className="font-serif text-xl font-bold text-black mb-2">1. Introduction</h2>
-              <p>{SITE.name} ("we", "us", "our") operates {SITE.url.replace("/en", "")}. This policy explains what personal information we collect when you use our free astrology tools, book a consultation, or purchase a gemstone, and how we use, store, and protect it.</p>
+              <p>{SITE.name} (&quot;we&quot;, &quot;us&quot;, &quot;our&quot;) operates {SITE.url.replace("/en", "")}. This policy explains what personal information we collect when you use our free astrology tools, book a consultation, or purchase a gemstone, and how we use, store, and protect it.</p>
             </section>
 
             <section>

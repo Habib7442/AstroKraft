@@ -10,9 +10,21 @@ interface PageParams {
 }
 
 const heading = {
-  en: { title: "Terms of Service", updated: "Last updated: August 2026" },
-  hin: { title: "सेवा की शर्तें", updated: "अंतिम अद्यतन: अगस्त 2026" },
-  bn: { title: "পরিষেবার শর্তাবলী", updated: "সর্বশেষ আপডেট: আগস্ট ২০২৬" },
+  en: {
+    title: "Terms of Service",
+    updated: "Last updated: August 2026",
+    description: `The terms and conditions governing use of ${SITE.name}'s free tools, astrologer consultations, and gemstone store.`,
+  },
+  hin: {
+    title: "सेवा की शर्तें",
+    updated: "अंतिम अद्यतन: अगस्त 2026",
+    description: `${SITE.name} के निःशुल्क उपकरणों, ज्योतिषी परामर्श और रत्न स्टोर के उपयोग को नियंत्रित करने वाली नियम एवं शर्तें।`,
+  },
+  bn: {
+    title: "পরিষেবার শর্তাবলী",
+    updated: "সর্বশেষ আপডেট: আগস্ট ২০২৬",
+    description: `${SITE.name}-এর বিনামূল্যে সরঞ্জাম, জ্যোতিষী পরামর্শ এবং রত্ন স্টোর ব্যবহারের নিয়ন্ত্রক শর্তাবলী।`,
+  },
 } as const;
 
 export async function generateMetadata({ params }: { params: Promise<PageParams> }): Promise<Metadata> {
@@ -23,7 +35,7 @@ export async function generateMetadata({ params }: { params: Promise<PageParams>
 
   return constructMetadata({
     title: t.title,
-    description: `The terms and conditions governing use of ${SITE.name}'s free tools, astrologer consultations, and gemstone store.`,
+    description: t.description,
     path: "/terms",
     locale,
   });
@@ -66,7 +78,7 @@ export default async function TermsPage({ params }: { params: Promise<PageParams
 
             <section>
               <h2 className="font-serif text-xl font-bold text-black mb-2">4. Astrologers &amp; Consultations</h2>
-              <p>Astrologers listed on {SITE.name} are independent practitioners. Consultation fees are shown transparently before booking. We facilitate the connection between you and the astrologer; the content and advice of any consultation is the astrologer's own.</p>
+              <p>Astrologers listed on {SITE.name} are independent practitioners. Consultation fees are shown transparently before booking. We facilitate the connection between you and the astrologer; the content and advice of any consultation is the astrologer&apos;s own.</p>
             </section>
 
             <section>
@@ -76,7 +88,7 @@ export default async function TermsPage({ params }: { params: Promise<PageParams
 
             <section>
               <h2 className="font-serif text-xl font-bold text-black mb-2">6. Limitation of Liability</h2>
-              <p>{SITE.name} is not liable for outcomes, decisions, or actions taken based on astrological readings, remedies, or gemstone recommendations. Services are provided "as is" without warranties of any kind.</p>
+              <p>{SITE.name} is not liable for outcomes, decisions, or actions taken based on astrological readings, remedies, or gemstone recommendations. Services are provided &quot;as is&quot; without warranties of any kind.</p>
             </section>
 
             <section>

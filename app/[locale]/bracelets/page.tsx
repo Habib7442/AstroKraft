@@ -28,7 +28,11 @@ export async function generateMetadata({
       : "Healing Crystal Bracelets";
 
   const description =
-    "Explore natural, laboratory-tested crystal bracelets recommended for energy alignment, aura protection, luck, and abundance.";
+    locale === "hin"
+      ? "ऊर्जा संतुलन, आभा सुरक्षा, भाग्य और समृद्धि के लिए अनुशंसित प्राकृतिक, प्रयोगशाला-परीक्षित क्रिस्टल ब्रेसलेट्स देखें।"
+      : locale === "bn"
+      ? "শক্তি সমন্বয়, আভা সুরক্ষা, সৌভাগ্য এবং সমৃদ্ধির জন্য প্রস্তাবিত প্রাকৃতিক, ল্যাব-পরীক্ষিত ক্রিস্টাল ব্রেসলেট দেখুন।"
+      : "Explore natural, laboratory-tested crystal bracelets recommended for energy alignment, aura protection, luck, and abundance.";
 
   return constructMetadata({
     title,

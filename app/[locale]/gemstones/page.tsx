@@ -22,9 +22,16 @@ export async function generateMetadata({
 
   const dict = await getDictionary(locale);
 
+  const description =
+    locale === "hin"
+      ? "अपनी जन्म कुंडली के लिए अनुशंसित लैब-प्रमाणित प्राकृतिक रत्न देखें। भाग्य, करियर, रिश्तों और स्वास्थ्य के लिए सही रत्न खोजें।"
+      : locale === "bn"
+      ? "আপনার জন্ম কোষ্ঠীর জন্য প্রস্তাবিত ল্যাব-প্রত্যয়িত প্রাকৃতিক রত্ন দেখুন। সৌভাগ্য, কর্মজীবন, সম্পর্ক ও স্বাস্থ্যের জন্য সঠিক রত্ন খুঁজুন।"
+      : "Explore lab-certified natural gemstones recommended for your birth chart. Find the perfect stone for luck, career, relationships, and health.";
+
   return constructMetadata({
     title: dict.nav.gemstones,
-    description: "Explore lab-certified natural gemstones recommended for your birth chart. Find the perfect stone for luck, career, relationships, and health.",
+    description,
     path: "/gemstones",
     locale,
   });

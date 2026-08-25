@@ -15,9 +15,19 @@ export async function generateMetadata({ params }: { params: Promise<PageParams>
   const { locale } = await params;
   if (!isValidLocale(locale)) return {};
 
+  const title =
+    locale === "hin" ? "परामर्श बुक करें" : locale === "bn" ? "পরামর্শ বুক করুন" : "Book a Consultation";
+
+  const description =
+    locale === "hin"
+      ? "व्हाट्सएप के माध्यम से AstroKraft के सत्यापित वैदिक ज्योतिषियों के साथ व्यक्तिगत ज्योतिष परामर्श बुक करें। करियर, विवाह, वित्त, स्वास्थ्य, कुंडली और शिक्षा मार्गदर्शन।"
+      : locale === "bn"
+      ? "হোয়াটসঅ্যাপের মাধ্যমে AstroKraft-এর যাচাইকৃত বৈদিক জ্যোতিষীদের সাথে ব্যক্তিগত জ্যোতিষ পরামর্শ বুক করুন। কর্মজীবন, বিবাহ, অর্থ, স্বাস্থ্য, কুন্ডলী ও শিক্ষা দিকনির্দেশনা।"
+      : "Book a personal astrology consultation with AstroKraft's verified Vedic astrologers via WhatsApp. Career, marriage, finance, health, kundli & education guidance.";
+
   return constructMetadata({
-    title: "Book a Consultation",
-    description: "Book a personal astrology consultation with AstroKraft's verified Vedic astrologers via WhatsApp. Career, marriage, finance, health, kundli & education guidance.",
+    title,
+    description,
     path: "/consultation",
     locale,
   });

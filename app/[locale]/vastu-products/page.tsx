@@ -28,7 +28,11 @@ export async function generateMetadata({
       : "Auspicious Vastu Products & Remedies";
 
   const description =
-    "Explore authentic Vastu yantras, energy-boosting paintings, crystal pyramids, and wind chimes to optimize energy flow and bring harmony and abundance.";
+    locale === "hin"
+      ? "ऊर्जा प्रवाह को अनुकूलित करने और सद्भाव व समृद्धि लाने के लिए प्रामाणिक वास्तु यंत्र, ऊर्जा-वर्धक पेंटिंग, क्रिस्टल पिरामिड और विंड चाइम देखें।"
+      : locale === "bn"
+      ? "শক্তি প্রবাহ অপ্টিমাইজ করতে এবং সম্প্রীতি ও সমৃদ্ধি আনতে খাঁটি বাস্তু যন্ত্র, শক্তি-বর্ধক পেইন্টিং, ক্রিস্টাল পিরামিড এবং উইন্ড চাইম দেখুন।"
+      : "Explore authentic Vastu yantras, energy-boosting paintings, crystal pyramids, and wind chimes to optimize energy flow and bring harmony and abundance.";
 
   return constructMetadata({
     title,

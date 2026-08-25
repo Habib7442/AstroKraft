@@ -28,7 +28,11 @@ export async function generateMetadata({
       : "Sacred Natural Rudraksha";
 
   const description =
-    "Explore authentic, laboratory-tested Rudraksha beads from Nepal & Indonesia. Find the perfect bead for health, protection, and spiritual alignment.";
+    locale === "hin"
+      ? "नेपाल और इंडोनेशिया से प्रामाणिक, प्रयोगशाला-परीक्षित रुद्राक्ष देखें। स्वास्थ्य, सुरक्षा और आध्यात्मिक संतुलन के लिए सही रुद्राक्ष खोजें।"
+      : locale === "bn"
+      ? "নেপাল ও ইন্দোনেশিয়া থেকে খাঁটি, ল্যাব-পরীক্ষিত রুদ্রাক্ষ দেখুন। স্বাস্থ্য, সুরক্ষা ও আধ্যাত্মিক ভারসাম্যের জন্য সঠিক রুদ্রাক্ষ খুঁজুন।"
+      : "Explore authentic, laboratory-tested Rudraksha beads from Nepal & Indonesia. Find the perfect bead for health, protection, and spiritual alignment.";
 
   return constructMetadata({
     title,

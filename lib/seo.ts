@@ -689,37 +689,73 @@ export const PAGE_META = {
     home: (locale: Locale = DEFAULT_LOCALE): Metadata =>
         constructMetadata({ path: "/", locale, image: SITE.ogImage }),
 
-    matching: (locale: Locale = DEFAULT_LOCALE): Metadata =>
-        constructMetadata({
-            title: "Free Kundli Matching (Guna Milan) for Marriage",
-            description:
-                "Match kundli online for free. Get your Ashtakoot Guna Milan score out of 36, Manglik, Nadi & Bhakoot dosha analysis — instant, accurate & shareable. India's most beautiful kundli matching tool.",
+    matching: (locale: Locale = DEFAULT_LOCALE): Metadata => {
+        const title =
+            locale === "hin"
+                ? "विवाह के लिए निःशुल्क कुंडली मिलान (गुण मिलान)"
+                : locale === "bn"
+                ? "বিবাহের জন্য বিনামূল্যে কুন্ডলী মিলন (গুণ মিলন)"
+                : "Free Kundli Matching (Guna Milan) for Marriage";
+        const description =
+            locale === "hin"
+                ? "ऑनलाइन कुंडली मिलान निःशुल्क करें। अपना अष्टकूट गुण मिलान स्कोर 36 में से, मांगलिक, नाड़ी और भकूट दोष विश्लेषण प्राप्त करें — तुरंत, सटीक और शेयर करने योग्य।"
+                : locale === "bn"
+                ? "অনলাইনে বিনামূল্যে কুন্ডলী মিলান করুন। আপনার অষ্টকূট গুণ মিলন স্কোর ৩৬-এর মধ্যে, মাঙ্গলিক, নাড়ি ও ভকূট দোষ বিশ্লেষণ পান — তাৎক্ষণিক, নির্ভুল এবং শেয়ারযোগ্য।"
+                : "Match kundli online for free. Get your Ashtakoot Guna Milan score out of 36, Manglik, Nadi & Bhakoot dosha analysis — instant, accurate & shareable. India's most beautiful kundli matching tool.";
+        return constructMetadata({
+            title,
+            description,
             path: "/tools/matching",
             locale,
             keywords: KEYWORDS.matching,
             image: ogImageUrl({ title: "Kundli Matching", subtitle: "Guna Milan • Free", kind: "matching" }),
-        }),
+        });
+    },
 
-    kundli: (locale: Locale = DEFAULT_LOCALE): Metadata =>
-        constructMetadata({
-            title: "Free Online Kundli / Janam Patrika",
-            description:
-                "Generate your free Vedic birth chart (Janam Kundli) instantly — Lagna, Rashi, Navamsa, planetary positions, dasha & predictions. Available in Hindi, Bengali & more.",
+    kundli: (locale: Locale = DEFAULT_LOCALE): Metadata => {
+        const title =
+            locale === "hin"
+                ? "निःशुल्क ऑनलाइन कुंडली / जन्म पत्रिका"
+                : locale === "bn"
+                ? "বিনামূল্যে অনলাইন কুন্ডলী / জন্ম পত্রিকা"
+                : "Free Online Kundli / Janam Patrika";
+        const description =
+            locale === "hin"
+                ? "अपनी निःशुल्क वैदिक जन्म कुंडली तुरंत प्राप्त करें — लग्न, राशि, नवांश, ग्रहों की स्थिति, दशा और भविष्यवाणियां। हिंदी, बंगाली और अन्य भाषाओं में उपलब्ध।"
+                : locale === "bn"
+                ? "আপনার বিনামূল্যে বৈদিক জন্ম কোষ্ঠী তাৎক্ষণিকভাবে তৈরি করুন — লগ্ন, রাশি, নবাংশ, গ্রহের অবস্থান, দশা ও ভবিষ্যদ্বাণী। হিন্দি, বাংলা ও অন্যান্য ভাষায় উপলব্ধ।"
+                : "Generate your free Vedic birth chart (Janam Kundli) instantly — Lagna, Rashi, Navamsa, planetary positions, dasha & predictions. Available in Hindi, Bengali & more.";
+        return constructMetadata({
+            title,
+            description,
             path: "/tools/kundli",
             locale,
             keywords: KEYWORDS.kundli,
             image: ogImageUrl({ title: "Free Kundli", subtitle: "Janam Patrika", kind: "kundli" }),
-        }),
+        });
+    },
 
-    panchang: (locale: Locale = DEFAULT_LOCALE): Metadata =>
-        constructMetadata({
-            title: "Today's Panchang & Subh Muhurat",
-            description:
-                "Today's Panchang — tithi, nakshatra, yoga, karana — plus auspicious Subh Muhurat for marriage, griha pravesh, vehicle & business. Localized for your city.",
+    panchang: (locale: Locale = DEFAULT_LOCALE): Metadata => {
+        const title =
+            locale === "hin"
+                ? "आज का पंचांग और शुभ मुहूर्त"
+                : locale === "bn"
+                ? "আজকের পঞ্জিকা ও শুভ মুহূর্ত"
+                : "Today's Panchang & Subh Muhurat";
+        const description =
+            locale === "hin"
+                ? "आज का पंचांग — तिथि, नक्षत्र, योग, करण — साथ ही विवाह, गृह प्रवेश, वाहन और व्यापार के लिए शुभ मुहूर्त। आपके शहर के अनुसार।"
+                : locale === "bn"
+                ? "আজকের পঞ্জিকা — তিথি, নক্ষত্র, যোগ, করণ — সাথে বিবাহ, গৃহ প্রবেশ, যানবাহন ও ব্যবসার জন্য শুভ মুহূর্ত। আপনার শহর অনুযায়ী।"
+                : "Today's Panchang — tithi, nakshatra, yoga, karana — plus auspicious Subh Muhurat for marriage, griha pravesh, vehicle & business. Localized for your city.";
+        return constructMetadata({
+            title,
+            description,
             path: "/tools/panchang",
             locale,
             keywords: KEYWORDS.panchang,
-        }),
+        });
+    },
 
     astrologers: (locale: Locale = DEFAULT_LOCALE): Metadata =>
         constructMetadata({
