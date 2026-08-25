@@ -43,7 +43,7 @@ export async function POST(request: Request) {
         .insert([{
           id: authUser.id,
           email: authUser.email,
-          phone: `phone_${authUser.id.substring(0, 8)}`, // fallback phone placeholder
+          phone: `phone_${authUser.id}`, // fallback phone placeholder
           name: authUser.user_metadata?.name || email.split('@')[0],
           role: 'user'
         }])
@@ -55,10 +55,14 @@ export async function POST(request: Request) {
       } else {
         dbUser = newUser;
         // Dynamically create a wallet for the user with 500 testing balance
-        await supabaseAdmin.from('wallets').insert([{
+        const { error: walletError } = await supabaseAdmin.from('wallets').insert([{
           user_id: authUser.id,
           balance: 500.00
         }]);
+
+        if (walletError) {
+          console.error('Wallet initialization failed:', walletError);
+        }
       }
     }
 

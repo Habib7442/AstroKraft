@@ -45,7 +45,7 @@ export async function POST(request: Request) {
       });
     }
 
-    const cleanPhone = phone || `phone_${authUser.id.substring(0, 8)}`;
+    const cleanPhone = phone || `phone_${authUser.id}`;
 
     let finalRole = role;
     const adminEmails = (process.env.ADMIN_EMAILS || "")

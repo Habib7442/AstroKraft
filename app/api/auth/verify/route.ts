@@ -29,7 +29,7 @@ export async function POST(request: Request) {
     }
 
     const authUser = authData.user;
-    const cleanPhone = phone || `phone_${authUser.id.substring(0, 8)}`;
+    const cleanPhone = phone || `phone_${authUser.id}`;
 
     // 2. Create user record in Postgres public.users if not exists
     let { data: dbUser } = await supabaseAdmin

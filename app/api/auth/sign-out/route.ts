@@ -4,10 +4,16 @@ import { createClient } from '@/lib/supabase/server';
 export async function POST() {
   try {
     const supabase = await createClient();
-    await supabase.auth.signOut();
+    const { error } = await supabase.auth.signOut();
+
+    if (error) {
+      console.error('Sign-out API error:', error);
+      return NextResponse.json({ success: false, error: 'Failed to sign out' }, { status: 500 });
+    }
+
     return NextResponse.json({ success: true, message: 'Logged out successfully' });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Sign-out API error:', error);
-    return NextResponse.json({ success: true, message: 'Logged out successfully' });
+    return NextResponse.json({ success: false, error: 'Failed to sign out' }, { status: 500 });
   }
 }

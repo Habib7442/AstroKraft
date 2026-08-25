@@ -47,7 +47,12 @@ ALTER TABLE public.astrologer_profiles ENABLE ROW LEVEL SECURITY;
 
 -- users policies
 CREATE POLICY "Allow users to read their own record" ON public.users FOR SELECT USING (auth.uid() = id);
-CREATE POLICY "Allow users to update their own profile" ON public.users FOR UPDATE USING (auth.uid() = id);
+CREATE POLICY "Allow users to update their own profile" ON public.users
+    FOR UPDATE USING (auth.uid() = id) WITH CHECK (auth.uid() = id);
+
+-- Privileged columns stay server-side (service role only) — WITH CHECK alone does
+-- not stop a user from setting their own role to 'admin' in the same UPDATE.
+REVOKE UPDATE (role, id) ON public.users FROM anon, authenticated;
 
 -- wallets policies
 CREATE POLICY "Allow users to read their own wallet" ON public.wallets FOR SELECT USING (auth.uid() = user_id);
@@ -61,7 +66,10 @@ CREATE POLICY "Allow users to read their own transactions" ON public.wallet_tran
 
 -- astrologer_profiles policies
 CREATE POLICY "Allow public read access to astrologer profiles" ON public.astrologer_profiles FOR SELECT USING (true);
-CREATE POLICY "Allow astrologers to update their own status" ON public.astrologer_profiles FOR UPDATE USING (auth.uid() = user_id);
+CREATE POLICY "Allow astrologers to update their own status" ON public.astrologer_profiles
+    FOR UPDATE USING (auth.uid() = user_id) WITH CHECK (auth.uid() = user_id);
+
+REVOKE UPDATE (rate_per_min, is_active, user_id) ON public.astrologer_profiles FROM anon, authenticated;
 
 -- 4. Triggers to automatically update updated_at timestamp
 CREATE OR REPLACE FUNCTION public.update_updated_at_column()
