@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { insforge } from "@/lib/insforge";
+import { supabase } from "@/lib/supabase/client";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -23,18 +23,18 @@ export default function SignInPage() {
   const handleGoogleLogin = async () => {
     try {
       setGoogleLoading(true);
-      const redirectTo = `${window.location.origin}/${locale}`;
+      const redirectTo = `${window.location.origin}/auth/callback?next=/${locale}`;
       
-      const { data, error } = await insforge.auth.signInWithOAuth("google", {
-        redirectTo,
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: { redirectTo },
       });
 
       if (error) {
         throw error;
       }
-      
-      // If skipBrowserRedirect is false (default), the SDK will automatically redirect.
-      // In case it didn't, we redirect manually if a URL is provided
+
+      // Supabase redirects the browser automatically; fall back manually if not.
       if (data?.url) {
         window.location.assign(data.url);
       }

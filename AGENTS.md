@@ -19,23 +19,17 @@ Update `context/progress-tracker.md` after each meaningful implementation change
 
 If implementation changes the architecture, scope, or standards documented in the context files, update the relevant file before continuing.
 
-<!-- INSFORGE:START -->
-## InsForge backend
+## Supabase backend
 
-This project uses [InsForge](https://insforge.dev): an all-in-one, open-source Postgres-based backend (BaaS) that gives this app a database, authentication, file storage, edge functions, realtime, an AI model gateway, and payments through one platform.
+This project uses [Supabase](https://supabase.com) for auth and the relational database (Postgres). Sanity remains the CMS for catalog/content (astrologers, gemstones, banners, blog); Supabase owns only `auth.users` plus `public.users` / `public.wallets` / `public.astrologer_profiles`.
 
-- **Project:** **astrokraft** (API base `https://rau729jc.ap-southeast.insforge.app`)
-- **Skills:** these InsForge skills are installed for supported coding agents. Reach for them before implementing any InsForge feature instead of guessing the API:
-  - `insforge`: app code with the `@insforge/sdk` client (database CRUD, auth, storage, edge functions, realtime, AI, email, and Stripe payments).
-  - `insforge-cli`: backend and infrastructure via the `insforge` CLI (projects, SQL, migrations, RLS policies, storage buckets, functions, secrets, payment setup, schedules, deploys).
-  - `insforge-debug`: diagnosing failures (SDK/HTTP errors, RLS denials, auth and OAuth issues) and running security or performance audits.
-  - `insforge-integrations`: wiring external auth providers (Clerk, Auth0, WorkOS, Better Auth, etc.) for JWT-based RLS, or the OKX x402 payment facilitator.
-  - `find-skills`: discovering additional skills on demand.
-- **Credentials:** app code reads keys from `.env.local`; the CLI reads `.insforge/project.json`. Never hardcode or commit keys.
+- **Clients:** `lib/supabase/client.ts` (browser, RLS-respecting), `lib/supabase/server.ts` (Server Components/Route Handlers/Server Actions, RLS-respecting, reads cookies via `next/headers`), `lib/supabase/admin.ts` (service-role, bypasses RLS — API routes only, for writes users can't perform on themselves e.g. creating their own row right after sign-up), `lib/supabase/middleware.ts` (session refresh, called from `proxy.ts`).
+- **Credentials:** `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` in `.env.local`. Never hardcode or commit keys; never use the service-role client in a Client Component.
+- **Schema migrations:** SQL files in `supabase/migrations/`. Apply new ones in the Supabase SQL Editor (or `supabase db push` once the project is linked with `supabase link`).
 
 Key patterns:
 
-- Database inserts take an array: `insert([{ ... }])`.
-- Reference users with `auth.users(id)`; use `auth.uid()` in RLS policies.
-- For storage uploads, persist both the returned `url` and `key`.
-<!-- INSFORGE:END -->
+- Database inserts take an array: `.insert([{ ... }])`.
+- `public.users.id` references `auth.users(id)`; RLS policies use `auth.uid()`.
+- Server-side auth checks call `supabase.auth.getUser()` (validates the JWT against Supabase), never `getSession()` (trusts the local cookie only).
+- Google OAuth redirects through `app/auth/callback/route.ts`, which exchanges the code for a session — that route lives outside `[locale]` and is excluded from locale-prefixing in `proxy.ts`.

@@ -1,19 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { writeClient } from "@/lib/sanity.write";
-import { createServerClient } from "@insforge/sdk/ssr";
-import { cookies } from "next/headers";
+import { createClient } from "@/lib/supabase/server";
 
 export async function POST(req: NextRequest) {
-  // 1. Verify InsForge session & admin privilege
-  const cookieStore = await cookies();
-  const insforge = createServerClient({
-    cookies: cookieStore,
-    baseUrl: process.env.NEXT_PUBLIC_INSFORGE_URL || "",
-    anonKey: process.env.NEXT_PUBLIC_INSFORGE_ANON_KEY || ""
-  });
-  
+  // 1. Verify Supabase session & admin privilege
+  const supabase = await createClient();
+
   try {
-    const { data } = await insforge.auth.getCurrentUser();
+    const { data } = await supabase.auth.getUser();
     const user = data?.user;
     if (!user) {
       return NextResponse.json({ error: "Unauthorized - No user session" }, { status: 401 });
@@ -22,7 +16,7 @@ export async function POST(req: NextRequest) {
     // Query database users table for role
     let role = "user";
     try {
-      const { data: profile } = await insforge.database
+      const { data: profile } = await supabase
         .from("users")
         .select("role")
         .eq("id", user.id)
@@ -39,7 +33,7 @@ export async function POST(req: NextRequest) {
       .map((e) => e.trim().toLowerCase())
       .filter(Boolean);
 
-    const isAdmin = role === "admin" || adminEmails.includes(user.email.toLowerCase());
+    const isAdmin = role === "admin" || adminEmails.includes((user.email || "").toLowerCase());
     if (!isAdmin) {
       return NextResponse.json({ error: "Unauthorized - Not an admin" }, { status: 401 });
     }

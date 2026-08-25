@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import { createServerClient, setAuthCookies } from '@insforge/sdk/ssr';
-import { insforgeAdmin } from '@/lib/insforge-admin';
+import { createClient } from '@/lib/supabase/server';
+import { supabaseAdmin } from '@/lib/supabase/admin';
 
 export async function POST(request: Request) {
   try {
@@ -13,31 +13,26 @@ export async function POST(request: Request) {
       );
     }
 
-    // 1. Initialize server client to perform verification (retrieves refreshToken)
-    const client = createServerClient({
-      baseUrl: process.env.NEXT_PUBLIC_INSFORGE_URL || '',
-      anonKey: process.env.NEXT_PUBLIC_INSFORGE_ANON_KEY || ''
-    });
-
-    // 2. Verify Email OTP via InsForge Auth Service
-    const { data: authData, error: authError } = await client.auth.verifyEmail({
+    // 1. Verify the signup email OTP with Supabase Auth (persists session cookie)
+    const supabase = await createClient();
+    const { data: authData, error: authError } = await supabase.auth.verifyOtp({
       email,
-      otp
+      token: otp,
+      type: 'signup'
     });
 
     if (authError || !authData?.user) {
       return NextResponse.json(
         { error: authError?.message || 'Invalid or expired OTP code' },
-        { status: authError?.statusCode || 400 }
+        { status: authError?.status || 400 }
       );
     }
 
     const authUser = authData.user;
     const cleanPhone = phone || `phone_${authUser.id.substring(0, 8)}`;
 
-    // 3. Create user record in Postgres public.users if not exists
-    let { data: dbUser } = await insforgeAdmin
-      .database
+    // 2. Create user record in Postgres public.users if not exists
+    let { data: dbUser } = await supabaseAdmin
       .from('users')
       .select('*')
       .eq('id', authUser.id)
@@ -60,14 +55,13 @@ export async function POST(request: Request) {
         finalRole = "user";
       }
 
-      const { data: newUser, error: dbError } = await insforgeAdmin
-        .database
+      const { data: newUser, error: dbError } = await supabaseAdmin
         .from('users')
         .insert([{
           id: authUser.id,
           phone: cleanPhone,
           email: authUser.email,
-          name: name || authUser.profile?.name || email.split('@')[0],
+          name: name || authUser.user_metadata?.name || email.split('@')[0],
           role: finalRole
         }])
         .select()
@@ -82,9 +76,8 @@ export async function POST(request: Request) {
       }
       dbUser = newUser;
 
-      // 4. Initialize wallet for the user with 500 testing balance
-      const { error: walletError } = await insforgeAdmin
-        .database
+      // 3. Initialize wallet for the user with 500 testing balance
+      const { error: walletError } = await supabaseAdmin
         .from('wallets')
         .insert([{
           user_id: authUser.id,
@@ -95,10 +88,9 @@ export async function POST(request: Request) {
         console.error('Wallet initialization failed:', walletError);
       }
 
-      // 5. If registering as an astrologer, initialize profile
+      // 4. If registering as an astrologer, initialize profile
       if (finalRole === 'astrologer') {
-        const { error: profileError } = await insforgeAdmin
-          .database
+        const { error: profileError } = await supabaseAdmin
           .from('astrologer_profiles')
           .insert([{
             user_id: authUser.id,
@@ -112,26 +104,15 @@ export async function POST(request: Request) {
       }
     }
 
-    // 5. Build response and set session cookies
-    const response = NextResponse.json({
+    return NextResponse.json({
       success: true,
       user: {
         id: authUser.id,
         email: authUser.email,
-        name: dbUser?.name || authUser.profile?.name,
+        name: dbUser?.name || authUser.user_metadata?.name,
         role: dbUser?.role || 'user'
-      },
-      accessToken: authData.accessToken
+      }
     });
-
-    if (authData.accessToken) {
-      setAuthCookies(response.cookies, {
-        accessToken: authData.accessToken,
-        refreshToken: authData.refreshToken
-      });
-    }
-
-    return response;
   } catch (error: any) {
     console.error('OTP Verification API error:', error);
     return NextResponse.json(

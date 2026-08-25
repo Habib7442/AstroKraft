@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { insforge } from "@/lib/insforge";
+import { supabase } from "@/lib/supabase/client";
 
 interface AuthState {
   user: any | null;
@@ -19,41 +19,28 @@ export const useAuthStore = create<AuthState>((set) => ({
   setUser: (user) => set({ user }),
   setWallet: (wallet) => set({ wallet }),
   setLoading: (loading) => set({ loading }),
-  
+
   checkSession: async () => {
     set({ loading: true });
     try {
-      // console.log("[useAuthStore] Checking session via local API...");
       const res = await fetch("/api/auth/session");
       const data = await res.json();
-      
+
       if (data?.user) {
-        // console.log("[useAuthStore] User found in session:", data.user);
         set({ user: data.user, wallet: data.wallet });
-        
-        // Sync access token if needed for any client-side RLS queries
-        const accessToken = document.cookie
-          .split("; ")
-          .find((row) => row.startsWith("insforge_access_token="))
-          ?.split("=")[1];
-        if (accessToken) {
-          insforge.setAccessToken(accessToken);
-        }
       } else {
-        // console.log("[useAuthStore] No active session user.");
         set({ user: null, wallet: null });
       }
     } catch (error) {
-      // console.error("[useAuthStore] Error checking session in store:", error);
       set({ user: null, wallet: null });
     } finally {
       set({ loading: false });
     }
   },
-  
+
   logout: async () => {
     try {
-      await insforge.auth.signOut();
+      await supabase.auth.signOut();
       await fetch("/api/auth/sign-out", { method: "POST" });
     } catch (error) {
       console.error("Error signing out:", error);

@@ -43,8 +43,9 @@ next-env.d.ts
 .vercel
 .env*
 
-# InsForge & AI agent skills
-.insforge
+.supabase
+
+# AI agent skills
 .agent
 .agents
 .augment

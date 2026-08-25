@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { LOCALES, DEFAULT_LOCALE } from './lib/seo';
 
-import { updateSession } from '@insforge/sdk/ssr';
+import { updateSession } from './lib/supabase/middleware';
 
 /**
  * Next.js 16 Proxy entry point.
@@ -30,6 +30,9 @@ export async function proxy(request: NextRequest) {
 
   if (pathname === '/admin' || pathname.startsWith('/admin/')) {
     response = NextResponse.next({ request });
+  } else if (pathname === '/auth' || pathname.startsWith('/auth/')) {
+    // Supabase OAuth callback lives outside the [locale] segment
+    response = NextResponse.next({ request });
   } else if (pathnameHasLocale) {
     response = NextResponse.next({ request });
   } else {
@@ -40,10 +43,7 @@ export async function proxy(request: NextRequest) {
 
   // Synchronize authentication session cookies
   try {
-    await updateSession({
-      requestCookies: request.cookies as any,
-      responseCookies: response.cookies as any,
-    });
+    response = await updateSession(request, response);
   } catch (error) {
     console.error('Session sync error:', error);
   }

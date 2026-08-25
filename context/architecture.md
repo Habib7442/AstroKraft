@@ -12,8 +12,8 @@
 | i18n | Static JSON dictionaries | EN, HI, BN locale routing with `[locale]` segment |
 | 3D Globe | React Three Fiber + Drei | Interactive astrologer globe visualization |
 | State | Zustand | Lightweight global state (globe selection, UI state) |
-| Auth | NextAuth.js / Clerk | Phone OTP (India-first), Google OAuth |
-| Database | Prisma ORM + PostgreSQL (Neon/Supabase) | Users, saved charts, bookings, gemstones, astrologer data |
+| Auth | Supabase Auth | Email/password + Google OAuth, session cookies via `@supabase/ssr` |
+| Database | Supabase (PostgreSQL) via `@supabase/supabase-js` | `users`, `wallets`, `astrologer_profiles`; Sanity remains the CMS for astrologers/gemstones/content |
 | Caching | Upstash Redis + Next.js Data Cache | Hash-keyed astrology API result caching |
 | Astrology APIs | FreeAstrologyAPI + Prokerala | Core calculation engines (charts, gunas, panchang, translations) |
 | Payments | Razorpay | UPI, cards, netbanking for India |
@@ -182,11 +182,12 @@ WhatsApp handoff or chat/call redirect
 
 ## Authentication
 
-- Provider: NextAuth.js / Clerk
-- Methods: Phone OTP (India-first), Google OAuth
-- Protected routes: `/account`, `/checkout`
+- Provider: Supabase Auth
+- Methods: Email/password (with email-OTP signup verification) + Google OAuth via `app/auth/callback/route.ts`
+- Session: cookie-based via `@supabase/ssr`; `proxy.ts` calls `lib/supabase/middleware.ts` on every request to refresh the token before Server Components read cookies
+- `public.users` (role: user/astrologer/admin), `public.wallets`, `public.astrologer_profiles` are plain Postgres tables with RLS — service-role writes only happen server-side in `app/api/auth/*` and `app/auth/callback/route.ts`
+- Protected routes: `/account`, `/checkout`, `/admin` (role-gated, not session-gated)
 - Public routes: All tool pages, homepage, astrologer directory, gemstone catalog
-- Middleware checks session on protected routes only
 - Free tools work without authentication — account required only for saving results and booking
 
 ---

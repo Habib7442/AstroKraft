@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import { createServerClient, setAuthCookies } from '@insforge/sdk/ssr';
-import { insforgeAdmin } from '@/lib/insforge-admin';
+import { createClient } from '@/lib/supabase/server';
+import { supabaseAdmin } from '@/lib/supabase/admin';
 
 export async function POST(request: Request) {
   try {
@@ -13,28 +13,31 @@ export async function POST(request: Request) {
       );
     }
 
-    // 1. Initialize server client to perform sign-up (retrieves refreshToken)
-    const client = createServerClient({
-      baseUrl: process.env.NEXT_PUBLIC_INSFORGE_URL || '',
-      anonKey: process.env.NEXT_PUBLIC_INSFORGE_ANON_KEY || ''
-    });
-
-    // 2. Sign up in InsForge Auth Service
-    const { data: authData, error: authError } = await client.auth.signUp({
+    // 1. Sign up with Supabase Auth (server client persists the session cookie)
+    const supabase = await createClient();
+    const { data: authData, error: authError } = await supabase.auth.signUp({
       email,
       password,
-      name
+      options: { data: { name } }
     });
 
     if (authError) {
       return NextResponse.json(
         { error: authError.message || 'Failed to sign up account' },
-        { status: authError.statusCode || 400 }
+        { status: authError.status || 400 }
       );
     }
 
-    // Handle email verification required path
-    if (authData?.requireEmailVerification) {
+    const authUser = authData.user;
+    if (!authUser) {
+      return NextResponse.json(
+        { error: 'Registration succeeded but user profile was not returned' },
+        { status: 500 }
+      );
+    }
+
+    // Supabase returns a user with no session when email confirmation is required
+    if (!authData.session) {
       return NextResponse.json({
         success: true,
         requireEmailVerification: true,
@@ -42,13 +45,6 @@ export async function POST(request: Request) {
       });
     }
 
-    const authUser = authData?.user;
-    if (!authUser) {
-      return NextResponse.json(
-        { error: 'Registration succeeded but user profile was not returned' },
-        { status: 500 }
-      );
-    }
     const cleanPhone = phone || `phone_${authUser.id.substring(0, 8)}`;
 
     let finalRole = role;
@@ -61,9 +57,8 @@ export async function POST(request: Request) {
       finalRole = "admin";
     }
 
-    // 3. Create user record in Postgres public.users
-    const { data: dbUser, error: dbError } = await insforgeAdmin
-      .database
+    // 2. Create user record in Postgres public.users (service role — bypasses RLS)
+    const { data: dbUser, error: dbError } = await supabaseAdmin
       .from('users')
       .insert([{
         id: authUser.id,
@@ -83,9 +78,8 @@ export async function POST(request: Request) {
       );
     }
 
-    // 4. Initialize wallet for the user with 500 testing balance
-    const { error: walletError } = await insforgeAdmin
-      .database
+    // 3. Initialize wallet for the user with 500 testing balance
+    const { error: walletError } = await supabaseAdmin
       .from('wallets')
       .insert([{
         user_id: authUser.id,
@@ -96,10 +90,9 @@ export async function POST(request: Request) {
       console.error('Wallet initialization failed:', walletError);
     }
 
-    // 5. If registering as an astrologer, initialize profile
+    // 4. If registering as an astrologer, initialize profile
     if (finalRole === 'astrologer') {
-      const { error: profileError } = await insforgeAdmin
-        .database
+      const { error: profileError } = await supabaseAdmin
         .from('astrologer_profiles')
         .insert([{
           user_id: authUser.id,
@@ -112,26 +105,15 @@ export async function POST(request: Request) {
       }
     }
 
-    // 6. Build response and set session cookies
-    const response = NextResponse.json({
+    return NextResponse.json({
       success: true,
       user: {
         id: authUser.id,
         email: authUser.email,
         name,
         role: finalRole
-      },
-      accessToken: authData.accessToken
+      }
     });
-
-    if (authData.accessToken) {
-      setAuthCookies(response.cookies, {
-        accessToken: authData.accessToken,
-        refreshToken: authData.refreshToken
-      });
-    }
-
-    return response;
   } catch (error: any) {
     console.error('Sign-up API error:', error);
     return NextResponse.json(

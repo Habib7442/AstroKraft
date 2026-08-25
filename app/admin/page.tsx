@@ -1,7 +1,6 @@
 import { redirect } from "next/navigation";
-import { cookies } from "next/headers";
-import { createServerClient } from "@insforge/sdk/ssr";
-import { 
+import { createClient } from "@/lib/supabase/server";
+import {
   getAdminBanners,
   getAdminCategories,
   getAdminProducts,
@@ -11,17 +10,12 @@ import {
 import { AdminDashboard } from "@/components/sections/admin-dashboard";
 
 export default async function AdminPage() {
-  // 1. Authenticate with InsForge session on the server
-  const cookieStore = await cookies();
-  const insforge = createServerClient({
-    cookies: cookieStore,
-    baseUrl: process.env.NEXT_PUBLIC_INSFORGE_URL || "",
-    anonKey: process.env.NEXT_PUBLIC_INSFORGE_ANON_KEY || ""
-  });
+  // 1. Authenticate with Supabase session on the server
+  const supabase = await createClient();
 
   let user = null;
   try {
-    const { data } = await insforge.auth.getCurrentUser();
+    const { data } = await supabase.auth.getUser();
     user = data?.user || null;
   } catch (e) {
     console.error("Auth verify error in admin page:", e);
@@ -31,7 +25,7 @@ export default async function AdminPage() {
   let role = "user";
   try {
     if (user) {
-      const { data: profile } = await insforge.database
+      const { data: profile } = await supabase
         .from("users")
         .select("role")
         .eq("id", user.id)
@@ -51,7 +45,7 @@ export default async function AdminPage() {
 
   const isAdmin = user && (
     role === "admin" ||
-    adminEmails.includes(user.email.toLowerCase())
+    adminEmails.includes((user.email || "").toLowerCase())
   );
 
   if (!isAdmin) {
