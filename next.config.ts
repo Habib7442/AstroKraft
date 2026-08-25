@@ -14,7 +14,7 @@ const nextConfig: NextConfig = {
         ],
       },
       {
-        source: "/logo.svg",
+        source: "/astrokraft_logo.png",
         headers: [
           {
             key: "Cache-Control",

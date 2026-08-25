@@ -1,4 +1,4 @@
-const CACHE_NAME = 'astrokraft-cache-v3';
+const CACHE_NAME = 'astrokraft-cache-v4';
 const OFFLINE_URLS = [
   '/en/offline',
   '/hin/offline',
@@ -6,10 +6,10 @@ const OFFLINE_URLS = [
   '/favicons/favicon.ico',
   '/favicons/favicon-32x32.png',
   '/favicons/favicon-16x16.png',
-  '/favicons/pwa-192x192.png',
-  '/favicons/pwa-512x512.png',
+  '/favicons/android-chrome-192x192.png',
+  '/favicons/android-chrome-512x512.png',
   '/favicons/apple-touch-icon.png',
-  '/logo.svg',
+  '/astrokraft_logo.png',
 ];
 
 self.addEventListener('install', (event) => {
