@@ -10,6 +10,7 @@ import { client } from "@/sanity/lib/client";
 import { productsQuery } from "@/sanity/lib/queries";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { ExploreAllButton } from "@/components/shared/ExploreAllButton";
+import { SITE } from "@/lib/seo";
 
 interface GemInfo {
   id: string;
@@ -157,10 +158,7 @@ function GemstoneCard({ gem, activeLocale, labels, getPrefilledWhatsappUrl, prod
 
   const gemName = gem.name[activeLocale] || gem.name["en"];
   const gemDesc = gem.description[activeLocale] || gem.description["en"];
-  const gemZodiac = gem.zodiac[activeLocale] || gem.zodiac["en"];
-  const gemRuler = gem.ruler[activeLocale] || gem.ruler["en"];
-  const gemOrigin = gem.origin[activeLocale] || gem.origin["en"];
-  
+
   const cornerColor = getGemHexColor(gemName);
   const glowColor = getGemGlowColor(gemName);
 
@@ -203,7 +201,7 @@ function GemstoneCard({ gem, activeLocale, labels, getPrefilledWhatsappUrl, prod
         useCanvas={false}
       className={cn(
         "group/gem transition-all duration-300 border rounded-2xl flex flex-col justify-between overflow-hidden p-4 select-none relative shadow-sm hover:shadow-md bg-white hover:-translate-y-1 w-[275px] shrink-0 will-change-transform [transform:translate3d(0,0,0)]",
-        productType === "gemstone" ? "min-h-[25rem]" : "min-h-[20rem]"
+        productType === "gemstone" ? "min-h-[19rem]" : "min-h-[16rem]"
       )}
       style={{
         background: `radial-gradient(circle at top right, ${cornerColor}22 0%, rgba(255, 255, 255, 0.9) 60%, rgba(255, 255, 255, 1) 100%)`,
@@ -267,22 +265,6 @@ function GemstoneCard({ gem, activeLocale, labels, getPrefilledWhatsappUrl, prod
           </div>
         </div>
 
-        {/* Planetary & Zodiac details grid */}
-        <div className="grid grid-cols-3 gap-1.5 font-sans text-[8px] bg-zinc-50/60 border border-zinc-100 p-1.5 rounded-xl shadow-sm font-bold text-zinc-700">
-          <div className="flex flex-col gap-0.5">
-            <span className="text-zinc-500 font-bold uppercase tracking-wider scale-95 origin-left">{labels.planet}</span>
-            <strong className="text-zinc-900 font-bold truncate">{gemRuler}</strong>
-          </div>
-          <div className="flex flex-col gap-0.5 border-l border-zinc-150 pl-1.5">
-            <span className="text-zinc-500 font-bold uppercase tracking-wider scale-95 origin-left">{labels.zodiacLabel}</span>
-            <strong className="text-zinc-900 font-bold truncate">{gemZodiac}</strong>
-          </div>
-          <div className="flex flex-col gap-0.5 border-l border-zinc-150 pl-1.5">
-            <span className="text-zinc-500 font-bold uppercase tracking-wider scale-95 origin-left">{labels.origin}</span>
-            <strong className="text-zinc-900 font-bold truncate">{gemOrigin}</strong>
-          </div>
-        </div>
-
         {/* Quality Tiers Selection Pills */}
         {productType === "gemstone" && (
           <div className="flex flex-col gap-1 mt-1">
@@ -325,34 +307,9 @@ function GemstoneCard({ gem, activeLocale, labels, getPrefilledWhatsappUrl, prod
           </div>
         )}
 
-        {/* Highlighted EMI Option Section */}
-        {productType === "gemstone" && (
-          <div 
-            className="mt-1 p-2 rounded-xl flex items-center gap-2 border shadow-sm select-none"
-            style={{
-              background: "linear-gradient(135deg, #FFFDF5 0%, #FFF9E6 100%)",
-              borderColor: `${cornerColor}bb`
-            }}
-          >
-            <div 
-              className="w-6 h-6 rounded-lg flex items-center justify-center shrink-0"
-              style={{ backgroundColor: `${cornerColor}66` }}
-            >
-              <span className="text-xs">💳</span>
-            </div>
-            <div className="flex flex-col font-sans leading-tight text-left">
-              <strong className="font-bold text-[9px]" style={{ color: "#78350F" }}>
-                EMI Option Available
-              </strong>
-              <span className="font-medium text-[8px]" style={{ color: "#6E698A" }}>
-                Bajaj Finance & Card EMI
-              </span>
-            </div>
-          </div>
-        )}
       </div>
 
-      {/* Actions buttons */}
+      {/* Action button */}
       <div className="flex items-center gap-1.5 mt-4 border-t border-zinc-100 pt-3">
         <a
           href={whatsappUrl}
@@ -363,12 +320,6 @@ function GemstoneCard({ gem, activeLocale, labels, getPrefilledWhatsappUrl, prod
           <img src="/social-icons/whatsapp.png" alt="WhatsApp" className="w-3 h-3 object-contain shrink-0" />
           {labels.inquireBtn}
         </a>
-        <button
-          disabled
-          className="flex-1 text-[9px] font-bold text-zinc-400 py-2 px-3 rounded-full border border-zinc-250 bg-transparent cursor-not-allowed opacity-50 select-none uppercase tracking-wider"
-        >
-          {labels.buyNowBtn}
-        </button>
       </div>
     </CardSpotlight>
 
@@ -464,7 +415,7 @@ export default function GemstoneGrid({
 
   const getPrefilledWhatsappUrl = (name: string) => {
     const text = `Hello AstroKraft! I am interested in purchasing the ${name}. Please share availability and lab certificates.`;
-    return `https://wa.me/916913230255?text=${encodeURIComponent(text)}`;
+    return `https://wa.me/${SITE.contact.whatsapp}?text=${encodeURIComponent(text)}`;
   };
 
   // Filter to gemstones only

@@ -24,7 +24,7 @@ const translations = {
     horoscopeDesc: "Receive accurate zodiac predictions for career, finance, relationship, and health guidance based on your sign.",
     exploreBtn: "Launch Tool",
     comingSoon: "Coming Soon",
-    viewAllBtn: "Explore All Free Tools ✦"
+    viewAllBtn: "Explore All Vedic Tools ✦"
   },
   hin: {
     eyebrow: "✦ 100% मुफ़्त आकाशीय गणना",
@@ -40,7 +40,7 @@ const translations = {
     horoscopeDesc: "अपने सूर्य/चंद्र राशि के आधार पर करियर, वित्त, रिश्ते और स्वास्थ्य पर आधारित दैनिक भविष्यफल देखें।",
     exploreBtn: "उपकरण खोलें",
     comingSoon: "शीघ्र आ रहा है",
-    viewAllBtn: "सभी निःशुल्क उपकरण देखें ✦"
+    viewAllBtn: "सभी वैदिक उपकरण देखें ✦"
   },
   bn: {
     eyebrow: "✦ ১০০% সম্পূর্ণ নিখরচায় গণনা",
@@ -56,7 +56,7 @@ const translations = {
     horoscopeDesc: "আপনার রাশির উপর ভিত্তি করে কর্মজীবন, শিক্ষা, অর্থ ও স্বাস্থ্য সম্পর্কে সঠিক দৈনিক রাশিফল পূর্বাভাস পান।",
     exploreBtn: "টুল চালু করুন",
     comingSoon: "শীঘ্রই আসছে",
-    viewAllBtn: "সব নিখরচায় সরঞ্জাম দেখুন ✦"
+    viewAllBtn: "সব বৈদিক সরঞ্জাম দেখুন ✦"
   }
 } as const;
 

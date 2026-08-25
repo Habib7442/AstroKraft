@@ -2,12 +2,10 @@
 
 import React, { useState, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { Menu, ChevronDown, LogOut, User as UserIcon, ShoppingCart, Globe, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { Menu, ChevronDown, ChevronRight, LogOut, User as UserIcon, ShoppingCart, Globe, Gem, Sparkles, Compass, Users, BookOpen } from "lucide-react";
 import { LOCALES, LOCALE_LABEL, type Locale } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 import { useAuthStore } from "@/lib/store/useAuthStore";
-import { useCMSStore } from "@/lib/store/useCMSStore";
-import { urlFor } from "@/sanity/lib/image";
 import {
   Sheet,
   SheetContent,
@@ -23,7 +21,6 @@ interface HeaderProps {
 }
 
 export function Header({ locale, dict }: HeaderProps) {
-  const banners = useCMSStore((state) => state.banners);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
@@ -31,11 +28,6 @@ export function Header({ locale, dict }: HeaderProps) {
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
   const { user, checkSession, logout } = useAuthStore();
   const [cartCount, setCartCount] = useState(0);
-
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
-
-  const isHomePage = pathname === `/${locale}` || pathname === `/${locale}/` || pathname === "/";
 
   const isItemActive = (href: string) => {
     if (typeof window === "undefined") return false;
@@ -69,28 +61,6 @@ export function Header({ locale, dict }: HeaderProps) {
     }
   };
 
-  // Auto-slide effect
-  useEffect(() => {
-    if (!banners || banners.length <= 1 || isHovered) return;
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % banners.length);
-    }, 4000); // slide every 4 seconds
-    return () => clearInterval(interval);
-  }, [banners?.length, isHovered]);
-
-  const handlePrevSlide = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (!banners || banners.length === 0) return;
-    setCurrentSlide((prev) => (prev - 1 + banners.length) % banners.length);
-  };
-
-  const handleNextSlide = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (!banners || banners.length === 0) return;
-    setCurrentSlide((prev) => (prev + 1) % banners.length);
-  };
 
   useEffect(() => {
     setMounted(true);
@@ -126,21 +96,26 @@ export function Header({ locale, dict }: HeaderProps) {
   };
 
   const navItems = [
-    { label: dict.nav.gemstones || "Gemstones", href: `/${locale}/gemstones` },
-    { label: "Rudraksha", href: `/${locale}/gemstones?category=rudraksha` },
-    { label: dict.nav.free_tools || "Free Tools", href: `/${locale}/tools` },
-    { label: dict.nav.astrologers || "Astrologers", href: `/${locale}/astrologers` },
-    { label: dict.nav.blog || "Blog", href: `/${locale}/blog` },
+    { label: dict.nav.gemstones || "Gemstones", href: `/${locale}/gemstones`, icon: Gem },
+    { label: "Rudraksha", href: `/${locale}/rudraksha`, icon: Sparkles },
+    { label: dict.nav.free_tools || "Vedic Tools", href: `/${locale}/tools`, icon: Compass },
+    { label: dict.nav.astrologers || "Astrologers", href: `/${locale}/astrologers`, icon: Users },
+    { label: dict.nav.blog || "Blog", href: `/${locale}/blog`, icon: BookOpen },
   ];
 
   return (
-    <>
-      <header className="w-full bg-[#120d26] text-white sticky top-0 z-50 select-none shadow-md border-b border-white/5">
+    <header className="w-full bg-[#120d26] text-white sticky top-0 z-50 select-none shadow-md border-b border-white/5">
         {/* Top Main Row */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
           
           {/* Left Side: Brand Logo */}
           <a href={`/${locale}`} className="flex items-center gap-1.5 shrink-0">
+            <img
+              src="/astrokraft_logo.png"
+              alt="AstroKraft"
+              className="w-7 h-7 sm:w-8 sm:h-8 object-contain shrink-0"
+              draggable={false}
+            />
             <span className="font-serif text-xl sm:text-2xl font-black tracking-tight text-white flex items-baseline">
               Astro<span className="text-[#E2C27A]">Kraft</span>
               <span className="inline-flex items-center justify-center border border-white/30 rounded-full w-3 h-3 text-[6px] font-black font-sans ml-0.5 mt-1 self-start shrink-0 text-white/70">
@@ -255,18 +230,19 @@ export function Header({ locale, dict }: HeaderProps) {
                     </SheetDescription>
                   </SheetHeader>
 
-                  <nav className="flex flex-col gap-4 mt-6">
-                    {navItems.map((item, idx) => (
+                  <nav className="flex flex-col gap-1 mt-6">
+                    {navItems.map((item) => (
                       <a
                         key={item.label}
                         href={item.href}
                         onClick={() => setMobileMenuOpen(false)}
-                        className={cn(
-                          "text-base font-bold text-white/90 pb-2 hover:text-[#E2C27A] transition-colors",
-                          idx !== navItems.length - 1 && "border-b border-white/5"
-                        )}
+                        className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-bold text-white/90 hover:bg-white/5 hover:text-[#E2C27A] transition-colors group"
                       >
-                        {item.label}
+                        <span className="flex items-center justify-center w-8 h-8 rounded-full bg-white/5 text-[#E2C27A] shrink-0 group-hover:bg-[#E2C27A]/10">
+                          <item.icon className="w-4 h-4" />
+                        </span>
+                        <span className="flex-1">{item.label}</span>
+                        <ChevronRight className="w-4 h-4 text-white/30 group-hover:text-[#E2C27A] transition-colors" />
                       </a>
                     ))}
                   </nav>
@@ -328,103 +304,6 @@ export function Header({ locale, dict }: HeaderProps) {
             })}
           </div>
         </div>
-      </header>
-
-      {/* Banner Carousel - Displayed on Homepage under Header, Non-Sticky */}
-      {isHomePage && banners && banners.length > 0 && (
-        <div 
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-          className="w-full bg-[#120d26] border-b border-[#E2C27A]/20 relative group/carousel overflow-hidden h-[130px] sm:h-[200px] md:h-[270px] lg:h-[340px] select-none"
-        >
-          {/* Slides wrapper */}
-          <div 
-            className="flex h-full transition-transform duration-700 ease-in-out"
-            style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-          >
-            {banners.map((banner: any, index: number) => {
-              const bannerImg = banner.image ? urlFor(banner.image).width(1200).auto('format').url() : "";
-              const slideContent = (
-                <div className="w-full h-full relative">
-                  {bannerImg ? (
-                    <img 
-                      src={bannerImg} 
-                      alt={banner.title || "Promotional Banner"} 
-                      className="w-full h-full object-cover"
-                      draggable={false}
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#120d26] to-[#2A1A5E] text-white">
-                      <span className="text-sm font-bold tracking-wider uppercase">{banner.title}</span>
-                    </div>
-                  )}
-
-                </div>
-              );
-
-              if (banner.link) {
-                const isExternal = banner.link.startsWith("http");
-                return (
-                  <a
-                    key={banner._id || index}
-                    href={banner.link}
-                    target={isExternal ? "_blank" : "_self"}
-                    rel={isExternal ? "noopener noreferrer" : undefined}
-                    className="w-full h-full shrink-0 block cursor-pointer"
-                  >
-                    {slideContent}
-                  </a>
-                );
-              }
-
-              return (
-                <div key={banner._id || index} className="w-full h-full shrink-0">
-                  {slideContent}
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Navigation Arrows (Only show if multiple banners) */}
-          {banners.length > 1 && (
-            <>
-              <button 
-                onClick={handlePrevSlide}
-                className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/40 hover:bg-[#E2C27A] hover:text-black text-white border border-white/10 hover:border-transparent transition-all cursor-pointer opacity-0 group-hover/carousel:opacity-100 z-10 shadow-md"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </button>
-              <button 
-                onClick={handleNextSlide}
-                className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/40 hover:bg-[#E2C27A] hover:text-black text-white border border-white/10 hover:border-transparent transition-all cursor-pointer opacity-0 group-hover/carousel:opacity-100 z-10 shadow-md"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
-            </>
-          )}
-
-          {/* Dot Indicators */}
-          {banners.length > 1 && (
-            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-10">
-              {banners.map((_: any, idx: number) => (
-                <button
-                  key={idx}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    setCurrentSlide(idx);
-                  }}
-                  className={cn(
-                    "w-1.5 h-1.5 rounded-full transition-all duration-300 cursor-pointer",
-                    currentSlide === idx ? "bg-[#E2C27A] w-4.5" : "bg-white/40 hover:bg-white/70"
-                  )}
-                  aria-label={`Go to slide ${idx + 1}`}
-                />
-              ))}
-            </div>
-          )}
-        </div>
-      )}
-    </>
+    </header>
   );
 }

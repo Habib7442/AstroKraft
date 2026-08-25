@@ -3,6 +3,7 @@ import { getDictionary } from "@/lib/i18n";
 import { isValidLocale } from "@/lib/seo";
 import { Header } from "@/components/sections/header";
 import { HeroEcommerce } from "@/components/sections/hero-ecommerce";
+import { BannerCarousel } from "@/components/sections/banner-carousel";
 
 import { ServicesRow } from "@/components/sections/services-row";
 import { Footer } from "@/components/sections/footer";
@@ -10,8 +11,7 @@ import { AstrologersRow } from "@/components/sections/astrologers-row";
 import GemstoneGrid from "@/components/sections/gemstone-grid";
 import FreeToolsPreview from "@/components/sections/FreeToolsPreview";
 import { getConsultations, getProducts, getCategories, getBanners, getAstrologers } from "@/lib/actions/sanity";
-import { cookies } from "next/headers";
-import { createServerClient } from "@insforge/sdk/ssr";
+import { createClient } from "@/lib/supabase/server";
 import { CMSStoreInitializer } from "@/components/providers/cms-store-initializer";
 
 interface PageParams {
@@ -26,16 +26,11 @@ export default async function Page({ params }: { params: Promise<PageParams> }) 
   }
 
   // Check if logged-in user has admin privilege, if so auto-redirect to admin dashboard
-  const cookieStore = await cookies();
-  const insforge = createServerClient({
-    cookies: cookieStore,
-    baseUrl: process.env.NEXT_PUBLIC_INSFORGE_URL || "",
-    anonKey: process.env.NEXT_PUBLIC_INSFORGE_ANON_KEY || ""
-  });
+  const supabase = await createClient();
 
   let user = null;
   try {
-    const { data } = await insforge.auth.getCurrentUser();
+    const { data } = await supabase.auth.getUser();
     user = data?.user || null;
   } catch (e) {
     console.error("Auth check error on homepage:", e);
@@ -45,7 +40,7 @@ export default async function Page({ params }: { params: Promise<PageParams> }) 
   let role = "user";
   try {
     if (user) {
-      const { data: profile } = await insforge.database
+      const { data: profile } = await supabase
         .from("users")
         .select("role")
         .eq("id", user.id)
@@ -65,7 +60,7 @@ export default async function Page({ params }: { params: Promise<PageParams> }) 
 
   const isAdmin = user && (
     role === "admin" ||
-    adminEmails.includes(user.email.toLowerCase())
+    adminEmails.includes((user.email || "").toLowerCase())
   );
 
   if (isAdmin) {
@@ -112,10 +107,11 @@ export default async function Page({ params }: { params: Promise<PageParams> }) 
 
       {/* Main Content Area */}
       <main className="flex-1">
-        {/* Search, Banners, and Consultations */}
+        {/* Banner carousel — the primary visual hero, e-commerce convention */}
+        <BannerCarousel />
+
+        {/* Short crawlable heading, CTA, category grid — right under the banner */}
         <HeroEcommerce locale={locale} />
-
-
 
         {/* Featured Gemstones Section */}
         <GemstoneGrid locale={locale} initialProducts={products} productType="gemstone" />

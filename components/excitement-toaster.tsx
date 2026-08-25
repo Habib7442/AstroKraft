@@ -38,17 +38,30 @@ function getRandomItem<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
+const MAX_TOASTS_PER_SESSION = 3;
+const INITIAL_DELAY_MS = 15000;
+const INTERVAL_MS = 150000;
+
 export function ExcitementToaster() {
   useEffect(() => {
-    // Show first excitement toast after 6 seconds to welcome the user softly
-    const initialTimer = setTimeout(() => {
-      triggerExcitementToast();
-    }, 6000);
+    let shownCount = 0;
+    let interval: ReturnType<typeof setInterval> | undefined;
 
-    // Then trigger every 60 seconds
-    const interval = setInterval(() => {
+    const showIfUnderCap = () => {
+      if (shownCount >= MAX_TOASTS_PER_SESSION) {
+        clearInterval(interval);
+        return;
+      }
       triggerExcitementToast();
-    }, 60000);
+      shownCount += 1;
+    };
+
+    // Show the first toast after a longer delay so it doesn't greet the user immediately
+    const initialTimer = setTimeout(() => {
+      showIfUnderCap();
+      // Then trigger occasionally, capped for the session so it doesn't repeat forever
+      interval = setInterval(showIfUnderCap, INTERVAL_MS);
+    }, INITIAL_DELAY_MS);
 
     return () => {
       clearTimeout(initialTimer);
