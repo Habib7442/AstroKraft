@@ -21,7 +21,7 @@ If implementation changes the architecture, scope, or standards documented in th
 
 ## Supabase backend
 
-This project uses [Supabase](https://supabase.com) for auth and the relational database (Postgres). Sanity remains the CMS for catalog/content (astrologers, gemstones, banners, blog); Supabase owns only `auth.users` plus `public.users` / `public.wallets` / `public.astrologer_profiles`.
+This project uses [Supabase](https://supabase.com) for auth and the relational database (Postgres). Sanity remains the CMS for catalog/content (astrologers, gemstones, banners, blog); Supabase owns only `auth.users` plus `public.users` / `public.wallets` / `public.wallet_transactions` / `public.astrologer_profiles`.
 
 - **Clients:** `lib/supabase/client.ts` (browser, RLS-respecting), `lib/supabase/server.ts` (Server Components/Route Handlers/Server Actions, RLS-respecting, reads cookies via `next/headers`), `lib/supabase/admin.ts` (service-role, bypasses RLS — API routes only, for writes users can't perform on themselves e.g. creating their own row right after sign-up), `lib/supabase/middleware.ts` (session refresh, called from `proxy.ts`).
 - **Credentials:** `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` in `.env.local`. Never hardcode or commit keys; never use the service-role client in a Client Component.

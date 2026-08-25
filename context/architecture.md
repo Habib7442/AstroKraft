@@ -13,7 +13,7 @@
 | 3D Globe | React Three Fiber + Drei | Interactive astrologer globe visualization |
 | State | Zustand | Lightweight global state (globe selection, UI state) |
 | Auth | Supabase Auth | Email/password + Google OAuth, session cookies via `@supabase/ssr` |
-| Database | Supabase (PostgreSQL) via `@supabase/supabase-js` | `users`, `wallets`, `astrologer_profiles`; Sanity remains the CMS for astrologers/gemstones/content |
+| Database | Supabase (PostgreSQL) via `@supabase/supabase-js` | `users`, `wallets`, `wallet_transactions`, `astrologer_profiles`; Sanity remains the CMS for astrologers/gemstones/content |
 | Caching | Upstash Redis + Next.js Data Cache | Hash-keyed astrology API result caching |
 | Astrology APIs | FreeAstrologyAPI + Prokerala | Core calculation engines (charts, gunas, panchang, translations) |
 | Payments | Razorpay | UPI, cards, netbanking for India |
@@ -99,9 +99,9 @@
 │   ├── assets/                                → Images (astrologer WebPs, hero bg)
 │   ├── favicons/                              → Favicon + webmanifest
 │   ├── social-icons/                          → WhatsApp, FB, Instagram PNGs
-│   └── logo.svg                               → Brand logo
-├── prisma/
-│   └── schema.prisma                          → Database schema
+│   └── astrokraft_logo.png                    → Brand logo
+├── supabase/
+│   └── migrations/                            → SQL schema migrations (users, wallets, wallet_transactions, astrologer_profiles)
 └── types/
     └── index.ts                               → Global TypeScript types
 ```
@@ -164,7 +164,7 @@ User selects astrologer/purohit → clicks Book
         ↓
 Server Action validates session
         ↓
-Writes booking to PostgreSQL via Prisma
+Writes booking to PostgreSQL via @supabase/supabase-js (lib/supabase/server.ts)
         ↓
 WhatsApp handoff or chat/call redirect
 ```
@@ -173,7 +173,7 @@ WhatsApp handoff or chat/call redirect
 
 ## Storage Model
 
-- **PostgreSQL (Neon/Supabase)**: Structured data — users, astrologers, gemstone inventory, consultation bookings, saved birth charts, reviews.
+- **PostgreSQL (Supabase)**: `public.users`, `public.wallets`, `public.wallet_transactions`, `public.astrologer_profiles`. Astrologer profiles, gemstone inventory, banners, and blog content live in Sanity, not Postgres — Supabase owns auth-linked/transactional data only.
 - **Upstash Redis**: Key-value cache of astrology API results. Key format: `astrology:cache:<input_hash>`. Deterministic — same birth details always produce the same result.
 - **Next.js Data Cache / ISR**: Pre-generated daily horoscopes and panchang data. Revalidated at midnight.
 - **Vercel CDN**: Static assets (images, fonts, icons) with long-term cache headers.
@@ -185,7 +185,7 @@ WhatsApp handoff or chat/call redirect
 - Provider: Supabase Auth
 - Methods: Email/password (with email-OTP signup verification) + Google OAuth via `app/auth/callback/route.ts`
 - Session: cookie-based via `@supabase/ssr`; `proxy.ts` calls `lib/supabase/middleware.ts` on every request to refresh the token before Server Components read cookies
-- `public.users` (role: user/astrologer/admin), `public.wallets`, `public.astrologer_profiles` are plain Postgres tables with RLS — service-role writes only happen server-side in `app/api/auth/*` and `app/auth/callback/route.ts`
+- `public.users` (role: user/astrologer/admin), `public.wallets`, `public.wallet_transactions`, `public.astrologer_profiles` are plain Postgres tables with RLS — service-role writes only happen server-side in `app/api/auth/*` and `app/auth/callback/route.ts`
 - Protected routes: `/account`, `/checkout`, `/admin` (role-gated, not session-gated)
 - Public routes: All tool pages, homepage, astrologer directory, gemstone catalog
 - Free tools work without authentication — account required only for saving results and booking

@@ -31,10 +31,10 @@ Only when a piece of content is both **rarely needed and long** (a big migration
 
 ## Before committing a skill edit
 
-- Run `npm run check` (cross tool portability + hot path size budgets). A path near budget means prune first, not raise the ceiling or add another file.
+- Run `npm run check` (cross-tool portability + hot path size budgets). A path near budget means prune first, not raise the ceiling or add another file.
 - Re read the diff for lines that change nothing, and for a rule now stated twice.
 - A prune should not change behavior. If a cut might, say so and confirm it with a validation run.
 
 ## On size
 
-The budgets keep skills lean as they grow; a warning means prune, not that the limit is too low. Our skills interlock and carry modes, so they run larger than a single purpose skill. The target is "cut to what is needed", never a fixed line count.
+The budgets keep skills lean as they grow; a warning means prune, not that the limit is too low. Our skills interlock and carry modes, so they run larger than a single-purpose skill. The target is "cut to what is needed", never a fixed line count.

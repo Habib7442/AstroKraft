@@ -4,9 +4,21 @@ Site: astrokraft.online · Stack: Next.js (React) · Prepared 25 Aug 2026
 
 Priority order. Fix #1 before doing any SEO work — it blocks everything else.
 
+> **Historical audit snapshot.** This is the original fix list as prepared —
+> left unedited below so the audit stays intact. Status markers were added
+> per item after implementation. For current, authoritative status see
+> `context/progress-tracker.md`; don't redo a ✅ item without checking there
+> first.
+
 ---
 
 ## 1. Canonical bug — CRITICAL (blocks all SEO)
+
+**Status: ✅ Done.** Every page that had a hardcoded/missing canonical
+(gemstones, rudraksha, bracelets, vastu-products, blog, tools hub,
+tools/kundli, tools/matching, astrologers + astrologer profiles) now
+self-canonicalizes via `constructMetadata()`. Sitemap corrected to match
+(dead routes removed, missing real routes added).
 
 **Problem:** Every product page carries a canonical tag pointing to the homepage
 (`https://www.astrokraft.online/en/`). This tells Google that every product page
@@ -32,6 +44,12 @@ gemstones, rudraksha, bracelets, vastu-products, blog and tools pages all have i
 
 ## 2. Broken pages (404s) — HIGH
 
+**Status: ✅ Done.** Built `/about`, `/contact`, `/privacy`, `/terms`
+(privacy/terms content is a reasonable draft, not legally reviewed — flag
+for legal review before relying on it). Footer's "Vastu Consultant" link
+now points to `/vastu-products` and is relabeled "Vastu Products" to match
+(there's no dedicated Vastu consultation booking flow yet).
+
 These are linked in the footer but return "page not found":
 
 - `/en/contact` (Contact Us)
@@ -49,6 +67,13 @@ These are linked in the footer but return "page not found":
 
 ## 3. Footer / social link fixes — MEDIUM
 
+**Status: ⏳ Partial.** Phone number standardized site-wide to
++91 6001730761 through `SITE.contact` (was inconsistently
++91 6913230255 in most places). Instagram handle mismatch and footer email
+monitoring are still unconfirmed — need the client to say which handle is
+actually correct before changing it (guessing wrong is worse than leaving
+it).
+
 - **Instagram handle mismatch:** footer links to `astro.kraft` but the brand's actual
   handle appears as `astro_kraft`. Point it to the correct, active handle.
 - **Phone consistency:** use ONE number across the whole site, and make it match the
@@ -60,6 +85,16 @@ These are linked in the footer but return "page not found":
 ---
 
 ## 4. Local SEO on-page — MEDIUM
+
+**Status: ✅ Done**, with one regression to know about. Footer now shows
+"Rangirkhari, Silchar, Cachar, Barak Valley, Assam"; `LocalBusiness` JSON-LD
+(previously defined in code but never actually rendered anywhere — now
+wired into the root layout) carries the same address plus founder
+attribution and `areaServed` naming Silchar/Hailakandi/Karimganj/Cachar/
+Assam specifically. The homepage hero *did* get a "Rooted in Silchar,
+Assam" line at one point, but it was cut later in a copy-trimming pass —
+the structured-data/footer signals still stand, the visible hero mention
+doesn't currently.
 
 **Problem:** The site never names its city — footer just says "India". Google shows
 local businesses to nearby people only when it knows where they are. Right now the
@@ -76,6 +111,15 @@ site competes with every gemstone site in the country instead of winning Silchar
 
 ## 5. Product SEO — MEDIUM (do AFTER fix #1)
 
+**Status: ⏳ Not done — remaining work.** Category-level pages (gemstones,
+rudraksha, bracelets, vastu-products) each have their own unique,
+now-localized title/description, but there's no individual product page
+yet (no `/gemstones/[slug]` route) — products live only as cards in the
+catalog grid, so regional-name titles, per-product `Product` JSON-LD
+(`productSchema()` exists in `lib/seo.ts` but has no call site), and
+per-product indexable URLs are all still open. This is the biggest
+remaining item from this audit.
+
 - **Titles & meta per product:** each product page needs a unique `<title>` and
   meta description including the English + common Hindi/regional stone name, e.g.:
   "Blue Sapphire (Neelam) — Certified Natural Gemstone | AstroKraft".
@@ -89,6 +133,12 @@ site competes with every gemstone site in the country instead of winning Silchar
 ---
 
 ## 6. Homepage crawlability — CHECK
+
+**Status: ✅ Done.** The homepage hero now renders a real server-side
+`<h1>` plus a primary CTA — confirmed by fetching the raw HTML. The
+heading copy was later shortened in a UX pass (no more separate eyebrow
+line/subtitle paragraph), but it's still real, crawlable markup, not
+client-only.
 
 **Problem:** When the homepage HTML was fetched, it started straight at the gemstone
 grid — no hero heading or main call-to-action ("Talk to an astrologer" / "Shop
@@ -105,6 +155,12 @@ on the client, search engines and some previews won't see it.
 
 ## 7. Trust & consistency polish — LOW
 
+**Status: ⏳ Partial.** Privacy/Terms now load (see #2). The dead "Daily
+Horoscope" footer link was removed (the `/tools` hub already showed it
+correctly as "Coming Soon" with no link — only the footer had a bare,
+broken link to it). The "Origin: Certified" mislabeling on non-gemstone
+items (wind chimes, pyramids, paintings) has not been addressed.
+
 - "Origin: Certified" currently appears on non-gemstone items (wind chimes, crystal
   pyramids, paintings). Reserve certificate/"certified" language for items that
   actually have a lab certificate, so the real gemstone certifications stay credible.
@@ -116,8 +172,13 @@ on the client, search engines and some previews won't see it.
 
 ## Do-first summary
 
-1. Canonical fix (#1) — unblocks all SEO. Do today.
-2. 404 pages (#2) — build or remove the dead links.
-3. City + LocalBusiness schema (#4) — turns on local visibility.
+1. ✅ Canonical fix (#1) — unblocks all SEO. Do today.
+2. ✅ 404 pages (#2) — build or remove the dead links.
+3. ✅ City + LocalBusiness schema (#4) — turns on local visibility.
 
 Everything else stacks on top of these three.
+
+**What's actually left, in priority order:** individual product pages
+with per-product SEO/JSON-LD (#5 — the big one), the Instagram handle
+confirmation and footer email check (#3), and the "Origin: Certified"
+mislabeling cleanup (#7).
