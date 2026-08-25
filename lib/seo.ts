@@ -29,6 +29,8 @@ export const SITE = {
     title: "AstroKraft — India's Trusted Astrology & Gemstone Marketplace",
     description:
         "AstroKraft is India's trusted astrology & gemstone marketplace. Free Kundli & Kundli Matching (Guna Milan), daily Rashifol, Panchang & Subh Muhurat, certified gemstones, verified Vedic astrologers, purohit booking & Vastu consultation.",
+    /** Founder / public face of the brand — feeds Organization JSON-LD `founder`. */
+    founder: "Biprangshu Bhattacharjee",
     /** Default share image (1200×630). A dynamic per-page OG image is preferred. */
     ogImage: "/og_image.jpg",
     themeColor: { light: "#e7dcce", dark: "#e7dcce" }, // matches PWA welcome screen & logo background
@@ -46,15 +48,22 @@ export const SITE = {
         "certified gemstones",
         "talk to astrologer",
         "online astrology India",
+        "astrologer in Silchar",
+        "astrologer in Assam",
+        "Vastu consultant Silchar",
+        "gemstone shop Silchar Assam",
     ],
     contact: {
-        phone: "+916913230255",
-        phoneDisplay: "+91 6913230255",
-        whatsapp: "916913230255",
+        phone: "+916001730761",
+        phoneDisplay: "+91 6001730761",
+        whatsapp: "916001730761",
         email: "astrokraft1@gmail.com",
         address: {
-            region: "Tripura, Barak Valley, West Bengal",
+            street: "Rangirkhari",
+            locality: "Silchar",
+            region: "Cachar, Barak Valley, Assam",
             country: "IN",
+            display: "Rangirkhari, Silchar, Cachar, Barak Valley, Assam",
         },
     },
     social: {
@@ -179,6 +188,24 @@ export const KEYWORDS = {
         "chat with astrologer",
     ],
     services: ["vastu consultant", "purohit booking online", "online pooja booking", "vastu home plan"],
+    /** Local SEO — Barak Valley / Assam service area. See PRD Local SEO fix. */
+    local: [
+        "astrologer in Silchar",
+        "best astrologer in Silchar",
+        "astrologer in Assam",
+        "astrologer in Cachar",
+        "astrologer in Barak Valley",
+        "astrologer in Hailakandi",
+        "astrologer in Karimganj",
+        "gemstone shop in Silchar",
+        "certified gemstones Silchar Assam",
+        "Vastu consultant Silchar",
+        "Vastu consultant Assam",
+        "kundli matching Silchar",
+        "purohit booking Silchar",
+        "astrology services Barak Valley",
+        "Silchar", "Hailakandi", "Karimganj", "Cachar", "Barak Valley", "Assam",
+    ],
 } as const;
 
 export const ZODIAC_SIGNS = [
@@ -302,7 +329,9 @@ export function constructMetadata(input: BuildMetaInput = {}): Metadata {
             icon: [
                 { url: "/favicons/favicon.ico" },
                 { url: "/favicons/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-                { url: "/favicons/favicon-16x16.png", sizes: "16x16", type: "image/png" }
+                { url: "/favicons/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+                { url: "/favicons/android-chrome-192x192.png", sizes: "192x192", type: "image/png" },
+                { url: "/favicons/android-chrome-512x512.png", sizes: "512x512", type: "image/png" },
             ],
             apple: [{ url: "/favicons/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
         },
@@ -342,10 +371,11 @@ export function organizationSchema() {
         name: SITE.name,
         legalName: SITE.legalName,
         url: DOMAIN_ROOT,
-        logo: `${DOMAIN_ROOT}/logo.svg`,
+        logo: `${DOMAIN_ROOT}/astrokraft_logo.png`,
         description: SITE.description,
         email: SITE.contact.email,
         telephone: SITE.contact.phoneDisplay,
+        founder: { "@type": "Person", name: SITE.founder },
         areaServed: "IN",
         sameAs: Object.values(SITE.social),
         contactPoint: [
@@ -367,17 +397,29 @@ export function localBusinessSchema() {
         "@type": "ProfessionalService",
         "@id": `${DOMAIN_ROOT}/#localbusiness`,
         name: SITE.name,
-        image: `${DOMAIN_ROOT}/logo.svg`,
+        image: `${DOMAIN_ROOT}/astrokraft_logo.png`,
         url: DOMAIN_ROOT,
         telephone: SITE.contact.phone,
         email: SITE.contact.email,
         priceRange: "₹₹",
+        founder: { "@type": "Person", name: SITE.founder },
         address: {
             "@type": "PostalAddress",
+            streetAddress: SITE.contact.address.street,
+            addressLocality: SITE.contact.address.locality,
             addressRegion: SITE.contact.address.region,
             addressCountry: SITE.contact.address.country,
         },
-        areaServed: { "@type": "Country", name: "India" },
+        // Local SEO: named service area (Barak Valley) first, then pan-India.
+        areaServed: [
+            { "@type": "City", name: "Silchar" },
+            { "@type": "City", name: "Hailakandi" },
+            { "@type": "City", name: "Karimganj" },
+            { "@type": "AdministrativeArea", name: "Cachar" },
+            { "@type": "AdministrativeArea", name: "Barak Valley" },
+            { "@type": "State", name: "Assam" },
+            { "@type": "Country", name: "India" },
+        ],
     };
 
     const countVal = parseInt(SITE.foundingRating.count, 10);
@@ -601,18 +643,19 @@ export const STATIC_ROUTES: SitemapRoute[] = [
     { path: "/", changeFrequency: "daily", priority: 1.0 },
     { path: "/tools/matching", changeFrequency: "weekly", priority: 0.95 }, // top viral surface
     { path: "/tools/kundli", changeFrequency: "weekly", priority: 0.9 },
-    { path: "/tools/horoscope", changeFrequency: "daily", priority: 0.9 },
     { path: "/tools/panchang", changeFrequency: "daily", priority: 0.85 },
     { path: "/astrologers", changeFrequency: "daily", priority: 0.85 },
     { path: "/gemstones", changeFrequency: "weekly", priority: 0.8 },
-    { path: "/tools/numerology", changeFrequency: "monthly", priority: 0.6 },
-    { path: "/tools/tarot", changeFrequency: "monthly", priority: 0.6 },
-    { path: "/tools/compatibility", changeFrequency: "monthly", priority: 0.6 },
-    { path: "/purohits", changeFrequency: "weekly", priority: 0.6 },
-    { path: "/vastu", changeFrequency: "monthly", priority: 0.6 },
+    { path: "/bracelets", changeFrequency: "weekly", priority: 0.7 },
+    { path: "/rudraksha", changeFrequency: "weekly", priority: 0.7 },
+    { path: "/vastu-products", changeFrequency: "weekly", priority: 0.65 },
+    { path: "/tools", changeFrequency: "monthly", priority: 0.6 },
+    { path: "/consultation", changeFrequency: "monthly", priority: 0.6 },
     { path: "/blog", changeFrequency: "daily", priority: 0.7 },
     { path: "/about", changeFrequency: "yearly", priority: 0.4 },
     { path: "/contact", changeFrequency: "yearly", priority: 0.4 },
+    { path: "/privacy", changeFrequency: "yearly", priority: 0.2 },
+    { path: "/terms", changeFrequency: "yearly", priority: 0.2 },
 ];
 
 /**

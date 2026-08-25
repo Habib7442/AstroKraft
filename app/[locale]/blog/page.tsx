@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { getDictionary } from "@/lib/i18n";
-import { isValidLocale, LOCALES } from "@/lib/seo";
+import { isValidLocale, LOCALES, constructMetadata } from "@/lib/seo";
 import { Header } from "@/components/sections/header";
 import { Footer } from "@/components/sections/footer";
 import { BookOpen } from "lucide-react";
@@ -33,6 +34,20 @@ const localizedContent = {
     backHome: "মূল পাতায় যান",
   }
 } as const;
+
+export async function generateMetadata({ params }: { params: Promise<PageParams> }): Promise<Metadata> {
+  const { locale } = await params;
+  if (!isValidLocale(locale)) return {};
+
+  const content = localizedContent[locale as keyof typeof localizedContent] || localizedContent.en;
+
+  return constructMetadata({
+    title: content.title,
+    description: content.subtitle,
+    path: "/blog",
+    locale,
+  });
+}
 
 export default async function BlogPage({ params }: { params: Promise<PageParams> }) {
   const { locale } = await params;

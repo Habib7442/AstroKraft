@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Fraunces } from "next/font/google";
 import "./globals.css";
 import "lenis/dist/lenis.css";
 import { cn } from "@/lib/utils";
+import { globalJsonLd } from "@/lib/seo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -44,6 +45,10 @@ export default function RootLayout({
       )}
     >
       <body suppressHydrationWarning className="min-h-full flex flex-col bg-background text-foreground">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(globalJsonLd()) }}
+        />
         {children}
       </body>
     </html>

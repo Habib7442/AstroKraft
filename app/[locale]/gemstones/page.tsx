@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { getDictionary } from "@/lib/i18n";
-import { isValidLocale } from "@/lib/seo";
+import { isValidLocale, constructMetadata } from "@/lib/seo";
 import { Header } from "@/components/sections/header";
 import { Footer } from "@/components/sections/footer";
 import GemstoneGrid from "@/components/sections/gemstone-grid";
@@ -11,20 +12,22 @@ interface PageParams {
   locale: string;
 }
 
-export async function generateMetadata({ 
-  params 
-}: { 
+export async function generateMetadata({
+  params
+}: {
   params: Promise<PageParams>;
-}) {
+}): Promise<Metadata> {
   const { locale } = await params;
   if (!isValidLocale(locale)) return {};
 
   const dict = await getDictionary(locale);
 
-  return {
-    title: `${dict.nav.gemstones} | AstroKraft`,
+  return constructMetadata({
+    title: dict.nav.gemstones,
     description: "Explore lab-certified natural gemstones recommended for your birth chart. Find the perfect stone for luck, career, relationships, and health.",
-  };
+    path: "/gemstones",
+    locale,
+  });
 }
 
 export default async function GemstonesPage({ 

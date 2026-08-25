@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { getDictionary } from "@/lib/i18n";
-import { isValidLocale } from "@/lib/seo";
+import { isValidLocale, constructMetadata } from "@/lib/seo";
 import { Header } from "@/components/sections/header";
 import { Footer } from "@/components/sections/footer";
 import { Compass, HeartHandshake, Calendar, Sparkles, Orbit, Hash } from "lucide-react";
@@ -66,6 +67,20 @@ const translations = {
     exploreBtn: "সরঞ্জাম খুলুন",
   }
 } as const;
+
+export async function generateMetadata({ params }: { params: Promise<PageParams> }): Promise<Metadata> {
+  const { locale } = await params;
+  if (!isValidLocale(locale)) return {};
+
+  const t = translations[locale as keyof typeof translations] || translations.en;
+
+  return constructMetadata({
+    title: t.title,
+    description: t.subtitle,
+    path: "/tools",
+    locale,
+  });
+}
 
 const toolColors = [
   "bg-[#FEF08A]", // pastel yellow

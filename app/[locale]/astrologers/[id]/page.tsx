@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { getDictionary } from "@/lib/i18n";
-import { isValidLocale } from "@/lib/seo";
+import { isValidLocale, constructMetadata } from "@/lib/seo";
 import { Header } from "@/components/sections/header";
 import { Footer } from "@/components/sections/footer";
 import AstrologerProfileClient from "@/components/sections/astrologer-profile-client";
@@ -43,9 +44,9 @@ export async function generateStaticParams() {
 /**
  * Generate localized SEO metadata for each specific astrologer
  */
-export async function generateMetadata({ params }: { params: Promise<PageParams> }) {
+export async function generateMetadata({ params }: { params: Promise<PageParams> }): Promise<Metadata> {
   const { locale, id } = await params;
-  
+
   if (!isValidLocale(locale) || !VALID_IDS.includes(id)) {
     return {};
   }
@@ -55,10 +56,12 @@ export async function generateMetadata({ params }: { params: Promise<PageParams>
   const specialty = ast.specialty[activeLocale] || ast.specialty["en"];
   const desc = ast.description[activeLocale] || ast.description["en"];
 
-  return {
-    title: `${ast.name} | ${specialty} | AstroKraft`,
+  return constructMetadata({
+    title: `${ast.name} | ${specialty}`,
     description: desc.substring(0, 155) + "...",
-  };
+    path: `/astrologers/${id}`,
+    locale,
+  });
 }
 
 export default async function AstrologerProfilePage({ 

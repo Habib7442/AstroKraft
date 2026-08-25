@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { getDictionary } from "@/lib/i18n";
-import { isValidLocale } from "@/lib/seo";
+import { isValidLocale, constructMetadata } from "@/lib/seo";
 import { Header } from "@/components/sections/header";
 import { Footer } from "@/components/sections/footer";
 import GemstoneGrid from "@/components/sections/gemstone-grid";
@@ -11,28 +12,30 @@ interface PageParams {
   locale: string;
 }
 
-export async function generateMetadata({ 
-  params 
-}: { 
+export async function generateMetadata({
+  params
+}: {
   params: Promise<PageParams>;
-}) {
+}): Promise<Metadata> {
   const { locale } = await params;
   if (!isValidLocale(locale)) return {};
 
-  const title = 
-    locale === "hin" 
-      ? "हीलिंग क्रिस्टल ब्रेसलेट्स | AstroKraft" 
-      : locale === "bn" 
-      ? "হিলিং ক্রিস্টাল ব্রেসলেট | AstroKraft" 
-      : "Healing Crystal Bracelets | AstroKraft";
+  const title =
+    locale === "hin"
+      ? "हीलिंग क्रिस्टल ब्रेसलेट्स"
+      : locale === "bn"
+      ? "হিলিং ক্রিস্টাল ব্রেসলেট"
+      : "Healing Crystal Bracelets";
 
-  const description = 
+  const description =
     "Explore natural, laboratory-tested crystal bracelets recommended for energy alignment, aura protection, luck, and abundance.";
 
-  return {
+  return constructMetadata({
     title,
     description,
-  };
+    path: "/bracelets",
+    locale,
+  });
 }
 
 export default async function BraceletsPage({ 

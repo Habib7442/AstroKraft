@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { getDictionary } from "@/lib/i18n";
-import { isValidLocale } from "@/lib/seo";
+import { isValidLocale, constructMetadata } from "@/lib/seo";
 import { Header } from "@/components/sections/header";
 import { Footer } from "@/components/sections/footer";
 import { Suspense } from "react";
@@ -8,6 +9,18 @@ import { ConsultationForm } from "@/components/sections/ConsultationForm";
 
 interface PageParams {
   locale: string;
+}
+
+export async function generateMetadata({ params }: { params: Promise<PageParams> }): Promise<Metadata> {
+  const { locale } = await params;
+  if (!isValidLocale(locale)) return {};
+
+  return constructMetadata({
+    title: "Book a Consultation",
+    description: "Book a personal astrology consultation with AstroKraft's verified Vedic astrologers via WhatsApp. Career, marriage, finance, health, kundli & education guidance.",
+    path: "/consultation",
+    locale,
+  });
 }
 
 export default async function Page({ params }: { params: Promise<PageParams> }) {

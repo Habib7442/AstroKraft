@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { getDictionary } from "@/lib/i18n";
-import { isValidLocale, LOCALES } from "@/lib/seo";
+import { isValidLocale, LOCALES, constructMetadata } from "@/lib/seo";
 import { Header } from "@/components/sections/header";
 import { Footer } from "@/components/sections/footer";
 import { OfflineControls } from "./offline-controls";
@@ -11,6 +12,18 @@ interface PageParams {
 
 export async function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<PageParams> }): Promise<Metadata> {
+  const { locale } = await params;
+  if (!isValidLocale(locale)) return {};
+
+  return constructMetadata({
+    title: "You're Offline",
+    path: "/offline",
+    locale,
+    noIndex: true,
+  });
 }
 
 export default async function OfflinePage({ params }: { params: Promise<PageParams> }) {

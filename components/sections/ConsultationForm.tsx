@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { useSearchParams } from "next/navigation";
 import ASTROLOGERS_DATA from "@/lib/data/astrologer.json";
 import { cn } from "@/lib/utils";
+import { SITE } from "@/lib/seo";
 
 interface AstrologerInfo {
   name: string;
@@ -174,12 +175,7 @@ export function ConsultationForm({ locale }: ConsultationFormProps) {
                     `• Time of Birth: ${time}\n` +
                     `• Place of Birth: ${pob}`;
                     
-    const isBiprangshu = astrologerKey === "biprangshu_bhattacharjee";
-    const phoneNum = selectedAstrologer 
-      ? (isBiprangshu ? "6001730761" : "6913230255") 
-      : "6913230255";
-                    
-    const whatsappUrl = `https://api.whatsapp.com/send/?phone=91${phoneNum}&text=${encodeURIComponent(message)}&type=phone_number&app_absent=0`;
+    const whatsappUrl = `https://api.whatsapp.com/send/?phone=${SITE.contact.whatsapp}&text=${encodeURIComponent(message)}&type=phone_number&app_absent=0`;
     
     toast.success(t.redirecting);
     

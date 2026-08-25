@@ -20,13 +20,12 @@ export function Footer({ locale, dict }: FooterProps) {
     { label: dict.services.astrologer.title, href: `/${locale}/astrologers` },
     { label: dict.services.gemstone.title, href: `/${locale}/gemstones` },
     { label: dict.nav.free_tools, href: `/${locale}/tools` },
-    { label: dict.footer?.vastu_consultant || "Vastu Consultant", href: `/${locale}/vastu` },
+    { label: dict.footer?.vastu_consultant || "Vastu Consultant", href: `/${locale}/vastu-products` },
   ];
 
   const toolsLinks = [
     { label: dict.footer?.free_kundli || "Free Kundli / Birth Chart", href: `/${locale}/tools/kundli` },
     { label: dict.footer?.kundli_matching || "Kundli Matching (Guna Milan)", href: `/${locale}/tools/matching` },
-    { label: dict.footer?.daily_horoscope || "Daily Horoscope (Rashifol)", href: `/${locale}/tools/horoscope` },
     { label: dict.footer?.todays_panchang || "Today's Panchang", href: `/${locale}/tools/panchang` },
   ];
 
@@ -54,7 +53,7 @@ export function Footer({ locale, dict }: FooterProps) {
           <div className="lg:col-span-4 flex flex-col gap-4">
             <a href={`/${locale}`} className="flex items-center gap-2.5 self-start group select-none">
               <img
-                src="/logo.svg"
+                src="/astrokraft_logo.png"
                 alt="AstroKraft Logo"
                 className="w-8 h-8 object-contain rounded-md border border-white/20 shadow-sm group-hover:rotate-12 transition-all duration-300"
               />
@@ -71,9 +70,9 @@ export function Footer({ locale, dict }: FooterProps) {
 
             {/* Contact Details */}
             <div className="flex flex-col gap-2.5 mt-2 text-xs text-zinc-300 font-medium">
-              <div className="flex items-center gap-2">
-                <MapPin className="w-3.5 h-3.5 text-[#E2C27A] stroke-[1.8px] shrink-0" />
-                <span>India</span>
+              <div className="flex items-start gap-2">
+                <MapPin className="w-3.5 h-3.5 text-[#E2C27A] stroke-[1.8px] shrink-0 mt-0.5" />
+                <span>{SITE.contact.address.display}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="w-3.5 h-3.5 text-[#E2C27A] stroke-[1.8px] shrink-0" />
@@ -137,10 +136,10 @@ export function Footer({ locale, dict }: FooterProps) {
             </ul>
           </div>
 
-          {/* Free Tools Column (3 cols) */}
+          {/* Vedic Tools Column (3 cols) */}
           <div className="lg:col-span-3 flex flex-col gap-4">
             <h4 className="font-serif text-sm font-bold tracking-wider text-white uppercase">
-              {dict.footer?.tools_heading || "Free Tools"}
+              {dict.footer?.tools_heading || "Vedic Tools"}
             </h4>
             <ul className="flex flex-col gap-2 text-xs font-medium">
               {toolsLinks.map((link) => (

@@ -2,6 +2,7 @@
 
 import React from "react";
 import { usePathname } from "next/navigation";
+import { SITE } from "@/lib/seo";
 
 export function WhatsAppFab() {
   const pathname = usePathname() || "";
@@ -21,7 +22,7 @@ export function WhatsAppFab() {
     return "Hello AstroKraft! I would like to consult an expert astrologer.";
   };
 
-  const whatsappUrl = `https://api.whatsapp.com/send/?phone=916913230255&text=${encodeURIComponent(
+  const whatsappUrl = `https://api.whatsapp.com/send/?phone=${SITE.contact.whatsapp}&text=${encodeURIComponent(
     getPrefilledMessage()
   )}&type=phone_number&app_absent=0`;
 

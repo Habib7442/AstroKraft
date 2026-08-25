@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { getDictionary } from "@/lib/i18n";
-import { isValidLocale } from "@/lib/seo";
+import { isValidLocale, constructMetadata } from "@/lib/seo";
 import { Header } from "@/components/sections/header";
 import { Footer } from "@/components/sections/footer";
 import GemstoneGrid from "@/components/sections/gemstone-grid";
@@ -11,28 +12,30 @@ interface PageParams {
   locale: string;
 }
 
-export async function generateMetadata({ 
-  params 
-}: { 
+export async function generateMetadata({
+  params
+}: {
   params: Promise<PageParams>;
-}) {
+}): Promise<Metadata> {
   const { locale } = await params;
   if (!isValidLocale(locale)) return {};
 
-  const title = 
-    locale === "hin" 
-      ? "पवित्र प्राकृतिक रुद्राक्ष | AstroKraft" 
-      : locale === "bn" 
-      ? "পবিত্র প্রাকৃতিক রুদ্রাক্ষ | AstroKraft" 
-      : "Sacred Natural Rudraksha | AstroKraft";
+  const title =
+    locale === "hin"
+      ? "पवित्र प्राकृतिक रुद्राक्ष"
+      : locale === "bn"
+      ? "পবিত্র প্রাকৃতিক রুদ্রাক্ষ"
+      : "Sacred Natural Rudraksha";
 
-  const description = 
+  const description =
     "Explore authentic, laboratory-tested Rudraksha beads from Nepal & Indonesia. Find the perfect bead for health, protection, and spiritual alignment.";
 
-  return {
+  return constructMetadata({
     title,
     description,
-  };
+    path: "/rudraksha",
+    locale,
+  });
 }
 
 export default async function RudrakshaPage({ 

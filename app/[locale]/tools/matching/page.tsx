@@ -1,12 +1,19 @@
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { getDictionary } from "@/lib/i18n";
-import { isValidLocale } from "@/lib/seo";
+import { isValidLocale, PAGE_META } from "@/lib/seo";
 import { Header } from "@/components/sections/header";
 import { Footer } from "@/components/sections/footer";
 import { MatchingContainer } from "@/components/sections/MatchingContainer";
 
 interface PageParams {
   locale: string;
+}
+
+export async function generateMetadata({ params }: { params: Promise<PageParams> }): Promise<Metadata> {
+  const { locale } = await params;
+  const activeLocale = isValidLocale(locale) ? locale : "en";
+  return PAGE_META.matching(activeLocale);
 }
 
 export default async function Page({ params }: { params: Promise<PageParams> }) {
