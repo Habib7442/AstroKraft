@@ -1,13 +1,12 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { 
-  Star, Award, Phone, Mail, Copy, Check, ArrowLeft, 
+import React, { useState } from "react";
+import {
+  Star, Award, Copy, Check, ArrowLeft,
   ShieldCheck, Compass, Languages, Globe
 } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
-import { useZego } from "@/components/providers/zego-provider";
 
 interface AstrologerInfo {
   name: string;
@@ -48,19 +47,13 @@ const itemColors = [
   "bg-[#E0F2FE]", // pastel blue
 ];
 
-export default function AstrologerProfileClient({ 
-  astrologer, 
-  astrologerId, 
-  locale 
+export default function AstrologerProfileClient({
+  astrologer,
+  astrologerId,
+  locale
 }: AstrologerProfileClientProps) {
   const [copiedField, setCopiedField] = useState<string | null>(null);
-  const [hasMounted, setHasMounted] = useState(false);
-  const { startCall } = useZego();
   const activeLocale = ["en", "hin", "bn"].includes(locale) ? locale : "en";
-
-  useEffect(() => {
-    setHasMounted(true);
-  }, []);
 
   const specialtyText = astrologer.specialty[activeLocale] || astrologer.specialty["en"];
   const descText = astrologer.description[activeLocale] || astrologer.description["en"];
@@ -90,8 +83,6 @@ export default function AstrologerProfileClient({
         { title: "Career, Finance & Business Astrology", desc: "Optimal business names, career progression paths, and timing analysis for investments." },
         { title: "Gemstone Consultation & Remedies", desc: "Scientific recommendation of birthstones to strengthen weak beneficial planets." }
       ];
-
-  const isAstrologerSession = hasMounted && typeof window !== "undefined" && window.location.search.includes("role=astrologer");
 
   return (
     <div className="relative py-12 px-4 sm:px-6 lg:px-8 text-black overflow-hidden bg-[#FFFDF0]/30 min-h-screen">
@@ -315,39 +306,20 @@ export default function AstrologerProfileClient({
               <div className="absolute top-0 right-0 w-48 h-48 bg-[#E2C27A]/10 rounded-full blur-3xl pointer-events-none" />
               <div className="flex flex-col gap-2 relative z-10 text-center md:text-left text-black font-bold">
                 <h4 className="font-serif text-lg md:text-xl font-bold">
-                  {isAstrologerSession ? "Astrologer Sandbox Mode" : `Ready to consult with ${astrologer.name}?`}
+                  Ready to consult with {astrologer.name}?
                 </h4>
                 <p className="text-xs text-neutral-600 font-semibold max-w-md">
-                  {isAstrologerSession 
-                    ? "Your browser is successfully acting as the receiver client. Leave this tab open in the background to receive calls." 
-                    : "Book your session instantly through our consultation form to secure a slot. Standard response time is under 15 minutes."}
+                  Book your session instantly through our consultation form to secure a slot. Standard response time is under 15 minutes.
                 </p>
               </div>
 
               <div className="flex flex-col sm:flex-row gap-3 relative z-10 shrink-0 w-full sm:w-auto">
-                {isAstrologerSession ? (
-                  <div className="inline-flex items-center justify-center gap-2 bg-emerald-50 text-emerald-700 border border-emerald-200 font-bold py-3 px-6 rounded-full text-xs font-sans animate-pulse">
-                    <span className="h-2 w-2 rounded-full bg-emerald-500" />
-                    Listening for Incoming Calls...
-                  </div>
-                ) : (
-                  <>
-                    <button 
-                      onClick={() => startCall(astrologerId, astrologer.name)}
-                      className="inline-flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 font-bold py-3 px-6 rounded-full shadow-sm text-sm font-sans cursor-pointer border border-emerald-400/50"
-                    >
-                      <Phone className="w-4 h-4 fill-white" />
-                      Call Now
-                    </button>
-
-                    <a 
-                      href={`/${locale}/consultation?astrologer=${astrologerId}`}
-                      className="inline-flex items-center justify-center gap-2 bg-[#E2C27A] hover:bg-[#d4b36a] text-black hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 font-bold py-3 px-6 rounded-full shadow-sm text-sm font-sans cursor-pointer border border-[#E2C27A]/50"
-                    >
-                      Book Consultation
-                    </a>
-                  </>
-                )}
+                <a
+                  href={`/${locale}/consultation?astrologer=${astrologerId}`}
+                  className="inline-flex items-center justify-center gap-2 bg-[#E2C27A] hover:bg-[#d4b36a] text-black hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 font-bold py-3 px-6 rounded-full shadow-sm text-sm font-sans cursor-pointer border border-[#E2C27A]/50"
+                >
+                  Book Consultation
+                </a>
               </div>
             </div>
 

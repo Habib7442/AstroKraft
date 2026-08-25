@@ -7,7 +7,6 @@ import { Toaster } from "@/components/ui/sonner";
 import { ExcitementToaster } from "@/components/excitement-toaster";
 import { PwaRegister } from "@/components/PwaRegister";
 import { WhatsAppFab } from "@/components/whatsapp-fab";
-import { ZegoProvider } from "@/components/providers/zego-provider";
 import { MobileNavbar } from "@/components/sections/mobile-navbar";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -43,20 +42,18 @@ export default async function LocalizedLayout({
       disableTransitionOnChange
     >
       <LenisProvider>
-        <ZegoProvider>
-          <Suspense fallback={
-            <div className="flex min-h-screen items-center justify-center bg-background">
-              <div className="w-8 h-8 border-4 border-[#E2C27A] border-t-transparent rounded-full animate-spin" />
-            </div>
-          }>
-            {children}
-            <MobileNavbar locale={locale} />
-            <WhatsAppFab />
-          </Suspense>
-          <Toaster position="top-right" closeButton />
-          <ExcitementToaster />
-          <PwaRegister />
-        </ZegoProvider>
+        <Suspense fallback={
+          <div className="flex min-h-screen items-center justify-center bg-background">
+            <div className="w-8 h-8 border-4 border-[#E2C27A] border-t-transparent rounded-full animate-spin" />
+          </div>
+        }>
+          {children}
+          <MobileNavbar locale={locale} />
+          <WhatsAppFab />
+        </Suspense>
+        <Toaster position="top-right" closeButton />
+        <ExcitementToaster />
+        <PwaRegister />
       </LenisProvider>
     </ThemeProvider>
   );
